@@ -27,14 +27,8 @@ class SignInViewController: UIViewController {
 
     @IBAction func signinButtonPressed(_ sender: Any) {
         
-        ApplicationManager.sharedInstance.userType = .Patient
-        Router.sharedInstance.showDashboardAsRoot()
     }
     
-    @IBAction func touchIDPressed(_ sender: Any) {
-        ApplicationManager.sharedInstance.userType = .Doctor
-        Router.sharedInstance.showDashboardAsRoot()
-    }
     /*
     // MARK: - Navigation
 

@@ -79,6 +79,17 @@ import UIKit
             layer.cornerRadius = cornerRadius
         }
     }
+    
+    @IBInspectable public var rounded: Bool = false {
+        didSet {
+            if rounded {
+                layer.cornerRadius = frame.height/2
+            }
+            else{
+                layer.cornerRadius = cornerRadius
+            }
+        }
+    }
    
     @IBInspectable public var lineHeight: CGFloat = 1.5 {
         didSet {

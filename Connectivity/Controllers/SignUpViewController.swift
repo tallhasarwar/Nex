@@ -22,7 +22,7 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signupButtonPressed(_ sender: Any) {
-        Router.sharedInstance.showDashboardAsRoot()
+
     }
 
     /*
