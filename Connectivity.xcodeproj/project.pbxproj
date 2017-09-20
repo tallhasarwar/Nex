@@ -187,11 +187,11 @@
 		69A2593C1F6D60D8000F67B0 /* Connectivity */ = {
 			isa = PBXGroup;
 			children = (
+				69B9CEC11F72AED90070BD37 /* Controllers */,
 				69B9CE791F72AED90070BD37 /* Fonts */,
+				69B9CEC01F72AED90070BD37 /* Models */,
 				69B9CE8C1F72AED90070BD37 /* Views */,
 				69B9CE931F72AED90070BD37 /* Utilities */,
-				69B9CEC01F72AED90070BD37 /* Models */,
-				69B9CEC11F72AED90070BD37 /* Controllers */,
 				69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */,
 				69A259411F6D60D8000F67B0 /* Main.storyboard */,
 				69A259441F6D60D8000F67B0 /* Assets.xcassets */,
