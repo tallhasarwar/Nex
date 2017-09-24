@@ -1,22 +1,19 @@
 //
-//  SignInViewController.swift
-//  Quicklic
+//  MainTabBarController.swift
+//  Connectivity
 //
-//  Created by Danial Zahid on 25/08/2017.
+//  Created by Danial Zahid on 24/09/2017.
 //  Copyright © 2017 Danial Zahid. All rights reserved.
 //
 
 import UIKit
 
-class SignInViewController: UIViewController {
-
-    @IBOutlet weak var emailField: DesignableTextField!
+class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,11 +21,15 @@ class SignInViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    @IBAction func signinButtonPressed(_ sender: Any) {
-        Router.showMainTabBar()
+    override func viewWillLayoutSubviews() {
+        var tabFrame = self.tabBar.frame
+        // - 40 is editable , the default value is 49 px, below lowers the tabbar and above increases the tab bar size
+        tabFrame.size.height = 40
+        tabFrame.origin.y = self.view.frame.size.height - 40
+        
+        self.tabBar.frame = tabFrame
     }
-    
+
     /*
     // MARK: - Navigation
 

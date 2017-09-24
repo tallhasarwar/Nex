@@ -10,7 +10,12 @@ import UIKit
 
 class Router: NSObject {
     
-    static let sharedInstance = Router()
-    
-    
+    static func showMainTabBar() {
+        let tabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "mainTabBarController") as! UITabBarController
+        if let window = UIApplication.shared.delegate?.window {
+            UIView.transition(with: window!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromLeft, animations: {
+                window?.rootViewController = tabBarController
+            }, completion: nil)
+        }
+    }
 }

@@ -39,6 +39,43 @@ import UIKit
     @IBInspectable public var cornerRadius: CGFloat = 0 {
         didSet {
             layer.cornerRadius = cornerRadius
+            layer.masksToBounds = true
+        }
+    }
+    
+    @IBInspectable public var rounded: Bool = false {
+        didSet {
+            if rounded {
+                layer.cornerRadius = frame.height/2
+            }
+            else{
+                layer.cornerRadius = cornerRadius
+            }
+            layer.masksToBounds = true
+        }
+    }
+    
+    @IBInspectable public var shadowColor: UIColor = UIColor.clear {
+        didSet {
+            layer.shadowColor = shadowColor.cgColor
+        }
+    }
+    
+    @IBInspectable public var shadowRadius: CGFloat = 0 {
+        didSet {
+            layer.shadowRadius = shadowRadius
+        }
+    }
+    
+    @IBInspectable public var shadowOpacity: CGFloat = 0 {
+        didSet {
+            layer.shadowOpacity = Float(shadowOpacity)
+        }
+    }
+    
+    @IBInspectable public var shadowOffsetY: CGFloat = 0 {
+        didSet {
+            layer.shadowOffset.height = shadowOffsetY
         }
     }
 

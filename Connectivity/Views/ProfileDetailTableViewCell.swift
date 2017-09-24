@@ -1,18 +1,19 @@
 //
-//  LeftMenuTableViewCell.swift
-//  Quicklic
+//  ProfileDetailTableViewCell.swift
+//  Connectivity
 //
-//  Created by Danial Zahid on 29/08/2017.
+//  Created by Danial Zahid on 24/09/2017.
 //  Copyright © 2017 Danial Zahid. All rights reserved.
 //
 
 import UIKit
 
-class LeftMenuTableViewCell: UITableViewCell {
+class ProfileDetailTableViewCell: UITableViewCell {
 
-    static let identifier = "leftMenuTableViewCell"
+    static let identifier = "profileDetailTableViewCell"
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var headingLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
