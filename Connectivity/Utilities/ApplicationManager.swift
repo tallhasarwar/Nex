@@ -15,7 +15,7 @@ class ApplicationManager {
     static let sharedInstance = ApplicationManager()
     
     //MARK: - Variable
-    var token = ""
+    var session_id = ""
     
     
 }
