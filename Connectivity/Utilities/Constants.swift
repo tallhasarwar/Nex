@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class Constants: NSObject {
+public class Constant: NSObject {
 
 
     static let applicationName = "Connectivity"
@@ -18,12 +18,15 @@ public class Constants: NSObject {
     
     static let mainColor = UIColor(red: 145.0/255.0, green: 20.0/255.0, blue: 217.0/255.0, alpha: 1.0)
     
-    
+    static let serverURL = "http://52.14.237.29:3000/connectIn/api/v1/"
     //MARK: - Response Keys
     
     static let messageKey = "message"
-    static let responseKey = "response"
-    static let successKey = "success"
+    static let responseKey = "responce"
+    static let statusKey = "status"
+    
+    static let registrationURL = "signup"
+    static let loginURL = "signin"
     
     
 }

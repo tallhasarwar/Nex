@@ -44,6 +44,7 @@ class Styles {
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().tintColor = .white
         UIToolbar.appearance().tintColor = UIColor.blue
+        UITextField.appearance().tintColor = .white
         
 //        UISegmentedControl.appearance().tintColor = UIColor.blue
 //        UINavigationBar.appearance().barStyle = UIBarStyle.black
@@ -55,6 +56,9 @@ class Styles {
         
         UINavigationBar.appearance().titleTextAttributes = attributes
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
+        
+        SVProgressHUD.setDefaultStyle(.light)
+        SVProgressHUD.setDefaultMaskType(.gradient)
     }
     
     ///**Warning:** Not from style guide. Do not add more uses

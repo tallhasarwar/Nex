@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263676211012B71CA50D39F8 /* libPods-Connectivity.a */; };
 		69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */; };
 		69A259431F6D60D8000F67B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A259411F6D60D8000F67B0 /* Main.storyboard */; };
 		69A259451F6D60D8000F67B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69A259441F6D60D8000F67B0 /* Assets.xcassets */; };
@@ -80,9 +81,13 @@
 		69F4B7E51F77E19800BFB414 /* BaseEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7E41F77E19800BFB414 /* BaseEntity.m */; };
 		69F4B7E71F77E1C800BFB414 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7E61F77E1C800BFB414 /* User.swift */; };
 		69F4B7E91F77E1D700BFB414 /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7E81F77E1D700BFB414 /* ProfileDetail.swift */; };
+		69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4BB601F78065C00BFB414 /* WebClient.swift */; };
+		69F4BB641F7807F600BFB414 /* SwiftValidator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69F4BB631F7807F600BFB414 /* SwiftValidator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		263676211012B71CA50D39F8 /* libPods-Connectivity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Connectivity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DF09F94A27ED5459E438BA4 /* Pods-Connectivity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Connectivity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity.release.xcconfig"; sourceTree = "<group>"; };
 		69A2593A1F6D60D8000F67B0 /* Connectivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connectivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69A259421F6D60D8000F67B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -161,6 +166,9 @@
 		69F4B7E41F77E19800BFB414 /* BaseEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseEntity.m; sourceTree = "<group>"; };
 		69F4B7E61F77E1C800BFB414 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		69F4B7E81F77E1D700BFB414 /* ProfileDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetail.swift; sourceTree = "<group>"; };
+		69F4BB601F78065C00BFB414 /* WebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
+		69F4BB631F7807F600BFB414 /* SwiftValidator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftValidator.framework; path = Carthage/Build/iOS/SwiftValidator.framework; sourceTree = SOURCE_ROOT; };
+		CCD6FB124A94E241712762A2 /* Pods-Connectivity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Connectivity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +176,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */,
+				69F4BB641F7807F600BFB414 /* SwiftValidator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +189,8 @@
 			children = (
 				69A2593C1F6D60D8000F67B0 /* Connectivity */,
 				69A2593B1F6D60D8000F67B0 /* Products */,
+				F72F7522768AB17341D90AC2 /* Pods */,
+				760BCFEBBAEBD0986EB0F625 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -246,6 +258,7 @@
 		69B9CE931F72AED90070BD37 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				69F4BB601F78065C00BFB414 /* WebClient.swift */,
 				69B9CE961F72AED90070BD37 /* DatePicker */,
 				69B9CE9F1F72AED90070BD37 /* Spring */,
 				69B9CE941F72AED90070BD37 /* ApplicationManager.swift */,
@@ -330,6 +343,24 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		760BCFEBBAEBD0986EB0F625 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				69F4BB631F7807F600BFB414 /* SwiftValidator.framework */,
+				263676211012B71CA50D39F8 /* libPods-Connectivity.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F72F7522768AB17341D90AC2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CCD6FB124A94E241712762A2 /* Pods-Connectivity.debug.xcconfig */,
+				5DF09F94A27ED5459E438BA4 /* Pods-Connectivity.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -337,9 +368,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 69A2594C1F6D60D8000F67B0 /* Build configuration list for PBXNativeTarget "Connectivity" */;
 			buildPhases = (
+				6C450B0017F6CC9F0659FC3E /* [CP] Check Pods Manifest.lock */,
 				69A259361F6D60D8000F67B0 /* Sources */,
 				69A259371F6D60D8000F67B0 /* Frameworks */,
 				69A259381F6D60D8000F67B0 /* Resources */,
+				5155485969FA8EC4849294E5 /* [CP] Embed Pods Frameworks */,
+				CFC136D4691E1E036BA70349 /* [CP] Copy Pods Resources */,
+				69F4BB621F7807BC00BFB414 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -420,6 +455,68 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5155485969FA8EC4849294E5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69F4BB621F7807BC00BFB414 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftValidator.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		6C450B0017F6CC9F0659FC3E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CFC136D4691E1E036BA70349 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		69A259361F6D60D8000F67B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -443,6 +540,7 @@
 				69B9CEE51F72AED90070BD37 /* Router.swift in Sources */,
 				69B9CEEC1F72AED90070BD37 /* DesignableLabel.swift in Sources */,
 				69B9CF011F72AED90070BD37 /* TransitionZoom.swift in Sources */,
+				69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */,
 				69B9CEFC1F72AED90070BD37 /* SpringLabel.swift in Sources */,
 				69B9CF001F72AED90070BD37 /* TransitionManager.swift in Sources */,
 				69B9CEDE1F72AED90070BD37 /* Configuration.swift in Sources */,
@@ -595,9 +693,21 @@
 		};
 		69A2594D1F6D60D8000F67B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCD6FB124A94E241712762A2 /* Pods-Connectivity.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Carthage/Checkouts/SwiftValidator/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Carthage/Checkouts/Validator/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Pods/Crashlytics",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Pods/Crashlytics/iOS",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Pods/Fabric",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Pods/Fabric/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Connectivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.danialzahid.Connectivity;
@@ -610,9 +720,21 @@
 		};
 		69A2594E1F6D60D8000F67B0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5DF09F94A27ED5459E438BA4 /* Pods-Connectivity.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Carthage/Checkouts/SwiftValidator/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Carthage/Checkouts/Validator/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Pods/Crashlytics",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Pods/Crashlytics/iOS",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Pods/Fabric",
+					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Pods/Fabric/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Connectivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.danialzahid.Connectivity;

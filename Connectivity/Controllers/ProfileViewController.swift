@@ -29,6 +29,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.separatorStyle = .none
         
+        title = "Profile"
+        self.tabBarItem.title = ""
+        
 
         // Do any additional setup after loading the view.
     }

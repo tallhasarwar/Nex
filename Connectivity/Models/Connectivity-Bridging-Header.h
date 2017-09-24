@@ -3,3 +3,5 @@
 //
 
 #import "BaseEntity.h"
+#import <AFNetworking/AFNetworking.h>
+#import "SVProgressHUD.h"

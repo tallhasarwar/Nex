@@ -37,145 +37,188 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login-bg" translatesAutoresizingMaskIntoConstraints="NO" id="ffX-Uy-uma">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ido-jT-eMG">
-                                <rect key="frame" x="91" y="110" width="193" height="49"/>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="35"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meet People, Explore Places" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtw-7S-asI">
-                                <rect key="frame" x="105" y="157" width="165" height="17"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
-                                <color key="textColor" red="0.59999999999999998" green="0.73999999999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZNV-QC-N1q" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
-                                <rect key="frame" x="28" y="244" width="319" height="40"/>
-                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="6NI-SI-lqw"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tCN-CK-FPu" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
-                                <rect key="frame" x="28" y="304" width="319" height="40"/>
-                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="1f6-tP-UEn"/>
-                                </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iW-5B-VP3" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
-                                <rect key="frame" x="28" y="369" width="319" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
-                                <state key="normal" title="Login">
-                                    <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="signinButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lCX-hN-0EG"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or Sign In With" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ea4-Qy-GmS">
-                                <rect key="frame" x="141" y="434" width="93" height="18.5"/>
-                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aES-zY-BKA">
-                                <rect key="frame" x="57" y="477.5" width="262" height="50"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBS-FK-CB9" customClass="TPKeyboardAvoidingScrollView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzf-t1-nNp" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
-                                        <rect key="frame" x="43.5" y="3" width="44" height="44"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZm-WF-NAP">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ido-jT-eMG">
+                                                <rect key="frame" x="91" y="90" width="193" height="49"/>
+                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="35"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meet People, Explore Places" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gtw-7S-asI">
+                                                <rect key="frame" x="105" y="137" width="165" height="17"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
+                                                <color key="textColor" red="0.59999999999999998" green="0.73999999999999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZNV-QC-N1q" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
+                                                <rect key="frame" x="21" y="224" width="333" height="40"/>
+                                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="6NI-SI-lqw"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tCN-CK-FPu" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
+                                                <rect key="frame" x="21" y="284" width="333" height="40"/>
+                                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="1f6-tP-UEn"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8iW-5B-VP3" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
+                                                <rect key="frame" x="21" y="349" width="333" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
+                                                <state key="normal" title="Login">
+                                                    <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="signinButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lCX-hN-0EG"/>
+                                                </connections>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aES-zY-BKA">
+                                                <rect key="frame" x="37.5" y="457.5" width="300" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzf-t1-nNp" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
+                                                        <rect key="frame" x="53" y="3" width="44" height="44"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="0dB-PL-Fe8"/>
+                                                            <constraint firstAttribute="width" constant="44" id="qiV-4b-Qc5"/>
+                                                        </constraints>
+                                                        <state key="normal" image="facebook-login">
+                                                            <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYL-55-6K4" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
+                                                        <rect key="frame" x="128" y="3" width="44" height="44"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="IV7-3i-gMX"/>
+                                                            <constraint firstAttribute="width" constant="44" id="JcN-xF-6kW"/>
+                                                        </constraints>
+                                                        <state key="normal" image="google-login">
+                                                            <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUe-6S-0eK" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
+                                                        <rect key="frame" x="203.5" y="3" width="44" height="44"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="V8u-3N-BU1"/>
+                                                            <constraint firstAttribute="width" constant="44" id="xyC-3E-ynQ"/>
+                                                        </constraints>
+                                                        <state key="normal" image="linkedin-login">
+                                                            <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="mYL-55-6K4" firstAttribute="centerX" secondItem="aES-zY-BKA" secondAttribute="trailing" multiplier="2:4" id="JSK-d0-qZf"/>
+                                                    <constraint firstItem="Uzf-t1-nNp" firstAttribute="centerY" secondItem="aES-zY-BKA" secondAttribute="centerY" id="K5d-mm-fir"/>
+                                                    <constraint firstItem="EUe-6S-0eK" firstAttribute="centerX" secondItem="aES-zY-BKA" secondAttribute="trailing" multiplier="3:4" symbolic="YES" id="Kjn-ZE-BEW"/>
+                                                    <constraint firstItem="EUe-6S-0eK" firstAttribute="centerY" secondItem="aES-zY-BKA" secondAttribute="centerY" id="eFD-uy-Ysz"/>
+                                                    <constraint firstAttribute="height" constant="50" id="jIs-Ig-wBE"/>
+                                                    <constraint firstItem="mYL-55-6K4" firstAttribute="centerY" secondItem="aES-zY-BKA" secondAttribute="centerY" id="kyN-1f-dPt"/>
+                                                    <constraint firstItem="Uzf-t1-nNp" firstAttribute="centerX" secondItem="aES-zY-BKA" secondAttribute="trailing" multiplier="1:4" id="qg5-Z7-NVM"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or Sign In With" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ea4-Qy-GmS">
+                                                <rect key="frame" x="141" y="414" width="93" height="18.5"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="0dB-PL-Fe8"/>
-                                            <constraint firstAttribute="width" constant="44" id="qiV-4b-Qc5"/>
+                                            <constraint firstItem="Gtw-7S-asI" firstAttribute="top" secondItem="Ido-jT-eMG" secondAttribute="bottom" constant="-2" id="0Vd-Je-elK"/>
+                                            <constraint firstItem="tCN-CK-FPu" firstAttribute="top" secondItem="ZNV-QC-N1q" secondAttribute="bottom" constant="20" id="3AS-eQ-d2L"/>
+                                            <constraint firstItem="tCN-CK-FPu" firstAttribute="height" secondItem="ZNV-QC-N1q" secondAttribute="height" id="5fn-Td-lwU"/>
+                                            <constraint firstItem="8iW-5B-VP3" firstAttribute="width" secondItem="tCN-CK-FPu" secondAttribute="width" id="68N-T5-e0y"/>
+                                            <constraint firstItem="aES-zY-BKA" firstAttribute="width" secondItem="mZm-WF-NAP" secondAttribute="width" multiplier="0.8" id="7hl-Ch-Puq"/>
+                                            <constraint firstItem="tCN-CK-FPu" firstAttribute="centerX" secondItem="ZNV-QC-N1q" secondAttribute="centerX" id="FkI-3c-DWu"/>
+                                            <constraint firstItem="aES-zY-BKA" firstAttribute="centerX" secondItem="Ea4-Qy-GmS" secondAttribute="centerX" id="LQK-pO-h4o"/>
+                                            <constraint firstItem="8iW-5B-VP3" firstAttribute="top" secondItem="tCN-CK-FPu" secondAttribute="bottom" constant="25" id="WLQ-HJ-ld8"/>
+                                            <constraint firstItem="Ido-jT-eMG" firstAttribute="top" secondItem="mZm-WF-NAP" secondAttribute="top" constant="90" id="XFU-z7-xz6"/>
+                                            <constraint firstItem="aES-zY-BKA" firstAttribute="top" secondItem="Ea4-Qy-GmS" secondAttribute="bottom" constant="25" id="Xqt-Ju-ltd"/>
+                                            <constraint firstItem="8iW-5B-VP3" firstAttribute="centerX" secondItem="tCN-CK-FPu" secondAttribute="centerX" id="anl-VS-3hr"/>
+                                            <constraint firstItem="ZNV-QC-N1q" firstAttribute="width" secondItem="mZm-WF-NAP" secondAttribute="width" multiplier="0.85" constant="13.850000000000023" id="d7J-Jc-7yy"/>
+                                            <constraint firstItem="Gtw-7S-asI" firstAttribute="centerX" secondItem="Ido-jT-eMG" secondAttribute="centerX" id="dL0-pi-iq7"/>
+                                            <constraint firstItem="Ea4-Qy-GmS" firstAttribute="top" secondItem="8iW-5B-VP3" secondAttribute="bottom" constant="25" id="ex8-ev-Any"/>
+                                            <constraint firstItem="Ea4-Qy-GmS" firstAttribute="centerX" secondItem="8iW-5B-VP3" secondAttribute="centerX" id="jPc-ut-tdX"/>
+                                            <constraint firstItem="ZNV-QC-N1q" firstAttribute="centerX" secondItem="mZm-WF-NAP" secondAttribute="centerX" id="jgm-Hk-T9P"/>
+                                            <constraint firstItem="Ido-jT-eMG" firstAttribute="centerX" secondItem="mZm-WF-NAP" secondAttribute="centerX" id="pO2-Qg-unp"/>
+                                            <constraint firstItem="8iW-5B-VP3" firstAttribute="height" secondItem="tCN-CK-FPu" secondAttribute="height" id="sym-UK-liT"/>
+                                            <constraint firstItem="tCN-CK-FPu" firstAttribute="width" secondItem="ZNV-QC-N1q" secondAttribute="width" id="yhT-U1-XCq"/>
+                                            <constraint firstItem="ZNV-QC-N1q" firstAttribute="top" secondItem="Gtw-7S-asI" secondAttribute="bottom" constant="70" id="zHO-qw-cNG"/>
                                         </constraints>
-                                        <state key="normal" image="facebook-login">
-                                            <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mYL-55-6K4" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
-                                        <rect key="frame" x="109" y="3" width="44" height="44"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="IV7-3i-gMX"/>
-                                            <constraint firstAttribute="width" constant="44" id="JcN-xF-6kW"/>
-                                        </constraints>
-                                        <state key="normal" image="google-login">
-                                            <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUe-6S-0eK" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
-                                        <rect key="frame" x="174.5" y="3" width="44" height="44"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="V8u-3N-BU1"/>
-                                            <constraint firstAttribute="width" constant="44" id="xyC-3E-ynQ"/>
-                                        </constraints>
-                                        <state key="normal" image="linkedin-login">
-                                            <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="mYL-55-6K4" firstAttribute="centerX" secondItem="aES-zY-BKA" secondAttribute="trailing" multiplier="2:4" id="JSK-d0-qZf"/>
-                                    <constraint firstItem="Uzf-t1-nNp" firstAttribute="centerY" secondItem="aES-zY-BKA" secondAttribute="centerY" id="K5d-mm-fir"/>
-                                    <constraint firstItem="EUe-6S-0eK" firstAttribute="centerX" secondItem="aES-zY-BKA" secondAttribute="trailing" multiplier="3:4" symbolic="YES" id="Kjn-ZE-BEW"/>
-                                    <constraint firstItem="EUe-6S-0eK" firstAttribute="centerY" secondItem="aES-zY-BKA" secondAttribute="centerY" id="eFD-uy-Ysz"/>
-                                    <constraint firstAttribute="height" constant="50" id="jIs-Ig-wBE"/>
-                                    <constraint firstItem="mYL-55-6K4" firstAttribute="centerY" secondItem="aES-zY-BKA" secondAttribute="centerY" id="kyN-1f-dPt"/>
-                                    <constraint firstItem="Uzf-t1-nNp" firstAttribute="centerX" secondItem="aES-zY-BKA" secondAttribute="trailing" multiplier="1:4" id="qg5-Z7-NVM"/>
+                                    <constraint firstAttribute="trailing" secondItem="mZm-WF-NAP" secondAttribute="trailing" id="0Q5-eR-egQ"/>
+                                    <constraint firstItem="mZm-WF-NAP" firstAttribute="width" secondItem="LBS-FK-CB9" secondAttribute="width" id="6ah-3h-4h1"/>
+                                    <constraint firstItem="mZm-WF-NAP" firstAttribute="top" secondItem="LBS-FK-CB9" secondAttribute="top" id="DtQ-8C-wpb"/>
+                                    <constraint firstItem="mZm-WF-NAP" firstAttribute="centerY" secondItem="LBS-FK-CB9" secondAttribute="centerY" id="Fve-YK-gud"/>
+                                    <constraint firstItem="mZm-WF-NAP" firstAttribute="height" secondItem="LBS-FK-CB9" secondAttribute="height" id="bUc-qa-U4B"/>
+                                    <constraint firstItem="mZm-WF-NAP" firstAttribute="centerX" secondItem="LBS-FK-CB9" secondAttribute="centerX" id="f25-95-DPW"/>
+                                    <constraint firstAttribute="bottom" secondItem="mZm-WF-NAP" secondAttribute="bottom" id="mu9-rV-lw9"/>
+                                    <constraint firstItem="mZm-WF-NAP" firstAttribute="leading" secondItem="LBS-FK-CB9" secondAttribute="leading" id="y66-Nw-RlP"/>
                                 </constraints>
-                            </view>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLo-k7-k9Z">
                                 <rect key="frame" x="105" y="627" width="166" height="32"/>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
@@ -191,34 +234,19 @@
                         <constraints>
                             <constraint firstItem="ffX-Uy-uma" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="0lJ-0P-PtT"/>
                             <constraint firstItem="xLo-k7-k9Z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2J1-co-Nx8"/>
-                            <constraint firstItem="8iW-5B-VP3" firstAttribute="centerX" secondItem="tCN-CK-FPu" secondAttribute="centerX" id="2Pf-LX-rMy"/>
-                            <constraint firstItem="aES-zY-BKA" firstAttribute="top" secondItem="Ea4-Qy-GmS" secondAttribute="bottom" constant="25" id="2br-Ho-wcN"/>
-                            <constraint firstItem="Ea4-Qy-GmS" firstAttribute="top" secondItem="8iW-5B-VP3" secondAttribute="bottom" constant="25" id="4Tn-kl-Ujm"/>
-                            <constraint firstItem="tCN-CK-FPu" firstAttribute="top" secondItem="ZNV-QC-N1q" secondAttribute="bottom" constant="20" id="53F-xf-021"/>
-                            <constraint firstItem="tCN-CK-FPu" firstAttribute="height" secondItem="ZNV-QC-N1q" secondAttribute="height" id="97I-2B-PgE"/>
-                            <constraint firstItem="tCN-CK-FPu" firstAttribute="width" secondItem="ZNV-QC-N1q" secondAttribute="width" id="9aR-1r-VBw"/>
-                            <constraint firstItem="Gtw-7S-asI" firstAttribute="top" secondItem="Ido-jT-eMG" secondAttribute="bottom" constant="-2" id="EID-KS-4Zb"/>
-                            <constraint firstItem="8iW-5B-VP3" firstAttribute="top" secondItem="tCN-CK-FPu" secondAttribute="bottom" constant="25" id="FMi-eb-hY0"/>
-                            <constraint firstItem="tCN-CK-FPu" firstAttribute="centerX" secondItem="ZNV-QC-N1q" secondAttribute="centerX" id="FuZ-YB-g1C"/>
+                            <constraint firstItem="LBS-FK-CB9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Axe-sO-AWi"/>
                             <constraint firstItem="ffX-Uy-uma" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Ja6-ub-BBi"/>
-                            <constraint firstItem="aES-zY-BKA" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="Jlt-Co-vQP"/>
-                            <constraint firstItem="ZNV-QC-N1q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LxZ-R8-3W7"/>
-                            <constraint firstItem="8iW-5B-VP3" firstAttribute="height" secondItem="tCN-CK-FPu" secondAttribute="height" id="MpM-In-Xfz"/>
-                            <constraint firstItem="Ido-jT-eMG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="90" id="dDr-qN-Oh7"/>
-                            <constraint firstItem="aES-zY-BKA" firstAttribute="centerX" secondItem="Ea4-Qy-GmS" secondAttribute="centerX" id="fMo-U0-t54"/>
+                            <constraint firstItem="LBS-FK-CB9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="L3N-D1-g1a"/>
+                            <constraint firstItem="LBS-FK-CB9" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="LHG-ma-xzB"/>
+                            <constraint firstItem="LBS-FK-CB9" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="PXu-Ye-Mji"/>
                             <constraint firstItem="ffX-Uy-uma" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fXL-lf-DSY"/>
-                            <constraint firstItem="8iW-5B-VP3" firstAttribute="width" secondItem="tCN-CK-FPu" secondAttribute="width" id="guZ-cz-eLK"/>
-                            <constraint firstItem="Ea4-Qy-GmS" firstAttribute="centerX" secondItem="8iW-5B-VP3" secondAttribute="centerX" id="hFp-bw-Edg"/>
-                            <constraint firstItem="Ido-jT-eMG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="iEn-Bi-2HM"/>
-                            <constraint firstItem="Gtw-7S-asI" firstAttribute="centerX" secondItem="Ido-jT-eMG" secondAttribute="centerX" id="isR-ae-b7H"/>
-                            <constraint firstItem="ZNV-QC-N1q" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.85" id="jYg-gg-p6J"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="xLo-k7-k9Z" secondAttribute="bottom" constant="8" id="jc0-FI-XbX"/>
-                            <constraint firstItem="ZNV-QC-N1q" firstAttribute="top" secondItem="Gtw-7S-asI" secondAttribute="bottom" constant="70" id="t8Y-Wm-alB"/>
                             <constraint firstItem="ffX-Uy-uma" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="z13-Eh-MwU"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="emailField" destination="ZNV-QC-N1q" id="rkK-IT-juC"/>
+                        <outlet property="passwordField" destination="tCN-CK-FPu" id="fRF-6R-x23"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -299,114 +327,169 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login-bg" translatesAutoresizingMaskIntoConstraints="NO" id="djf-J3-M6f">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-21-7xt">
-                                <rect key="frame" x="25" y="70" width="172" height="35"/>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="25"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZcD-vy-fwG" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
-                                <rect key="frame" x="28" y="130" width="319" height="40"/>
-                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JOn-qx-UHN" customClass="TPKeyboardAvoidingScrollView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vPP-Xe-6O6">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAF-21-7xt">
+                                                <rect key="frame" x="25" y="50" width="172" height="35"/>
+                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="25"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZcD-vy-fwG" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
+                                                <rect key="frame" x="24" y="110" width="330" height="40"/>
+                                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="kyK-Ju-fSa"/>
+                                                </constraints>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Display Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ucw-xD-k7g" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
+                                                <rect key="frame" x="24" y="170" width="330" height="40"/>
+                                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BSC-vT-vFB" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
+                                                <rect key="frame" x="24" y="230" width="330" height="40"/>
+                                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zn9-1L-Zk5" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
+                                                <rect key="frame" x="24" y="290" width="330" height="40"/>
+                                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="asdasdasasdasd" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZQ-iC-swr">
+                                                <rect key="frame" x="137" y="353" width="105" height="17"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
+                                                <color key="textColor" red="1" green="0.48681068525987026" blue="0.38775936598971361" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufT-Og-g6O" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
+                                                <rect key="frame" x="24" y="375" width="330" height="40"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
+                                                <state key="normal" title="Register">
+                                                    <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="signupButtonPressed:" destination="Xum-Z5-yjX" eventType="touchUpInside" id="Usr-Xs-azv"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="ufT-Og-g6O" firstAttribute="centerX" secondItem="Ucw-xD-k7g" secondAttribute="centerX" id="2zO-sw-C9H"/>
+                                            <constraint firstItem="ufT-Og-g6O" firstAttribute="height" secondItem="Ucw-xD-k7g" secondAttribute="height" id="46a-WR-vZC"/>
+                                            <constraint firstItem="BSC-vT-vFB" firstAttribute="centerX" secondItem="Ucw-xD-k7g" secondAttribute="centerX" id="6nl-sX-Bv6"/>
+                                            <constraint firstItem="Zn9-1L-Zk5" firstAttribute="centerX" secondItem="BSC-vT-vFB" secondAttribute="centerX" id="CmH-rJ-CWb"/>
+                                            <constraint firstItem="lAF-21-7xt" firstAttribute="leading" secondItem="vPP-Xe-6O6" secondAttribute="leading" constant="25" id="Fiq-A2-Nzc"/>
+                                            <constraint firstItem="ZcD-vy-fwG" firstAttribute="top" secondItem="lAF-21-7xt" secondAttribute="bottom" constant="25" id="Hep-rs-J9l"/>
+                                            <constraint firstItem="Zn9-1L-Zk5" firstAttribute="height" secondItem="BSC-vT-vFB" secondAttribute="height" id="JPa-Op-mq3"/>
+                                            <constraint firstItem="lAF-21-7xt" firstAttribute="top" secondItem="vPP-Xe-6O6" secondAttribute="top" constant="50" id="KiK-Fd-TIS"/>
+                                            <constraint firstItem="BSC-vT-vFB" firstAttribute="top" secondItem="Ucw-xD-k7g" secondAttribute="bottom" constant="20" id="L0t-PW-8EK"/>
+                                            <constraint firstItem="Zn9-1L-Zk5" firstAttribute="width" secondItem="BSC-vT-vFB" secondAttribute="width" id="Q3b-md-3re"/>
+                                            <constraint firstItem="BSC-vT-vFB" firstAttribute="width" secondItem="Ucw-xD-k7g" secondAttribute="width" id="U4B-yD-wkw"/>
+                                            <constraint firstItem="BSC-vT-vFB" firstAttribute="height" secondItem="Ucw-xD-k7g" secondAttribute="height" id="U50-JW-5or"/>
+                                            <constraint firstItem="ZcD-vy-fwG" firstAttribute="width" secondItem="vPP-Xe-6O6" secondAttribute="width" multiplier="0.85" constant="11.300000000000011" id="Vdn-sq-HIH"/>
+                                            <constraint firstItem="ufT-Og-g6O" firstAttribute="width" secondItem="Ucw-xD-k7g" secondAttribute="width" id="Xvo-MN-sVz"/>
+                                            <constraint firstItem="Ucw-xD-k7g" firstAttribute="height" secondItem="ZcD-vy-fwG" secondAttribute="height" id="baS-6Q-Dy0"/>
+                                            <constraint firstItem="ufT-Og-g6O" firstAttribute="top" secondItem="ZZQ-iC-swr" secondAttribute="bottom" constant="5" id="cbe-SJ-JLk"/>
+                                            <constraint firstItem="Ucw-xD-k7g" firstAttribute="top" secondItem="ZcD-vy-fwG" secondAttribute="bottom" constant="20" id="dAP-CD-O5o"/>
+                                            <constraint firstItem="ufT-Og-g6O" firstAttribute="top" secondItem="Zn9-1L-Zk5" secondAttribute="bottom" constant="45" id="dcb-zW-nFn"/>
+                                            <constraint firstItem="ZcD-vy-fwG" firstAttribute="centerX" secondItem="vPP-Xe-6O6" secondAttribute="centerX" constant="1.5" id="eUy-Nx-zra"/>
+                                            <constraint firstItem="Ucw-xD-k7g" firstAttribute="width" secondItem="ZcD-vy-fwG" secondAttribute="width" id="eX0-n0-fwd"/>
+                                            <constraint firstItem="Ucw-xD-k7g" firstAttribute="centerX" secondItem="ZcD-vy-fwG" secondAttribute="centerX" id="flu-wS-KUU"/>
+                                            <constraint firstItem="ufT-Og-g6O" firstAttribute="centerX" secondItem="ZZQ-iC-swr" secondAttribute="centerX" id="koj-40-bbh"/>
+                                            <constraint firstItem="Zn9-1L-Zk5" firstAttribute="top" secondItem="BSC-vT-vFB" secondAttribute="bottom" constant="20" id="yhT-z6-dKY"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="kyK-Ju-fSa"/>
+                                    <constraint firstAttribute="bottom" secondItem="vPP-Xe-6O6" secondAttribute="bottom" id="GWq-Z0-qZ4"/>
+                                    <constraint firstItem="vPP-Xe-6O6" firstAttribute="leading" secondItem="JOn-qx-UHN" secondAttribute="leading" id="Mub-X5-eZr"/>
+                                    <constraint firstItem="vPP-Xe-6O6" firstAttribute="height" secondItem="JOn-qx-UHN" secondAttribute="height" id="O90-yH-1V2"/>
+                                    <constraint firstItem="vPP-Xe-6O6" firstAttribute="centerX" secondItem="JOn-qx-UHN" secondAttribute="centerX" id="QJJ-Zi-Bba"/>
+                                    <constraint firstItem="vPP-Xe-6O6" firstAttribute="width" secondItem="JOn-qx-UHN" secondAttribute="width" id="hCZ-te-rV8"/>
+                                    <constraint firstItem="vPP-Xe-6O6" firstAttribute="centerY" secondItem="JOn-qx-UHN" secondAttribute="centerY" id="twI-C4-PuY"/>
+                                    <constraint firstAttribute="trailing" secondItem="vPP-Xe-6O6" secondAttribute="trailing" id="uwE-Ql-7SM"/>
+                                    <constraint firstItem="vPP-Xe-6O6" firstAttribute="top" secondItem="JOn-qx-UHN" secondAttribute="top" id="wLP-Tq-HKJ"/>
                                 </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Display Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ucw-xD-k7g" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
-                                <rect key="frame" x="28" y="190" width="319" height="40"/>
-                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BSC-vT-vFB" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
-                                <rect key="frame" x="28" y="250" width="319" height="40"/>
-                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zn9-1L-Zk5" customClass="DesignableTextField" customModule="Connectivity" customModuleProvider="target">
-                                <rect key="frame" x="28" y="310" width="319" height="40"/>
-                                <color key="backgroundColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="0.5" colorSpace="calibratedRGB"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="sidePadding">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufT-Og-g6O" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
-                                <rect key="frame" x="28" y="375" width="319" height="40"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
-                                <state key="normal" title="Register">
-                                    <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </button>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bbC-op-AzR">
                                 <rect key="frame" x="55" y="627.5" width="266" height="31.5"/>
                                 <state key="normal">
@@ -432,35 +515,25 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ufT-Og-g6O" firstAttribute="top" secondItem="Zn9-1L-Zk5" secondAttribute="bottom" constant="25" id="4bw-lM-j5O"/>
-                            <constraint firstItem="ZcD-vy-fwG" firstAttribute="top" secondItem="lAF-21-7xt" secondAttribute="bottom" constant="25" id="63s-lp-xVV"/>
-                            <constraint firstItem="BSC-vT-vFB" firstAttribute="top" secondItem="Ucw-xD-k7g" secondAttribute="bottom" constant="20" id="8Lm-ec-WYW"/>
-                            <constraint firstItem="ufT-Og-g6O" firstAttribute="centerX" secondItem="Ucw-xD-k7g" secondAttribute="centerX" id="9xQ-x5-Zby"/>
                             <constraint firstItem="djf-J3-M6f" firstAttribute="centerX" secondItem="MHk-1l-9aa" secondAttribute="centerX" id="AtA-8x-DoD"/>
-                            <constraint firstItem="Zn9-1L-Zk5" firstAttribute="top" secondItem="BSC-vT-vFB" secondAttribute="bottom" constant="20" id="C0c-Bh-e49"/>
-                            <constraint firstItem="ufT-Og-g6O" firstAttribute="width" secondItem="Ucw-xD-k7g" secondAttribute="width" id="Fd0-EP-S69"/>
                             <constraint firstItem="K3x-id-HCq" firstAttribute="top" secondItem="bbC-op-AzR" secondAttribute="bottom" constant="8" id="LE9-q4-Iv6"/>
-                            <constraint firstItem="Zn9-1L-Zk5" firstAttribute="centerX" secondItem="BSC-vT-vFB" secondAttribute="centerX" id="ODl-eZ-mGh"/>
-                            <constraint firstItem="Ucw-xD-k7g" firstAttribute="top" secondItem="ZcD-vy-fwG" secondAttribute="bottom" constant="20" id="Rzi-Mo-qok"/>
-                            <constraint firstItem="lAF-21-7xt" firstAttribute="top" secondItem="JK8-cl-Skv" secondAttribute="bottom" constant="50" id="S5l-Bc-xWt"/>
+                            <constraint firstItem="JOn-qx-UHN" firstAttribute="height" secondItem="MHk-1l-9aa" secondAttribute="height" id="Qgw-hi-UCz"/>
                             <constraint firstItem="djf-J3-M6f" firstAttribute="centerY" secondItem="MHk-1l-9aa" secondAttribute="centerY" id="Uzt-Fe-gOh"/>
                             <constraint firstItem="bbC-op-AzR" firstAttribute="centerX" secondItem="MHk-1l-9aa" secondAttribute="centerX" id="Vvy-E8-3ZL"/>
-                            <constraint firstItem="Ucw-xD-k7g" firstAttribute="centerX" secondItem="ZcD-vy-fwG" secondAttribute="centerX" id="WM7-YP-tsA"/>
                             <constraint firstItem="djf-J3-M6f" firstAttribute="height" secondItem="MHk-1l-9aa" secondAttribute="height" id="Wa1-uM-Oyb"/>
-                            <constraint firstItem="BSC-vT-vFB" firstAttribute="width" secondItem="Ucw-xD-k7g" secondAttribute="width" id="Z2H-po-Izs"/>
-                            <constraint firstItem="ufT-Og-g6O" firstAttribute="height" secondItem="Ucw-xD-k7g" secondAttribute="height" id="Z7G-qy-6jS"/>
                             <constraint firstItem="djf-J3-M6f" firstAttribute="width" secondItem="MHk-1l-9aa" secondAttribute="width" id="cWm-dd-MV5"/>
-                            <constraint firstItem="Ucw-xD-k7g" firstAttribute="width" secondItem="ZcD-vy-fwG" secondAttribute="width" id="gpM-Fe-rBH"/>
-                            <constraint firstItem="ZcD-vy-fwG" firstAttribute="width" secondItem="MHk-1l-9aa" secondAttribute="width" multiplier="0.85" id="jtK-hn-Y6J"/>
-                            <constraint firstItem="BSC-vT-vFB" firstAttribute="height" secondItem="Ucw-xD-k7g" secondAttribute="height" id="nPv-Xt-hpd"/>
-                            <constraint firstItem="ZcD-vy-fwG" firstAttribute="centerX" secondItem="MHk-1l-9aa" secondAttribute="centerX" id="p8t-Eo-goB"/>
-                            <constraint firstItem="lAF-21-7xt" firstAttribute="leading" secondItem="MHk-1l-9aa" secondAttribute="leading" constant="25" id="vao-Sr-Ijp"/>
-                            <constraint firstItem="BSC-vT-vFB" firstAttribute="centerX" secondItem="Ucw-xD-k7g" secondAttribute="centerX" id="vsM-tl-mL6"/>
-                            <constraint firstItem="Ucw-xD-k7g" firstAttribute="height" secondItem="ZcD-vy-fwG" secondAttribute="height" id="w2O-FA-VhT"/>
-                            <constraint firstItem="Zn9-1L-Zk5" firstAttribute="width" secondItem="BSC-vT-vFB" secondAttribute="width" id="x21-sz-vux"/>
-                            <constraint firstItem="Zn9-1L-Zk5" firstAttribute="height" secondItem="BSC-vT-vFB" secondAttribute="height" id="y0q-qt-n0I"/>
+                            <constraint firstItem="JOn-qx-UHN" firstAttribute="centerX" secondItem="MHk-1l-9aa" secondAttribute="centerX" id="egq-cE-1Nw"/>
+                            <constraint firstItem="JOn-qx-UHN" firstAttribute="width" secondItem="MHk-1l-9aa" secondAttribute="width" id="vy5-Oz-jhw"/>
+                            <constraint firstItem="JOn-qx-UHN" firstAttribute="centerY" secondItem="MHk-1l-9aa" secondAttribute="centerY" id="xf1-As-StH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="confirmPasswordField" destination="Zn9-1L-Zk5" id="kWp-Ag-lCt"/>
+                        <outlet property="emailField" destination="ZcD-vy-fwG" id="9qI-Ox-6fx"/>
+                        <outlet property="errorLabel" destination="ZZQ-iC-swr" id="IPX-eW-1yS"/>
+                        <outlet property="nameField" destination="Ucw-xD-k7g" id="WSF-Et-JTv"/>
+                        <outlet property="passwordField" destination="BSC-vT-vFB" id="6Q9-RI-iYu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eH0-Of-3sC" sceneMemberID="firstResponder"/>
                 <exit id="p6C-MP-Bq3" userLabel="Exit" sceneMemberID="exit"/>
@@ -473,6 +546,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Po3-g1-ylf" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="checkin-unselected" selectedImage="checkin-selected" id="Hh6-U4-y0T">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="20"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wXT-Wd-ZTn">
@@ -494,6 +568,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VOE-yt-Nwi" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="chat-unselected" selectedImage="chat-selected" id="mMj-Mr-hAm">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="20"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="VHv-Gw-Qoi">
@@ -534,6 +609,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nsP-7x-0DJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="contacts-unselected" selectedImage="contacts-selected" id="ddZ-SU-9zx">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="20"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="PHH-qb-gQU">
@@ -574,6 +650,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v3R-or-O62" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="notifications-unselected" selectedImage="notifications-selected" id="Reg-hv-w8D">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="20"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="ylV-fp-bz4">
@@ -622,13 +699,13 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4N-8W-a2u">
-                                            <rect key="frame" x="153.5" y="138" width="68" height="31"/>
+                                            <rect key="frame" x="154" y="138" width="68" height="31"/>
                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="22"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPE-jQ-EQL">
-                                            <rect key="frame" x="159" y="171" width="57.5" height="20"/>
+                                            <rect key="frame" x="159.5" y="171" width="57.5" height="20"/>
                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -809,12 +886,13 @@
             </objects>
             <point key="canvasLocation" x="1741.5999999999999" y="3975.562218890555"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Profile-->
         <scene sceneID="Ujw-yh-SfU">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lGf-iw-HZA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="menu-unselected" id="HwI-D4-F4M">
+                    <tabBarItem key="tabBarItem" title="Profile" image="menu-unselected" id="HwI-D4-F4M">
                         <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="-5"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="20"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>

@@ -7,15 +7,23 @@
 //
 
 import UIKit
+import SwiftValidator
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var emailField: DesignableTextField!
+    @IBOutlet weak var passwordField: DesignableTextField!
+    let validator = Validator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        validator.registerField(emailField, rules: [RequiredRule() as Rule,EmailRule(message: "Invalid email")])
+        validator.registerField(passwordField, rules: [RequiredRule() as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule])
+        
+        [emailField, passwordField].forEach { (field) in
+            field?.delegate = self
+        }
         
     }
 
@@ -26,7 +34,41 @@ class SignInViewController: UIViewController {
     
 
     @IBAction func signinButtonPressed(_ sender: Any) {
-        Router.showMainTabBar()
+        validator.validate(self)
+    }
+    
+    
+    func validationSuccessful() {
+        
+        var params = [String : String]()
+        params["email"] = emailField.text
+        params["password"] = passwordField.text
+        
+        SVProgressHUD.show()
+        RequestManager.loginUser(param: params, successBlock: { (response) in
+            SVProgressHUD.dismiss()
+            Router.showMainTabBar()
+        }) { (error) in
+            SVProgressHUD.show(withStatus: error)
+        }
+    }
+    
+    func validationFailed(_ errors: [(Validatable, ValidationError)]) {
+        for (field, error) in errors {
+            if let field = field as? UITextField {
+                field.layer.borderColor = UIColor.red.cgColor
+                field.layer.borderWidth = 1.0
+                field.resignFirstResponder()
+                if error.errorLabel?.isHidden == true {
+                    error.errorLabel?.text = error.errorMessage // works if you added labels
+                    error.errorLabel?.isHidden = false
+                }
+            }
+        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor.white.cgColor
     }
     
     /*

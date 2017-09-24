@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0C5DDF421733ACB45DF6EBD5BD2A9D82B191C235",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0C5DDF421733ACB45DF6EBD5BD2A9D82B191C235" : 9223372036854775807,
+    "8008B3896AB186C53BCBC7512B7965AFC2BE9844" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E7680F07-5BF6-4BB1-85B6-252C344A24AB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0C5DDF421733ACB45DF6EBD5BD2A9D82B191C235" : "connectin-ios\/",
+    "8008B3896AB186C53BCBC7512B7965AFC2BE9844" : "connectin-ios\/Connectivity\/Utilities\/Quicklic\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Connectivity",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Connectivity.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/connectin\/connectin-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0C5DDF421733ACB45DF6EBD5BD2A9D82B191C235"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:aamishbaloch\/quicklic-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8008B3896AB186C53BCBC7512B7965AFC2BE9844"
+    }
+  ]
+}
