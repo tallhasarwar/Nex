@@ -10,6 +10,8 @@ import UIKit
 import SwiftValidator
 
 class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDelegate {
+    
+    static let identifier = "signInViewController"
 
     @IBOutlet weak var emailField: DesignableTextField!
     @IBOutlet weak var passwordField: DesignableTextField!
@@ -47,6 +49,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         SVProgressHUD.show()
         RequestManager.loginUser(param: params, successBlock: { (response) in
             SVProgressHUD.dismiss()
+            let user = User(dictionary: response)
+            ApplicationManager.sharedInstance.user = user
+            ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
+            UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
             Router.showMainTabBar()
         }) { (error) in
             SVProgressHUD.show(withStatus: error)

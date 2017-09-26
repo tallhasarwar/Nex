@@ -38,7 +38,7 @@
 		NSString *keyName = [NSString stringWithUTF8String:propertyName];
 		
 		id value = [keyedValues objectForKey:keyName];
-		if (value != nil) {
+		if (value != nil && value != [NSNull null]) {
 			char *typeEncoding = NULL;
 			typeEncoding = property_copyAttributeValue(property, "T");
 			

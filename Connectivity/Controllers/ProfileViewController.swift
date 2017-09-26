@@ -32,8 +32,17 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         title = "Profile"
         self.tabBarItem.title = ""
         
+        
+        
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        profileNameLabel.text = ApplicationManager.sharedInstance.user.full_name
+        jobTitleLabel.text = ApplicationManager.sharedInstance.user.worked_at
+        tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,7 +51,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return profileDetails.count + 1
+        return 11
         
     }
     
@@ -54,9 +63,43 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: ProfileDetailTableViewCell.identifier) as! ProfileDetailTableViewCell
-            let profileDetail = profileDetails[indexPath.row-1]
-            cell.headingLabel.text = profileDetail.title
-            cell.descriptionLabel.text = profileDetail.detailDescription
+            let user = ApplicationManager.sharedInstance.user
+            switch indexPath.row {
+            case 1:
+                cell.headingLabel.text = "About Me"
+                cell.descriptionLabel.text = user.about ?? "N/A"
+            case 2:
+                cell.headingLabel.text = "Interests"
+                cell.descriptionLabel.text = user.interests ?? "N/A"
+            case 3:
+                cell.headingLabel.text = "School / University"
+                cell.descriptionLabel.text = user.school ?? "N/A"
+            case 4:
+                cell.headingLabel.text = "Works At"
+                cell.descriptionLabel.text = user.worked_at ?? "N/A"
+            case 5:
+                cell.headingLabel.text = "Lives In"
+                cell.descriptionLabel.text = user.lives_in ?? "N/A"
+            case 6:
+                cell.headingLabel.text = "Email Address"
+                cell.descriptionLabel.text = user.email ?? "N/A"
+            case 7:
+                cell.headingLabel.text = "Phone Number"
+                cell.descriptionLabel.text = user.contact_number ?? "N/A"
+            case 8:
+                cell.headingLabel.text = "Facebook Profile"
+                cell.descriptionLabel.text = user.facebook_profile ?? "N/A"
+            case 9:
+                cell.headingLabel.text = "LinkedIn Profile"
+                cell.descriptionLabel.text = user.linkedin_profile ?? "N/A"
+            case 10:
+                cell.headingLabel.text = "Website"
+                cell.descriptionLabel.text = user.website ?? "N/A"
+                
+            default:
+                break
+            }
+            
             return cell
         }
     }

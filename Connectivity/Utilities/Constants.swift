@@ -8,6 +8,10 @@
 
 import UIKit
 
+public class UserDefaultKey: NSObject {
+    static let sessionID = "session_id"
+}
+
 public class Constant: NSObject {
 
 
@@ -27,6 +31,7 @@ public class Constant: NSObject {
     
     static let registrationURL = "signup"
     static let loginURL = "signin"
+    static let updateProfileURL = "updateProfile"
     
     
 }

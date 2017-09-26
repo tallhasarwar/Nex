@@ -77,7 +77,7 @@ class WebClient: AFHTTPSessionManager {
         self.postPath(urlString: Constant.registrationURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
-                success(response as! [String : AnyObject])
+                success(response[Constant.responseKey] as! [String : AnyObject])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {
@@ -97,7 +97,7 @@ class WebClient: AFHTTPSessionManager {
         self.postPath(urlString: Constant.loginURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
-                success(response as! [String : AnyObject])
+                success(response[Constant.responseKey] as! [String : AnyObject])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {
@@ -112,27 +112,24 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
-    func getWeather(param: [String: AnyObject], successBlock success:@escaping ([String: AnyObject]) -> (),
-        failureBlock failure:@escaping (String) -> ()){
-        /*
-            self.getPath(urlString: Constant.getWeather, params: param, successBlock: { (response) -> () in
-                print(response)
-                
-//                if (response.object(forKey: Constant.successKey) as AnyObject).boolValue == true{
-                    success(response as! [String : AnyObject])
-//                }
-//                else{
-//                    if response.object(forKey: "message") as? String != "" {
-//                        failure(response.object(forKey: "message") as! String)
-//                    }
-//                    else{
-//                        failure("Unable to fetch data")
-//                    }
-//                }
-                }) { (error: NSError) -> () in
-                    failure(error.localizedDescription)
+    func updateProfile(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                   failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: Constant.updateProfileURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
             }
-        */
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }
+                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
     }
     
 }

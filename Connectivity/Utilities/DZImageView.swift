@@ -62,7 +62,7 @@ import UIKit
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-//            imagePicker.mediaTypes = [kUTTypeImage as String]
+            imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = true
             self.parentController?.present(imagePicker, animated: true, completion: nil)
         }
@@ -82,7 +82,7 @@ import UIKit
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
-//            imagePicker.mediaTypes = [kUTTypeImage as String]
+            imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = true
             self.parentController?.present(imagePicker, animated: true, completion: nil)
         }

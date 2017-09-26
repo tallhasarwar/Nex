@@ -18,6 +18,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         Styles.sharedStyles.applyGlobalAppearance()
+        
+//        let bounds = UIScreen.main.bounds
+//        self.window = UIWindow(frame: bounds)
+//        if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String {
+//            ApplicationManager.sharedInstance.session_id = sessionID
+//            let tabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "mainTabBarController") as! UITabBarController
+//            self.window?.rootViewController = tabBarController
+//        }
+//        else{
+//            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SignInViewController.identifier) 
+//            self.window?.rootViewController = vc
+//        }
+//        self.window?.makeKeyAndVisible()
+        
         return true
     }
 

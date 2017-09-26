@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263676211012B71CA50D39F8 /* libPods-Connectivity.a */; };
+		6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */; };
+		6934E3C21F7A7251005BB2C9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */; };
 		69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */; };
 		69A259431F6D60D8000F67B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A259411F6D60D8000F67B0 /* Main.storyboard */; };
 		69A259451F6D60D8000F67B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69A259441F6D60D8000F67B0 /* Assets.xcassets */; };
@@ -88,6 +90,8 @@
 /* Begin PBXFileReference section */
 		263676211012B71CA50D39F8 /* libPods-Connectivity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Connectivity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF09F94A27ED5459E438BA4 /* Pods-Connectivity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Connectivity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity.release.xcconfig"; sourceTree = "<group>"; };
+		6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		69A2593A1F6D60D8000F67B0 /* Connectivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connectivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69A259421F6D60D8000F67B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */,
 				2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */,
 				69F4BB641F7807F600BFB414 /* SwiftValidator.framework in Frameworks */,
 			);
@@ -339,6 +344,7 @@
 				69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */,
 				69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */,
 				69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */,
+				6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -346,6 +352,7 @@
 		760BCFEBBAEBD0986EB0F625 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */,
 				69F4BB631F7807F600BFB414 /* SwiftValidator.framework */,
 				263676211012B71CA50D39F8 /* libPods-Connectivity.a */,
 			);
@@ -397,6 +404,7 @@
 				TargetAttributes = {
 					69A259391F6D60D8000F67B0 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = QEZ42U74SP;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
@@ -570,6 +578,7 @@
 				69B9CEE21F72AED90070BD37 /* ScrollableDatepicker.swift in Sources */,
 				69B9CEDF1F72AED90070BD37 /* DayCell.swift in Sources */,
 				69B9CF041F72AED90070BD37 /* UtilityManager.swift in Sources */,
+				6934E3C21F7A7251005BB2C9 /* EditProfileViewController.swift in Sources */,
 				69B9CEFF1F72AED90070BD37 /* SpringView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -697,6 +706,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QEZ42U74SP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Carthage/Build/iOS",
@@ -710,7 +722,7 @@
 				);
 				INFOPLIST_FILE = Connectivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.danialzahid.Connectivity;
+				PRODUCT_BUNDLE_IDENTIFIER = com.connectin.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connectivity/Models/Connectivity-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -724,6 +736,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QEZ42U74SP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Connectivity/Utilities/Quicklic/Carthage/Build/iOS",
@@ -737,7 +752,7 @@
 				);
 				INFOPLIST_FILE = Connectivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.danialzahid.Connectivity;
+				PRODUCT_BUNDLE_IDENTIFIER = com.connectin.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Connectivity/Models/Connectivity-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

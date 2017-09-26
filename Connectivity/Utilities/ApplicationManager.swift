@@ -16,6 +16,7 @@ class ApplicationManager {
     
     //MARK: - Variable
     var session_id = ""
+    var user = User()
     
     
 }
