@@ -15,10 +15,15 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
 
     @IBOutlet weak var emailField: DesignableTextField!
     @IBOutlet weak var passwordField: DesignableTextField!
+    @IBOutlet weak var facebookLoginButton: DesignableButton!
+    
     let validator = Validator()
+    var linkedinClient : LIALinkedInHttpClient?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        linkedinClient = linkedInClient()
 
         validator.registerField(emailField, rules: [RequiredRule() as Rule,EmailRule(message: "Invalid email")])
         validator.registerField(passwordField, rules: [RequiredRule() as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule])
@@ -26,6 +31,11 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         [emailField, passwordField].forEach { (field) in
             field?.delegate = self
         }
+        
+        facebookLoginButton.layer.cornerRadius = facebookLoginButton.frame.height/2
+        facebookLoginButton.layer.masksToBounds = true
+        
+        
         
     }
 
@@ -48,12 +58,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         
         SVProgressHUD.show()
         RequestManager.loginUser(param: params, successBlock: { (response) in
-            SVProgressHUD.dismiss()
-            let user = User(dictionary: response)
-            ApplicationManager.sharedInstance.user = user
-            ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
-            UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
-            Router.showMainTabBar()
+            self.successfulLogin(response: response)
         }) { (error) in
             SVProgressHUD.show(withStatus: error)
         }
@@ -86,5 +91,146 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    @IBAction func facebookButtonPressed(sender: AnyObject) {
+        let loginManager = FBSDKLoginManager()
+        loginManager.loginBehavior = FBSDKLoginBehavior.native
+        loginManager.logIn(withReadPermissions: ["public_profile","email"], from: self) { (result, error) in
+            SVProgressHUD.show()
+            let token = result?.token
+            // Verify token is not empty
+            guard !(token?.tokenString.isEmpty)! else {
+                print("Token is empty")
+                return
+            }
+            // Request Fields
+            let fields = "name,first_name,last_name,email,gender"
+            
+            // Build URL with Access Token
+            let url = Constant.facebookURL + "?fields=\(fields)&access_token=\(token?.tokenString ?? "")"
+            
+            //Make API call to facebook graph api to get data
+            RequestManager.getUserFacebookProfile(url: url, successBlock: { (response) in
+                /*{
+                 email = "danialzahid94@live.com";
+                 "first_name" = Danial;
+                 gender = male;
+                 id = 10210243338655397;
+                 "last_name" = Zahid;
+                 name = "Danial Zahid";
+                 }*/
+                print(response)
+                
+                var params = [String: String]()
+                
+                params["social_provider_name"] = "facebook"
+                params["full_name"] = response["name"] as? String
+                params["social_id"] = response["id"] as? String
+                params["email"] = response["email"] as? String
+                
+                RequestManager.socialLoginUser(param: params, successBlock: { (response) in
+                    self.successfulLogin(response: response)
+                }, failureBlock: { (error) in
+                    SVProgressHUD.showError(withStatus: error)
+                })
+                
+                
+            }, failureBlock: { (error) in
+                SVProgressHUD.showError(withStatus: error)
+            })
+            
+        }
+    
+    }
+    
+    @IBAction func linkedInButtonPressed(sender: AnyObject) {
+        
+        //Get Authorization Code
+        self.linkedinClient?.getAuthorizationCode({ (auth_code) -> Void in
+            //Get Access Token
+            
+            SVProgressHUD.show()
+            self.linkedinClient?.getAccessToken(auth_code, success: { (access_token_data) -> Void in
+                let response = access_token_data as! [String: AnyObject]
+                let access_token = response["access_token"] as! String
+                //Get Profile Data From LinkedIn
+                RequestManager.getUserLinkedInProfile(access_token: access_token, successBlock: { (response) -> () in
+                    SVProgressHUD.show(withStatus: "Logging In")
+                    
+                    /*{
+                     emailAddress = "danialzahid94@live.com";
+                     firstName = Danial;
+                     headline = "Mobile Developer | Tech Consultant | Entrepreneur";
+                     id = "-sqSajuMHj";
+                     lastName = Zahid;
+                     pictureUrl = "https://media.licdn.com/mpr/mprx/0_CzlvYuH26_xBZRDPSzLUsmADk6AoOMPYkiwRUJg23qKwOWStTAWv9fd2_GgcjoxtezWv9E6uWX8I4gSCDQNWnZw82X8E4gdYDQNngMYSFLv6-w-GTcG4jDKyulsslgY7kLrMVI6pLsv";
+                     publicProfileUrl = "https://www.linkedin.com/in/danialzahid";
+                     }*/
+                    
+                    var params = [String: String]()
+                    
+                    params["social_provider_name"] = "linkedin"
+                    params["full_name"] = "\(response["firstName"] as? String ?? "") \(response["lastName"] as? String ?? "")"
+                    params["social_id"] = response["id"] as? String
+                    params["email"] = response["emailAddress"] as? String
+                    params["headline"] = response["headline"] as? String
+                    
+                    RequestManager.socialLoginUser(param: params, successBlock: { (response) in
+                        self.successfulLogin(response: response)
+                    }, failureBlock: { (error) in
+                        SVProgressHUD.showError(withStatus: error)
+                    })
+                    
+                    
+                }, failureBlock: { (error) -> () in
+                    self.showAlertView(title:"LinkedIn Login", message: error)
+                })
+            }, failure: { (err) -> Void in
+                self.showAlertView(title: "LinkedIn Login", message: (err?.localizedDescription)!)
+            })
+        }, cancel: { () -> Void in
+            self.showAlertView(title:"LinkedIn Login", message: "You cancelled the login.")
+        }, failure: { (err) -> Void in
+            self.showAlertView(title:"LinkedIn Login", message: (err?.localizedDescription)!)
+        })
+    }
+    
+    func linkedInClient() -> LIALinkedInHttpClient {
+        let app : LIALinkedInApplication = LIALinkedInApplication(
+            redirectURL: "http://oauthswift.herokuapp.com/callback/linkedin2",
+            clientId: "78k7qd33y0ecis",
+            clientSecret: "ETIPgVvjw9C2BI2p",
+            state: "iuUYTFuiygfcgvJKJHGFT",
+            grantedAccess: ["r_basicprofile", "r_emailaddress", "rw_company_admin"])
+        return LIALinkedInHttpClient(for: app, presentingViewController: self)
+    }
+    
+    func openURL(urlString: String) {
+        if let url = NSURL(string: urlString) {
+            if UIApplication.shared.canOpenURL(url as URL) {
+                UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+            }
+        }
+        else{
+            print("can't find url")
+        }
+    }
+    
+    func showAlertView(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func successfulLogin(response: [String: AnyObject]) {
+        SVProgressHUD.dismiss()
+        let user = User(dictionary: response)
+        ApplicationManager.sharedInstance.user = user
+        ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
+        UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
+        Router.showMainTabBar()
+    }
+    
 }
+
+

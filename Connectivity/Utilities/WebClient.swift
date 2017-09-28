@@ -132,4 +132,46 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func getUserLinkedInProfile(access_token: String,
+                                successBlock success:@escaping ([String: AnyObject]) -> (),
+                                failureBlock failure:@escaping (String) -> ()){
+        
+        self.getPath(urlString: "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,email-address,headline,public-profile-url,picture-url)?oauth2_access_token=\(access_token)&format=json&secure-urls=true",
+            params: nil,addToken: false, successBlock: { (response) -> () in
+                success(response as! [String : AnyObject])
+        }) { (error: NSError) -> () in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func getUserFacebookProfile(url: String,
+                                successBlock success:@escaping ([String: AnyObject]) -> (),
+                                failureBlock failure:@escaping (String) -> ()) {
+        self.getPath(urlString: url,
+                     params: [:],addToken: false, successBlock: { (response) -> () in
+                success(response as! [String : AnyObject])
+        }) { (error: NSError) -> () in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func socialLoginUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                   failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: Constant.socialLoginURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }
+                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
 }

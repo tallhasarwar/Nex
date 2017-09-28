@@ -14,7 +14,8 @@ public class UserDefaultKey: NSObject {
 
 public class Constant: NSObject {
 
-
+    static let facebookURL = "https://graph.facebook.com/me"
+    
     static let applicationName = "Connectivity"
     static let serverDateFormat = "yyyy-MM-dd"
     static let appDateFormat = "MM/dd/yyyy hh:mm:ss"
@@ -32,6 +33,7 @@ public class Constant: NSObject {
     static let registrationURL = "signup"
     static let loginURL = "signin"
     static let updateProfileURL = "updateProfile"
+    static let socialLoginURL = "social_login"
     
     
 }

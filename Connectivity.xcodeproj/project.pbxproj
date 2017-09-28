@@ -86,6 +86,11 @@
 		69F4B7E91F77E1D700BFB414 /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7E81F77E1D700BFB414 /* ProfileDetail.swift */; };
 		69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4BB601F78065C00BFB414 /* WebClient.swift */; };
 		69F4BB641F7807F600BFB414 /* SwiftValidator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69F4BB631F7807F600BFB414 /* SwiftValidator.framework */; };
+		69FCBA721F7D1FCF00F4696E /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */; };
+		69FCBA7C1F7D426E00F4696E /* LIALinkedInApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA751F7D426D00F4696E /* LIALinkedInApplication.m */; };
+		69FCBA7D1F7D426E00F4696E /* LIALinkedInAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA771F7D426D00F4696E /* LIALinkedInAuthorizationViewController.m */; };
+		69FCBA7E1F7D426E00F4696E /* LIALinkedInHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA791F7D426D00F4696E /* LIALinkedInHttpClient.m */; };
+		69FCBA7F1F7D426E00F4696E /* NSString+LIAEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA7B1F7D426D00F4696E /* NSString+LIAEncode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +179,16 @@
 		69F4B7E81F77E1D700BFB414 /* ProfileDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetail.swift; sourceTree = "<group>"; };
 		69F4BB601F78065C00BFB414 /* WebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
 		69F4BB631F7807F600BFB414 /* SwiftValidator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftValidator.framework; path = Carthage/Build/iOS/SwiftValidator.framework; sourceTree = SOURCE_ROOT; };
+		69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
+		69FCBA711F7D1FCF00F4696E /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Blocks.h"; sourceTree = "<group>"; };
+		69FCBA741F7D426D00F4696E /* LIALinkedInApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIALinkedInApplication.h; sourceTree = "<group>"; };
+		69FCBA751F7D426D00F4696E /* LIALinkedInApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIALinkedInApplication.m; sourceTree = "<group>"; };
+		69FCBA761F7D426D00F4696E /* LIALinkedInAuthorizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIALinkedInAuthorizationViewController.h; sourceTree = "<group>"; };
+		69FCBA771F7D426D00F4696E /* LIALinkedInAuthorizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIALinkedInAuthorizationViewController.m; sourceTree = "<group>"; };
+		69FCBA781F7D426D00F4696E /* LIALinkedInHttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIALinkedInHttpClient.h; sourceTree = "<group>"; };
+		69FCBA791F7D426D00F4696E /* LIALinkedInHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIALinkedInHttpClient.m; sourceTree = "<group>"; };
+		69FCBA7A1F7D426D00F4696E /* NSString+LIAEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LIAEncode.h"; sourceTree = "<group>"; };
+		69FCBA7B1F7D426D00F4696E /* NSString+LIAEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LIAEncode.m"; sourceTree = "<group>"; };
 		CCD6FB124A94E241712762A2 /* Pods-Connectivity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Connectivity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -265,9 +280,12 @@
 		69B9CE931F72AED90070BD37 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				69F4BB601F78065C00BFB414 /* WebClient.swift */,
+				69FCBA731F7D426D00F4696E /* IOSLinkedInAPI */,
 				69B9CE961F72AED90070BD37 /* DatePicker */,
 				69B9CE9F1F72AED90070BD37 /* Spring */,
+				69FCBA711F7D1FCF00F4696E /* UIAlertController+Blocks.h */,
+				69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */,
+				69F4BB601F78065C00BFB414 /* WebClient.swift */,
 				69B9CE941F72AED90070BD37 /* ApplicationManager.swift */,
 				69B9CE951F72AED90070BD37 /* Constants.swift */,
 				69B9CE9D1F72AED90070BD37 /* DZImageView.swift */,
@@ -352,6 +370,21 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		69FCBA731F7D426D00F4696E /* IOSLinkedInAPI */ = {
+			isa = PBXGroup;
+			children = (
+				69FCBA741F7D426D00F4696E /* LIALinkedInApplication.h */,
+				69FCBA751F7D426D00F4696E /* LIALinkedInApplication.m */,
+				69FCBA761F7D426D00F4696E /* LIALinkedInAuthorizationViewController.h */,
+				69FCBA771F7D426D00F4696E /* LIALinkedInAuthorizationViewController.m */,
+				69FCBA781F7D426D00F4696E /* LIALinkedInHttpClient.h */,
+				69FCBA791F7D426D00F4696E /* LIALinkedInHttpClient.m */,
+				69FCBA7A1F7D426D00F4696E /* NSString+LIAEncode.h */,
+				69FCBA7B1F7D426D00F4696E /* NSString+LIAEncode.m */,
+			);
+			path = IOSLinkedInAPI;
+			sourceTree = "<group>";
+		};
 		760BCFEBBAEBD0986EB0F625 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,7 +435,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Danial Zahid";
 				TargetAttributes = {
 					69A259391F6D60D8000F67B0 = {
@@ -563,21 +596,26 @@
 				69B9CEF01F72AED90070BD37 /* DesignableView.swift in Sources */,
 				69F4B7DD1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift in Sources */,
 				69B9CEE81F72AED90070BD37 /* AutoTextView.swift in Sources */,
+				69FCBA7F1F7D426E00F4696E /* NSString+LIAEncode.m in Sources */,
 				69F4B7E11F77DEEC00BFB414 /* ProfileImageCollectionViewCell.swift in Sources */,
 				69B9CEEF1F72AED90070BD37 /* DesignableTextView.swift in Sources */,
 				69F4B7E51F77E19800BFB414 /* BaseEntity.m in Sources */,
 				69B9CF031F72AED90070BD37 /* Styles.swift in Sources */,
 				69B9CEE71F72AED90070BD37 /* AsyncImageView.swift in Sources */,
 				69B9CEEE1F72AED90070BD37 /* DesignableTextField.swift in Sources */,
+				69FCBA7C1F7D426E00F4696E /* LIALinkedInApplication.m in Sources */,
 				69F4B7E91F77E1D700BFB414 /* ProfileDetail.swift in Sources */,
 				69B9CEFE1F72AED90070BD37 /* SpringTextView.swift in Sources */,
 				69F4B7DF1F77DDD400BFB414 /* ProfileDetailTableViewCell.swift in Sources */,
+				69FCBA7E1F7D426E00F4696E /* LIALinkedInHttpClient.m in Sources */,
 				69B9CEDD1F72AED90070BD37 /* Constants.swift in Sources */,
 				69B9CEFD1F72AED90070BD37 /* SpringTextField.swift in Sources */,
 				69B9CEF81F72AED90070BD37 /* Spring.swift in Sources */,
 				69B9CEE91F72AED90070BD37 /* BlurView.swift in Sources */,
 				69B9CEF41F72AED90070BD37 /* LoadingView.swift in Sources */,
+				69FCBA721F7D1FCF00F4696E /* UIAlertController+Blocks.m in Sources */,
 				69B9CEFA1F72AED90070BD37 /* SpringButton.swift in Sources */,
+				69FCBA7D1F7D426E00F4696E /* LIALinkedInAuthorizationViewController.m in Sources */,
 				69B9CEF31F72AED90070BD37 /* KeyboardLayoutConstraint.swift in Sources */,
 				69B9CEE21F72AED90070BD37 /* ScrollableDatepicker.swift in Sources */,
 				69B9CEDF1F72AED90070BD37 /* DayCell.swift in Sources */,
@@ -619,7 +657,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -627,7 +667,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -670,7 +714,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -678,7 +724,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

@@ -35,4 +35,19 @@ class User: BaseEntity {
         self.setValuesForKeysWithJSONDictionary(dictionary, dateFormatter: nil)
     }
     
+    func linkedInLoginDictionary() -> [String: AnyObject]{
+        var paramDict = [String: AnyObject]()
+        
+        
+//        paramDict["emailAddress"] = emailAddress
+//        paramDict["firstName"] = firstName
+//        paramDict["lastName"] = lastName
+//        paramDict["headline"] = headline
+//        paramDict["pictureUrl"] = pictureUrl
+//        paramDict["id"] = id
+//        paramDict["publicProfileUrl"] = publicProfileUrl
+        
+        return paramDict
+    }
+    
 }

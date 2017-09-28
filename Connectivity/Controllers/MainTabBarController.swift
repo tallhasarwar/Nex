@@ -12,6 +12,7 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Styles.sharedStyles.applyGlobalAppearance()
 
         // Do any additional setup after loading the view.
     }
