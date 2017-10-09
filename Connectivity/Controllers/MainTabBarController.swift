@@ -8,12 +8,12 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Styles.sharedStyles.applyGlobalAppearance()
-
+        self.delegate = self
         // Do any additional setup after loading the view.
     }
 

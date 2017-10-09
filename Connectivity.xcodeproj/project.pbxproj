@@ -8,9 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263676211012B71CA50D39F8 /* libPods-Connectivity.a */; };
+		6914C3011F82B1B0005BC1C0 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6914C3001F82B1B0005BC1C0 /* MoreViewController.swift */; };
+		6914C3031F82B1FD005BC1C0 /* MoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6914C3021F82B1FD005BC1C0 /* MoreTableViewCell.swift */; };
 		6915D8621F7B80CB00B7ED9F /* AvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6915D8611F7B80CB00B7ED9F /* AvailableViewController.swift */; };
 		6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */; };
 		6934E3C21F7A7251005BB2C9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */; };
+		6968A5D21F827E2100EECD60 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968A5D11F827E2100EECD60 /* CheckInViewController.swift */; };
+		6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */; };
 		69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */; };
 		69A259431F6D60D8000F67B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A259411F6D60D8000F67B0 /* Main.storyboard */; };
 		69A259451F6D60D8000F67B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69A259441F6D60D8000F67B0 /* Assets.xcassets */; };
@@ -86,19 +90,25 @@
 		69F4B7E91F77E1D700BFB414 /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7E81F77E1D700BFB414 /* ProfileDetail.swift */; };
 		69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4BB601F78065C00BFB414 /* WebClient.swift */; };
 		69F4BB641F7807F600BFB414 /* SwiftValidator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69F4BB631F7807F600BFB414 /* SwiftValidator.framework */; };
+		69F9AAF21F8A92DC00DC1F2E /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F9AAF11F8A92DC00DC1F2E /* LocationDetailsViewController.swift */; };
 		69FCBA721F7D1FCF00F4696E /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */; };
 		69FCBA7C1F7D426E00F4696E /* LIALinkedInApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA751F7D426D00F4696E /* LIALinkedInApplication.m */; };
 		69FCBA7D1F7D426E00F4696E /* LIALinkedInAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA771F7D426D00F4696E /* LIALinkedInAuthorizationViewController.m */; };
 		69FCBA7E1F7D426E00F4696E /* LIALinkedInHttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA791F7D426D00F4696E /* LIALinkedInHttpClient.m */; };
 		69FCBA7F1F7D426E00F4696E /* NSString+LIAEncode.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA7B1F7D426D00F4696E /* NSString+LIAEncode.m */; };
+		69FCBA811F7D46B800F4696E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 69FCBA801F7D46B800F4696E /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		263676211012B71CA50D39F8 /* libPods-Connectivity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Connectivity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF09F94A27ED5459E438BA4 /* Pods-Connectivity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Connectivity.release.xcconfig"; path = "Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity.release.xcconfig"; sourceTree = "<group>"; };
+		6914C3001F82B1B0005BC1C0 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
+		6914C3021F82B1FD005BC1C0 /* MoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTableViewCell.swift; sourceTree = "<group>"; };
 		6915D8611F7B80CB00B7ED9F /* AvailableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AvailableViewController.swift; path = ../../../../../Downloads/AvailableViewController.swift; sourceTree = "<group>"; };
 		6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		6968A5D11F827E2100EECD60 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
+		6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
 		69A2593A1F6D60D8000F67B0 /* Connectivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connectivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69A259421F6D60D8000F67B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -179,6 +189,7 @@
 		69F4B7E81F77E1D700BFB414 /* ProfileDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetail.swift; sourceTree = "<group>"; };
 		69F4BB601F78065C00BFB414 /* WebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
 		69F4BB631F7807F600BFB414 /* SwiftValidator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftValidator.framework; path = Carthage/Build/iOS/SwiftValidator.framework; sourceTree = SOURCE_ROOT; };
+		69F9AAF11F8A92DC00DC1F2E /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
 		69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		69FCBA711F7D1FCF00F4696E /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Blocks.h"; sourceTree = "<group>"; };
 		69FCBA741F7D426D00F4696E /* LIALinkedInApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIALinkedInApplication.h; sourceTree = "<group>"; };
@@ -189,6 +200,7 @@
 		69FCBA791F7D426D00F4696E /* LIALinkedInHttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LIALinkedInHttpClient.m; sourceTree = "<group>"; };
 		69FCBA7A1F7D426D00F4696E /* NSString+LIAEncode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LIAEncode.h"; sourceTree = "<group>"; };
 		69FCBA7B1F7D426D00F4696E /* NSString+LIAEncode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LIAEncode.m"; sourceTree = "<group>"; };
+		69FCBA801F7D46B800F4696E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CCD6FB124A94E241712762A2 /* Pods-Connectivity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Connectivity.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +239,7 @@
 		69A2593C1F6D60D8000F67B0 /* Connectivity */ = {
 			isa = PBXGroup;
 			children = (
+				69FCBA801F7D46B800F4696E /* GoogleService-Info.plist */,
 				69B9CEC11F72AED90070BD37 /* Controllers */,
 				69B9CE791F72AED90070BD37 /* Fonts */,
 				69B9CEC01F72AED90070BD37 /* Models */,
@@ -273,6 +286,8 @@
 				69F4B7DC1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift */,
 				69F4B7DE1F77DDD400BFB414 /* ProfileDetailTableViewCell.swift */,
 				69F4B7E01F77DEEC00BFB414 /* ProfileImageCollectionViewCell.swift */,
+				6914C3021F82B1FD005BC1C0 /* MoreTableViewCell.swift */,
+				6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -280,18 +295,18 @@
 		69B9CE931F72AED90070BD37 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				69FCBA731F7D426D00F4696E /* IOSLinkedInAPI */,
 				69B9CE961F72AED90070BD37 /* DatePicker */,
+				69FCBA731F7D426D00F4696E /* IOSLinkedInAPI */,
 				69B9CE9F1F72AED90070BD37 /* Spring */,
-				69FCBA711F7D1FCF00F4696E /* UIAlertController+Blocks.h */,
-				69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */,
-				69F4BB601F78065C00BFB414 /* WebClient.swift */,
-				69B9CE941F72AED90070BD37 /* ApplicationManager.swift */,
 				69B9CE951F72AED90070BD37 /* Constants.swift */,
+				69B9CE941F72AED90070BD37 /* ApplicationManager.swift */,
 				69B9CE9D1F72AED90070BD37 /* DZImageView.swift */,
 				69B9CE9E1F72AED90070BD37 /* Router.swift */,
 				69B9CEBE1F72AED90070BD37 /* Styles.swift */,
+				69FCBA711F7D1FCF00F4696E /* UIAlertController+Blocks.h */,
+				69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */,
 				69B9CEBF1F72AED90070BD37 /* UtilityManager.swift */,
+				69F4BB601F78065C00BFB414 /* WebClient.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -366,6 +381,9 @@
 				69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */,
 				69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */,
 				6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */,
+				6968A5D11F827E2100EECD60 /* CheckInViewController.swift */,
+				6914C3001F82B1B0005BC1C0 /* MoreViewController.swift */,
+				69F9AAF11F8A92DC00DC1F2E /* LocationDetailsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -482,6 +500,7 @@
 				69B9CEC71F72AED90070BD37 /* Poppins-BoldItalic.ttf in Resources */,
 				69B9CEC91F72AED90070BD37 /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				69B9CED41F72AED90070BD37 /* Poppins-Thin.ttf in Resources */,
+				69FCBA811F7D46B800F4696E /* GoogleService-Info.plist in Resources */,
 				69A259481F6D60D8000F67B0 /* LaunchScreen.storyboard in Resources */,
 				69B9CECC1F72AED90070BD37 /* Poppins-Italic.ttf in Resources */,
 				69B9CED51F72AED90070BD37 /* Poppins-ThinItalic.ttf in Resources */,
@@ -567,15 +586,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B9CEF71F72AED90070BD37 /* SoundPlayer.swift in Sources */,
+				6968A5D21F827E2100EECD60 /* CheckInViewController.swift in Sources */,
 				69B9CEE41F72AED90070BD37 /* DZImageView.swift in Sources */,
 				69F4B7E71F77E1C800BFB414 /* User.swift in Sources */,
 				69B9CEFB1F72AED90070BD37 /* SpringImageView.swift in Sources */,
 				69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */,
 				6915D8621F7B80CB00B7ED9F /* AvailableViewController.swift in Sources */,
 				69B9CEF61F72AED90070BD37 /* Misc.swift in Sources */,
+				69F9AAF21F8A92DC00DC1F2E /* LocationDetailsViewController.swift in Sources */,
 				69F4B7DB1F77DD7900BFB414 /* ProfileViewController.swift in Sources */,
 				69B9CF061F72AED90070BD37 /* SignUpViewController.swift in Sources */,
 				69B9CEEA1F72AED90070BD37 /* DesignableButton.swift in Sources */,
+				6914C3011F82B1B0005BC1C0 /* MoreViewController.swift in Sources */,
 				69B9CEE11F72AED90070BD37 /* LoadableFromXibView.swift in Sources */,
 				69B9CEF11F72AED90070BD37 /* ImageLoader.swift in Sources */,
 				69B9CEDC1F72AED90070BD37 /* ApplicationManager.swift in Sources */,
@@ -601,6 +623,7 @@
 				69B9CEEF1F72AED90070BD37 /* DesignableTextView.swift in Sources */,
 				69F4B7E51F77E19800BFB414 /* BaseEntity.m in Sources */,
 				69B9CF031F72AED90070BD37 /* Styles.swift in Sources */,
+				6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */,
 				69B9CEE71F72AED90070BD37 /* AsyncImageView.swift in Sources */,
 				69B9CEEE1F72AED90070BD37 /* DesignableTextField.swift in Sources */,
 				69FCBA7C1F7D426E00F4696E /* LIALinkedInApplication.m in Sources */,
@@ -609,6 +632,7 @@
 				69F4B7DF1F77DDD400BFB414 /* ProfileDetailTableViewCell.swift in Sources */,
 				69FCBA7E1F7D426E00F4696E /* LIALinkedInHttpClient.m in Sources */,
 				69B9CEDD1F72AED90070BD37 /* Constants.swift in Sources */,
+				6914C3031F82B1FD005BC1C0 /* MoreTableViewCell.swift in Sources */,
 				69B9CEFD1F72AED90070BD37 /* SpringTextField.swift in Sources */,
 				69B9CEF81F72AED90070BD37 /* Spring.swift in Sources */,
 				69B9CEE91F72AED90070BD37 /* BlurView.swift in Sources */,

@@ -39,8 +39,8 @@ class Styles {
     public func applyGlobalAppearance() {
         //Probably want to set the tintColor of UIWindow but it didn't seem necessary right now
         
-        UINavigationBar.appearance().barTintColor = UIColor.init(patternImage: UIImage(named: "login-bg")!)
-        
+//        UINavigationBar.appearance().barTintColor = UIColor.init(patternImage: UIImage(named: "login-bg")!)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().tintColor = .white
         UIToolbar.appearance().tintColor = UIColor.blue

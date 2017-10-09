@@ -19,55 +19,63 @@ class WebClient: AFHTTPSessionManager {
     convenience init(url: NSURL, securityPolicy: AFSecurityPolicy){
         self.init(baseURL: url as URL)
         self.securityPolicy = securityPolicy
-
+        
         
     }
     
     
     func postPath(urlString: String,
-        params: [String: AnyObject],
-        addToken: Bool = true,
-        successBlock success:@escaping (AnyObject) -> (),
-        failureBlock failure: @escaping (NSError) -> ()){
+                  params: [String: AnyObject],
+                  addToken: Bool = true,
+                  successBlock success:@escaping (AnyObject) -> (),
+                  failureBlock failure: @escaping (NSError) -> ()){
         
-            let manager = AFHTTPSessionManager()
-            manager.requestSerializer = AFJSONRequestSerializer()
-            manager.responseSerializer = AFJSONResponseSerializer()
-
+        let manager = AFHTTPSessionManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.responseSerializer = AFJSONResponseSerializer()
+        
+        if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String {
+            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: "session_id")
+        }
+        
         manager.post((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, progress: nil, success: {
-                (sessionTask, responseObject) -> () in
-                print(responseObject ?? "")
-                success(responseObject! as AnyObject)
-            },  failure: {
-                (sessionTask, error) -> () in
-                print(error)
-                failure(error as NSError)
-                
-            })
+            (sessionTask, responseObject) -> () in
+            print(responseObject ?? "")
+            success(responseObject! as AnyObject)
+        },  failure: {
+            (sessionTask, error) -> () in
+            print(error)
+            failure(error as NSError)
+            
+        })
     }
     
     
     func getPath(urlString: String,
-        params: [String: AnyObject]?,
-        addToken: Bool = true,
-        successBlock success:@escaping (AnyObject) -> (),
-        failureBlock failure: @escaping (NSError) -> ()){
-            
-            
-            let manager = AFHTTPSessionManager()
-            manager.requestSerializer = AFJSONRequestSerializer()
-            manager.responseSerializer = AFJSONResponseSerializer()
-            
+                 params: [String: AnyObject]?,
+                 addToken: Bool = true,
+                 successBlock success:@escaping (AnyObject) -> (),
+                 failureBlock failure: @escaping (NSError) -> ()){
+        
+        
+        let manager = AFHTTPSessionManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.responseSerializer = AFJSONResponseSerializer()
+        
+        if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String , addToken == true {
+            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: "session_id")
+        }
+        
         manager.get((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, progress: nil, success: {
-                (sessionTask, responseObject) -> () in
-                print(responseObject ?? "")
-                success(responseObject! as AnyObject)
-                }, failure: {
-                    (sessionTask, error) -> () in
-                    print(error)
-                    failure(error as NSError)
-                    
-            })
+            (sessionTask, responseObject) -> () in
+            print(responseObject ?? "")
+            success(responseObject! as AnyObject)
+        }, failure: {
+            (sessionTask, error) -> () in
+            print(error)
+            failure(error as NSError)
+            
+        })
     }
     
     
@@ -93,7 +101,7 @@ class WebClient: AFHTTPSessionManager {
     }
     
     func loginUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
-                    failureBlock failure:@escaping (String) -> ()){
+                   failureBlock failure:@escaping (String) -> ()){
         self.postPath(urlString: Constant.loginURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
@@ -112,8 +120,29 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func getUser(successBlock success:@escaping ([String: AnyObject]) -> (),
+                 failureBlock failure:@escaping (String) -> ()){
+        
+        self.getPath(urlString: Constant.getProfileURL, params: [:] as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }
+                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
     func updateProfile(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
-                   failureBlock failure:@escaping (String) -> ()){
+                       failureBlock failure:@escaping (String) -> ()){
         self.postPath(urlString: Constant.updateProfileURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
@@ -149,14 +178,29 @@ class WebClient: AFHTTPSessionManager {
                                 failureBlock failure:@escaping (String) -> ()) {
         self.getPath(urlString: url,
                      params: [:],addToken: false, successBlock: { (response) -> () in
-                success(response as! [String : AnyObject])
+                        success(response as! [String : AnyObject])
+        }) { (error: NSError) -> () in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func searchNearbyPlaces(location: CLLocationCoordinate2D,
+                            radius: Float,
+                                successBlock success:@escaping ([String: AnyObject]) -> (),
+                                failureBlock failure:@escaping (String) -> ()) {
+        
+        let params = ["location":"\(location.latitude),\(location.longitude)","radius":radius,"key":"AIzaSyBliG3t916BMDv_HmDcgfv-N55kuvwx8Jo"] as [String : AnyObject]
+        
+        self.getPath(urlString: Constant.googleNearbyURL,
+                     params: params,addToken: false, successBlock: { (response) -> () in
+                        success(response as! [String : AnyObject])
         }) { (error: NSError) -> () in
             failure(error.localizedDescription)
         }
     }
     
     func socialLoginUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
-                   failureBlock failure:@escaping (String) -> ()){
+                         failureBlock failure:@escaping (String) -> ()){
         self.postPath(urlString: Constant.socialLoginURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{

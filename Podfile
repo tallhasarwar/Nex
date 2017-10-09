@@ -7,6 +7,8 @@ pod 'TPKeyboardAvoiding'
 pod 'SVProgressHUD'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
-pod 'GoogleSignIn'
+pod 'Google/SignIn'
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 
 end

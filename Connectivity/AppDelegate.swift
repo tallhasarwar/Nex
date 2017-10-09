@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,18 +22,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-//        let bounds = UIScreen.main.bounds
-//        self.window = UIWindow(frame: bounds)
-//        if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String {
-//            ApplicationManager.sharedInstance.session_id = sessionID
-//            let tabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "mainTabBarController") as! UITabBarController
-//            self.window?.rootViewController = tabBarController
-//        }
-//        else{
-//            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SignInViewController.identifier) 
-//            self.window?.rootViewController = vc
-//        }
-//        self.window?.makeKeyAndVisible()
+        GMSServices.provideAPIKey("AIzaSyD8khj-DXXUZT1dT1kR5VIIdfzkS9rGBEM")
+        GMSPlacesClient.provideAPIKey("AIzaSyD8khj-DXXUZT1dT1kR5VIIdfzkS9rGBEM")
+        
+        // Initialize sign-in
+        var configureError: NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError?.localizedDescription ?? "")")
+        
+        let bounds = UIScreen.main.bounds
+        self.window = UIWindow(frame: bounds)
+        if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String {
+            ApplicationManager.sharedInstance.session_id = sessionID
+            let tabBarController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "mainTabBarController") as! UITabBarController
+            self.window?.rootViewController = tabBarController
+        }
+        else{
+            let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SignInViewController.identifier) 
+            self.window?.rootViewController = vc
+        }
+        self.window?.makeKeyAndVisible()
         
         return true
     }
@@ -59,9 +69,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        let handled = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
-        return handled
+        let facebookDidHandle = FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        
+        let googleDidHandle = GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+        
+        return facebookDidHandle || googleDidHandle
     }
+    
+    
 
 
 }

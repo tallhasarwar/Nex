@@ -31,6 +31,9 @@ import UIKit
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(self.imageViewTapped(sender:)))
         self.addGestureRecognizer(singleTap)
         
+        self.layer.cornerRadius = self.frame.height/2
+        self.layer.masksToBounds = true
+        
     }
     
     override init(frame: CGRect) {
@@ -60,6 +63,7 @@ import UIKit
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
             let imagePicker = UIImagePickerController()
+            imagePicker.navigationBar.barTintColor = UIColor.blue
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.mediaTypes = [kUTTypeImage as String]
@@ -80,6 +84,8 @@ import UIKit
     func selectFromGalleryPressed(){
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary){
             let imagePicker = UIImagePickerController()
+        
+            imagePicker.navigationBar.barTintColor = UIColor.blue
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
             imagePicker.mediaTypes = [kUTTypeImage as String]
@@ -98,6 +104,14 @@ import UIKit
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.image = image
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self.contentMode = .scaleAspectFill
+            self.image = pickedImage
+        }
         picker.dismiss(animated: true, completion: nil)
     }
     

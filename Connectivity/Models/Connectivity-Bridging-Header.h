@@ -10,3 +10,10 @@
 #import "LIALinkedInApplication.h"
 #import "LIALinkedInHttpClient.h"
 #import "UIAlertController+Blocks.h"
+#import <Google/SignIn.h>
+#import <GoogleMaps/GoogleMaps.h>
+//#import <GoogleSignIn/GIDGoogleUser.h>
+//#import <GoogleSignIn/GIDProfileData.h>
+//#import <GoogleSignIn/GIDAuthentication.h>
+//#import <GoogleSignIn/GGLContext.h>
+

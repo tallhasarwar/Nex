@@ -9,7 +9,7 @@
 import UIKit
 import SwiftValidator
 
-class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDelegate {
+class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
     
     static let identifier = "signInViewController"
 
@@ -35,7 +35,8 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         facebookLoginButton.layer.cornerRadius = facebookLoginButton.frame.height/2
         facebookLoginButton.layer.masksToBounds = true
         
-        
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().uiDelegate = self
         
     }
 
@@ -92,14 +93,18 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     }
     */
     
+    //MARK: - IBActions
+    
     @IBAction func facebookButtonPressed(sender: AnyObject) {
         let loginManager = FBSDKLoginManager()
         loginManager.loginBehavior = FBSDKLoginBehavior.native
         loginManager.logIn(withReadPermissions: ["public_profile","email"], from: self) { (result, error) in
             SVProgressHUD.show()
-            let token = result?.token
+            guard let token = result?.token else {
+                return
+            }
             // Verify token is not empty
-            guard !(token?.tokenString.isEmpty)! else {
+            if token.tokenString.isEmpty {
                 print("Token is empty")
                 return
             }
@@ -107,7 +112,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             let fields = "name,first_name,last_name,email,gender"
             
             // Build URL with Access Token
-            let url = Constant.facebookURL + "?fields=\(fields)&access_token=\(token?.tokenString ?? "")"
+            let url = Constant.facebookURL + "?fields=\(fields)&access_token=\(token.tokenString!)"
             
             //Make API call to facebook graph api to get data
             RequestManager.getUserFacebookProfile(url: url, successBlock: { (response) in
@@ -141,6 +146,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             
         }
     
+    }
+    
+    @IBAction func googleButtonPressed(sender: AnyObject) {
+        GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func linkedInButtonPressed(sender: AnyObject) {
@@ -226,9 +235,36 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         SVProgressHUD.dismiss()
         let user = User(dictionary: response)
         ApplicationManager.sharedInstance.user = user
-        ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
-        UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
+        ApplicationManager.sharedInstance.session_id = response[UserDefaultKey.sessionID] as! String
+        UserDefaults.standard.set(response[UserDefaultKey.sessionID] as! String, forKey: UserDefaultKey.sessionID)
         Router.showMainTabBar()
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if error == nil {
+            // Perform any operations on signed in user here.
+            var params = [String: String]()
+            
+            params["social_provider_name"] = "google"
+            params["full_name"] = user.profile.name
+            params["social_id"] = user.userID
+            params["email"] = user.profile.email
+            
+            RequestManager.socialLoginUser(param: params, successBlock: { (response) in
+                self.successfulLogin(response: response)
+            }, failureBlock: { (error) in
+                SVProgressHUD.showError(withStatus: error)
+            })
+            // ...
+        } else {
+            SVProgressHUD.showError(withStatus: error?.localizedDescription)
+        }
+    }
+    
+    func signIn(signIn: GIDSignIn, didDisconnectWithUser user: GIDGoogleUser,
+                withError error: NSError) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
     }
     
 }

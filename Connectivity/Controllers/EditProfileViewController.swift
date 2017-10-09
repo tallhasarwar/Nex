@@ -30,11 +30,17 @@ class EditProfileViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        title = "Edit Profile"
+        
         setupUI()
         setupNavigation()
     }
     
     func setupUI() {
+        
+        profileImageView.parentController = self
+        
         let user = ApplicationManager.sharedInstance.user
         
         nameField.text = user.full_name
@@ -66,9 +72,8 @@ class EditProfileViewController: UIViewController {
     @IBAction func saveButtonPressed(sender: AnyObject) {
         var params = [String : String]()
        
-        params["session_id"] = ApplicationManager.sharedInstance.session_id
         params["full_name"] = nameField.text
-//        params["headline"] = headlineField.text
+        params["headline"] = headlineField.text
         params["about"] = aboutMeTextView.text
         params["interests"] = interestsField.text
         params["school"] = schoolField.text
