@@ -39,7 +39,21 @@ class EditBusinessCardViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
+        var params = [String: AnyObject]()
+        params["name"] = nameLabel.text as AnyObject
+        params["title"] = titleLabel.text as AnyObject
+        params["email"] = emailField.text as AnyObject
+        params["phone"] = phoneField.text as AnyObject
+        params["address"] = addressField.text as AnyObject
+        params["web"] = websiteField.text as AnyObject
         
+        SVProgressHUD.show()
+        RequestManager.addBusinessCard(param: params, successBlock: { (response) in
+            SVProgressHUD.showSuccess(withStatus: "Profile Updated")
+            self.navigationController?.popViewController(animated: true)
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
     }
     
 
