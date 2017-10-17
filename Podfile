@@ -10,5 +10,9 @@ pod 'FBSDKLoginKit'
 pod 'Google/SignIn'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
+pod 'CWStatusBarNotification', '~> 2.3.5'
+pod 'Firebase/Core'
+pod 'Firebase/Messaging'
+pod 'SDWebImage', '~> 4.0'
 
 end

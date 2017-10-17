@@ -10,6 +10,7 @@ import UIKit
 
 public class UserDefaultKey: NSObject {
     static let sessionID = "session_id"
+    static let pushNotificationToken = "pushNotificationToken"
 }
 
 public class Constant: NSObject {
@@ -37,6 +38,7 @@ public class Constant: NSObject {
     static let updateProfileURL = "updateProfile"
     static let socialLoginURL = "social_login"
     static let getProfileURL = "getProfile"
+    static let checkinLocationURL = "checkin_location"
     
     
 }

@@ -11,10 +11,21 @@
 		6914C3011F82B1B0005BC1C0 /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6914C3001F82B1B0005BC1C0 /* MoreViewController.swift */; };
 		6914C3031F82B1FD005BC1C0 /* MoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6914C3021F82B1FD005BC1C0 /* MoreTableViewCell.swift */; };
 		6915D8621F7B80CB00B7ED9F /* AvailableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6915D8611F7B80CB00B7ED9F /* AvailableViewController.swift */; };
+		691670901F93D52400C39034 /* ConnectionsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6916708F1F93D52400C39034 /* ConnectionsListViewController.swift */; };
+		691670921F93D80300C39034 /* ConnectionListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691670911F93D80300C39034 /* ConnectionListTableViewCell.swift */; };
+		691670941F93D97300C39034 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691670931F93D97300C39034 /* NotificationModel.swift */; };
+		691670961F93DA7B00C39034 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691670951F93DA7B00C39034 /* NotificationsViewController.swift */; };
+		691670981F93DDA200C39034 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691670971F93DDA200C39034 /* NotificationsTableViewCell.swift */; };
 		6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */; };
 		6934E3C21F7A7251005BB2C9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */; };
 		6968A5D21F827E2100EECD60 /* CheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968A5D11F827E2100EECD60 /* CheckInViewController.swift */; };
+		6968D65E1F8D270900B39CCF /* BusinessCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968D65D1F8D270900B39CCF /* BusinessCardListViewController.swift */; };
+		6968D66B1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968D66A1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift */; };
+		6975AD941F94ADBF00CEF94D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6975AD931F94ADBF00CEF94D /* UserNotifications.framework */; };
+		6975AD961F94B7AC00CEF94D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6975AD951F94B7AC00CEF94D /* GoogleService-Info.plist */; };
+		6975ADBA1F95231F00CEF94D /* LocationDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */; };
 		6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */; };
+		6992966E1F9115F200300692 /* EditBusinessCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */; };
 		69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */; };
 		69A259431F6D60D8000F67B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A259411F6D60D8000F67B0 /* Main.storyboard */; };
 		69A259451F6D60D8000F67B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69A259441F6D60D8000F67B0 /* Assets.xcassets */; };
@@ -105,10 +116,22 @@
 		6914C3001F82B1B0005BC1C0 /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		6914C3021F82B1FD005BC1C0 /* MoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreTableViewCell.swift; sourceTree = "<group>"; };
 		6915D8611F7B80CB00B7ED9F /* AvailableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AvailableViewController.swift; path = ../../../../../Downloads/AvailableViewController.swift; sourceTree = "<group>"; };
+		6916708F1F93D52400C39034 /* ConnectionsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsListViewController.swift; sourceTree = "<group>"; };
+		691670911F93D80300C39034 /* ConnectionListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionListTableViewCell.swift; sourceTree = "<group>"; };
+		691670931F93D97300C39034 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		691670951F93DA7B00C39034 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		691670971F93DDA200C39034 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		6968A5D11F827E2100EECD60 /* CheckInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInViewController.swift; sourceTree = "<group>"; };
+		6968D65D1F8D270900B39CCF /* BusinessCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCardListViewController.swift; sourceTree = "<group>"; };
+		6968D66A1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCardTableViewCell.swift; sourceTree = "<group>"; };
+		6975AD931F94ADBF00CEF94D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		6975AD951F94B7AC00CEF94D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "google/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		6975AD971F94B8BF00CEF94D /* Connectivity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Connectivity.entitlements; sourceTree = "<group>"; };
+		6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailTableViewCell.swift; sourceTree = "<group>"; };
 		6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
+		6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBusinessCardViewController.swift; sourceTree = "<group>"; };
 		69A2593A1F6D60D8000F67B0 /* Connectivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connectivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69A259421F6D60D8000F67B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -209,6 +232,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6975AD941F94ADBF00CEF94D /* UserNotifications.framework in Frameworks */,
 				6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */,
 				2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */,
 				69F4BB641F7807F600BFB414 /* SwiftValidator.framework in Frameworks */,
@@ -239,7 +263,9 @@
 		69A2593C1F6D60D8000F67B0 /* Connectivity */ = {
 			isa = PBXGroup;
 			children = (
+				6975AD971F94B8BF00CEF94D /* Connectivity.entitlements */,
 				69FCBA801F7D46B800F4696E /* GoogleService-Info.plist */,
+				6975AD951F94B7AC00CEF94D /* GoogleService-Info.plist */,
 				69B9CEC11F72AED90070BD37 /* Controllers */,
 				69B9CE791F72AED90070BD37 /* Fonts */,
 				69B9CEC01F72AED90070BD37 /* Models */,
@@ -288,6 +314,10 @@
 				69F4B7E01F77DEEC00BFB414 /* ProfileImageCollectionViewCell.swift */,
 				6914C3021F82B1FD005BC1C0 /* MoreTableViewCell.swift */,
 				6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */,
+				6968D66A1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift */,
+				691670911F93D80300C39034 /* ConnectionListTableViewCell.swift */,
+				691670971F93DDA200C39034 /* NotificationsTableViewCell.swift */,
+				6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -368,6 +398,7 @@
 				69F4B7E41F77E19800BFB414 /* BaseEntity.m */,
 				69F4B7E61F77E1C800BFB414 /* User.swift */,
 				69F4B7E81F77E1D700BFB414 /* ProfileDetail.swift */,
+				691670931F93D97300C39034 /* NotificationModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -384,6 +415,10 @@
 				6968A5D11F827E2100EECD60 /* CheckInViewController.swift */,
 				6914C3001F82B1B0005BC1C0 /* MoreViewController.swift */,
 				69F9AAF11F8A92DC00DC1F2E /* LocationDetailsViewController.swift */,
+				6968D65D1F8D270900B39CCF /* BusinessCardListViewController.swift */,
+				6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */,
+				6916708F1F93D52400C39034 /* ConnectionsListViewController.swift */,
+				691670951F93DA7B00C39034 /* NotificationsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -406,6 +441,7 @@
 		760BCFEBBAEBD0986EB0F625 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6975AD931F94ADBF00CEF94D /* UserNotifications.framework */,
 				6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */,
 				69F4BB631F7807F600BFB414 /* SwiftValidator.framework */,
 				263676211012B71CA50D39F8 /* libPods-Connectivity.a */,
@@ -461,6 +497,11 @@
 						DevelopmentTeam = QEZ42U74SP;
 						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -498,6 +539,7 @@
 				69B9CED11F72AED90070BD37 /* Poppins-Regular.ttf in Resources */,
 				69B9CEF21F72AED90070BD37 /* Info.plist in Resources */,
 				69B9CEC71F72AED90070BD37 /* Poppins-BoldItalic.ttf in Resources */,
+				6975AD961F94B7AC00CEF94D /* GoogleService-Info.plist in Resources */,
 				69B9CEC91F72AED90070BD37 /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				69B9CED41F72AED90070BD37 /* Poppins-Thin.ttf in Resources */,
 				69FCBA811F7D46B800F4696E /* GoogleService-Info.plist in Resources */,
@@ -554,13 +596,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Connectivity-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CFC136D4691E1E036BA70349 /* [CP] Copy Pods Resources */ = {
@@ -569,9 +614,17 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_ROOT}/GTMOAuth2/Source/Touch/GTMOAuth2ViewTouch.xib",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -587,6 +640,7 @@
 			files = (
 				69B9CEF71F72AED90070BD37 /* SoundPlayer.swift in Sources */,
 				6968A5D21F827E2100EECD60 /* CheckInViewController.swift in Sources */,
+				691670941F93D97300C39034 /* NotificationModel.swift in Sources */,
 				69B9CEE41F72AED90070BD37 /* DZImageView.swift in Sources */,
 				69F4B7E71F77E1C800BFB414 /* User.swift in Sources */,
 				69B9CEFB1F72AED90070BD37 /* SpringImageView.swift in Sources */,
@@ -608,9 +662,12 @@
 				69B9CEEC1F72AED90070BD37 /* DesignableLabel.swift in Sources */,
 				69B9CF011F72AED90070BD37 /* TransitionZoom.swift in Sources */,
 				69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */,
+				691670981F93DDA200C39034 /* NotificationsTableViewCell.swift in Sources */,
 				69B9CEFC1F72AED90070BD37 /* SpringLabel.swift in Sources */,
+				6968D65E1F8D270900B39CCF /* BusinessCardListViewController.swift in Sources */,
 				69B9CF001F72AED90070BD37 /* TransitionManager.swift in Sources */,
 				69B9CEDE1F72AED90070BD37 /* Configuration.swift in Sources */,
+				6975ADBA1F95231F00CEF94D /* LocationDetailTableViewCell.swift in Sources */,
 				69B9CEEB1F72AED90070BD37 /* DesignableImageView.swift in Sources */,
 				69B9CF051F72AED90070BD37 /* SignInViewController.swift in Sources */,
 				69B9CEF91F72AED90070BD37 /* SpringAnimation.swift in Sources */,
@@ -619,13 +676,18 @@
 				69F4B7DD1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift in Sources */,
 				69B9CEE81F72AED90070BD37 /* AutoTextView.swift in Sources */,
 				69FCBA7F1F7D426E00F4696E /* NSString+LIAEncode.m in Sources */,
+				6968D66B1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift in Sources */,
 				69F4B7E11F77DEEC00BFB414 /* ProfileImageCollectionViewCell.swift in Sources */,
 				69B9CEEF1F72AED90070BD37 /* DesignableTextView.swift in Sources */,
 				69F4B7E51F77E19800BFB414 /* BaseEntity.m in Sources */,
 				69B9CF031F72AED90070BD37 /* Styles.swift in Sources */,
 				6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */,
 				69B9CEE71F72AED90070BD37 /* AsyncImageView.swift in Sources */,
+				691670961F93DA7B00C39034 /* NotificationsViewController.swift in Sources */,
+				691670901F93D52400C39034 /* ConnectionsListViewController.swift in Sources */,
+				6992966E1F9115F200300692 /* EditBusinessCardViewController.swift in Sources */,
 				69B9CEEE1F72AED90070BD37 /* DesignableTextField.swift in Sources */,
+				691670921F93D80300C39034 /* ConnectionListTableViewCell.swift in Sources */,
 				69FCBA7C1F7D426E00F4696E /* LIALinkedInApplication.m in Sources */,
 				69F4B7E91F77E1D700BFB414 /* ProfileDetail.swift in Sources */,
 				69B9CEFE1F72AED90070BD37 /* SpringTextView.swift in Sources */,
@@ -784,6 +846,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Connectivity/Connectivity.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = QEZ42U74SP;
@@ -814,6 +877,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Connectivity/Connectivity.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = QEZ42U74SP;

@@ -97,7 +97,7 @@ class CheckInViewController: UIViewController, GMSMapViewDelegate {
         locationManager.delegate = self
         
         placesClient = GMSPlacesClient.shared()
-        
+
         // Create a map.
         let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
                                               longitude: defaultLocation.coordinate.longitude,

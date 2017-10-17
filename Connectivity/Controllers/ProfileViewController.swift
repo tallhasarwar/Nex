@@ -16,6 +16,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var profileNameLabel: UILabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var connectButton: DesignableButton!
+    
+    var publicProfile: Bool = false
+    var user = User()
     
     let profileDetails = [ProfileDetail(title: "About", description: "This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. "),ProfileDetail(title: "Interests", description: "Adventure | Climbing | Cliff Jumping | Book Reading | Movies")]
     
@@ -34,16 +38,20 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         title = "Profile"
         self.tabBarItem.title = ""
         
+        if publicProfile == true {
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        else{
+            connectButton.isHidden = true
+        }
         
-        
-
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        profileNameLabel.text = ApplicationManager.sharedInstance.user.full_name
-        jobTitleLabel.text = ApplicationManager.sharedInstance.user.headline
+        profileNameLabel.text = user.full_name
+        jobTitleLabel.text = user.headline
         tableView.reloadData()
     }
 
@@ -65,7 +73,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: ProfileDetailTableViewCell.identifier) as! ProfileDetailTableViewCell
-            let user = ApplicationManager.sharedInstance.user
+            
             switch indexPath.row {
             case 0:
                 cell.headingLabel.text = "About Me"
@@ -106,6 +114,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
+    @IBAction func connectButtonPressed(_ sender: Any) {
+        
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -9,12 +9,17 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import UserNotifications
+import Firebase
+import FirebaseInstanceID
+import FirebaseMessaging
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate {
 
     var window: UIWindow?
-
+    
+    let notification = CWStatusBarNotification()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -24,6 +29,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey("AIzaSyD8khj-DXXUZT1dT1kR5VIIdfzkS9rGBEM")
         GMSPlacesClient.provideAPIKey("AIzaSyD8khj-DXXUZT1dT1kR5VIIdfzkS9rGBEM")
+        
+        if #available(iOS 10.0, *) {
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            // For iOS 10 data message (sent via FCM
+            FIRMessaging.messaging().remoteMessageDelegate = self
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
+        
+//        FIRApp.configure()
+        
+        // Check if launched from notification
+        // 1
+        if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [String: AnyObject] {
+            // 2
+            //            let aps = notification["aps"] as! [String: AnyObject]
+            // 3
+            delay(delay: 1.0, closure: {
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "openedFromPush"), object: nil, userInfo: ["info":notification])
+            })
+            
+        }
+        
+        self.notification.notificationStyle = .navigationBarNotification
+        self.notification.notificationLabelBackgroundColor = UIColor(red: 94.0/255.0, green: 166.0/255.0, blue: 211.0/255.0, alpha: 1.0)
         
         // Initialize sign-in
         var configureError: NSError?
@@ -74,6 +113,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let googleDidHandle = GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplicationOpenURLOptionsKey.annotation])
         
         return facebookDidHandle || googleDidHandle
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        
+        print("Device Token:", tokenString)
+        
+        UserDefaults.standard.setValue(tokenString, forKey: UserDefaultKey.pushNotificationToken)
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register:", error)
+    }
+    
+    func registerForPushNotifications(application: UIApplication) {
+        
+        UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+        application.registerForRemoteNotifications()
+        
+    }
+    
+    
+    private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [String : AnyObject]) {
+        let alert = userInfo["aps"]!["alert"] as! String
+        self.notification.display(withMessage: alert, forDuration: 3.0)
+    
+    }
+    
+    // The callback to handle data message received via FCM for devices running iOS 10 or above.
+    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+        print(remoteMessage.appData)
     }
     
     

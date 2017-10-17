@@ -9,9 +9,10 @@
 import UIKit
 import GooglePlaces
 
-class LocationDetailsViewController: UIViewController {
+class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var place : GMSPlace?
+    var users = [User]()
     
     static let storyboardID = "locationDetailsViewController"
 
@@ -36,6 +37,22 @@ class LocationDetailsViewController: UIViewController {
             }
         }
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        var params = [String: AnyObject]()
+        params["location_id"] = place?.placeID as AnyObject
+        params["location_name"] = place?.name as AnyObject
+        
+        RequestManager.checkinLocation(param: params, successBlock: { (response) in
+            self.users.removeAll()
+            for object in response {
+                self.users.append(User(dictionary: object))
+            }
+            self.tableView.reloadData()
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
         
     }
     
@@ -49,6 +66,26 @@ class LocationDetailsViewController: UIViewController {
                 self.locationImageView.image = photo
             }
         })
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return users.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: LocationDetailTableViewCell.identifier) as! LocationDetailTableViewCell
+        let user = users[indexPath.row]
+        cell.nameLabel.text = user.full_name
+        cell.headlineLabel.text = user.headline
+        cell.profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+//        cell.profileImageView.sd_setImage(with: , completed: nil)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = users[indexPath.row]
+        
+        Router.showProfileViewController(user: user, publicProfile: true, from: self)
     }
 
     override func didReceiveMemoryWarning() {

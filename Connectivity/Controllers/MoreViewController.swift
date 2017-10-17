@@ -55,9 +55,9 @@ class MoreViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            Router.showProfileViewController(from: self)
+            Router.showProfileViewController(user: ApplicationManager.sharedInstance.user, publicProfile: false, from: self)
         case 1:
-            print("Business")
+            Router.showBusinessCard(from: self)
         case 2:
             print("My Events")
         case 3:

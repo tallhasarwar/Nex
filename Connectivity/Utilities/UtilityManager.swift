@@ -52,4 +52,11 @@ class UtilityManager: NSObject {
         return randomString
     }
     
+    static func delay(delay: Double, closure: @escaping () -> ()) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            closure()
+        }
+    }
+    
 }

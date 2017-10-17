@@ -30,9 +30,17 @@ class Router: NSObject {
         }
     }
     
-    static func showProfileViewController(from controller: UIViewController) {
+    static func showProfileViewController(user: User, publicProfile: Bool, from controller: UIViewController) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: ProfileViewController.storyboardID) as! ProfileViewController
+        vc.user = user
+        vc.publicProfile = publicProfile
         controller.navigationController?.show(vc, sender: nil)
     
+    }
+    
+    static func showBusinessCard(from controller: UIViewController) {
+        
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BusinessCardListViewController.storyboardID) as! BusinessCardListViewController
+        controller.navigationController?.show(vc, sender: nil)
     }
 }
