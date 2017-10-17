@@ -115,7 +115,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func connectButtonPressed(_ sender: Any) {
+        let param = ["connection_to_id":user.user_id ?? ""]
         
+        SVProgressHUD.show()
+        RequestManager.sendRequest(param: param, successBlock: { (response) in
+            SVProgressHUD.showSuccess(withStatus: "Request sent")
+            self.connectButton.isHidden = true
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
     }
     
     /*
