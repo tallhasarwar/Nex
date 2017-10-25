@@ -17,11 +17,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var jobTitleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var connectButton: DesignableButton!
+    @IBOutlet weak var acceptanceView: UIView!
     
     var publicProfile: Bool = false
     var user = User()
-    
-    let profileDetails = [ProfileDetail(title: "About", description: "This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. This is a very long string. "),ProfileDetail(title: "Interests", description: "Adventure | Climbing | Cliff Jumping | Book Reading | Movies")]
+    var connectionStatus = "none"
     
     
     override func viewDidLoad() {
@@ -40,6 +40,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if publicProfile == true {
             self.navigationItem.rightBarButtonItem = nil
+            RequestManager.getOtherProfile(userID: user.user_id!, successBlock: { (response) in
+                self.user = User(dictionary: response["user"] as! [String: AnyObject])
+                self.connectionStatus = response["userConnectionStatus"] as! String
+                self.updateConnectionUI()
+            }, failureBlock: { (error) in
+                SVProgressHUD.showError(withStatus: error)
+            })
         }
         else{
             connectButton.isHidden = true
@@ -53,6 +60,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         profileNameLabel.text = user.full_name
         jobTitleLabel.text = user.headline
         tableView.reloadData()
+    }
+    
+    func updateConnectionUI() {
+        if connectionStatus == "NONE" || connectionStatus == "REJECTED" {
+            self.connectButton.isHidden = false
+            self.acceptanceView.isHidden = true
+        }
+        else if connectionStatus == "SENT" {
+            self.connectButton.isHidden = true
+            self.acceptanceView.isHidden = true
+        }
+        else if connectionStatus == "PENDING" {
+            self.connectButton.isHidden = true
+            self.acceptanceView.isHidden = false
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -125,6 +147,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             SVProgressHUD.showError(withStatus: error)
         }
     }
+    
+    @IBAction func acceptButtonPressed(_ sender: Any) {
+    }
+    
+    
+    @IBAction func rejectButtonPressed(_ sender: Any) {
+    }
+    
+    
     
     /*
     // MARK: - Navigation

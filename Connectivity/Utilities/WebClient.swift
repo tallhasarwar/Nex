@@ -238,12 +238,12 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
-    func sendRequest(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+    func sendRequest(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                          failureBlock failure:@escaping (String) -> ()){
         self.postPath(urlString: "send_connect_request", params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
-                success(response[Constant.responseKey] as! [[String : AnyObject]])
+                success(response[Constant.responseKey] as! [String : AnyObject])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {
@@ -260,7 +260,7 @@ class WebClient: AFHTTPSessionManager {
     
     func getBusinessCard(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
-        self.getPath(urlString: "get_bcard", params: param as [String : AnyObject], successBlock: { (response) in
+        self.getPath(urlString: Constant.getBusinessCardURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [String : AnyObject])
@@ -280,7 +280,7 @@ class WebClient: AFHTTPSessionManager {
     
     func addBusinessCard(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
-        self.postPath(urlString: "add_bcard", params: param as [String : AnyObject], successBlock: { (response) in
+        self.postPath(urlString: Constant.addBusinessCardURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [String : AnyObject])
@@ -288,8 +288,67 @@ class WebClient: AFHTTPSessionManager {
             else{
                 if response.object(forKey: "message") as? String != "" {
                     failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
                 }
-                else{
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func getPendingRequests(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                         failureBlock failure:@escaping (String) -> ()){
+        self.getPath(urlString: Constant.getPendingRequestsURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func getAllNotifications(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                            failureBlock failure:@escaping (String) -> ()){
+        self.getPath(urlString: Constant.getAllNotificationsURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func getOtherProfile(userID : String, successBlock success:@escaping ([String: AnyObject]) -> (),
+                             failureBlock failure:@escaping (String) -> ()){
+        
+        let param = ["user_id":userID]
+        
+        self.postPath(urlString: Constant.getOtherProfileURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
                     failure("Unable to fetch data")
                 }
             }

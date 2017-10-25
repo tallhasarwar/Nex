@@ -2,27 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>TRACKING_ID</key>
+	<string>UA-108600569-1</string>
 	<key>CLIENT_ID</key>
-	<string>766552942656-ho9sbmpeqc4j9684pu9jvc2gcq5bd9rs.apps.googleusercontent.com</string>
+	<string>184244632221-092j6t2nv3mtuhe4iuenm140sgkjtoer.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.766552942656-ho9sbmpeqc4j9684pu9jvc2gcq5bd9rs</string>
+	<string>com.googleusercontent.apps.184244632221-092j6t2nv3mtuhe4iuenm140sgkjtoer</string>
+	<key>GCM_SENDER_ID</key>
+	<string>184244632221</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.connectin.app</string>
 	<key>PROJECT_ID</key>
-	<string>firebase-connect-in</string>
+	<string>connect-in-e4d06</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<true></true>
 	<key>IS_APPINVITE_ENABLED</key>
 	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<false></false>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:766552942656:ios:4696eec18292e968</string>
+	<string>1:184244632221:ios:4696eec18292e968</string>
 </dict>
 </plist>

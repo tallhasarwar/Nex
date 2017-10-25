@@ -22,20 +22,59 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        RequestManager.getPendingRequests(param: ["page":0], successBlock: { (response) in
+            
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
+        
+        RequestManager.getAllNotifications(param: ["page":0], successBlock: { (response) in
+            
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return 5
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "Connection Requests"
+        case 1:
+            return "Notifications"
+        default: return ""
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NotificationsTableViewCell.identifier) as! NotificationsTableViewCell
         
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ConnectionRequestTableViewCell.identifier) as! ConnectionRequestTableViewCell
+            
+            return cell
+        }
+        else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: NotificationsTableViewCell.identifier) as! NotificationsTableViewCell
+            
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -56,6 +56,7 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
             UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
             Router.showMainTabBar()
         }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
             print(error)
         }
     }

@@ -22,7 +22,6 @@
 		6968D65E1F8D270900B39CCF /* BusinessCardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968D65D1F8D270900B39CCF /* BusinessCardListViewController.swift */; };
 		6968D66B1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968D66A1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift */; };
 		6975AD941F94ADBF00CEF94D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6975AD931F94ADBF00CEF94D /* UserNotifications.framework */; };
-		6975AD961F94B7AC00CEF94D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6975AD951F94B7AC00CEF94D /* GoogleService-Info.plist */; };
 		6975ADBA1F95231F00CEF94D /* LocationDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */; };
 		6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */; };
 		6992966E1F9115F200300692 /* EditBusinessCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */; };
@@ -91,6 +90,7 @@
 		69B9CF041F72AED90070BD37 /* UtilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B9CEBF1F72AED90070BD37 /* UtilityManager.swift */; };
 		69B9CF051F72AED90070BD37 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B9CEC21F72AED90070BD37 /* SignInViewController.swift */; };
 		69B9CF061F72AED90070BD37 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */; };
+		69BC67991F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */; };
 		69F4B7D91F77D44F00BFB414 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */; };
 		69F4B7DB1F77DD7900BFB414 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */; };
 		69F4B7DD1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7DC1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift */; };
@@ -127,7 +127,6 @@
 		6968D65D1F8D270900B39CCF /* BusinessCardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCardListViewController.swift; sourceTree = "<group>"; };
 		6968D66A1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCardTableViewCell.swift; sourceTree = "<group>"; };
 		6975AD931F94ADBF00CEF94D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		6975AD951F94B7AC00CEF94D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "google/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		6975AD971F94B8BF00CEF94D /* Connectivity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Connectivity.entitlements; sourceTree = "<group>"; };
 		6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailTableViewCell.swift; sourceTree = "<group>"; };
 		6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
@@ -200,6 +199,7 @@
 		69B9CEBF1F72AED90070BD37 /* UtilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityManager.swift; sourceTree = "<group>"; };
 		69B9CEC21F72AED90070BD37 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRequestTableViewCell.swift; sourceTree = "<group>"; };
 		69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		69F4B7DC1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImagesTableViewCell.swift; sourceTree = "<group>"; };
@@ -265,7 +265,6 @@
 			children = (
 				6975AD971F94B8BF00CEF94D /* Connectivity.entitlements */,
 				69FCBA801F7D46B800F4696E /* GoogleService-Info.plist */,
-				6975AD951F94B7AC00CEF94D /* GoogleService-Info.plist */,
 				69B9CEC11F72AED90070BD37 /* Controllers */,
 				69B9CE791F72AED90070BD37 /* Fonts */,
 				69B9CEC01F72AED90070BD37 /* Models */,
@@ -318,6 +317,7 @@
 				691670911F93D80300C39034 /* ConnectionListTableViewCell.swift */,
 				691670971F93DDA200C39034 /* NotificationsTableViewCell.swift */,
 				6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */,
+				69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -539,7 +539,6 @@
 				69B9CED11F72AED90070BD37 /* Poppins-Regular.ttf in Resources */,
 				69B9CEF21F72AED90070BD37 /* Info.plist in Resources */,
 				69B9CEC71F72AED90070BD37 /* Poppins-BoldItalic.ttf in Resources */,
-				6975AD961F94B7AC00CEF94D /* GoogleService-Info.plist in Resources */,
 				69B9CEC91F72AED90070BD37 /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				69B9CED41F72AED90070BD37 /* Poppins-Thin.ttf in Resources */,
 				69FCBA811F7D46B800F4696E /* GoogleService-Info.plist in Resources */,
@@ -638,6 +637,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69BC67991F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift in Sources */,
 				69B9CEF71F72AED90070BD37 /* SoundPlayer.swift in Sources */,
 				6968A5D21F827E2100EECD60 /* CheckInViewController.swift in Sources */,
 				691670941F93D97300C39034 /* NotificationModel.swift in Sources */,

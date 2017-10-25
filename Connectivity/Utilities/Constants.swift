@@ -39,6 +39,11 @@ public class Constant: NSObject {
     static let socialLoginURL = "social_login"
     static let getProfileURL = "getProfile"
     static let checkinLocationURL = "checkin_location"
+    static let addBusinessCardURL = "add_bcard"
+    static let getBusinessCardURL = "get_bcard"
+    static let getPendingRequestsURL = "my_all_pending_requests"
+    static let getAllNotificationsURL = "get_all_my_connections"
+    static let getOtherProfileURL = "getOtherUserProfile"
     
     
 }
