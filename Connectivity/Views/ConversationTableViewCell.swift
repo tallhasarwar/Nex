@@ -1,25 +1,21 @@
 //
-//  ConnectionRequestTableViewCell.swift
+//  ConversationTableViewCell.swift
 //  Connectivity
 //
-//  Created by Danial Zahid on 19/10/2017.
+//  Created by Danial Zahid on 30/10/2017.
 //  Copyright © 2017 Danial Zahid. All rights reserved.
 //
 
 import UIKit
 
-class ConnectionRequestTableViewCell: UITableViewCell {
+class ConversationTableViewCell: UITableViewCell {
 
-    static let identifier = "connectionRequestTableViewCell"
+    static let identifier = "conversationTableViewCell"
     
     @IBOutlet weak var profileImageView: DesignableImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var acceptButton: UIButton!
-    @IBOutlet weak var rejectButton: UIButton!
-    
-    var userID : String?
-    
+    @IBOutlet weak var durationLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,8 +27,5 @@ class ConnectionRequestTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    
-    
 
 }

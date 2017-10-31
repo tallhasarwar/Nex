@@ -13,6 +13,18 @@ public class UserDefaultKey: NSObject {
     static let pushNotificationToken = "pushNotificationToken"
 }
 
+enum PhotoSource {
+    case library
+    case camera
+}
+
+enum ShowExtraView {
+    case contacts
+    case profile
+    case preview
+    case map
+}
+
 public class Constant: NSObject {
 
     static let facebookURL = "https://graph.facebook.com/me"
@@ -25,6 +37,7 @@ public class Constant: NSObject {
     static let mainColor = UIColor(red: 145.0/255.0, green: 20.0/255.0, blue: 217.0/255.0, alpha: 1.0)
     
     static let serverURL = "http://52.14.237.29:3000/connectIn/api/v1/"
+//    static let serverURL = "http://192.168.8.102:3000/connectIn/api/v1/"
     
     static let googleNearbyURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
     //MARK: - Response Keys
@@ -42,8 +55,9 @@ public class Constant: NSObject {
     static let addBusinessCardURL = "add_bcard"
     static let getBusinessCardURL = "get_bcard"
     static let getPendingRequestsURL = "my_all_pending_requests"
-    static let getAllNotificationsURL = "get_all_my_connections"
+    static let getAllNotificationsURL = "get_all_notifications"
     static let getOtherProfileURL = "getOtherUserProfile"
+    static let respondToRequestURL = "accept_connection_request"
     
     
 }

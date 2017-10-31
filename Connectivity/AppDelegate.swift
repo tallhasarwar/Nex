@@ -15,7 +15,9 @@ import FirebaseInstanceID
 import FirebaseMessaging
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+    
+    
 
     var window: UIWindow?
     
@@ -38,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 options: authOptions,
                 completionHandler: {_, _ in })
             // For iOS 10 data message (sent via FCM
-            FIRMessaging.messaging().remoteMessageDelegate = self
+            Messaging.messaging().delegate = self
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -47,7 +49,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         application.registerForRemoteNotifications()
         
-//        FIRApp.configure()
+        FirebaseApp.configure()
+        
         
         // Check if launched from notification
         // 1
@@ -119,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let tokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         
         print("Device Token:", tokenString)
-        
+        Messaging.messaging().apnsToken = deviceToken
         UserDefaults.standard.setValue(tokenString, forKey: UserDefaultKey.pushNotificationToken)
     }
     
@@ -142,9 +145,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     // The callback to handle data message received via FCM for devices running iOS 10 or above.
-    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+    func application(received remoteMessage: MessagingRemoteMessage) {
         print(remoteMessage.appData)
     }
+    
+    func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        
+    }
+    
     
     
 

@@ -8,6 +8,8 @@
 
 import UIKit
 import SwiftValidator
+import FirebaseMessaging
+import Firebase
 
 class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
     
@@ -56,6 +58,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         var params = [String : String]()
         params["email"] = emailField.text
         params["password"] = passwordField.text
+        params["device_token"] = Messaging.messaging().fcmToken
         
         SVProgressHUD.show()
         RequestManager.loginUser(param: params, successBlock: { (response) in
@@ -132,6 +135,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                 params["full_name"] = response["name"] as? String
                 params["social_id"] = response["id"] as? String
                 params["email"] = response["email"] as? String
+                params["device_token"] = Messaging.messaging().fcmToken
                 
                 RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                     self.successfulLogin(response: response)
@@ -183,6 +187,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                     params["social_id"] = response["id"] as? String
                     params["email"] = response["emailAddress"] as? String
                     params["headline"] = response["headline"] as? String
+                    params["device_token"] = Messaging.messaging().fcmToken
                     
                     RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                         self.successfulLogin(response: response)
@@ -249,6 +254,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             params["full_name"] = user.profile.name
             params["social_id"] = user.userID
             params["email"] = user.profile.email
+            params["device_token"] = Messaging.messaging().fcmToken
             
             RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                 self.successfulLogin(response: response)
@@ -261,8 +267,8 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         }
     }
     
-    func signIn(signIn: GIDSignIn, didDisconnectWithUser user: GIDGoogleUser,
-                withError error: NSError) {
+    func sign(didDisconnectWithUser user: GIDGoogleUser,
+                withError error: Error) {
         // Perform any operations when the user disconnects from app here.
         // ...
     }

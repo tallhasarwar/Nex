@@ -43,4 +43,12 @@ class Router: NSObject {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BusinessCardListViewController.storyboardID) as! BusinessCardListViewController
         controller.navigationController?.show(vc, sender: nil)
     }
+    
+    static func showChatViewController(user: User, from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: ChatViewController.storyboardID) as! ChatViewController
+        vc.currentUser = user
+        controller.navigationController?.show(vc, sender: nil)
+        
+        
+    }
 }

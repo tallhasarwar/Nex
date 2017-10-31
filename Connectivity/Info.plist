@@ -54,6 +54,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>com.connectin.app</string>
 				<string>fb117764938898780</string>
 				<string>com.googleusercontent.apps.184244632221-092j6t2nv3mtuhe4iuenm140sgkjtoer</string>
 			</array>

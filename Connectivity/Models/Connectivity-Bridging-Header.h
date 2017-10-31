@@ -14,6 +14,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import "CWStatusBarNotification.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <Google/Analytics.h>
 //#import <GoogleSignIn/GIDGoogleUser.h>
 //#import <GoogleSignIn/GIDProfileData.h>
 //#import <GoogleSignIn/GIDAuthentication.h>

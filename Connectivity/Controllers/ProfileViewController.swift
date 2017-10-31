@@ -18,6 +18,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var connectButton: DesignableButton!
     @IBOutlet weak var acceptanceView: UIView!
+    @IBOutlet weak var messageView: UIView!
+    @IBOutlet weak var headerView: UIView!
     
     var publicProfile: Bool = false
     var user = User()
@@ -40,6 +42,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if publicProfile == true {
             self.navigationItem.rightBarButtonItem = nil
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 260)
+            messageView.isHidden = false
             RequestManager.getOtherProfile(userID: user.user_id!, successBlock: { (response) in
                 self.user = User(dictionary: response["user"] as! [String: AnyObject])
                 self.connectionStatus = response["userConnectionStatus"] as! String
@@ -155,6 +159,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func rejectButtonPressed(_ sender: Any) {
     }
     
+    @IBAction func messageButtonPressed(_ sender: Any) {
+        
+            Router.showChatViewController(user: user, from: self)
+        
+    }
     
     
     /*

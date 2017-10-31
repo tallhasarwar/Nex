@@ -23,8 +23,15 @@
 		6968D66B1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968D66A1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift */; };
 		6975AD941F94ADBF00CEF94D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6975AD931F94ADBF00CEF94D /* UserNotifications.framework */; };
 		6975ADBA1F95231F00CEF94D /* LocationDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */; };
+		69827FFD1FA75A0C00552A53 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69827FFC1FA75A0C00552A53 /* Conversation.swift */; };
+		69827FFF1FA75B2800552A53 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69827FFE1FA75B2800552A53 /* Message.swift */; };
+		698280011FA75DE300552A53 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280001FA75DE300552A53 /* ConversationTableViewCell.swift */; };
+		698280031FA75E1900552A53 /* ConversationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280021FA75E1900552A53 /* ConversationListViewController.swift */; };
+		698280051FA867A000552A53 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280041FA867A000552A53 /* ChatViewController.swift */; };
+		698280071FA86BBA00552A53 /* ChatCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280061FA86BBA00552A53 /* ChatCells.swift */; };
 		6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */; };
 		6992966E1F9115F200300692 /* EditBusinessCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */; };
+		699E70251FA347D40070BFBA /* ConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E70241FA347D40070BFBA /* ConnectionRequest.swift */; };
 		69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */; };
 		69A259431F6D60D8000F67B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A259411F6D60D8000F67B0 /* Main.storyboard */; };
 		69A259451F6D60D8000F67B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69A259441F6D60D8000F67B0 /* Assets.xcassets */; };
@@ -129,8 +136,15 @@
 		6975AD931F94ADBF00CEF94D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		6975AD971F94B8BF00CEF94D /* Connectivity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Connectivity.entitlements; sourceTree = "<group>"; };
 		6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailTableViewCell.swift; sourceTree = "<group>"; };
+		69827FFC1FA75A0C00552A53 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
+		69827FFE1FA75B2800552A53 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		698280001FA75DE300552A53 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		698280021FA75E1900552A53 /* ConversationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListViewController.swift; sourceTree = "<group>"; };
+		698280041FA867A000552A53 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		698280061FA86BBA00552A53 /* ChatCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCells.swift; sourceTree = "<group>"; };
 		6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
 		6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBusinessCardViewController.swift; sourceTree = "<group>"; };
+		699E70241FA347D40070BFBA /* ConnectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRequest.swift; sourceTree = "<group>"; };
 		69A2593A1F6D60D8000F67B0 /* Connectivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connectivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69A259421F6D60D8000F67B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -318,6 +332,8 @@
 				691670971F93DDA200C39034 /* NotificationsTableViewCell.swift */,
 				6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */,
 				69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */,
+				698280001FA75DE300552A53 /* ConversationTableViewCell.swift */,
+				698280061FA86BBA00552A53 /* ChatCells.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -400,6 +416,9 @@
 				69F4B7E81F77E1D700BFB414 /* ProfileDetail.swift */,
 				691670931F93D97300C39034 /* NotificationModel.swift */,
 				69025FDD1F967410000C312B /* BusinessCard.swift */,
+				699E70241FA347D40070BFBA /* ConnectionRequest.swift */,
+				69827FFC1FA75A0C00552A53 /* Conversation.swift */,
+				69827FFE1FA75B2800552A53 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -419,6 +438,8 @@
 				6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */,
 				6916708F1F93D52400C39034 /* ConnectionsListViewController.swift */,
 				691670951F93DA7B00C39034 /* NotificationsViewController.swift */,
+				698280021FA75E1900552A53 /* ConversationListViewController.swift */,
+				698280041FA867A000552A53 /* ChatViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -615,7 +636,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity-resources.sh",
 				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
-				"${PODS_ROOT}/GTMOAuth2/Source/Touch/GTMOAuth2ViewTouch.xib",
+				"${PODS_ROOT}/GoogleAuthUtilities/Frameworks/frameworks/GoogleAuthUtilities.framework/Resources/GTMOAuth2ViewTouch.xib",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
@@ -644,6 +665,7 @@
 				69B9CEE41F72AED90070BD37 /* DZImageView.swift in Sources */,
 				69F4B7E71F77E1C800BFB414 /* User.swift in Sources */,
 				69B9CEFB1F72AED90070BD37 /* SpringImageView.swift in Sources */,
+				698280071FA86BBA00552A53 /* ChatCells.swift in Sources */,
 				69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */,
 				69B9CEF61F72AED90070BD37 /* Misc.swift in Sources */,
 				69F9AAF21F8A92DC00DC1F2E /* LocationDetailsViewController.swift in Sources */,
@@ -654,22 +676,26 @@
 				69B9CEE11F72AED90070BD37 /* LoadableFromXibView.swift in Sources */,
 				69B9CEF11F72AED90070BD37 /* ImageLoader.swift in Sources */,
 				69B9CEDC1F72AED90070BD37 /* ApplicationManager.swift in Sources */,
+				698280031FA75E1900552A53 /* ConversationListViewController.swift in Sources */,
 				69B9CEE61F72AED90070BD37 /* AsyncButton.swift in Sources */,
 				69B9CF021F72AED90070BD37 /* UnwindSegue.swift in Sources */,
 				69F4B7D91F77D44F00BFB414 /* MainTabBarController.swift in Sources */,
 				69B9CEE51F72AED90070BD37 /* Router.swift in Sources */,
 				69B9CEEC1F72AED90070BD37 /* DesignableLabel.swift in Sources */,
 				69B9CF011F72AED90070BD37 /* TransitionZoom.swift in Sources */,
+				698280051FA867A000552A53 /* ChatViewController.swift in Sources */,
 				69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */,
 				691670981F93DDA200C39034 /* NotificationsTableViewCell.swift in Sources */,
 				69B9CEFC1F72AED90070BD37 /* SpringLabel.swift in Sources */,
 				6968D65E1F8D270900B39CCF /* BusinessCardListViewController.swift in Sources */,
 				69B9CF001F72AED90070BD37 /* TransitionManager.swift in Sources */,
 				69B9CEDE1F72AED90070BD37 /* Configuration.swift in Sources */,
+				698280011FA75DE300552A53 /* ConversationTableViewCell.swift in Sources */,
 				6975ADBA1F95231F00CEF94D /* LocationDetailTableViewCell.swift in Sources */,
 				69B9CEEB1F72AED90070BD37 /* DesignableImageView.swift in Sources */,
 				69B9CF051F72AED90070BD37 /* SignInViewController.swift in Sources */,
 				69B9CEF91F72AED90070BD37 /* SpringAnimation.swift in Sources */,
+				69827FFD1FA75A0C00552A53 /* Conversation.swift in Sources */,
 				69B9CEED1F72AED90070BD37 /* DesignableTabBarController.swift in Sources */,
 				69B9CEF01F72AED90070BD37 /* DesignableView.swift in Sources */,
 				69F4B7DD1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift in Sources */,
@@ -696,10 +722,12 @@
 				6914C3031F82B1FD005BC1C0 /* MoreTableViewCell.swift in Sources */,
 				69B9CEFD1F72AED90070BD37 /* SpringTextField.swift in Sources */,
 				69025FDE1F967410000C312B /* BusinessCard.swift in Sources */,
+				699E70251FA347D40070BFBA /* ConnectionRequest.swift in Sources */,
 				69B9CEF81F72AED90070BD37 /* Spring.swift in Sources */,
 				69B9CEE91F72AED90070BD37 /* BlurView.swift in Sources */,
 				69B9CEF41F72AED90070BD37 /* LoadingView.swift in Sources */,
 				69FCBA721F7D1FCF00F4696E /* UIAlertController+Blocks.m in Sources */,
+				69827FFF1FA75B2800552A53 /* Message.swift in Sources */,
 				69B9CEFA1F72AED90070BD37 /* SpringButton.swift in Sources */,
 				69FCBA7D1F7D426E00F4696E /* LIALinkedInAuthorizationViewController.m in Sources */,
 				69B9CEF31F72AED90070BD37 /* KeyboardLayoutConstraint.swift in Sources */,

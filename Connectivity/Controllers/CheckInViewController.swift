@@ -138,9 +138,9 @@ class CheckInViewController: UIViewController, GMSMapViewDelegate {
         
     }
     
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        listLikelyPlaces()
-    }
+//    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+//        listLikelyPlaces()
+//    }
     
     /*
     // MARK: - Navigation
@@ -173,7 +173,7 @@ extension CheckInViewController: CLLocationManagerDelegate {
             mapView.animate(to: camera)
 //        }
         defaultLocation = location
-        listLikelyPlaces()
+//        listLikelyPlaces()
     }
     
     // Handle authorization for the location manager.

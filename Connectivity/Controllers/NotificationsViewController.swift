@@ -11,7 +11,8 @@ import UIKit
 class NotificationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    let notificationsArray = [Notification]()
+    var connectionRequests = [User]()
+    var notificationsArray = [Notification]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewWillAppear(animated)
         
         RequestManager.getPendingRequests(param: ["page":0], successBlock: { (response) in
-            
+            self.connectionRequests.removeAll()
+            for user in response {
+                self.connectionRequests.append(User(dictionary: user))
+            }
+            self.tableView.reloadData()
         }) { (error) in
             SVProgressHUD.showError(withStatus: error)
         }
@@ -50,8 +55,15 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 5
+        if section == 0 {
+            return connectionRequests.count
+            
+        }
+        else {
+            return notificationsArray.count
+        }
     }
+    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -67,7 +79,17 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: ConnectionRequestTableViewCell.identifier) as! ConnectionRequestTableViewCell
-            
+            let user = connectionRequests[indexPath.row]
+            cell.userID = user.user_id
+            cell.nameLabel.text = user.full_name
+            cell.descriptionLabel.text = user.headline
+            cell.profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+            cell.acceptButton.addTarget(self, action: #selector(NotificationsViewController.acceptButtonPressed(_:)),
+                                        for: UIControlEvents.touchUpInside)
+            cell.acceptButton.tag = indexPath.row
+            cell.rejectButton.addTarget(self, action: #selector(NotificationsViewController.rejectButtonPressed(_:)),
+                                        for: UIControlEvents.touchUpInside)
+            cell.rejectButton.tag = indexPath.row
             return cell
         }
         else{
@@ -80,6 +102,31 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
+    @IBAction func acceptButtonPressed(_ sender: UIButton) {
+        let user = connectionRequests[sender.tag]
+        SVProgressHUD.show()
+        RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: true, successBlock: { (response) in
+            SVProgressHUD.dismiss()
+            self.connectionRequests.remove(at: sender.tag)
+            self.tableView.reloadData()
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
+    }
+    
+    @IBAction func rejectButtonPressed(_ sender: UIButton) {
+        let user = connectionRequests[sender.tag]
+        SVProgressHUD.show()
+        RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: false, successBlock: { (response) in
+            SVProgressHUD.dismiss()
+            self.connectionRequests.remove(at: sender.tag)
+            self.tableView.reloadData()
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
+    }
+    
     
     
     /*

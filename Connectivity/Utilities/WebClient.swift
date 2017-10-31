@@ -49,6 +49,39 @@ class WebClient: AFHTTPSessionManager {
         })
     }
     
+    func multipartPost(urlString: String,
+                       params: [String: AnyObject],
+                       image: UIImage?,
+                       addToken: Bool = true,
+                       successBlock success:@escaping (AnyObject) -> (),
+                       failureBlock failure: @escaping (NSError) -> ()){
+        
+        let manager = AFHTTPSessionManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.responseSerializer = AFJSONResponseSerializer()
+        
+        
+        if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String {
+            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: "session_id")
+        }
+        
+        manager.post((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, constructingBodyWith: { (data) in
+            if let imageData = UIImagePNGRepresentation(image ?? UIImage()) {
+                data.appendPart(withFileData: imageData, name: "image", fileName: "image", mimeType: "image/jpeg")
+            }
+        }, progress: { (progress) in
+            
+        }, success: {
+            (sessionTask, responseObject) -> () in
+            print(responseObject ?? "")
+            success(responseObject! as AnyObject)
+        },  failure: {
+            (sessionTask, error) -> () in
+            print(error)
+            failure(error as NSError)
+        })
+    }
+    
     
     func getPath(urlString: String,
                  params: [String: AnyObject]?,
@@ -297,12 +330,12 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
-    func getPendingRequests(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+    func getPendingRequests(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
                          failureBlock failure:@escaping (String) -> ()){
         self.getPath(urlString: Constant.getPendingRequestsURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
-                success(response[Constant.responseKey] as! [String : AnyObject])
+                success(response[Constant.responseKey] as! [[String : AnyObject]])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {
@@ -316,12 +349,12 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
-    func getAllNotifications(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+    func getAllNotifications(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
                             failureBlock failure:@escaping (String) -> ()){
         self.getPath(urlString: Constant.getAllNotificationsURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
-                success(response[Constant.responseKey] as! [String : AnyObject])
+                success(response[Constant.responseKey] as! [[String : AnyObject]])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {
@@ -356,6 +389,34 @@ class WebClient: AFHTTPSessionManager {
             failure(error.localizedDescription)
         }
     }
+    
+    
+    func respondToConnectionRequest(userID : String, accepted: Bool = true, successBlock success:@escaping ([String: AnyObject]) -> (),
+                         failureBlock failure:@escaping (String) -> ()){
+        
+        var param = ["connection_from_id":userID]
+        if !accepted{
+            param["status"] = "REJECTED"
+        }
+        
+        self.postPath(urlString: Constant.respondToRequestURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    
     
     
 }
