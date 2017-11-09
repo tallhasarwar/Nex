@@ -8,11 +8,11 @@
 
 import UIKit
 
-class NotificationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NotificationsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     var connectionRequests = [User]()
-    var notificationsArray = [Notification]()
+    var notificationsArray = [NotificationModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
         
         RequestManager.getAllNotifications(param: ["page":0], successBlock: { (response) in
-            
+            self.notificationsArray.removeAll()
+            for user in response {
+                self.notificationsArray.append(NotificationModel(dictionary: user))
+            }
+            self.tableView.reloadData()
         }) { (error) in
             SVProgressHUD.showError(withStatus: error)
         }
@@ -94,7 +98,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: NotificationsTableViewCell.identifier) as! NotificationsTableViewCell
-            
+            let notification = notificationsArray[indexPath.row]
+            cell.nameLabel.text = notification.full_name
+            cell.descriptionLabel.text = notification.title
+            cell.profileImageView.sd_setImage(with: URL(string: notification.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+//            cell.durationLabel.text = notification.
             return cell
         }
     }

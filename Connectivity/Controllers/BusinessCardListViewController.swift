@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BusinessCardListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BusinessCardListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     

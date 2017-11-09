@@ -10,7 +10,7 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 
-class CheckInViewController: UIViewController, GMSMapViewDelegate {
+class CheckInViewController: BaseViewController, GMSMapViewDelegate {
 
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
@@ -21,10 +21,10 @@ class CheckInViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var tableView: UITableView!
     
     // An array to hold the list of likely places.
-    var likelyPlaces: [GMSPlace] = []
+    var likelyPlaces: [GooglePlace] = []
     
     // The currently selected place.
-    var selectedPlace: GMSPlace?
+    var selectedPlace: GooglePlace?
     
     // A default location to use when location permission is not granted.
     var defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
@@ -34,15 +34,6 @@ class CheckInViewController: UIViewController, GMSMapViewDelegate {
         // Clear the map.
         mapView.clear()
         
-        // Add a marker to the map.
-        if selectedPlace != nil {
-            let marker = GMSMarker(position: (self.selectedPlace?.coordinate)!)
-            marker.title = selectedPlace?.name
-            marker.snippet = selectedPlace?.formattedAddress
-            marker.map = mapView
-        }
-        
-        listLikelyPlaces()
     }
     
     // Present the Autocomplete view controller when the button is pressed.
@@ -91,7 +82,7 @@ class CheckInViewController: UIViewController, GMSMapViewDelegate {
         // Initialize the location manager.
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
@@ -110,48 +101,39 @@ class CheckInViewController: UIViewController, GMSMapViewDelegate {
         
         // Add the map to the view, hide it until we&#39;ve got a location update.
         viewForMap.addSubview(mapView)
+        mapView.delegate = self
         
         listLikelyPlaces()
     }
     
     // Populate the array with the list of likely places.
     func listLikelyPlaces() {
-        // Clean up from previous sessions.
-        likelyPlaces.removeAll()
         
-        placesClient.currentPlace(callback: { (placeLikelihoods, error) -> Void in
-            if let error = error {
-                // TODO: Handle the error.
-                print("Current Place error: \(error.localizedDescription)")
-                return
+        var params = [String: AnyObject]()
+        let coordinate = self.mapView.getCenterCoordinate()
+        
+        params["radius"] = min(self.mapView.getRadius(), 1500) as AnyObject
+        params["location"] = "\(coordinate.latitude),\(coordinate.longitude)" as AnyObject
+        params["key"] = "AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo" as AnyObject
+        
+        RequestManager.getLocations(param: params, successBlock: { (response) in
+            self.likelyPlaces.removeAll()
+            for object in response {
+                self.likelyPlaces.append(GooglePlace(dictionary: object))
             }
-            
-            // Get likely places and add to the list.
-            if let likelihoodList = placeLikelihoods {
-                for likelihood in likelihoodList.likelihoods {
-                    let place = likelihood.place
-                    self.likelyPlaces.append(place)
-                }
-                self.tableView.reloadData()
-            }
-        })
+            self.tableView.reloadData()
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
         
     }
     
-//    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-//        listLikelyPlaces()
-//    }
+
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        listLikelyPlaces()
     }
-    */
-
+    
 }
 
 // Delegates to handle events for the location manager.
@@ -166,14 +148,16 @@ extension CheckInViewController: CLLocationManagerDelegate {
                                               longitude: location.coordinate.longitude,
                                               zoom: zoomLevel)
         
-//        if mapView.isHidden {
-            mapView.isHidden = false
-            mapView.camera = camera
-//        } else {
-            mapView.animate(to: camera)
-//        }
+        
+        mapView.isHidden = false
+        mapView.camera = camera
+        
+        mapView.animate(to: camera)
         defaultLocation = location
-//        listLikelyPlaces()
+        
+        locationManager.stopUpdatingLocation()
+        
+        listLikelyPlaces()
     }
     
     // Handle authorization for the location manager.
@@ -209,14 +193,11 @@ extension CheckInViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CheckinTableViewCell.identifier) as! CheckinTableViewCell
         cell.mainLabel.text = likelyPlaces[indexPath.row].name
-        cell.addressLabel.text = likelyPlaces[indexPath.row].formattedAddress
+        cell.addressLabel.text = likelyPlaces[indexPath.row].vicinity
         
+        let distance = self.mapView.getDistanceToCoordinates(coordinates: likelyPlaces[indexPath.row].coordinates!)
         
-        
-        let distance = defaultLocation.distance(from: CLLocation(latitude: likelyPlaces[indexPath.row].coordinate.latitude, longitude: likelyPlaces[indexPath.row].coordinate.longitude))
-        
-        
-        cell.distanceLabel.text = "\(distance.binade)m"
+        cell.distanceLabel.text = "\(distance)m"
         return cell
     }
     
@@ -226,7 +207,7 @@ extension CheckInViewController: UITableViewDelegate, UITableViewDataSource {
         self.openPlace(place: likelyPlaces[indexPath.row])
     }
     
-    func openPlace(place: GMSPlace) {
+    func openPlace(place: GooglePlace) {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: LocationDetailsViewController.storyboardID) as! LocationDetailsViewController
         vc.place = place
@@ -249,7 +230,7 @@ extension CheckInViewController: GMSAutocompleteViewControllerDelegate {
         
         // Close the autocomplete widget.
         dismiss(animated: true, completion: nil)
-        self.openPlace(place: place)
+//        self.openPlace(place: place)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
@@ -271,4 +252,36 @@ extension CheckInViewController: GMSAutocompleteViewControllerDelegate {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
+}
+
+extension GMSMapView {
+    func getCenterCoordinate() -> CLLocationCoordinate2D {
+        let centerPoint = self.center
+        let centerCoordinate = self.projection.coordinate(for: centerPoint)
+        return centerCoordinate
+    }
+    
+    func getTopCenterCoordinate() -> CLLocationCoordinate2D {
+        // to get coordinate from CGPoint of your map
+        let topCenterCoor = self.convert(CGPoint(x: self.frame.size.width, y: 0), from: self)
+        let point = self.projection.coordinate(for: topCenterCoor)
+        return point
+    }
+    
+    func getRadius() -> Int {
+        let centerCoordinate = getCenterCoordinate()
+        let centerLocation = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
+        let topCenterCoordinate = self.getTopCenterCoordinate()
+        let topCenterLocation = CLLocation(latitude: topCenterCoordinate.latitude, longitude: topCenterCoordinate.longitude)
+        let radius = CLLocationDistance(centerLocation.distance(from: topCenterLocation))
+        return Int(round(radius))
+    }
+    
+    func getDistanceToCoordinates(coordinates: CLLocationCoordinate2D) -> Int {
+        let centerCoordinate = getCenterCoordinate()
+        let centerLocation = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
+        let topCenterLocation = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+        let radius = CLLocationDistance(centerLocation.distance(from: topCenterLocation))
+        return Int(round(radius))
+    }
 }

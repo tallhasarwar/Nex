@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditBusinessCardViewController: UIViewController {
+class EditBusinessCardViewController: BaseViewController {
     
     static let storyboardID = "editBusinessCardViewController"
 

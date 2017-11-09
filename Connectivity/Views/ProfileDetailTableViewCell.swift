@@ -14,6 +14,7 @@ class ProfileDetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var headingLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

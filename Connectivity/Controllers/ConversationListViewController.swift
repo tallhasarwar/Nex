@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConversationListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConversationListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     var items = [Conversation]()

@@ -30,10 +30,9 @@ class Router: NSObject {
         }
     }
     
-    static func showProfileViewController(user: User, publicProfile: Bool, from controller: UIViewController) {
+    static func showProfileViewController(user: User, from controller: UIViewController) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: ProfileViewController.storyboardID) as! ProfileViewController
         vc.user = user
-        vc.publicProfile = publicProfile
         controller.navigationController?.show(vc, sender: nil)
     
     }
@@ -49,6 +48,28 @@ class Router: NSObject {
         vc.currentUser = user
         controller.navigationController?.show(vc, sender: nil)
         
+    }
+    
+    static func showEventsListController(from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: EventsListViewController.storyboardID) as! EventsListViewController
+        
+        controller.navigationController?.show(vc, sender: nil)
         
     }
+    
+    static func showCreateEventController(from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CreateEventViewController.storyboardID) as! CreateEventViewController
+        
+        controller.navigationController?.show(vc, sender: nil)
+        
+    }
+    
+    static func showEventDetail(event: Event, from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: EventDetailViewController.storyboardID) as! EventDetailViewController
+        vc.event = event
+        controller.navigationController?.show(vc, sender: nil)
+        
+    }
+    
+    
 }

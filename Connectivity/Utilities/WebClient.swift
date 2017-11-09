@@ -52,6 +52,7 @@ class WebClient: AFHTTPSessionManager {
     func multipartPost(urlString: String,
                        params: [String: AnyObject],
                        image: UIImage?,
+                       imageName: String,
                        addToken: Bool = true,
                        successBlock success:@escaping (AnyObject) -> (),
                        failureBlock failure: @escaping (NSError) -> ()){
@@ -66,9 +67,12 @@ class WebClient: AFHTTPSessionManager {
         }
         
         manager.post((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, constructingBodyWith: { (data) in
-            if let imageData = UIImagePNGRepresentation(image ?? UIImage()) {
-                data.appendPart(withFileData: imageData, name: "image", fileName: "image", mimeType: "image/jpeg")
+            if image != nil {
+                if let imageData = UIImagePNGRepresentation(image!) {
+                    data.appendPart(withFileData: imageData, name: imageName, fileName: "image", mimeType: "image/jpeg")
+                }
             }
+            
         }, progress: { (progress) in
             
         }, success: {
@@ -128,7 +132,14 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+            if error.code == 422 {
+                failure("Email already in use")
+            }
+            else{
+                failure(error.localizedDescription)
+            }
+            
+            
         }
     }
     
@@ -173,9 +184,10 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
-    func updateProfile(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+    func updateProfile(param: [String: Any],image: UIImage?, successBlock success:@escaping ([String: AnyObject]) -> (),
                        failureBlock failure:@escaping (String) -> ()){
-        self.postPath(urlString: Constant.updateProfileURL, params: param as [String : AnyObject], successBlock: { (response) in
+        
+        self.multipartPost(urlString: Constant.updateProfileURL, params: param as [String : AnyObject], image: image, imageName: "image", successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [String : AnyObject])
@@ -191,6 +203,7 @@ class WebClient: AFHTTPSessionManager {
         }) { (error) in
             failure(error.localizedDescription)
         }
+        
     }
     
     func getUserLinkedInProfile(access_token: String,
@@ -416,7 +429,75 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func getAllEvents(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+                             failureBlock failure:@escaping (String) -> ()){
+        self.getPath(urlString: Constant.getEventsURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [[String : AnyObject]])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func addEvent(param: [String: Any], image: UIImage, successBlock success:@escaping ([String: AnyObject]) -> (),
+                         failureBlock failure:@escaping (String) -> ()){
+        
+        self.multipartPost(urlString: Constant.createEventURL, params: param as [String : AnyObject], image: image, imageName: "image_path", successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+        
+    }
     
     
+    func getLocations(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+                      failureBlock failure:@escaping (String) -> ()){
+        
+        let manager = AFHTTPSessionManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.responseSerializer = AFJSONResponseSerializer()
+        
+        manager.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: param, progress: nil, success: { (sessionTask, response) in
+            print(response ?? "")
+            
+            if let responseObject = response as? [String: AnyObject] {
+                if responseObject["status"] as! String == "OK" {
+                    success(responseObject["results"] as! [[String: AnyObject]])
+                }
+                else{
+                    failure("Failed to load locations")
+                }
+            }
+            else{
+                failure("Failed to load locations")
+            }
+            
+            
+            
+        }) { (sessionTask, error) in
+            print(error)
+            failure(error.localizedDescription)
+        }
+    }
     
 }

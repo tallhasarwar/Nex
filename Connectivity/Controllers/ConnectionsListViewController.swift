@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConnectionsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     static let storyboardID = "connectionsListViewController"
     
@@ -25,6 +25,7 @@ class ConnectionsListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.usersArray.append(ApplicationManager.sharedInstance.user)
         self.tableView.reloadData()
     }

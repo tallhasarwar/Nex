@@ -9,15 +9,16 @@
 import UIKit
 import GooglePlaces
 
-class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var place : GMSPlace?
+    var place : GooglePlace?
     var users = [User]()
     
     static let storyboardID = "locationDetailsViewController"
 
     @IBOutlet weak var locationImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addressLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,23 +26,24 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         // Do any additional setup after loading the view.
         
         title = place!.name
-        
-        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: place!.placeID) { (photos, error) in
-            if let error = error {
-                // TODO: handle the error.
-                print("Error: \(error.localizedDescription)")
-            } else {
-                if let firstPhoto = photos?.results.first {
-                    self.loadImageForMetadata(photoMetadata: firstPhoto)
-                }
-            }
-        }
+        addressLabel.text = place!.vicinity
+        locationImageView.sd_setImage(with: URL(string: place!.imageReference!), placeholderImage: UIImage(named: "placeholder-banner"), options: SDWebImageOptions.refreshCached, completed: nil)
+//        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: place!.placeID) { (photos, error) in
+//            if let error = error {
+//                // TODO: handle the error.
+//                print("Error: \(error.localizedDescription)")
+//            } else {
+//                if let firstPhoto = photos?.results.first {
+//                    self.loadImageForMetadata(photoMetadata: firstPhoto)
+//                }
+//            }
+//        }
         
         tableView.delegate = self
         tableView.dataSource = self
         
         var params = [String: AnyObject]()
-        params["location_id"] = place?.placeID as AnyObject
+        params["location_id"] = place?.place_id as AnyObject
         params["location_name"] = place?.name as AnyObject
         
         RequestManager.checkinLocation(param: params, successBlock: { (response) in
@@ -57,15 +59,24 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
-        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
-            (photo, error) -> Void in
+        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, constrainedTo: locationImageView.frame.size, scale: view.window?.screen.scale ?? 1) { (photo, error) in
             if let error = error {
                 // TODO: handle the error.
                 print("Error: \(error.localizedDescription)")
             } else {
                 self.locationImageView.image = photo
             }
-        })
+        }
+        
+//        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
+//            (photo, error) -> Void in
+//            if let error = error {
+//                // TODO: handle the error.
+//                print("Error: \(error.localizedDescription)")
+//            } else {
+//                self.locationImageView.image = photo
+//            }
+//        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,14 +89,14 @@ class LocationDetailsViewController: UIViewController, UITableViewDelegate, UITa
         cell.nameLabel.text = user.full_name
         cell.headlineLabel.text = user.headline
         cell.profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
-//        cell.profileImageView.sd_setImage(with: , completed: nil)
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         
-        Router.showProfileViewController(user: user, publicProfile: true, from: self)
+        Router.showProfileViewController(user: user, from: self)
     }
 
     override func didReceiveMemoryWarning() {

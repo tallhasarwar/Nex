@@ -44,7 +44,7 @@ class Styles {
         UINavigationBar.appearance().barTintColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().tintColor = .white
-        UIToolbar.appearance().tintColor = UIColor.blue
+        UIToolbar.appearance().tintColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
         UITextField.appearance().tintColor = .white
         
 //        UISegmentedControl.appearance().tintColor = UIColor.blue
@@ -71,6 +71,10 @@ class Styles {
     ///**Warning:** Not from style guide. Do not add more uses
     public var progressBarTrackTintColor : UIColor {
         return UIColor(red: CGFloat(223.0/255.0), green: CGFloat(242.0/255.0), blue: CGFloat(228.0/255.0), alpha: CGFloat(1.00))
+    }
+    
+    public var primaryGreyColor : UIColor {
+        return UIColor(white: 0.2, alpha: 1.0)
     }
 
 

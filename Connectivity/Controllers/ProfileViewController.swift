@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     static let storyboardID = "profileViewController"
     
@@ -40,6 +40,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         title = "Profile"
         self.tabBarItem.title = ""
         
+        publicProfile = ApplicationManager.sharedInstance.user.user_id != user.user_id
+        
         if publicProfile == true {
             self.navigationItem.rightBarButtonItem = nil
             headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 260)
@@ -61,12 +63,33 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadUI()
+        
+        if publicProfile != true {
+            RequestManager.getUser(successBlock: { (response) in
+                SVProgressHUD.dismiss()
+                let user = User(dictionary: response)
+                ApplicationManager.sharedInstance.user = user
+                self.user = user
+                self.loadUI()
+            }, failureBlock: { (error) in
+                SVProgressHUD.showError(withStatus: error)
+            })
+        }
+        
+        
+    }
+    
+    func loadUI() {
         profileNameLabel.text = user.full_name
         jobTitleLabel.text = user.headline
+        profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         tableView.reloadData()
     }
     
     func updateConnectionUI() {
+        
+
         if connectionStatus == "NONE" || connectionStatus == "REJECTED" {
             self.connectButton.isHidden = false
             self.acceptanceView.isHidden = true
@@ -87,7 +110,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 11
         
     }
     
@@ -102,35 +125,49 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             switch indexPath.row {
             case 0:
-                cell.headingLabel.text = "About Me"
-                cell.descriptionLabel.text = user.about ?? "N/A"
+                cell.headingLabel.text = "Works At"
+                cell.descriptionLabel.text = user.worked_at ?? "N/A"
+                cell.descriptionTextView.text = user.worked_at ?? "N/A"
             case 1:
-                cell.headingLabel.text = "Interests"
-                cell.descriptionLabel.text = user.interests ?? "N/A"
+                cell.headingLabel.text = "Lives In"
+                cell.descriptionLabel.text = user.lives_in ?? "N/A"
+                cell.descriptionTextView.text = user.lives_in ?? "N/A"
             case 2:
                 cell.headingLabel.text = "School / University"
                 cell.descriptionLabel.text = user.school ?? "N/A"
+                cell.descriptionTextView.text = user.school ?? "N/A"
             case 3:
-                cell.headingLabel.text = "Works At"
-                cell.descriptionLabel.text = user.worked_at ?? "N/A"
+                cell.headingLabel.text = "Interests"
+                cell.descriptionLabel.text = user.interests ?? "N/A"
+                cell.descriptionTextView.text = user.interests ?? "N/A"
             case 4:
-                cell.headingLabel.text = "Lives In"
-                cell.descriptionLabel.text = user.lives_in ?? "N/A"
-            case 5:
                 cell.headingLabel.text = "Email Address"
                 cell.descriptionLabel.text = user.email ?? "N/A"
-            case 6:
+                cell.descriptionTextView.text = user.email ?? "N/A"
+            case 5:
                 cell.headingLabel.text = "Phone Number"
                 cell.descriptionLabel.text = user.contact_number ?? "N/A"
-            case 7:
+                cell.descriptionTextView.text = user.contact_number ?? "N/A"
+            case 6:
                 cell.headingLabel.text = "Facebook Profile"
                 cell.descriptionLabel.text = user.facebook_profile ?? "N/A"
-            case 8:
+                cell.descriptionTextView.text = user.facebook_profile ?? "N/A"
+            case 7:
                 cell.headingLabel.text = "LinkedIn Profile"
                 cell.descriptionLabel.text = user.linkedin_profile ?? "N/A"
+                cell.descriptionTextView.text = user.linkedin_profile ?? "N/A"
+            case 8:
+                cell.headingLabel.text = "Google+ Profile"
+                cell.descriptionLabel.text = user.google_profile ?? "N/A"
+                cell.descriptionTextView.text = user.google_profile ?? "N/A"
             case 9:
                 cell.headingLabel.text = "Website"
                 cell.descriptionLabel.text = user.website ?? "N/A"
+                cell.descriptionTextView.text = user.website ?? "N/A"
+            case 10:
+                cell.headingLabel.text = "About Me"
+                cell.descriptionLabel.text = user.about ?? "N/A"
+                cell.descriptionTextView.text = user.about ?? "N/A"
                 
             default:
                 break

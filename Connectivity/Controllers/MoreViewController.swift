@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -42,6 +42,7 @@ class MoreViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.detailImageView.layer.masksToBounds = true
             cell.mainLabel.text = ApplicationManager.sharedInstance.user.full_name
             cell.descriptionLabel.text = ApplicationManager.sharedInstance.user.headline
+            cell.detailImageView.sd_setImage(with: URL(string: ApplicationManager.sharedInstance.user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         }
         else{
             cell.detailImageView.image = UIImage(named: items[indexPath.row-1]["image"]!)
@@ -55,11 +56,12 @@ class MoreViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            Router.showProfileViewController(user: ApplicationManager.sharedInstance.user, publicProfile: false, from: self)
+            Router.showProfileViewController(user: ApplicationManager.sharedInstance.user, from: self)
         case 1:
             Router.showBusinessCard(from: self)
         case 2:
             print("My Events")
+            Router.showEventsListController(from: self)
         case 3:
             print("Settings")
         case 4:

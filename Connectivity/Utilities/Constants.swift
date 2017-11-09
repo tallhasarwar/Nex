@@ -30,9 +30,13 @@ public class Constant: NSObject {
     static let facebookURL = "https://graph.facebook.com/me"
     
     static let applicationName = "Connectivity"
-    static let serverDateFormat = "yyyy-MM-dd"
+    static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     static let appDateFormat = "MM/dd/yyyy hh:mm:ss"
+    static let eventDateFormat = "MM/dd/yyyy hh:mm a"
+    static let eventDetailDateFormat = "MMM dd yyyy',' hh:mma"
     static let animationDuration : TimeInterval = 0.5
+    
+    static let googlePlacesKey = "AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo"
     
     static let mainColor = UIColor(red: 145.0/255.0, green: 20.0/255.0, blue: 217.0/255.0, alpha: 1.0)
     
@@ -58,6 +62,8 @@ public class Constant: NSObject {
     static let getAllNotificationsURL = "get_all_notifications"
     static let getOtherProfileURL = "getOtherUserProfile"
     static let respondToRequestURL = "accept_connection_request"
+    static let getEventsURL = "get_event_list"
+    static let createEventURL = "create_event"
     
     
 }

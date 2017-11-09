@@ -29,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        GMSServices.provideAPIKey("AIzaSyCsw2OwczUmx0vffLxYowP9_3ILa3gbmOk")
-        GMSPlacesClient.provideAPIKey("AIzaSyCbannlbDjfNqlv3bLY0VPx_m2WtMtXV88")
+        GMSServices.provideAPIKey("AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo")
+        GMSPlacesClient.provideAPIKey(Constant.googlePlacesKey)
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: BaseViewController {
 
     @IBOutlet weak var profileImageView: DZImageView!
     @IBOutlet weak var nameField: DesignableTextField!
@@ -83,11 +83,11 @@ class EditProfileViewController: UIViewController {
         params["contact_number"] = phoneNumberField.text
         params["facebook_profile"] = facebookProfileField.text
         params["linkedin_profile"] = linkedInProfileField.text
-//        params["google_profile"] = googleField.text
+        params["google_profile"] = googleField.text
         params["website"] = websiteField.text
         
         SVProgressHUD.show()
-        RequestManager.updateProfile(param: params, successBlock: { (response) in
+        RequestManager.updateProfile(param: params, image: profileImageView.image, successBlock: { (response) in
             SVProgressHUD.showSuccess(withStatus: "Profile Saved")
             ApplicationManager.sharedInstance.user = User(dictionary: response)
             self.navigationController?.popViewController(animated: true)
