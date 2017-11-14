@@ -64,6 +64,7 @@ public class Constant: NSObject {
     static let respondToRequestURL = "accept_connection_request"
     static let getEventsURL = "get_event_list"
     static let createEventURL = "create_event"
+    static let getConnectionsURL = "get_all_my_connections"
     
     
 }

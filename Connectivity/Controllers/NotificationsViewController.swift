@@ -33,7 +33,8 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             }
             self.tableView.reloadData()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            print(error)
+            SVProgressHUD.dismiss()
         }
         
         RequestManager.getAllNotifications(param: ["page":0], successBlock: { (response) in
@@ -43,7 +44,8 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             }
             self.tableView.reloadData()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            print(error)
+            SVProgressHUD.dismiss()
         }
     }
     

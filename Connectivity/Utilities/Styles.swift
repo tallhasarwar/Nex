@@ -45,7 +45,7 @@ class Styles {
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().tintColor = .white
         UIToolbar.appearance().tintColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
-        UITextField.appearance().tintColor = .white
+//        UITextField.appearance().tintColor = .white
         
 //        UISegmentedControl.appearance().tintColor = UIColor.blue
 //        UINavigationBar.appearance().barStyle = UIBarStyle.black

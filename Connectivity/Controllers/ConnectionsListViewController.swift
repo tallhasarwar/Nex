@@ -22,12 +22,28 @@ class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UI
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        SVProgressHUD.show()
+        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.usersArray.append(ApplicationManager.sharedInstance.user)
-        self.tableView.reloadData()
+        fetchData()
+    }
+    
+    func fetchData() {
+        RequestManager.getConnections(param: ["page":0], successBlock: { (response) in
+            self.usersArray.removeAll()
+            for object in response {
+                self.usersArray.append(User(dictionary: object))
+            }
+            self.tableView.reloadData()
+            SVProgressHUD.dismiss()
+        }) { (error) in
+            SVProgressHUD.dismiss()
+            print(error)
+        }
     }
 
     override func didReceiveMemoryWarning() {

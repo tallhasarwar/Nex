@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To let you check in to your favorite nearby locations</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To let you check in to your favorite nearby locations</string>
-	<key>NSCameraUsageDescription</key>
-	<string>To allow you to take an image for your profile</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -22,10 +16,38 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.connectin.app</string>
+				<string>fb117764938898780</string>
+				<string>com.googleusercontent.apps.184244632221-092j6t2nv3mtuhe4iuenm140sgkjtoer</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>6</string>
+	<key>FacebookAppID</key>
+	<string>117764938898780</string>
+	<key>FacebookDisplayName</key>
+	<string>Connect In</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>To allow you to take an image for your profile</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>To let you check in to your favorite nearby locations</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To let you check in to your favorite nearby locations</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To allow you to select images for your profile</string>
 	<key>UILaunchStoryboardName</key>
@@ -49,27 +71,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.connectin.app</string>
-				<string>fb117764938898780</string>
-				<string>com.googleusercontent.apps.184244632221-092j6t2nv3mtuhe4iuenm140sgkjtoer</string>
-			</array>
-		</dict>
-	</array>
-	<key>FacebookAppID</key>
-	<string>117764938898780</string>
-	<key>FacebookDisplayName</key>
-	<string>Connect In</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
 </dict>
 </plist>

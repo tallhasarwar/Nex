@@ -20,6 +20,8 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
     var zoomLevel: Float = 15.0
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
+    
     // An array to hold the list of likely places.
     var likelyPlaces: [GooglePlace] = []
     
@@ -81,9 +83,9 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
     func setupLocation() {
         // Initialize the location manager.
         locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
-        locationManager.distanceFilter = 50
+        locationManager.distanceFilter = 100
         locationManager.startUpdatingLocation()
         locationManager.delegate = self
         
@@ -98,7 +100,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
         mapView.settings.myLocationButton = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isMyLocationEnabled = true
-        
+        mapView.settings.scrollGestures = false
         // Add the map to the view, hide it until we&#39;ve got a location update.
         viewForMap.addSubview(mapView)
         mapView.delegate = self
@@ -111,10 +113,13 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
         
         var params = [String: AnyObject]()
         let coordinate = self.mapView.getCenterCoordinate()
+        defaultLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         
-        params["radius"] = min(self.mapView.getRadius(), 1500) as AnyObject
+//        params["radius"] = min(self.mapView.getRadius(), 1500) as AnyObject
         params["location"] = "\(coordinate.latitude),\(coordinate.longitude)" as AnyObject
         params["key"] = "AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo" as AnyObject
+        params["rankby"] = "distance" as AnyObject
+        params["keyword"] = "establishment" as AnyObject
         
         RequestManager.getLocations(param: params, successBlock: { (response) in
             self.likelyPlaces.removeAll()
@@ -123,7 +128,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
             }
             self.tableView.reloadData()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            
         }
         
     }
@@ -155,7 +160,7 @@ extension CheckInViewController: CLLocationManagerDelegate {
         mapView.animate(to: camera)
         defaultLocation = location
         
-        locationManager.stopUpdatingLocation()
+//        locationManager.stopUpdatingLocation()
         
         listLikelyPlaces()
     }
@@ -213,7 +218,6 @@ extension CheckInViewController: UITableViewDelegate, UITableViewDataSource {
         vc.place = place
         self.navigationController?.show(vc, sender: nil)
     }
-    
     
 }
 
