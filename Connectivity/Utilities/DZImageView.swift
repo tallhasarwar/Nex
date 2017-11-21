@@ -11,6 +11,7 @@ import UIKit
 @IBDesignable class DZImageView: UIImageView, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var parentController: UIViewController?
+    var imageChanged = false
 
     @IBInspectable var placeholderImage: UIImage? {
         didSet {
@@ -104,6 +105,7 @@ import UIKit
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
         self.image = image
+        imageChanged = true
         picker.dismiss(animated: true, completion: nil)
     }
     
@@ -111,6 +113,7 @@ import UIKit
         if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             self.contentMode = .scaleAspectFill
             self.image = pickedImage
+            imageChanged = true
         }
         picker.dismiss(animated: true, completion: nil)
     }

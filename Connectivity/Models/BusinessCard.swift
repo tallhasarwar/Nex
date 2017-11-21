@@ -10,13 +10,15 @@ import UIKit
 
 class BusinessCard: BaseEntity {
 
-    
+    var id: String?
+    var user_id: String?
     var name: String?
     var title: String?
     var email: String?
     var phone: String?
     var address: String?
     var web: String?
+    var image: String?
     
     override init() {
         super.init()

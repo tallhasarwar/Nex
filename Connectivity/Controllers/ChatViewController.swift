@@ -19,6 +19,11 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+    @IBOutlet var navView: UIView!
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var profileNameButton: UIButton!
+    
+    
     override var inputAccessoryView: UIView? {
         get {
             self.inputBar.frame.size.height = self.barHeight
@@ -45,6 +50,9 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         self.tableView.contentInset.bottom = self.barHeight
         self.tableView.scrollIndicatorInsets.bottom = self.barHeight
         self.title = self.currentUser?.full_name
+        self.profileNameButton.setTitle(self.currentUser?.full_name, for: .normal)
+        self.profileImageView.sd_setImage(with: URL(string: self.currentUser?.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        
 //        self.navigationItem.setHidesBackButton(true, animated: false)
 //        let icon = UIImage.init(named: "back")?.withRenderingMode(.alwaysOriginal)
 //        let backButton = UIBarButtonItem.init(image: icon!, style: .plain, target: self, action: #selector(self.dismissSelf))
@@ -294,6 +302,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         self.customization()
         self.fetchData()
+        self.navigationItem.titleView = self.navView
     }
 
     override func didReceiveMemoryWarning() {

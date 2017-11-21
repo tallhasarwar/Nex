@@ -12,7 +12,6 @@ class CreateEventViewController: BaseViewController {
 
     static let storyboardID = "createEventViewController"
     
-    
     @IBOutlet weak var eventImageView: DZImageView!
     @IBOutlet weak var nameLabel: DesignableTextField!
     @IBOutlet weak var locationLabel: DesignableTextField!

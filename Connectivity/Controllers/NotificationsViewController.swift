@@ -110,7 +110,12 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if indexPath.section == 0 {
+            Router.showProfileViewController(user: connectionRequests[indexPath.row], from: self)
+        }
+        else{
+            
+        }
     }
     
     @IBAction func acceptButtonPressed(_ sender: UIButton) {

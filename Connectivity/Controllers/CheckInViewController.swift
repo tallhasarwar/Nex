@@ -10,7 +10,7 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 
-class CheckInViewController: BaseViewController, GMSMapViewDelegate {
+class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextFieldDelegate {
 
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
@@ -20,25 +20,18 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
     var zoomLevel: Float = 15.0
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var tableHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchField: DesignableTextField!
+    @IBOutlet weak var tableRegularHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableSmallHeightConstraint: NSLayoutConstraint!
     
-    // An array to hold the list of likely places.
     var likelyPlaces: [GooglePlace] = []
-    
-    // The currently selected place.
     var selectedPlace: GooglePlace?
-    
-    // A default location to use when location permission is not granted.
     var defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
 
-    // Update the map once the user has made their selection.
     @IBAction func unwindToMain(segue: UIStoryboardSegue) {
-        // Clear the map.
         mapView.clear()
-        
     }
     
-    // Present the Autocomplete view controller when the button is pressed.
     @IBAction func autocompleteClicked(_ sender: UIButton) {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
@@ -54,9 +47,9 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
         title = "Where are you?"
+        
+        searchField.delegate = self
         
         if ApplicationManager.sharedInstance.user.email == nil {
             SVProgressHUD.show()
@@ -92,11 +85,11 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
         placesClient = GMSPlacesClient.shared()
 
         // Create a map.
-        let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
-                                              longitude: defaultLocation.coordinate.longitude,
-                                              zoom: zoomLevel)
-        mapView = GMSMapView.map(withFrame: viewForMap.bounds, camera: camera)
-        mapView.camera = camera
+//        let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
+//                                              longitude: defaultLocation.coordinate.longitude,
+//                                              zoom: zoomLevel)
+        mapView = GMSMapView(frame: viewForMap.bounds)
+//        mapView.camera = camera
         mapView.settings.myLocationButton = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isMyLocationEnabled = true
@@ -105,11 +98,11 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
         viewForMap.addSubview(mapView)
         mapView.delegate = self
         
-        listLikelyPlaces()
+//        listLikelyPlaces()
     }
     
     // Populate the array with the list of likely places.
-    func listLikelyPlaces() {
+    func listLikelyPlaces(searchKey: String? = nil) {
         
         var params = [String: AnyObject]()
         let coordinate = self.mapView.getCenterCoordinate()
@@ -119,7 +112,13 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
         params["location"] = "\(coordinate.latitude),\(coordinate.longitude)" as AnyObject
         params["key"] = "AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo" as AnyObject
         params["rankby"] = "distance" as AnyObject
-        params["keyword"] = "establishment" as AnyObject
+        
+        if let searchString = searchKey, searchKey!.characters.count > 0 {
+            params["name"] = searchString as AnyObject
+        }
+        else{
+            params["keyword"] = "establishment" as AnyObject
+        }
         
         RequestManager.getLocations(param: params, successBlock: { (response) in
             self.likelyPlaces.removeAll()
@@ -136,8 +135,40 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate {
 
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        listLikelyPlaces()
+//        listLikelyPlaces()
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        tableRegularHeightConstraint.isActive = false
+        tableSmallHeightConstraint.isActive = true
+        UIView.animate(withDuration: 1) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        tableRegularHeightConstraint.isActive = true
+        tableSmallHeightConstraint.isActive = false
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        tableRegularHeightConstraint.isActive = true
+        tableSmallHeightConstraint.isActive = false
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+        listLikelyPlaces(searchKey: searchField.text)
+        return true
+    }
+    
+    @IBAction func searchFieldTextDidChange(_ sender: UITextField) {
+        listLikelyPlaces(searchKey: searchField.text)
+    }
+    
     
 }
 
@@ -202,7 +233,7 @@ extension CheckInViewController: UITableViewDelegate, UITableViewDataSource {
         
         let distance = self.mapView.getDistanceToCoordinates(coordinates: likelyPlaces[indexPath.row].coordinates!)
         
-        cell.distanceLabel.text = "\(distance)m"
+        cell.distanceLabel.text = "\(distance)"
         return cell
     }
     
@@ -281,11 +312,23 @@ extension GMSMapView {
         return Int(round(radius))
     }
     
-    func getDistanceToCoordinates(coordinates: CLLocationCoordinate2D) -> Int {
+    func getDistanceToCoordinates(coordinates: CLLocationCoordinate2D, inMiles: Bool = false) -> String {
         let centerCoordinate = getCenterCoordinate()
         let centerLocation = CLLocation(latitude: centerCoordinate.latitude, longitude: centerCoordinate.longitude)
         let topCenterLocation = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
         let radius = CLLocationDistance(centerLocation.distance(from: topCenterLocation))
-        return Int(round(radius))
+        if inMiles {
+            return "\((radius * 0.000621371192).rounded(toPlaces: 1)) miles"
+        }
+        else{
+            if (radius * 0.000621371192).rounded(toPlaces: 1) > 1.0 {
+                return "\((radius * 0.000621371192).rounded(toPlaces: 1)) miles"
+            }
+            else{
+                return "\(radius.rounded(toPlaces: 1)) m"
+            }
+            
+        }
+        
     }
 }

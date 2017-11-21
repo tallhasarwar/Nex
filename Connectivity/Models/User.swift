@@ -26,6 +26,7 @@ class User: BaseEntity {
     var website: String?
     var google_profile: String?
     var headline: String?
+    var tagline: String?
     
     override init() {
         super.init()

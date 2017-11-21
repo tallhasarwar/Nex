@@ -9,7 +9,7 @@
 import UIKit
 import GooglePlaces
 
-class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetDelegate, DZNEmptyDataSetSource {
     
     var place : GooglePlace?
     var users = [User]()
@@ -27,20 +27,29 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         
         title = place!.name
         addressLabel.text = place!.vicinity
-        locationImageView.sd_setImage(with: URL(string: place!.imageReference!), placeholderImage: UIImage(named: "placeholder-banner"), options: SDWebImageOptions.refreshCached, completed: nil)
-//        GMSPlacesClient.shared().lookUpPhotos(forPlaceID: place!.placeID) { (photos, error) in
-//            if let error = error {
-//                // TODO: handle the error.
-//                print("Error: \(error.localizedDescription)")
-//            } else {
-//                if let firstPhoto = photos?.results.first {
-//                    self.loadImageForMetadata(photoMetadata: firstPhoto)
-//                }
-//            }
-//        }
+        if let imageRef = place?.imageReference {
+            let activityIndicator = UtilityManager.activityIndicatorForView(view: locationImageView)
+            activityIndicator.startAnimating()
+            locationImageView.sd_setImage(with: URL(string: imageRef), placeholderImage: UIImage(named: "placeholder-banner"), options: SDWebImageOptions.refreshCached, completed:{ (image, error, cacheType, url) in
+                activityIndicator.stopAnimating()
+            })
+            
+        }
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.emptyDataSetDelegate = self
+        tableView.emptyDataSetSource = self
+        
+        tableView.tableFooterView = UIView()
+        
+        SVProgressHUD.show()
+        fetchData()
+        
+    }
+    
+    func fetchData() {
         
         var params = [String: AnyObject]()
         params["location_id"] = place?.place_id as AnyObject
@@ -52,10 +61,10 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
                 self.users.append(User(dictionary: object))
             }
             self.tableView.reloadData()
+            SVProgressHUD.dismiss()
         }) { (error) in
             SVProgressHUD.showError(withStatus: error)
         }
-        
     }
     
     func loadImageForMetadata(photoMetadata: GMSPlacePhotoMetadata) {
@@ -68,15 +77,6 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         
-//        GMSPlacesClient.shared().loadPlacePhoto(photoMetadata, callback: {
-//            (photo, error) -> Void in
-//            if let error = error {
-//                // TODO: handle the error.
-//                print("Error: \(error.localizedDescription)")
-//            } else {
-//                self.locationImageView.image = photo
-//            }
-//        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,6 +102,82 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    //MARK : - EmptyDataSource Methods
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "No Recent Checkins Found"
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        paragraphStyle.alignment = .center
+        
+        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .Medium, size: 17.0) as Any,
+                                          NSForegroundColorAttributeName: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
+                                          NSParagraphStyleAttributeName: paragraphStyle]
+        return NSMutableAttributedString(string: text, attributes: attributes)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "Try out some other nearby locations for recently checked in users"
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        paragraphStyle.alignment = .center
+        
+        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .Standard, size: 15.0) as Any,
+                                          NSForegroundColorAttributeName: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
+                                          NSParagraphStyleAttributeName: paragraphStyle]
+        return NSMutableAttributedString(string: text, attributes: attributes)
+    }
+    
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
+        let text = "Reload"
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        paragraphStyle.alignment = .center
+        
+        var color: UIColor!
+        
+        if state == .normal {
+            color = UIColor(red: 44.0/255.0, green: 137.0/255.0, blue: 202.0/255.0, alpha: 1.0)
+        }
+        if state == .highlighted {
+            color = UIColor(red: 106.0/255.0, green: 187.0/255.0, blue: 227.0/255.0, alpha: 1.0)
+        }
+        
+        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .SemiBold, size: 14.0) as Any,
+                                          NSForegroundColorAttributeName: color,
+                                          NSParagraphStyleAttributeName: paragraphStyle]
+        return NSMutableAttributedString(string: text, attributes: attributes)
+    }
+    
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+        return UIColor(white: 1.0, alpha: 1.0)
+    }
+    
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+    
+    func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
+        SVProgressHUD.show()
+        fetchData()
+    }
+    
+    func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
+        SVProgressHUD.show()
+        fetchData()
     }
     
 

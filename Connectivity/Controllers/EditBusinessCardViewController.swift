@@ -20,15 +20,30 @@ class EditBusinessCardViewController: BaseViewController {
     @IBOutlet weak var addressField: DesignableTextView!
     @IBOutlet weak var websiteField: DesignableTextField!
     
+    var businessCard = BusinessCard()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupNavigation()
+        profileImageView.parentController = self
+        
+        nameLabel.text = businessCard.name
+        titleLabel.text = businessCard.title
+        emailField.text = businessCard.email
+        phoneField.text = businessCard.phone
+        addressField.text = businessCard.address
+        websiteField.text = businessCard.web
+        profileImageView.sd_setImage(with: URL(string: businessCard.image ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        
+        
     }
 
     
     func setupNavigation() {
+        title = "Edit Business Card"
+        
         let barButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(EditProfileViewController.saveButtonPressed(sender:)))
         self.navigationItem.rightBarButtonItem = barButton
     }
@@ -48,7 +63,7 @@ class EditBusinessCardViewController: BaseViewController {
         params["web"] = websiteField.text as AnyObject
         
         SVProgressHUD.show()
-        RequestManager.addBusinessCard(param: params, successBlock: { (response) in
+        RequestManager.addBusinessCard(param: params,image: profileImageView.image, successBlock: { (response) in
             SVProgressHUD.showSuccess(withStatus: "Profile Updated")
             self.navigationController?.popViewController(animated: true)
         }) { (error) in

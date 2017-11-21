@@ -15,6 +15,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var profileImageView: DesignableImageView!
     @IBOutlet weak var profileNameLabel: UILabel!
     @IBOutlet weak var jobTitleLabel: UILabel!
+    @IBOutlet weak var taglineLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var connectButton: DesignableButton!
     @IBOutlet weak var acceptanceView: UIView!
@@ -44,7 +45,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         
         if publicProfile == true {
             self.navigationItem.rightBarButtonItem = nil
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 260)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 270 )
             messageView.isHidden = false
             RequestManager.getOtherProfile(userID: user.user_id!, successBlock: { (response) in
                 self.user = User(dictionary: response["user"] as! [String: AnyObject])
@@ -55,6 +56,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             })
         }
         else{
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 205)
             connectButton.isHidden = true
         }
         
@@ -83,6 +85,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     func loadUI() {
         profileNameLabel.text = user.full_name
         jobTitleLabel.text = user.headline
+        taglineLabel.text = user.tagline
         profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         tableView.reloadData()
     }
@@ -95,6 +98,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.acceptanceView.isHidden = true
         }
         else if connectionStatus == "SENT" {
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 245)
             self.connectButton.isHidden = true
             self.acceptanceView.isHidden = true
         }
@@ -190,16 +194,27 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func acceptButtonPressed(_ sender: Any) {
+        SVProgressHUD.show()
+        RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: true, successBlock: { (response) in
+            SVProgressHUD.showSuccess(withStatus: "Request Accepted")
+            self.acceptanceView.isHidden = true
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
     }
     
-    
     @IBAction func rejectButtonPressed(_ sender: Any) {
+        SVProgressHUD.show()
+        RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: false, successBlock: { (response) in
+            SVProgressHUD.showSuccess(withStatus: "Request Rejected")
+            self.acceptanceView.isHidden = true
+        }) { (error) in
+            SVProgressHUD.showError(withStatus: error)
+        }
     }
     
     @IBAction func messageButtonPressed(_ sender: Any) {
-        
-            Router.showChatViewController(user: user, from: self)
-        
+        Router.showChatViewController(user: user, from: self)
     }
     
     

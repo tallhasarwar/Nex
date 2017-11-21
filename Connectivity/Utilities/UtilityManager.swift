@@ -50,6 +50,12 @@ class UtilityManager: NSObject {
         return activityIndicator
     }
     
+    static func noDataViewWithText(errorMessage: String, on view: UIView) {
+        let layer = CALayer()
+        layer.frame = view.bounds
+        
+    }
+    
     static func uniqueKeyWithLength (len : Int) -> NSString {
         
         let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -152,4 +158,12 @@ class UtilityManager: NSObject {
         
     }
     
+}
+
+extension Double {
+    /// Rounds the double to decimal places value
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
 }

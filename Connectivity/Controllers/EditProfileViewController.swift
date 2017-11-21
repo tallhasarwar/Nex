@@ -24,6 +24,7 @@ class EditProfileViewController: BaseViewController {
     @IBOutlet weak var linkedInProfileField: DesignableTextField!
     @IBOutlet weak var googleField: DesignableTextField!
     @IBOutlet weak var websiteField: DesignableTextField!
+    @IBOutlet weak var taglineField: FloatLabelTextField!
     
     
     override func viewDidLoad() {
@@ -56,6 +57,8 @@ class EditProfileViewController: BaseViewController {
         linkedInProfileField.text = user.linkedin_profile
         googleField.text = user.google_profile
         websiteField.text = user.website
+        taglineField.text = user.tagline
+        profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         
     }
     
@@ -85,6 +88,8 @@ class EditProfileViewController: BaseViewController {
         params["linkedin_profile"] = linkedInProfileField.text
         params["google_profile"] = googleField.text
         params["website"] = websiteField.text
+        params["tagline"] = taglineField.text
+        
         
         SVProgressHUD.show()
         RequestManager.updateProfile(param: params, image: profileImageView.image, successBlock: { (response) in

@@ -27,7 +27,8 @@ class BaseViewController: UIViewController {
     }
     
     func setupBackgroundImage(){
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "nav-bg"), for: .default)
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "nav-bg")?.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0, 0, 0), resizingMode: UIImageResizingMode.stretch), for: .default)
     }
     
 

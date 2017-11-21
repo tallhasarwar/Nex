@@ -12,7 +12,7 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     
-    let items = [["image":"business-card-icon","title":"My Business Card"], ["image":"events-icon","title":"My Events"], ["image":"settings-icon","title":"Settings"],["image":"","title":"Logout"]] as [[String: String]]
+    let items = [["image":"business-card-icon","title":"My Business Card"], ["image":"events-icon","title":"My Events"], ["image":"settings-icon","title":"Settings"],["image":"logout-icon","title":"Logout"]] as [[String: String]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +24,12 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         
         title = "More"
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -324,9 +324,9 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
-    func addBusinessCard(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+    func addBusinessCard(param: [String: Any], image: UIImage?, successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
-        self.postPath(urlString: Constant.addBusinessCardURL, params: param as [String : AnyObject], successBlock: { (response) in
+        self.multipartPost(urlString: Constant.addBusinessCardURL, params: param as [String : AnyObject], image: image, imageName: "image", successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [String : AnyObject])
