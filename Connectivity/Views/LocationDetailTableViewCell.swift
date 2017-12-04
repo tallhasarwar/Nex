@@ -15,6 +15,8 @@ class LocationDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var profileImageView: DesignableImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var headlineLabel: UILabel!
+    @IBOutlet weak var activationTimeLabel: UILabel!
+    @IBOutlet weak var taglineLabel: UILabel!
     
     
     override func awakeFromNib() {

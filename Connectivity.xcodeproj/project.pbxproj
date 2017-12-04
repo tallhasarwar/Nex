@@ -24,6 +24,7 @@
 		691D63841FB1CD5500A96CC5 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D63821FB1CD5500A96CC5 /* FloatLabelTextField.swift */; };
 		6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */; };
 		6934E3C21F7A7251005BB2C9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */; };
+		6949231E1FCC392E003CDA52 /* LocationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */; };
 		694F739A1FB4BED100007896 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694F73991FB4BED100007896 /* GooglePlace.swift */; };
 		695FDA8A1FAB22FA004B6735 /* EventsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FDA891FAB22FA004B6735 /* EventsListViewController.swift */; };
 		695FDA8C1FAB2929004B6735 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FDA8B1FAB2929004B6735 /* Event.swift */; };
@@ -41,6 +42,7 @@
 		698280051FA867A000552A53 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280041FA867A000552A53 /* ChatViewController.swift */; };
 		698280071FA86BBA00552A53 /* ChatCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280061FA86BBA00552A53 /* ChatCells.swift */; };
 		6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */; };
+		699045621FC5A14F00D5F937 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699045611FC5A14F00D5F937 /* ForgotPasswordViewController.swift */; };
 		6992966E1F9115F200300692 /* EditBusinessCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */; };
 		699E70251FA347D40070BFBA /* ConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E70241FA347D40070BFBA /* ConnectionRequest.swift */; };
 		69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */; };
@@ -108,6 +110,7 @@
 		69B9CF041F72AED90070BD37 /* UtilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B9CEBF1F72AED90070BD37 /* UtilityManager.swift */; };
 		69B9CF051F72AED90070BD37 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B9CEC21F72AED90070BD37 /* SignInViewController.swift */; };
 		69B9CF061F72AED90070BD37 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */; };
+		69BC4B081FC4921C005CCA16 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BC4B071FC4921B005CCA16 /* SnapKit.framework */; };
 		69BC67991F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */; };
 		69F4B7D91F77D44F00BFB414 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */; };
 		69F4B7DB1F77DD7900BFB414 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */; };
@@ -147,6 +150,7 @@
 		691D63821FB1CD5500A96CC5 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
 		6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectionViewController.swift; sourceTree = "<group>"; };
 		694F73991FB4BED100007896 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
 		695FDA891FAB22FA004B6735 /* EventsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListViewController.swift; sourceTree = "<group>"; };
 		695FDA8B1FAB2929004B6735 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -165,6 +169,8 @@
 		698280041FA867A000552A53 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		698280061FA86BBA00552A53 /* ChatCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCells.swift; sourceTree = "<group>"; };
 		6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
+		698F4C0F1FCFDDBE0012CD23 /* LocationPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocationPicker.framework; path = Carthage/Build/iOS/LocationPicker.framework; sourceTree = "<group>"; };
+		699045611FC5A14F00D5F937 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBusinessCardViewController.swift; sourceTree = "<group>"; };
 		699E70241FA347D40070BFBA /* ConnectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRequest.swift; sourceTree = "<group>"; };
 		69A2593A1F6D60D8000F67B0 /* Connectivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connectivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +241,7 @@
 		69B9CEBF1F72AED90070BD37 /* UtilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilityManager.swift; sourceTree = "<group>"; };
 		69B9CEC21F72AED90070BD37 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		69BC4B071FC4921B005CCA16 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRequestTableViewCell.swift; sourceTree = "<group>"; };
 		69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -272,6 +279,7 @@
 				6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */,
 				2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */,
 				69F4BB641F7807F600BFB414 /* SwiftValidator.framework in Frameworks */,
+				69BC4B081FC4921C005CCA16 /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +489,8 @@
 				69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */,
 				69B9CEC21F72AED90070BD37 /* SignInViewController.swift */,
 				69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */,
+				699045611FC5A14F00D5F937 /* ForgotPasswordViewController.swift */,
+				6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -503,6 +513,8 @@
 		760BCFEBBAEBD0986EB0F625 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				698F4C0F1FCFDDBE0012CD23 /* LocationPicker.framework */,
+				69BC4B071FC4921B005CCA16 /* SnapKit.framework */,
 				6975AD931F94ADBF00CEF94D /* UserNotifications.framework */,
 				6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */,
 				69F4BB631F7807F600BFB414 /* SwiftValidator.framework */,
@@ -644,6 +656,8 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftValidator.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/LocationPicker.framework",
 			);
 			outputPaths = (
 			);
@@ -777,6 +791,7 @@
 				69B9CEF41F72AED90070BD37 /* LoadingView.swift in Sources */,
 				691D63841FB1CD5500A96CC5 /* FloatLabelTextField.swift in Sources */,
 				69FCBA721F7D1FCF00F4696E /* UIAlertController+Blocks.m in Sources */,
+				6949231E1FCC392E003CDA52 /* LocationSelectionViewController.swift in Sources */,
 				69827FFF1FA75B2800552A53 /* Message.swift in Sources */,
 				69B9CEFA1F72AED90070BD37 /* SpringButton.swift in Sources */,
 				69FCBA7D1F7D426E00F4696E /* LIALinkedInAuthorizationViewController.m in Sources */,
@@ -785,6 +800,7 @@
 				69B9CEE21F72AED90070BD37 /* ScrollableDatepicker.swift in Sources */,
 				69B9CEDF1F72AED90070BD37 /* DayCell.swift in Sources */,
 				69B9CF041F72AED90070BD37 /* UtilityManager.swift in Sources */,
+				699045621FC5A14F00D5F937 /* ForgotPasswordViewController.swift in Sources */,
 				6934E3C21F7A7251005BB2C9 /* EditProfileViewController.swift in Sources */,
 				69B9CEFF1F72AED90070BD37 /* SpringView.swift in Sources */,
 				691D637D1FB19F0200A96CC5 /* EventDetailTableViewCell.swift in Sources */,
@@ -929,7 +945,7 @@
 				CODE_SIGN_ENTITLEMENTS = Connectivity/Connectivity.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = QEZ42U74SP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -961,7 +977,7 @@
 				CODE_SIGN_ENTITLEMENTS = Connectivity/Connectivity.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = QEZ42U74SP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

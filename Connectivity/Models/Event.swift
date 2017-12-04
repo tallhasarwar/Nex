@@ -20,6 +20,8 @@ class Event: BaseEntity {
     var image_path: String?
     var created_at: NSDate?
     var id: String?
+    var latitude: String?
+    var longitude: String?
     
     override init() {
         super.init()

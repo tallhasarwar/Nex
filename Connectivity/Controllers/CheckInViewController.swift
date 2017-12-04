@@ -10,8 +10,14 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 
+protocol LocationSelectionDelegate {
+    func didSelectLocation(location: CLLocationCoordinate2D)
+}
+
 class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextFieldDelegate {
 
+    static let storyboardID = "checkInViewController"
+    
     var locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     @IBOutlet weak var viewForMap: UIView!
@@ -23,10 +29,16 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     @IBOutlet weak var searchField: DesignableTextField!
     @IBOutlet weak var tableRegularHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableSmallHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableFullHeightConstraint: NSLayoutConstraint!
     
     var likelyPlaces: [GooglePlace] = []
     var selectedPlace: GooglePlace?
     var defaultLocation = CLLocation(latitude: -33.869405, longitude: 151.199)
+    var nextPageToken: String?
+    var isNextPageAvailable: Bool = false
+    var locationDelegate: LocationSelectionDelegate?
+    
+    var isLocationSelection = false
 
     @IBAction func unwindToMain(segue: UIStoryboardSegue) {
         mapView.clear()
@@ -57,6 +69,10 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
                 SVProgressHUD.dismiss()
                 let user = User(dictionary: response)
                 ApplicationManager.sharedInstance.user = user
+                if let notificationCount = user.unread_notification_count, notificationCount > 0 {
+                    let tabbarItem = self.tabBarController!.tabBar.items![3]
+                    tabbarItem.badgeValue = "\(notificationCount)"
+                }
             }, failureBlock: { (error) in
                 SVProgressHUD.showError(withStatus: error)
             })
@@ -65,7 +81,41 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         tableView.delegate = self
         tableView.dataSource = self
         
+        if isLocationSelection {
+            let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.locationSelected))
+            navigationItem.rightBarButtonItem = button
+        }
+        else{
+            let button = UIBarButtonItem(image: UIImage(named: "business-location"), style: .plain, target: self, action: #selector(self.showLocationEvents))
+            navigationItem.leftBarButtonItem = button
+        }
+        
+        
         setupLocation()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if isLocationSelection {
+            tableRegularHeightConstraint.isActive = false
+            tableSmallHeightConstraint.isActive = false
+            tableFullHeightConstraint.isActive = true
+            self.view.layoutIfNeeded()
+//            UIView.animate(withDuration: 0.5) {
+//                self.view.layoutIfNeeded()
+//            }
+        }
+    }
+    
+    func locationSelected() {
+        let coordinate = self.mapView.getCenterCoordinate()
+        self.locationDelegate?.didSelectLocation(location: coordinate)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func showLocationEvents() {
+        let coordinate = self.mapView.getCenterCoordinate()
+        Router.showNearbyEventsListController(coordinates: coordinate, from: self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,21 +134,14 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         
         placesClient = GMSPlacesClient.shared()
 
-        // Create a map.
-//        let camera = GMSCameraPosition.camera(withLatitude: defaultLocation.coordinate.latitude,
-//                                              longitude: defaultLocation.coordinate.longitude,
-//                                              zoom: zoomLevel)
         mapView = GMSMapView(frame: viewForMap.bounds)
-//        mapView.camera = camera
         mapView.settings.myLocationButton = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isMyLocationEnabled = true
-        mapView.settings.scrollGestures = false
-        // Add the map to the view, hide it until we&#39;ve got a location update.
+//        mapView.settings.scrollGestures = false
         viewForMap.addSubview(mapView)
         mapView.delegate = self
         
-//        listLikelyPlaces()
     }
     
     // Populate the array with the list of likely places.
@@ -108,40 +151,63 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         let coordinate = self.mapView.getCenterCoordinate()
         defaultLocation = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
         
-//        params["radius"] = min(self.mapView.getRadius(), 1500) as AnyObject
-        params["location"] = "\(coordinate.latitude),\(coordinate.longitude)" as AnyObject
         params["key"] = "AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo" as AnyObject
+        
+        
+        params["location"] = "\(coordinate.latitude),\(coordinate.longitude)" as AnyObject
+        
         params["rankby"] = "distance" as AnyObject
         
-        if let searchString = searchKey, searchKey!.characters.count > 0 {
+        if let searchString = searchKey, searchKey!.count > 0 {
             params["name"] = searchString as AnyObject
         }
         else{
-            params["keyword"] = "establishment" as AnyObject
+            params["type"] = "establishment" as AnyObject
         }
         
-        RequestManager.getLocations(param: params, successBlock: { (response) in
-            self.likelyPlaces.removeAll()
+        
+        if let token = nextPageToken, isNextPageAvailable == true {
+            params["pagetoken"] = token as AnyObject
+        }
+    
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40))
+        let loader = UtilityManager.activityIndicatorForView(view: view)
+        loader.startAnimating()
+        self.tableView.tableFooterView = view
+        RequestManager.getLocations(param: params, successBlock: { (response, nextPageToken) in
+            loader.stopAnimating()
+            self.tableView.tableFooterView = nil
+            if self.nextPageToken == nil {
+                self.likelyPlaces.removeAll()
+            }
             for object in response {
                 self.likelyPlaces.append(GooglePlace(dictionary: object))
             }
+            if let token = nextPageToken {
+                self.nextPageToken = token
+                self.isNextPageAvailable = true
+            }
+            else{
+                self.isNextPageAvailable = false
+            }
+            
             self.tableView.reloadData()
         }) { (error) in
             
         }
+    
         
     }
     
-
-    
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-//        listLikelyPlaces()
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        nextPageToken = nil
+        listLikelyPlaces()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         tableRegularHeightConstraint.isActive = false
         tableSmallHeightConstraint.isActive = true
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
     }
@@ -161,11 +227,13 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
+        nextPageToken = nil
         listLikelyPlaces(searchKey: searchField.text)
         return true
     }
     
     @IBAction func searchFieldTextDidChange(_ sender: UITextField) {
+        nextPageToken = nil
         listLikelyPlaces(searchKey: searchField.text)
     }
     
@@ -193,7 +261,7 @@ extension CheckInViewController: CLLocationManagerDelegate {
         
 //        locationManager.stopUpdatingLocation()
         
-        listLikelyPlaces()
+//        listLikelyPlaces()
     }
     
     // Handle authorization for the location manager.
@@ -234,13 +302,43 @@ extension CheckInViewController: UITableViewDelegate, UITableViewDataSource {
         let distance = self.mapView.getDistanceToCoordinates(coordinates: likelyPlaces[indexPath.row].coordinates!)
         
         cell.distanceLabel.text = "\(distance)"
+        if let open = likelyPlaces[indexPath.row].openNow, open == true {
+            cell.distanceLabel.text?.append("\nOpen Now")
+        }
         return cell
     }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        self.openPlace(place: likelyPlaces[indexPath.row])
+        if !isLocationSelection {
+            self.openPlace(place: likelyPlaces[indexPath.row])
+        }
+        else{
+//            let place = likelyPlaces[indexPath.row]
+//            if let lat = place.coordinates?.latitude, let long = place.coordinates?.longitude {
+//                let camera = GMSCameraPosition.camera(withLatitude: lat,
+//                                                      longitude: long,
+//                                                      zoom: zoomLevel)
+//                self.mapView.animate(to: camera)
+//                self.tableRegularHeightConstraint.isActive = false
+//                self.tableSmallHeightConstraint.isActive = false
+//                self.tableFullHeightConstraint.isActive = true
+//                UIView.animate(withDuration: 0.5) {
+//                    self.view.layoutIfNeeded()
+//                }
+//            }
+            self.locationDelegate?.didSelectLocation(location: likelyPlaces[indexPath.row].coordinates!)
+            navigationController?.popViewController(animated: true)
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isNextPageAvailable == true {
+            if indexPath.row + 3 == likelyPlaces.count {
+                listLikelyPlaces()
+            }
+        }
     }
     
     func openPlace(place: GooglePlace) {

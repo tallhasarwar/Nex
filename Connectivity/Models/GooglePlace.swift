@@ -16,6 +16,7 @@ class GooglePlace: BaseEntity {
     var rating: Int?
     var imageReference: String?
     var coordinates: CLLocationCoordinate2D?
+    var openNow: Bool?
 
     
     override init() {
@@ -38,6 +39,9 @@ class GooglePlace: BaseEntity {
         let lng = (dictionary["geometry"] as! [String: [String: AnyObject]])["location"]!["lng"] as! CLLocationDegrees
         coordinates = CLLocationCoordinate2DMake(lat, lng)
         
+        if let open = dictionary["opening_hours"] as? [String: AnyObject] {
+            openNow = open["open_now"] as? Bool
+        }
         
     }
 }

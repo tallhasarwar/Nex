@@ -13,6 +13,8 @@ class NotificationModel: BaseEntity {
     var full_name: String?
     var title: String?
     var image_path: String?
+    var created_at: NSDate?
+    var component_id: String?
     
     override init() {
         super.init()
@@ -20,7 +22,10 @@ class NotificationModel: BaseEntity {
     
     override init(dictionary: [AnyHashable : Any]!) {
         super.init()
-        self.setValuesForKeysWithJSONDictionary(dictionary, dateFormatter: nil)
+        let newDateFormatter = DateFormatter()
+        newDateFormatter.dateFormat = Constant.serverDateFormat
+        newDateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
+        self.setValuesForKeysWithJSONDictionary(dictionary, dateFormatter: newDateFormatter)
     }
 
     

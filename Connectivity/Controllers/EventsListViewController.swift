@@ -16,6 +16,8 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
     @IBOutlet weak var tableView: TPKeyboardAvoidingTableView!
     
     var events = [Event]()
+    var coordinates: CLLocationCoordinate2D?
+    var isLocationBased : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +28,7 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
         tableView.delegate = self
         tableView.dataSource = self
         SVProgressHUD.show()
-        fetchData()
+//        fetchData()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
@@ -36,16 +38,41 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     func fetchData() {
-        RequestManager.getAllEvents(param: ["page":0], successBlock: { (response) in
-            SVProgressHUD.dismiss()
-            self.events.removeAll()
-            for object in response {
-                self.events.append(Event(dictionary: object))
+        if isLocationBased {
+            var params = [String: AnyObject]()
+            if let coords = coordinates {
+                params["latitude"] = coords.latitude as AnyObject
+                params["longitude"] = coords.longitude as AnyObject
             }
-            self.tableView.reloadData()
-        }) { (error) in
-//            SVProgressHUD.showError(withStatus: error)
+            
+            params["page"] = 0 as AnyObject
+            
+            SVProgressHUD.show()
+            RequestManager.getNearbyEvents(param: params, successBlock: { (response) in
+                SVProgressHUD.dismiss()
+                self.events.removeAll()
+                for object in response {
+                    self.events.append(Event(dictionary: object))
+                }
+                self.tableView.reloadData()
+            }, failureBlock: { (error) in
+                SVProgressHUD.dismiss()
+            })
         }
+        else{
+            RequestManager.getAllEvents(param: ["page":0], successBlock: { (response) in
+                SVProgressHUD.dismiss()
+                self.events.removeAll()
+                for object in response {
+                    self.events.append(Event(dictionary: object))
+                }
+                self.tableView.reloadData()
+            }) { (error) in
+                SVProgressHUD.dismiss()
+            }
+        }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

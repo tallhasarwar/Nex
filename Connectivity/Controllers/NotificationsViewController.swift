@@ -21,11 +21,22 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchData()
         
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func fetchData() {
         RequestManager.getPendingRequests(param: ["page":0], successBlock: { (response) in
             self.connectionRequests.removeAll()
             for user in response {
@@ -47,11 +58,6 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             print(error)
             SVProgressHUD.dismiss()
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -104,7 +110,7 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             cell.nameLabel.text = notification.full_name
             cell.descriptionLabel.text = notification.title
             cell.profileImageView.sd_setImage(with: URL(string: notification.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
-//            cell.durationLabel.text = notification.
+            cell.durationLabel.text = UtilityManager.timeAgoSinceDate(date: notification.created_at!, numericDates: true)
             return cell
         }
     }
@@ -114,7 +120,9 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             Router.showProfileViewController(user: connectionRequests[indexPath.row], from: self)
         }
         else{
-            
+            let user = User()
+            user.user_id = notificationsArray[indexPath.row].component_id
+            Router.showProfileViewController(user: user, from: self)
         }
     }
     

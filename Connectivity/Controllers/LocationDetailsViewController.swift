@@ -20,6 +20,8 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addressLabel: UILabel!
     
+    let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,11 +44,22 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         tableView.emptyDataSetDelegate = self
         tableView.emptyDataSetSource = self
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 60.0
+        
         tableView.tableFooterView = UIView()
+        
+        
+        refreshControl.addTarget(self, action: #selector(refreshTableView), for: UIControlEvents.valueChanged)
+        tableView.refreshControl = refreshControl
         
         SVProgressHUD.show()
         fetchData()
         
+    }
+    
+    func refreshTableView() {
+        fetchData()
     }
     
     func fetchData() {
@@ -57,6 +70,7 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         
         RequestManager.checkinLocation(param: params, successBlock: { (response) in
             self.users.removeAll()
+            self.refreshControl.endRefreshing()
             for object in response {
                 self.users.append(User(dictionary: object))
             }
@@ -89,7 +103,14 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         cell.nameLabel.text = user.full_name
         cell.headlineLabel.text = user.headline
         cell.profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
-
+        if let tagline = user.tagline {
+            cell.taglineLabel.text = "\"\(tagline)\""
+        }
+        else{
+            cell.taglineLabel.text = nil
+        }
+        cell.activationTimeLabel.text = "active\n" + UtilityManager.timeAgoSinceDate(date: user.checkin_time!, numericDates: true)
+        
         return cell
     }
     

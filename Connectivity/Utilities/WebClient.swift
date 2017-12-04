@@ -411,6 +411,9 @@ class WebClient: AFHTTPSessionManager {
         if !accepted{
             param["status"] = "REJECTED"
         }
+        else{
+            param["status"] = "ACCEPTED"
+        }
         
         self.postPath(urlString: Constant.respondToRequestURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
@@ -432,6 +435,25 @@ class WebClient: AFHTTPSessionManager {
     func getAllEvents(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
                              failureBlock failure:@escaping (String) -> ()){
         self.getPath(urlString: Constant.getEventsURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [[String : AnyObject]])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func getNearbyEvents(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+                      failureBlock failure:@escaping (String) -> ()){
+        self.getPath(urlString: Constant.getNearbyEventsURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [[String : AnyObject]])
@@ -470,7 +492,7 @@ class WebClient: AFHTTPSessionManager {
     }
     
     
-    func getLocations(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+    func getLocations(param: [String: Any], successBlock success:@escaping (_ response: [[String: AnyObject]], _ nextPageToken: String?) -> (),
                       failureBlock failure:@escaping (String) -> ()){
         
         let manager = AFHTTPSessionManager()
@@ -482,7 +504,7 @@ class WebClient: AFHTTPSessionManager {
             
             if let responseObject = response as? [String: AnyObject] {
                 if responseObject["status"] as! String == "OK" {
-                    success(responseObject["results"] as! [[String: AnyObject]])
+                    success(responseObject["results"] as! [[String: AnyObject]], responseObject["next_page_token"] as? String)
                 }
                 else{
                     failure("Failed to load locations")
@@ -515,6 +537,36 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func getAddressForCoords(param: [String: Any], successBlock success:@escaping (_ response: [[String: AnyObject]]) -> (),
+                      failureBlock failure:@escaping (String) -> ()){
+        
+        let manager = AFHTTPSessionManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.responseSerializer = AFJSONResponseSerializer()
+        
+        manager.get("https://maps.googleapis.com/maps/api/geocode/json", parameters: param, progress: nil, success: { (sessionTask, response) in
+            print(response ?? "")
+            
+            if let responseObject = response as? [String: AnyObject] {
+                if responseObject["status"] as! String == "OK" {
+                    success(responseObject["results"] as! [[String: AnyObject]])
+                }
+                else{
+                    failure("Failed to load locations")
+                }
+            }
+            else{
+                failure("Failed to load locations")
+            }
+            
+            
+            
+        }) { (sessionTask, error) in
+            print(error)
             failure(error.localizedDescription)
         }
     }

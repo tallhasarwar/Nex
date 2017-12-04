@@ -89,6 +89,19 @@ class Message: BaseEntity {
                 }
             }).resume()
         }
+        if self.type == .location {
+            let coordinates = (self.content as! String).components(separatedBy: ":").joined(separator: ",")
+            
+            let baseURL = "https://maps.googleapis.com/maps/api/staticmap?zoom=15&center=\(coordinates)&size=200x150&markers=color:red%7Clabel:%7C\(coordinates)&key=\(Constant.googlePlacesKey)"
+          
+            let imageURL = URL.init(string: baseURL)
+            URLSession.shared.dataTask(with: imageURL!, completionHandler: { (data, response, error) in
+                if error == nil {
+                    self.image = UIImage.init(data: data!)
+                    completion(true, indexpathRow)
+                }
+            }).resume()
+        }
     }
     
     class func markMessagesRead(forUserID: String)  {

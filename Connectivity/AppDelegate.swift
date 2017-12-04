@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 //        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        GMSServices.provideAPIKey("AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo")
+        GMSServices.provideAPIKey(Constant.googlePlacesKey)
         GMSPlacesClient.provideAPIKey(Constant.googlePlacesKey)
         
         if #available(iOS 10.0, *) {

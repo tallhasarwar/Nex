@@ -21,6 +21,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var acceptanceView: UIView!
     @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var connectionLabel: UILabel!
     
     var publicProfile: Bool = false
     var user = User()
@@ -51,6 +52,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
                 self.user = User(dictionary: response["user"] as! [String: AnyObject])
                 self.connectionStatus = response["userConnectionStatus"] as! String
                 self.updateConnectionUI()
+                self.loadUI()
             }, failureBlock: { (error) in
                 SVProgressHUD.showError(withStatus: error)
             })
@@ -91,21 +93,33 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func updateConnectionUI() {
-        
+        connectionLabel.isHidden = true
 
-        if connectionStatus == "NONE" || connectionStatus == "REJECTED" {
+        if connectionStatus == "SENT" {
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 285)
             self.connectButton.isHidden = false
             self.acceptanceView.isHidden = true
-        }
-        else if connectionStatus == "SENT" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 245)
-            self.connectButton.isHidden = true
-            self.acceptanceView.isHidden = true
+            self.connectButton.setTitle("Request Pending", for: UIControlState.normal)
+            self.connectButton.isEnabled = false
+            self.connectButton.alpha = 0.8
         }
         else if connectionStatus == "PENDING" {
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 285)
             self.connectButton.isHidden = true
             self.acceptanceView.isHidden = false
         }
+        else if connectionStatus == "ACCEPTED" {
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 245)
+            self.connectButton.isHidden = true
+            self.acceptanceView.isHidden = true
+            self.connectionLabel.isHidden = false
+        }
+        else{
+            self.connectButton.isHidden = false
+            self.acceptanceView.isHidden = true
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 285)
+        }
+        self.view.layoutIfNeeded()
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,7 +128,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 11
+        return 12
         
     }
     
@@ -129,46 +143,50 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             
             switch indexPath.row {
             case 0:
-                cell.headingLabel.text = "Works At"
-                cell.descriptionLabel.text = user.worked_at ?? "N/A"
-                cell.descriptionTextView.text = user.worked_at ?? "N/A"
+                cell.headingLabel.text = "Works at"
+                cell.descriptionLabel.text = user.works_at ?? "N/A"
+                cell.descriptionTextView.text = user.works_at ?? "N/A"
             case 1:
-                cell.headingLabel.text = "Lives In"
+                cell.headingLabel.text = "Lives in"
                 cell.descriptionLabel.text = user.lives_in ?? "N/A"
                 cell.descriptionTextView.text = user.lives_in ?? "N/A"
             case 2:
+                cell.headingLabel.text = "Worked at"
+                cell.descriptionLabel.text = user.worked_at ?? "N/A"
+                cell.descriptionTextView.text = user.worked_at ?? "N/A"
+            case 3:
                 cell.headingLabel.text = "School / University"
                 cell.descriptionLabel.text = user.school ?? "N/A"
                 cell.descriptionTextView.text = user.school ?? "N/A"
-            case 3:
+            case 4:
                 cell.headingLabel.text = "Interests"
                 cell.descriptionLabel.text = user.interests ?? "N/A"
                 cell.descriptionTextView.text = user.interests ?? "N/A"
-            case 4:
-                cell.headingLabel.text = "Email Address"
+            case 5:
+                cell.headingLabel.text = "Email address"
                 cell.descriptionLabel.text = user.email ?? "N/A"
                 cell.descriptionTextView.text = user.email ?? "N/A"
-            case 5:
-                cell.headingLabel.text = "Phone Number"
+            case 6:
+                cell.headingLabel.text = "Phone number"
                 cell.descriptionLabel.text = user.contact_number ?? "N/A"
                 cell.descriptionTextView.text = user.contact_number ?? "N/A"
-            case 6:
-                cell.headingLabel.text = "Facebook Profile"
+            case 7:
+                cell.headingLabel.text = "Facebook profile"
                 cell.descriptionLabel.text = user.facebook_profile ?? "N/A"
                 cell.descriptionTextView.text = user.facebook_profile ?? "N/A"
-            case 7:
-                cell.headingLabel.text = "LinkedIn Profile"
+            case 8:
+                cell.headingLabel.text = "LinkedIn profile"
                 cell.descriptionLabel.text = user.linkedin_profile ?? "N/A"
                 cell.descriptionTextView.text = user.linkedin_profile ?? "N/A"
-            case 8:
-                cell.headingLabel.text = "Google+ Profile"
+            case 9:
+                cell.headingLabel.text = "Google+ profile"
                 cell.descriptionLabel.text = user.google_profile ?? "N/A"
                 cell.descriptionTextView.text = user.google_profile ?? "N/A"
-            case 9:
+            case 10:
                 cell.headingLabel.text = "Website"
                 cell.descriptionLabel.text = user.website ?? "N/A"
                 cell.descriptionTextView.text = user.website ?? "N/A"
-            case 10:
+            case 11:
                 cell.headingLabel.text = "About Me"
                 cell.descriptionLabel.text = user.about ?? "N/A"
                 cell.descriptionTextView.text = user.about ?? "N/A"
@@ -187,7 +205,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         SVProgressHUD.show()
         RequestManager.sendRequest(param: param, successBlock: { (response) in
             SVProgressHUD.showSuccess(withStatus: "Request sent")
-            self.connectButton.isHidden = true
+            self.connectionStatus = "SENT"
+            self.updateConnectionUI()
         }) { (error) in
             SVProgressHUD.showError(withStatus: error)
         }
@@ -197,7 +216,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         SVProgressHUD.show()
         RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: true, successBlock: { (response) in
             SVProgressHUD.showSuccess(withStatus: "Request Accepted")
-            self.acceptanceView.isHidden = true
+            self.connectionStatus = "SENT"
+            self.updateConnectionUI()
         }) { (error) in
             SVProgressHUD.showError(withStatus: error)
         }

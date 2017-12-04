@@ -45,10 +45,15 @@ class Styles {
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().tintColor = .white
         UIToolbar.appearance().tintColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
+        
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
 //        UITextField.appearance().tintColor = .white
         
 //        UISegmentedControl.appearance().tintColor = UIColor.blue
 //        UINavigationBar.appearance().barStyle = UIBarStyle.black
+        
+//        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffsetMake(-30, -30), for:UIBarMetrics.default)
         
         UINavigationBar.appearance().isTranslucent = false
         

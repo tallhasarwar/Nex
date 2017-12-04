@@ -1,1 +1,3 @@
 github "jpotts18/SwiftValidator"
+github "SnapKit/SnapKit" ~> 3.2.0
+github "JeromeTan1997/LocationPicker"

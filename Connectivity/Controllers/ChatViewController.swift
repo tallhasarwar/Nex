@@ -10,6 +10,7 @@ import UIKit
 import Photos
 import Firebase
 import CoreLocation
+import SnapKit
 
 class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate,  UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate {
     
@@ -49,8 +50,9 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.contentInset.bottom = self.barHeight
         self.tableView.scrollIndicatorInsets.bottom = self.barHeight
-        self.title = self.currentUser?.full_name
+        self.title = ""
         self.profileNameButton.setTitle(self.currentUser?.full_name, for: .normal)
+        
         self.profileImageView.sd_setImage(with: URL(string: self.currentUser?.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         
 //        self.navigationItem.setHidesBackButton(true, animated: false)
@@ -204,8 +206,19 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                     })
                 }
             case .location:
-                cell.messageBackground.image = UIImage.init(named: "location")
-                cell.message.isHidden = true
+                if let image = self.items[indexPath.row].image {
+                    cell.messageBackground.image = image
+                    cell.message.isHidden = true
+                } else {
+                    cell.messageBackground.image = UIImage.init(named: "location")
+                    self.items[indexPath.row].downloadImage(indexpathRow: indexPath.row, completion: { (state, index) in
+                        if state == true {
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
+                    })
+                }
             }
             return cell
         case .sender:
@@ -230,8 +243,19 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                     })
                 }
             case .location:
-                cell.messageBackground.image = UIImage.init(named: "location")
-                cell.message.isHidden = true
+                if let image = self.items[indexPath.row].image {
+                    cell.messageBackground.image = image
+                    cell.message.isHidden = true
+                } else {
+                    cell.messageBackground.image = UIImage.init(named: "location")
+                    self.items[indexPath.row].downloadImage(indexpathRow: indexPath.row, completion: { (state, index) in
+                        if state == true {
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
+                    })
+                }
             }
             return cell
         }
@@ -302,9 +326,26 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         self.customization()
         self.fetchData()
-        self.navigationItem.titleView = self.navView
+        self.navView.frame.size.height = self.barHeight
+        self.navView.clipsToBounds = true
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.navView)
+        self.navigationItem.leftItemsSupplementBackButton = true
+        
+        profileImageView.layer.cornerRadius = profileImageView.frame.height/2
+        profileImageView.layer.masksToBounds = true
+        
+        self.navView.snp.makeConstraints { (make) in
+            make.height.equalTo(40)
+            make.width.equalTo(200)
+        }
+        
     }
 
+    @IBAction func profileButtonClicked(_ sender: Any) {
+        Router.showProfileViewController(user: self.currentUser!, from: self)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

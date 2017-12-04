@@ -74,7 +74,7 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func editButtonPressed() {
-        
+        Router.showEditEventController(event: self.event!, from: self)
     }
 
 }

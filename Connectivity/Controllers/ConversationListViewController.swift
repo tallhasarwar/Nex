@@ -24,6 +24,7 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
         
         tableView.tableFooterView = UIView()
         
+        SVProgressHUD.show()
         self.fetchData()
         NotificationCenter.default.addObserver(self, selector: #selector(self.pushToUserMesssages(notification:)), name: NSNotification.Name(rawValue: "showUserMessages"), object: nil)
         // Do any additional setup after loading the view.
@@ -42,6 +43,7 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
+            SVProgressHUD.dismiss()
         }
     }
     

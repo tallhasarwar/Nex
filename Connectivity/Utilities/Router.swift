@@ -63,9 +63,25 @@ class Router: NSObject {
         
     }
     
+    static func showNearbyEventsListController(coordinates: CLLocationCoordinate2D, from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: EventsListViewController.storyboardID) as! EventsListViewController
+        vc.isLocationBased = true
+        vc.coordinates = coordinates
+        controller.navigationController?.show(vc, sender: nil)
+        
+    }
+    
     static func showCreateEventController(from controller: UIViewController) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CreateEventViewController.storyboardID) as! CreateEventViewController
         
+        controller.navigationController?.show(vc, sender: nil)
+        
+    }
+    
+    static func showEditEventController(event: Event, from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CreateEventViewController.storyboardID) as! CreateEventViewController
+        vc.event = event
+        vc.isEditingMode = true
         controller.navigationController?.show(vc, sender: nil)
         
     }
@@ -75,6 +91,15 @@ class Router: NSObject {
         vc.event = event
         controller.navigationController?.show(vc, sender: nil)
         
+    }
+    
+    static func showLocationSelection(from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CheckInViewController.storyboardID) as! CheckInViewController
+        if let delegateVC = controller as? LocationSelectionDelegate {
+            vc.locationDelegate = delegateVC
+        }
+        vc.isLocationSelection = true
+        controller.navigationController?.show(vc, sender: nil)
     }
     
     

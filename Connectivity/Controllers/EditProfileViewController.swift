@@ -17,6 +17,7 @@ class EditProfileViewController: BaseViewController {
     @IBOutlet weak var interestsField: DesignableTextField!
     @IBOutlet weak var schoolField: DesignableTextField!
     @IBOutlet weak var worksAtField: DesignableTextField!
+    @IBOutlet weak var workedAtField: FloatLabelTextField!
     @IBOutlet weak var livesInField: DesignableTextField!
     @IBOutlet weak var emailField: DesignableTextField!
     @IBOutlet weak var phoneNumberField: DesignableTextField!
@@ -49,7 +50,8 @@ class EditProfileViewController: BaseViewController {
         aboutMeTextView.text = user.about
         interestsField.text = user.interests
         schoolField.text = user.school
-        worksAtField.text = user.worked_at
+        worksAtField.text = user.works_at
+        workedAtField.text = user.worked_at
         livesInField.text = user.lives_in
         emailField.text = user.email
         phoneNumberField.text = user.contact_number
@@ -80,7 +82,8 @@ class EditProfileViewController: BaseViewController {
         params["about"] = aboutMeTextView.text
         params["interests"] = interestsField.text
         params["school"] = schoolField.text
-        params["worked_at"] = worksAtField.text
+        params["worked_at"] = workedAtField.text
+        params["works_at"] = worksAtField.text
         params["lives_in"] = livesInField.text
         params["email"] = emailField.text
         params["contact_number"] = phoneNumberField.text

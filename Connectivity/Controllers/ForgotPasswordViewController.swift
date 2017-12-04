@@ -1,25 +1,22 @@
 //
-//  BaseViewController.swift
+//  ForgotPasswordViewController.swift
 //  Connectivity
 //
-//  Created by Danial Zahid on 07/11/2017.
+//  Created by Danial Zahid on 22/11/2017.
 //  Copyright © 2017 Danial Zahid. All rights reserved.
 //
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class ForgotPasswordViewController: UIViewController {
 
+    @IBOutlet weak var emailField: FloatLabelTextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupBackgroundImage()
-        navigationItem.backBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        navigationItem.backBarButtonItem?.width = 30
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,12 +24,10 @@ class BaseViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func setupBackgroundImage(){
-        
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "nav-bg")?.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0, 0, 0), resizingMode: UIImageResizingMode.stretch), for: .default)
+    @IBAction func submitButtonPressed(_ sender: Any) {
+         
     }
     
-
     /*
     // MARK: - Navigation
 
