@@ -29,7 +29,7 @@ class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UI
         tableView.tableFooterView = UIView()
         
         SVProgressHUD.show()
-        fetchData()
+//        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {

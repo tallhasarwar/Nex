@@ -58,6 +58,14 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             print(error)
             SVProgressHUD.dismiss()
         }
+        
+        RequestManager.markNotificationsRead(param: [:], successBlock: { (response) in
+            let tabbarItem = self.tabBarController!.tabBar.items![3]
+            tabbarItem.badgeValue = nil
+        }) { (error) in
+            print(error)
+            SVProgressHUD.dismiss()
+        }
     }
     
     

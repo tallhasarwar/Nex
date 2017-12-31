@@ -37,6 +37,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     var nextPageToken: String?
     var isNextPageAvailable: Bool = false
     var locationDelegate: LocationSelectionDelegate?
+    var mapMarker: GMSMarker?
     
     var isLocationSelection = false
 
@@ -84,6 +85,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         if isLocationSelection {
             let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.locationSelected))
             navigationItem.rightBarButtonItem = button
+            
         }
         else{
             let button = UIBarButtonItem(image: UIImage(named: "business-location"), style: .plain, target: self, action: #selector(self.showLocationEvents))
@@ -141,6 +143,12 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
 //        mapView.settings.scrollGestures = false
         viewForMap.addSubview(mapView)
         mapView.delegate = self
+        if isLocationSelection {
+            
+            mapMarker = GMSMarker()
+            mapMarker?.map = mapView
+            mapMarker?.appearAnimation = GMSMarkerAnimation.pop
+        }
         
     }
     
@@ -201,7 +209,14 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         nextPageToken = nil
+        
         listLikelyPlaces()
+    }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        if let marker = mapMarker {
+            marker.position = position.target
+        }
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {

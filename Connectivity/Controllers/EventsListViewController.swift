@@ -30,6 +30,11 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
         SVProgressHUD.show()
 //        fetchData()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        if isLocationBased {
+            title = "Nearby Events"
+            navigationItem.rightBarButtonItem = nil
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

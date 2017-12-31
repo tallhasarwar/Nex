@@ -62,9 +62,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         
         SVProgressHUD.show()
         RequestManager.loginUser(param: params, successBlock: { (response) in
+            SVProgressHUD.dismiss()
             self.successfulLogin(response: response)
         }) { (error) in
-            SVProgressHUD.show(withStatus: error)
+            SVProgressHUD.showError(withStatus: error)
         }
     }
     
@@ -188,6 +189,8 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                     params["email"] = response["emailAddress"] as? String
                     params["headline"] = response["headline"] as? String
                     params["device_token"] = Messaging.messaging().fcmToken
+                    params["linkedin_profile"] = response["publicProfileUrl"] as? String
+                    params["image_path"] = response["pictureUrl"] as? String
                     
                     RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                         self.successfulLogin(response: response)

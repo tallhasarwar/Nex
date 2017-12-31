@@ -110,13 +110,45 @@ import UIKit
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+//            self.contentMode = .scaleAspectFill
+//            self.image = pickedImage
+//            imageChanged = true
+//        }
+        
         if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             self.contentMode = .scaleAspectFill
-            self.image = pickedImage
-            imageChanged = true
+            self.image = pickedImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
         }
+        else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.contentMode = .scaleAspectFill
+            self.image = image.resizeImageWith(newSize: CGSize(width: 200, height: 200))
+            
+        }
+        
+        
+        
         picker.dismiss(animated: true, completion: nil)
     }
     
 
+}
+
+extension UIImage{
+    
+    func resizeImageWith(newSize: CGSize) -> UIImage {
+        
+        let horizontalRatio = newSize.width / size.width
+        let verticalRatio = newSize.height / size.height
+        
+        let ratio = max(horizontalRatio, verticalRatio)
+        let newSize = CGSize(width: size.width * ratio, height: size.height * ratio)
+        UIGraphicsBeginImageContextWithOptions(newSize, true, 0)
+        draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+    
+    
 }

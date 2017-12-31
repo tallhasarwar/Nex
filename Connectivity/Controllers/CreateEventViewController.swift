@@ -67,7 +67,7 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
             self.nameLabel.text = event.name
             self.locationLabel.text = event.location
             self.radiusLabel.text = event.raduis
-            self.descriptionTextView.text = event.description
+            self.descriptionTextView.text = event.descriptionValue
 //            event.
             
             self.selectedLocation = CLLocationCoordinate2D(latitude: Double(event.latitude ?? "0")!, longitude: Double(event.longitude ?? "0")!)

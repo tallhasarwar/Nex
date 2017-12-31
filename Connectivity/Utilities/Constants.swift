@@ -31,7 +31,7 @@ public class Constant: NSObject {
     
     static let applicationName = "Connectivity"
     static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-    static let appDateFormat = "MM/dd/yyyy hh:mm:ss"
+    static let appDateFormat = "MM/dd/yyyy hh:mm:ss a"
     static let eventDateFormat = "MM/dd/yyyy hh:mm a"
     static let eventDetailDateFormat = "MMM dd yyyy',' hh:mma"
     static let animationDuration : TimeInterval = 0.5
@@ -66,6 +66,7 @@ public class Constant: NSObject {
     static let getNearbyEventsURL = "get_nearby_event"
     static let createEventURL = "create_event"
     static let getConnectionsURL = "get_all_my_connections"
+    static let markNotificationsReadURL = "mark_all_notification_read"
     
     
 }

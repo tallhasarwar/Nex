@@ -22,6 +22,7 @@ class Event: BaseEntity {
     var id: String?
     var latitude: String?
     var longitude: String?
+    var descriptionValue: String?
     
     override init() {
         super.init()
@@ -33,6 +34,7 @@ class Event: BaseEntity {
         newDateFormatter.dateFormat = Constant.serverDateFormat
         newDateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         self.setValuesForKeysWithJSONDictionary(dictionary, dateFormatter: newDateFormatter)
+        self.descriptionValue = dictionary["description"] as? String ?? ""
     }
     
 }
