@@ -67,6 +67,8 @@ public class Constant: NSObject {
     static let createEventURL = "create_event"
     static let getConnectionsURL = "get_all_my_connections"
     static let markNotificationsReadURL = "mark_all_notification_read"
+    static let createPostURL = "post"
+    static let getPostURL = "posts_feed"
     
     
 }

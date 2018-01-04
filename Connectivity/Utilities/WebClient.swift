@@ -592,4 +592,64 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func createPost(param: [String: Any],image: UIImage?, successBlock success:@escaping ([String: AnyObject]) -> (),
+                       failureBlock failure:@escaping (String) -> ()){
+        
+        if image != nil {
+            self.multipartPost(urlString: Constant.createPostURL, params: param as [String : AnyObject], image: image, imageName: "image_path", successBlock: { (response) in
+                print(response)
+                if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                    success(response[Constant.responseKey] as! [String : AnyObject])
+                }
+                else{
+                    if response.object(forKey: "message") as? String != "" {
+                        failure(response.object(forKey: "message") as! String)
+                    }
+                    else{
+                        failure("Unable to fetch data")
+                    }
+                }
+            }) { (error) in
+                failure(error.localizedDescription)
+            }
+        }
+        else{
+            self.postPath(urlString: Constant.createPostURL, params: param as [String : AnyObject], successBlock: { (response) in
+                print(response)
+                if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                    success(response[Constant.responseKey] as! [String : AnyObject])
+                }
+                else{
+                    if response.object(forKey: "message") as? String != "" {
+                        failure(response.object(forKey: "message") as! String)
+                    }                else{
+                        failure("Unable to fetch data")
+                    }
+                }
+            }) { (error) in
+                failure(error.localizedDescription)
+            }
+        }
+    }
+    
+    
+    func getPosts(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+                        failureBlock failure:@escaping (String) -> ()){
+        self.getPath(urlString: Constant.getPostURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [[String : AnyObject]])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
 }

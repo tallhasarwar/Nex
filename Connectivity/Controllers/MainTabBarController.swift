@@ -13,7 +13,23 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         Styles.sharedStyles.applyGlobalAppearance()
+        self.selectedIndex = 2
         self.delegate = self
+        
+        if ApplicationManager.sharedInstance.user.email == nil {
+            SVProgressHUD.show()
+            RequestManager.getUser(successBlock: { (response) in
+                SVProgressHUD.dismiss()
+                let user = User(dictionary: response)
+                ApplicationManager.sharedInstance.user = user
+                if let notificationCount = user.unread_notification_count, notificationCount > 0 {
+                    let tabbarItem = self.tabBar.items![3]
+                    tabbarItem.badgeValue = "\(notificationCount)"
+                }
+            }, failureBlock: { (error) in
+                SVProgressHUD.showError(withStatus: error)
+            })
+        }
         // Do any additional setup after loading the view.
     }
 

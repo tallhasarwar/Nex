@@ -22,9 +22,13 @@
 		691D637F1FB1B76C00A96CC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D637E1FB1B76C00A96CC5 /* BaseViewController.swift */; };
 		691D63831FB1CD5500A96CC5 /* FloatLabelTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D63811FB1CD5500A96CC5 /* FloatLabelTextView.swift */; };
 		691D63841FB1CD5500A96CC5 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D63821FB1CD5500A96CC5 /* FloatLabelTextField.swift */; };
+		69304FB81FF8C42400DDC3FF /* GeoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69304FB71FF8C42400DDC3FF /* GeoFeedViewController.swift */; };
+		69304FBA1FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69304FB91FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift */; };
 		6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */; };
 		6934E3C21F7A7251005BB2C9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */; };
 		6949231E1FCC392E003CDA52 /* LocationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */; };
+		694A972A1FFB8A6300284023 /* GeoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A97291FFB8A6300284023 /* GeoPostViewController.swift */; };
+		694A972C1FFCEB4400284023 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A972B1FFCEB4400284023 /* Post.swift */; };
 		694F739A1FB4BED100007896 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694F73991FB4BED100007896 /* GooglePlace.swift */; };
 		695FDA8A1FAB22FA004B6735 /* EventsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FDA891FAB22FA004B6735 /* EventsListViewController.swift */; };
 		695FDA8C1FAB2929004B6735 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FDA8B1FAB2929004B6735 /* Event.swift */; };
@@ -148,9 +152,13 @@
 		691D637E1FB1B76C00A96CC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		691D63811FB1CD5500A96CC5 /* FloatLabelTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextView.swift; sourceTree = "<group>"; };
 		691D63821FB1CD5500A96CC5 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
+		69304FB71FF8C42400DDC3FF /* GeoFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoFeedViewController.swift; sourceTree = "<group>"; };
+		69304FB91FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoFeedBasicTableViewCell.swift; sourceTree = "<group>"; };
 		6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectionViewController.swift; sourceTree = "<group>"; };
+		694A97291FFB8A6300284023 /* GeoPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoPostViewController.swift; sourceTree = "<group>"; };
+		694A972B1FFCEB4400284023 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		694F73991FB4BED100007896 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
 		695FDA891FAB22FA004B6735 /* EventsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListViewController.swift; sourceTree = "<group>"; };
 		695FDA8B1FAB2929004B6735 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -375,6 +383,7 @@
 				698280061FA86BBA00552A53 /* ChatCells.swift */,
 				695FDA8D1FAB2974004B6735 /* EventsListTableViewCell.swift */,
 				691D637C1FB19F0200A96CC5 /* EventDetailTableViewCell.swift */,
+				69304FB91FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -464,6 +473,7 @@
 				69827FFE1FA75B2800552A53 /* Message.swift */,
 				695FDA8B1FAB2929004B6735 /* Event.swift */,
 				694F73991FB4BED100007896 /* GooglePlace.swift */,
+				694A972B1FFCEB4400284023 /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -491,6 +501,8 @@
 				69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */,
 				699045611FC5A14F00D5F937 /* ForgotPasswordViewController.swift */,
 				6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */,
+				69304FB71FF8C42400DDC3FF /* GeoFeedViewController.swift */,
+				694A97291FFB8A6300284023 /* GeoPostViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -725,7 +737,9 @@
 				69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */,
 				69B9CEF61F72AED90070BD37 /* Misc.swift in Sources */,
 				69F9AAF21F8A92DC00DC1F2E /* LocationDetailsViewController.swift in Sources */,
+				69304FB81FF8C42400DDC3FF /* GeoFeedViewController.swift in Sources */,
 				69F4B7DB1F77DD7900BFB414 /* ProfileViewController.swift in Sources */,
+				694A972A1FFB8A6300284023 /* GeoPostViewController.swift in Sources */,
 				69B9CF061F72AED90070BD37 /* SignUpViewController.swift in Sources */,
 				69B9CEEA1F72AED90070BD37 /* DesignableButton.swift in Sources */,
 				6914C3011F82B1B0005BC1C0 /* MoreViewController.swift in Sources */,
@@ -744,6 +758,7 @@
 				698280051FA867A000552A53 /* ChatViewController.swift in Sources */,
 				69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */,
 				691670981F93DDA200C39034 /* NotificationsTableViewCell.swift in Sources */,
+				69304FBA1FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift in Sources */,
 				691D63831FB1CD5500A96CC5 /* FloatLabelTextView.swift in Sources */,
 				69B9CEFC1F72AED90070BD37 /* SpringLabel.swift in Sources */,
 				6968D65E1F8D270900B39CCF /* BusinessCardListViewController.swift in Sources */,
@@ -764,6 +779,7 @@
 				69FCBA7F1F7D426E00F4696E /* NSString+LIAEncode.m in Sources */,
 				6968D66B1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift in Sources */,
 				69F4B7E11F77DEEC00BFB414 /* ProfileImageCollectionViewCell.swift in Sources */,
+				694A972C1FFCEB4400284023 /* Post.swift in Sources */,
 				69B9CEEF1F72AED90070BD37 /* DesignableTextView.swift in Sources */,
 				69F4B7E51F77E19800BFB414 /* BaseEntity.m in Sources */,
 				69B9CF031F72AED90070BD37 /* Styles.swift in Sources */,

@@ -64,21 +64,6 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         
         searchField.delegate = self
         
-        if ApplicationManager.sharedInstance.user.email == nil {
-            SVProgressHUD.show()
-            RequestManager.getUser(successBlock: { (response) in
-                SVProgressHUD.dismiss()
-                let user = User(dictionary: response)
-                ApplicationManager.sharedInstance.user = user
-                if let notificationCount = user.unread_notification_count, notificationCount > 0 {
-                    let tabbarItem = self.tabBarController!.tabBar.items![3]
-                    tabbarItem.badgeValue = "\(notificationCount)"
-                }
-            }, failureBlock: { (error) in
-                SVProgressHUD.showError(withStatus: error)
-            })
-        }
-        
         tableView.delegate = self
         tableView.dataSource = self
         

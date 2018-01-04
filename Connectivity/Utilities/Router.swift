@@ -102,5 +102,11 @@ class Router: NSObject {
         controller.navigationController?.show(vc, sender: nil)
     }
     
+    static func showGeoPost(from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: GeoPostViewController.storyboardID)
+        controller.navigationController?.show(vc, sender: nil)
+        
+    }
+    
     
 }

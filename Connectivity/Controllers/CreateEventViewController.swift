@@ -122,11 +122,8 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
         
         var params = [String: AnyObject]()
         
-        params["key"] = "AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo" as AnyObject
-        
-        
+        params["key"] = Constant.googlePlacesKey as AnyObject
         params["latlng"] = "\(location.latitude),\(location.longitude)" as AnyObject
-        
         
         SVProgressHUD.show()
         RequestManager.getAddressForCoords(param: params, successBlock: { (response) in
