@@ -18,6 +18,7 @@ class GeoFeedBasicTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var locationButton: UIButton!
     @IBOutlet weak var atLabel: UILabel!
+    @IBOutlet weak var postImageView: UIImageView!
     
 
     override func awakeFromNib() {

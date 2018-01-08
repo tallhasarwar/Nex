@@ -116,6 +116,7 @@
 		69B9CF061F72AED90070BD37 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */; };
 		69BC4B081FC4921C005CCA16 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69BC4B071FC4921B005CCA16 /* SnapKit.framework */; };
 		69BC67991F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */; };
+		69F290C21FFE9C2B005E97EE /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F290C11FFE9C2B005E97EE /* FiltersViewController.swift */; };
 		69F4B7D91F77D44F00BFB414 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */; };
 		69F4B7DB1F77DD7900BFB414 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */; };
 		69F4B7DD1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7DC1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift */; };
@@ -251,6 +252,7 @@
 		69B9CEC31F72AED90070BD37 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		69BC4B071FC4921B005CCA16 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRequestTableViewCell.swift; sourceTree = "<group>"; };
+		69F290C11FFE9C2B005E97EE /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		69F4B7DC1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImagesTableViewCell.swift; sourceTree = "<group>"; };
@@ -503,6 +505,7 @@
 				6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */,
 				69304FB71FF8C42400DDC3FF /* GeoFeedViewController.swift */,
 				694A97291FFB8A6300284023 /* GeoPostViewController.swift */,
+				69F290C11FFE9C2B005E97EE /* FiltersViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -771,6 +774,7 @@
 				69B9CEEB1F72AED90070BD37 /* DesignableImageView.swift in Sources */,
 				69B9CF051F72AED90070BD37 /* SignInViewController.swift in Sources */,
 				69B9CEF91F72AED90070BD37 /* SpringAnimation.swift in Sources */,
+				69F290C21FFE9C2B005E97EE /* FiltersViewController.swift in Sources */,
 				69827FFD1FA75A0C00552A53 /* Conversation.swift in Sources */,
 				69B9CEED1F72AED90070BD37 /* DesignableTabBarController.swift in Sources */,
 				69B9CEF01F72AED90070BD37 /* DesignableView.swift in Sources */,

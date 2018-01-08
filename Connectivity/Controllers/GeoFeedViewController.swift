@@ -16,7 +16,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var postArray = [Post]()
     var pageNumber = 0
-    var isNextPageAvailable = true
+    var isNextPageAvailable = false
     var defaultLocation: CLLocationCoordinate2D?
     var locationManager = CLLocationManager()
     
@@ -59,7 +59,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var params = [String: AnyObject]()
         
-        params["myPosts"] = "yes" as AnyObject
+        params["myPosts"] = "no" as AnyObject
         params["latitude"] = location.latitude as AnyObject
         params["longitude"] = location.longitude as AnyObject
         params["radius"] = 1000 as AnyObject
@@ -101,9 +101,23 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GeoFeedBasicTableViewCell.identifier) as! GeoFeedBasicTableViewCell
+        
+        let cell : GeoFeedBasicTableViewCell!
         
         let post = postArray[indexPath.row]
+        
+        if let image = post.image_path {
+            cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
+            cell.postImageView.sd_setImage(with: URL(string: image), placeholderImage: UIImage(named: "placeholder-banner"), options: .refreshCached, completed: nil)
+        }
+        else{
+            cell = tableView.dequeueReusableCell(withIdentifier: GeoFeedBasicTableViewCell.identifier) as! GeoFeedBasicTableViewCell
+        }
+        
+//        geoFeedImageTableViewCell
+        
+        
+        
         
         cell.bodyLabel.text = post.content
         if post.location_name != nil {
@@ -164,6 +178,7 @@ extension GeoFeedViewController: CLLocationManagerDelegate {
         
         defaultLocation = location.coordinate
         locationManager.stopUpdatingLocation()
+        self.isNextPageAvailable = true
         self.fetchData()
     }
     
