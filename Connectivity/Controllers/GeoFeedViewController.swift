@@ -62,8 +62,9 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         params["myPosts"] = "no" as AnyObject
         params["latitude"] = location.latitude as AnyObject
         params["longitude"] = location.longitude as AnyObject
-        params["radius"] = 1000 as AnyObject
+        params["radius"] = 1 as AnyObject
         params["page"] = pageNumber as AnyObject
+        params["s_tags"] = "#photo" as AnyObject
         
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40))

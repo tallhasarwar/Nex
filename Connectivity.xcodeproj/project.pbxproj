@@ -39,6 +39,9 @@
 		6968D66B1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6968D66A1F8E8A6500B39CCF /* BusinessCardTableViewCell.swift */; };
 		6975AD941F94ADBF00CEF94D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6975AD931F94ADBF00CEF94D /* UserNotifications.framework */; };
 		6975ADBA1F95231F00CEF94D /* LocationDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */; };
+		697665D02004DCD700EFCC0A /* SuggestionTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697665CF2004DCD700EFCC0A /* SuggestionTable.swift */; };
+		697665D22004DCE700EFCC0A /* SuggestionTable.xib in Resources */ = {isa = PBXBuildFile; fileRef = 697665D12004DCE700EFCC0A /* SuggestionTable.xib */; };
+		697665D52004DEFC00EFCC0A /* SuggestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697665D32004DEFC00EFCC0A /* SuggestionTableViewCell.swift */; };
 		69827FFD1FA75A0C00552A53 /* Conversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69827FFC1FA75A0C00552A53 /* Conversation.swift */; };
 		69827FFF1FA75B2800552A53 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69827FFE1FA75B2800552A53 /* Message.swift */; };
 		698280011FA75DE300552A53 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280001FA75DE300552A53 /* ConversationTableViewCell.swift */; };
@@ -171,6 +174,9 @@
 		6975AD931F94ADBF00CEF94D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		6975AD971F94B8BF00CEF94D /* Connectivity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Connectivity.entitlements; sourceTree = "<group>"; };
 		6975ADB91F95231F00CEF94D /* LocationDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailTableViewCell.swift; sourceTree = "<group>"; };
+		697665CF2004DCD700EFCC0A /* SuggestionTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTable.swift; sourceTree = "<group>"; };
+		697665D12004DCE700EFCC0A /* SuggestionTable.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuggestionTable.xib; sourceTree = "<group>"; };
+		697665D32004DEFC00EFCC0A /* SuggestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewCell.swift; sourceTree = "<group>"; };
 		69827FFC1FA75A0C00552A53 /* Conversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversation.swift; sourceTree = "<group>"; };
 		69827FFE1FA75B2800552A53 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		698280001FA75DE300552A53 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
@@ -386,6 +392,9 @@
 				695FDA8D1FAB2974004B6735 /* EventsListTableViewCell.swift */,
 				691D637C1FB19F0200A96CC5 /* EventDetailTableViewCell.swift */,
 				69304FB91FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift */,
+				697665CF2004DCD700EFCC0A /* SuggestionTable.swift */,
+				697665D12004DCE700EFCC0A /* SuggestionTable.xib */,
+				697665D32004DEFC00EFCC0A /* SuggestionTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -626,6 +635,7 @@
 				69B9CEC61F72AED90070BD37 /* Poppins-Bold.ttf in Resources */,
 				69B9CEE31F72AED90070BD37 /* ScrollableDatepicker.xib in Resources */,
 				69B9CED11F72AED90070BD37 /* Poppins-Regular.ttf in Resources */,
+				697665D22004DCE700EFCC0A /* SuggestionTable.xib in Resources */,
 				69B9CEF21F72AED90070BD37 /* Info.plist in Resources */,
 				69B9CEC71F72AED90070BD37 /* Poppins-BoldItalic.ttf in Resources */,
 				69B9CEC91F72AED90070BD37 /* Poppins-ExtraBoldItalic.ttf in Resources */,
@@ -801,11 +811,13 @@
 				69F4B7DF1F77DDD400BFB414 /* ProfileDetailTableViewCell.swift in Sources */,
 				69FCBA7E1F7D426E00F4696E /* LIALinkedInHttpClient.m in Sources */,
 				69B9CEDD1F72AED90070BD37 /* Constants.swift in Sources */,
+				697665D52004DEFC00EFCC0A /* SuggestionTableViewCell.swift in Sources */,
 				6914C3031F82B1FD005BC1C0 /* MoreTableViewCell.swift in Sources */,
 				69B9CEFD1F72AED90070BD37 /* SpringTextField.swift in Sources */,
 				69025FDE1F967410000C312B /* BusinessCard.swift in Sources */,
 				699E70251FA347D40070BFBA /* ConnectionRequest.swift in Sources */,
 				695FDA901FAC8E82004B6735 /* DatePickerTextField.swift in Sources */,
+				697665D02004DCD700EFCC0A /* SuggestionTable.swift in Sources */,
 				69B9CEF81F72AED90070BD37 /* Spring.swift in Sources */,
 				69B9CEE91F72AED90070BD37 /* BlurView.swift in Sources */,
 				69B9CEF41F72AED90070BD37 /* LoadingView.swift in Sources */,

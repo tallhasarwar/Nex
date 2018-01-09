@@ -10,10 +10,14 @@ import UIKit
 
 class FiltersViewController: UIViewController {
 
+    static let storyboardID = "filtersViewController"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        title = "Filters"
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,6 +26,8 @@ class FiltersViewController: UIViewController {
     }
     
 
+    @IBAction func doneButtonPressed(_ sender: Any) {
+    }
     /*
     // MARK: - Navigation
 
