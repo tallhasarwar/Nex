@@ -17,7 +17,8 @@ class Event: BaseEntity {
     var end_date: NSDate?
     var user_id: String?
     var status: String?
-    var image_path: String?
+//    var image_path: String?
+    var eventImages = Images()
     var created_at: NSDate?
     var id: String?
     var latitude: String?
@@ -35,6 +36,9 @@ class Event: BaseEntity {
         newDateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         self.setValuesForKeysWithJSONDictionary(dictionary, dateFormatter: newDateFormatter)
         self.descriptionValue = dictionary["description"] as? String ?? ""
+        if let profileImages = dictionary["event_images"] as? [String: AnyObject] {
+            self.eventImages = Images(dictionary: profileImages)
+        }
     }
     
 }

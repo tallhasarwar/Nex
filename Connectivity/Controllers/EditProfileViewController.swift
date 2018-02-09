@@ -60,7 +60,7 @@ class EditProfileViewController: BaseViewController {
         googleField.text = user.google_profile
         websiteField.text = user.website
         taglineField.text = user.tagline
-        profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        profileImageView.sd_setImage(with: URL(string: user.profileImages.medium.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         
     }
     
@@ -100,7 +100,7 @@ class EditProfileViewController: BaseViewController {
             ApplicationManager.sharedInstance.user = User(dictionary: response)
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
         
     }

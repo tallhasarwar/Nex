@@ -56,7 +56,7 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
             UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
             Router.showMainTabBar()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
             print(error)
         }
     }
@@ -77,6 +77,13 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.white.cgColor
         errorLabel.isHidden = true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == " " && textField == emailField {
+            return false
+        }
+        return true
     }
 
     /*

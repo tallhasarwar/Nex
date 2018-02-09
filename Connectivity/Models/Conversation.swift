@@ -33,9 +33,15 @@ class Conversation: BaseEntity {
     
     //MARK: Methods
     class func showConversations(completion: @escaping ([Conversation]) -> Swift.Void) {
+        
+        UtilityManager.delay(delay: 4.0) {
+            SVProgressHUD.dismiss()
+        }
+        
         if let currentUserID = ApplicationManager.sharedInstance.user.user_id {
             var conversations = [Conversation]()
             Database.database().reference().child("users").child(currentUserID).child("conversations").observe(.childAdded, with: { (snapshot) in
+                SVProgressHUD.dismiss()
                 if snapshot.exists() {
                     let fromID = snapshot.key
                     let values = snapshot.value as! [String: String]
@@ -49,10 +55,14 @@ class Conversation: BaseEntity {
                             completion(conversations)
                         })
                     }, failureBlock: { (error) in
-                        SVProgressHUD.showError(withStatus: error)
+//                        SVProgressHUD.showError(withStatus: error)
+                        SVProgressHUD.dismiss()
                     })
                     
                 
+                }
+                else{
+                    SVProgressHUD.dismiss()
                 }
             })
         }

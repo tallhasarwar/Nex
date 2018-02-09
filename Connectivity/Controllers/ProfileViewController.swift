@@ -46,7 +46,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         
         if publicProfile == true {
             self.navigationItem.rightBarButtonItem = nil
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 270 )
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300 )
             messageView.isHidden = false
             RequestManager.getOtherProfile(userID: user.user_id!, successBlock: { (response) in
                 self.user = User(dictionary: response["user"] as! [String: AnyObject])
@@ -54,11 +54,11 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
                 self.updateConnectionUI()
                 self.loadUI()
             }, failureBlock: { (error) in
-                SVProgressHUD.showError(withStatus: error)
+                UtilityManager.showErrorMessage(body: error, in: self)
             })
         }
         else{
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 205)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 245)
             connectButton.isHidden = true
         }
         
@@ -77,7 +77,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
                 self.user = user
                 self.loadUI()
             }, failureBlock: { (error) in
-                SVProgressHUD.showError(withStatus: error)
+                UtilityManager.showErrorMessage(body: error, in: self)
             })
         }
         
@@ -88,7 +88,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         profileNameLabel.text = user.full_name
         jobTitleLabel.text = user.headline
         taglineLabel.text = user.tagline
-        profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        profileImageView.sd_setImage(with: URL(string: user.profileImages.medium.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         tableView.reloadData()
     }
     
@@ -96,7 +96,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         connectionLabel.isHidden = true
 
         if connectionStatus == "SENT" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 285)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
             self.connectButton.isHidden = false
             self.acceptanceView.isHidden = true
             self.connectButton.setTitle("Request Pending", for: UIControlState.normal)
@@ -104,12 +104,12 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.connectButton.alpha = 0.8
         }
         else if connectionStatus == "PENDING" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 285)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
             self.connectButton.isHidden = true
             self.acceptanceView.isHidden = false
         }
         else if connectionStatus == "ACCEPTED" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 245)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 265)
             self.connectButton.isHidden = true
             self.acceptanceView.isHidden = true
             self.connectionLabel.isHidden = false
@@ -117,7 +117,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         else{
             self.connectButton.isHidden = false
             self.acceptanceView.isHidden = true
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 285)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
         }
         self.view.layoutIfNeeded()
     }
@@ -208,7 +208,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.connectionStatus = "SENT"
             self.updateConnectionUI()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -219,7 +219,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.connectionStatus = "SENT"
             self.updateConnectionUI()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -229,7 +229,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             SVProgressHUD.showSuccess(withStatus: "Request Rejected")
             self.acceptanceView.isHidden = true
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     

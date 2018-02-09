@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseMessaging
+import Firebase
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
@@ -26,8 +28,18 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
                     let tabbarItem = self.tabBar.items![3]
                     tabbarItem.badgeValue = "\(notificationCount)"
                 }
+                
+                if let token =  Messaging.messaging().fcmToken {
+                    let params = ["device_token" : token]
+                    RequestManager.updateProfile(param: params, image: nil, successBlock: { (response) in
+                    }, failureBlock: { (error) in
+                        
+                    })
+                }
+                
+                
             }, failureBlock: { (error) in
-                SVProgressHUD.showError(withStatus: error)
+                UtilityManager.showErrorMessage(body: error, in: self)
             })
         }
         // Do any additional setup after loading the view.

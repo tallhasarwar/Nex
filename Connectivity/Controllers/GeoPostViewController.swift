@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import CameraViewController
+import Photos
 
-class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationSelectionDelegate {
+class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationSelectionDelegate, UITextViewDelegate, SuggestionTableDelegate, IGRPhotoTweakViewControllerDelegate {
 
     static let storyboardID = "geoPostViewController"
     
@@ -18,9 +20,18 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var postBar: UIView!
     @IBOutlet weak var atLabel: UILabel!
     @IBOutlet weak var locationAddressLabel: UILabel!
+    @IBOutlet weak var postButton: DesignableButton!
+    @IBOutlet weak var imageButton: UIButton!
+    @IBOutlet weak var previewImage: UIImageView!
+    
     
     var selectedImage: UIImage?
     var selectedLocation: CLLocationCoordinate2D?
+    
+    var locationManager = CLLocationManager()
+    var currentLocation: CLLocationCoordinate2D?
+    
+    var suggestionsTable: SuggestionTable!
     
     override var inputAccessoryView: UIView? {
         get {
@@ -40,7 +51,18 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         let user = ApplicationManager.sharedInstance.user
         
         profileNameLabel.text = user.full_name
-        profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        postButton.isEnabled = false
+        
+        bodyTextView.delegate = self
+        suggestionsTable = SuggestionTable(over: bodyTextView, in: self)
+        
+        setupLocation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        bodyTextView.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,36 +72,66 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func hashtagButtonPressed(_ sender: Any) {
         bodyTextView.text.append(" #")
+        bodyTextView.layoutSubviews()
+        self.textViewDidChange(bodyTextView)
+    }
+    
+    @IBAction func imageButtonPressed(_ sender: Any) {
+        self.cameraButtonPressed(sender)
     }
     
     @IBAction func cameraButtonPressed(_ sender: Any) {
         showImagePickerAlert()
+        
+//        let croppingParams = CroppingParameters.init(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 100, height: 100))
+//
+//        let cameraController = CameraViewController.init(croppingParameters: croppingParams, allowsLibraryAccess: true, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: true) { [weak self](image, asset) in
+//            if let image = image {
+//                self?.selectedImage = Toucan(image: image).resizeByClipping(CGSize(width: 700, height: 700)).image!
+//                self?.imageButton.setImage(self?.selectedImage, for: .normal)
+//            }
+//
+//            self?.dismiss(animated: true, completion: nil)
+//        }
+//        self.present(cameraController, animated: true, completion: nil)
     }
     
     @IBAction func locationButtonPressed(_ sender: Any) {
         Router.showLocationSelection(from: self)
     }
     
+    
+    
     @IBAction func postButtonPressed(_ sender: Any) {
+        
+        guard let current = currentLocation else {
+            UtilityManager.showErrorMessage(body: "Location not detected yet", in: self)
+            return
+            
+        }
+        
         var params = [String: AnyObject]()
         
         params["content"] = bodyTextView.text as AnyObject
         if let location = selectedLocation {
             params["location_name"] = locationAddressLabel.text as AnyObject
-            params["latitude"] = location.latitude as AnyObject
-            params["longitude"] = location.longitude as AnyObject
+            params["checkin_latitude"] = location.latitude as AnyObject
+            params["checkin_longitude"] = location.longitude as AnyObject
         }
+        params["current_latitude"] = current.latitude as AnyObject
+        params["current_longitude"] = current.longitude as AnyObject
+        
+        
         
         SVProgressHUD.show()
         RequestManager.createPost(param: params, image: selectedImage, successBlock: { (response) in
             SVProgressHUD.showSuccess(withStatus: "Post created successfully")
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil, userInfo: nil)
             self.navigationController?.dismiss(animated: true, completion: nil)
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
+            
         }
-        
-        
-        
         
     }
     
@@ -87,30 +139,53 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
+    //MARK: - Core Location Methods
+    
+    func setupLocation() {
+        // Initialize the location manager.
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.distanceFilter = 100
+        locationManager.startUpdatingLocation()
+        
+        postButton.isEnabled = true
+    }
+    
     //MARK: - Location Selection Delegate methods
     
-    func didSelectLocation(location: CLLocationCoordinate2D) {
+    func didSelectLocation(location: CLLocationCoordinate2D,address: String?) {
         self.selectedLocation = location
-        
-        var params = [String: AnyObject]()
-        
-        params["key"] = Constant.googlePlacesKey as AnyObject
-        params["latlng"] = "\(location.latitude),\(location.longitude)" as AnyObject
-        
-        SVProgressHUD.show()
-        RequestManager.getAddressForCoords(param: params, successBlock: { (response) in
-            print(response)
-            if let address = response.first?["formatted_address"] as? String {
-                self.atLabel.isHidden = false
-                self.locationAddressLabel.isHidden = false
-                self.locationAddressLabel.text = address
-                
-            }
-            SVProgressHUD.dismiss()
-        }) { (error) in
-            print(error)
-            SVProgressHUD.dismiss()
+        if let add = address {
+            self.atLabel.isHidden = false
+            self.locationAddressLabel.isHidden = false
+            self.locationAddressLabel.text = add
         }
+        else{
+            var params = [String: AnyObject]()
+            
+            params["key"] = Constant.googlePlacesKey as AnyObject
+            params["latlng"] = "\(location.latitude),\(location.longitude)" as AnyObject
+            
+            SVProgressHUD.show()
+            RequestManager.getAddressForCoords(param: params, successBlock: { (response) in
+                print(response)
+                if let address = response.first?["formatted_address"] as? String {
+                    self.atLabel.isHidden = false
+                    self.locationAddressLabel.isHidden = false
+                    self.locationAddressLabel.text = address
+                    
+                }
+                SVProgressHUD.dismiss()
+            }) { (error) in
+                print(error)
+                SVProgressHUD.dismiss()
+            }
+        }
+        
+        
     }
     
     //MARK: - ImagePicker methods
@@ -141,7 +216,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
         else{
@@ -163,7 +238,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
             imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
         else{
@@ -176,22 +251,123 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
-        selectedImage = image
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            selectedImage = pickedImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
+        var newImage : UIImage!
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            newImage = editedImage
         }
-        else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            selectedImage = image.resizeImageWith(newSize: CGSize(width: 200, height: 200))
+        if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            newImage = originalImage
         }
         
-        picker.dismiss(animated: true, completion: nil)
+        if let image = newImage {
+            let cropController = ImageEditViewController()
+            cropController.aspectRatio = "16:10"
+            cropController.lockAspectRatio = false
+            cropController.image = image
+            cropController.delegate = self
+            let nav = UINavigationController(rootViewController: cropController)
+            picker.dismiss(animated: true, completion: {
+                self.present(nav, animated: true, completion: nil)
+            })
+        }
+        else{
+            self.selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage
+            self.bodyTextView.text.append(" #Photo")
+            picker.dismiss(animated: true, completion: nil)
+        }
     }
     
+    func photoTweaksController(_ controller: IGRPhotoTweakViewController, didFinishWithCroppedImage croppedImage: UIImage) {
+        self.selectedImage = croppedImage
+        self.previewImage.image = croppedImage
+        self.bodyTextView.text.append(" #Photo")
+        controller.dismiss(animated: true, completion: nil)
+    }
     
+    func photoTweaksControllerDidCancel(_ controller: IGRPhotoTweakViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if let lastWord = textView.text.components(separatedBy: .whitespacesAndNewlines).last {
+            if lastWord.first == "#" {
+                let list = Constant.hashtags.filter { $0.lowercased().hasPrefix(lastWord.lowercased()) }
+                suggestionsTable.refreshList(listValues: list)
+                self.view.bringSubview(toFront: suggestionsTable)
+            }
+            else{
+                suggestionsTable.isHidden = true
+            }
+        }
+        else{
+            suggestionsTable.isHidden = true
+        }
+    }
+    
+    func suggestionSelected(value: String) {
+        if let text = bodyTextView.text {
+            var word = text.components(separatedBy: .whitespacesAndNewlines)
+            word.removeLast()
+            var newWord = word.joined(separator: " ")
+            newWord.append("\(value) ")
+            bodyTextView.text = newWord
+        }
+    }
+    
+}
+
+// Delegates to handle events for the location manager.
+extension GeoPostViewController: CLLocationManagerDelegate {
+    
+    // Handle incoming location events.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations.last!
+        print("Location: \(location)")
+        currentLocation = location.coordinate
+        locationManager.stopUpdatingLocation()
+        
+        
+    }
+    
+    // Handle authorization for the location manager.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted:
+            print("Location access was restricted.")
+            self.restrictUserDueToLocation()
+        case .denied:
+            print("User denied access to location.")
+            // Display the map using the default location.
+            self.restrictUserDueToLocation()
+            
+        case .notDetermined:
+            print("Location status not determined.")
+            self.restrictUserDueToLocation()
+        case .authorizedAlways: fallthrough
+        case .authorizedWhenInUse:
+            print("Location status is OK.")
+        }
+    }
+    
+    func restrictUserDueToLocation() {
+        UIAlertController.showAlert(in: self, withTitle: "Location Disabled", message: "Please enable location services for ConnectIn in Settings -> ConnectIn", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil) { (alert, action, index) in
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    // Handle location manager errors.
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationManager.stopUpdatingLocation()
+        print("Error: \(error)")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        if touch?.phase == UITouchPhase.began {
+            self.view.endEditing(true)
+        }
+    }
+
 }

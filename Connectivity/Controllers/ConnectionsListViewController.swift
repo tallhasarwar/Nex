@@ -66,7 +66,7 @@ class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UI
         let user = self.usersArray[indexPath.row]
         cell.nameLabel.text = user.full_name
         cell.headlineLabel.text = user.headline
-        cell.profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         return cell
     }
     

@@ -35,6 +35,8 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
         eventImageView.parentController = self
         eventImageView.layer.cornerRadius = 0
         
+        eventImageView.aspectRatio = "16:9"
+        eventImageView.lockAspect = true
         startTimeLabel.pickerView.minimumDate = NSDate() as Date
         startTimeLabel.pickerView.datePickerMode = UIDatePickerMode.dateAndTime
         startTimeLabel.pickerView.maximumDate = nil
@@ -73,7 +75,7 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
             self.selectedLocation = CLLocationCoordinate2D(latitude: Double(event.latitude ?? "0")!, longitude: Double(event.longitude ?? "0")!)
             self.startTimeLabel.text = UtilityManager.stringFromNSDateWithFormat(date: event.start_date!, format: Constant.appDateFormat)
             self.endTimeLabel.text = UtilityManager.stringFromNSDateWithFormat(date: event.end_date!, format: Constant.appDateFormat)
-            self.eventImageView.sd_setImage(with: URL(string: event.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+            self.eventImageView.sd_setImage(with: URL(string: event.eventImages.medium.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         }
     }
     
@@ -81,7 +83,8 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
     func saveButtonPressed() {
         
         guard let location = selectedLocation else {
-            SVProgressHUD.showError(withStatus: "Please select a location on the map")
+            
+            UtilityManager.showErrorMessage(body: "Please select a location on the map", in: self)
             return
         }
         
@@ -104,7 +107,7 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
             SVProgressHUD.showSuccess(withStatus: "Event Created")
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -117,25 +120,30 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
         openLocation()
     }
     
-    func didSelectLocation(location: CLLocationCoordinate2D) {
+    func didSelectLocation(location: CLLocationCoordinate2D, address: String?) {
         self.selectedLocation = location
-        
-        var params = [String: AnyObject]()
-        
-        params["key"] = Constant.googlePlacesKey as AnyObject
-        params["latlng"] = "\(location.latitude),\(location.longitude)" as AnyObject
-        
-        SVProgressHUD.show()
-        RequestManager.getAddressForCoords(param: params, successBlock: { (response) in
-            print(response)
-            if let address = response.first?["formatted_address"] as? String {
-                self.locationLabel.text = address
-            }
-            SVProgressHUD.dismiss()
-        }) { (error) in
-            print(error)
-            SVProgressHUD.dismiss()
+        if let add = address {
+            self.locationLabel.text = add
         }
+        else{
+            var params = [String: AnyObject]()
+            
+            params["key"] = Constant.googlePlacesKey as AnyObject
+            params["latlng"] = "\(location.latitude),\(location.longitude)" as AnyObject
+            SVProgressHUD.show()
+            RequestManager.getAddressForCoords(param: params, successBlock: { (response) in
+                print(response)
+                if let address = response.first?["formatted_address"] as? String {
+                    self.locationLabel.text = address
+                }
+                SVProgressHUD.dismiss()
+            }) { (error) in
+                print(error)
+                SVProgressHUD.dismiss()
+            }
+        }
+        
+       
     }
     
     /*

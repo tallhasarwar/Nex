@@ -43,9 +43,12 @@ class Router: NSObject {
         controller.navigationController?.show(vc, sender: nil)
     }
     
-    static func showBusinessCardDetails(businessCard: BusinessCard, from controller: UIViewController) {
+    static func showBusinessCardDetails(businessCard: BusinessCard?, from controller: UIViewController) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: EditBusinessCardViewController.storyboardID) as! EditBusinessCardViewController
-        vc.businessCard = businessCard
+        if let card = businessCard {
+            vc.businessCard = card
+        }
+        
         controller.navigationController?.show(vc, sender: nil)
     }
     
@@ -58,6 +61,14 @@ class Router: NSObject {
     
     static func showEventsListController(from controller: UIViewController) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: EventsListViewController.storyboardID) as! EventsListViewController
+        
+        controller.navigationController?.show(vc, sender: nil)
+        
+    }
+    
+    
+    static func showConnections(from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: ConnectionsListViewController.storyboardID) as! ConnectionsListViewController
         
         controller.navigationController?.show(vc, sender: nil)
         
@@ -107,6 +118,18 @@ class Router: NSObject {
         controller.navigationController?.show(vc, sender: nil)
         
     }
+    
+    static func showFilterScreen(from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FiltersViewController.storyboardID) as! UINavigationController
+        if let delegateVC = controller as? FiltersDelegate {
+            if let filterController = vc.viewControllers.first as? FiltersViewController {
+                filterController.delegate = delegateVC
+            }   
+        }
+        controller.navigationController?.show(vc, sender: nil)
+    }
+    
+    
     
     
 }

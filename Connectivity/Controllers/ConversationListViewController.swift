@@ -78,7 +78,7 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
         let user = items[indexPath.row].user
         
         cell.nameLabel.text = user.full_name
-        cell.profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url ), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         
         switch self.items[indexPath.row].lastMessage.type {
         case .text:

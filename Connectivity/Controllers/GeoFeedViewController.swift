@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Lightbox
 
-class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersDelegate {
+    
     static let storyboardID = "geoFeedViewController"
     
     @IBOutlet weak var tableView: UITableView!
@@ -19,31 +20,52 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     var isNextPageAvailable = false
     var defaultLocation: CLLocationCoordinate2D?
     var locationManager = CLLocationManager()
+    var filterValue: String?
+    let refreshControl = UIRefreshControl()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Geo Feed"
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 80
+        //        tableView.rowHeight = UITableViewAutomaticDimension
+        //        tableView.estimatedRowHeight = 80
         
         tableView.separatorStyle = .none
         tableView.separatorColor = .clear
         
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(fetchFreshData), for: UIControlEvents.valueChanged)
+        
         SVProgressHUD.show()
         self.setupLocation()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.fetchFreshData), name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.setupLocation), name: NSNotification.Name(rawValue: "refreshLocation"), object: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     //MARK: - API calls
+    
+    func didChangeFilters(hashtags: String?) {
+        filterValue = hashtags
+        fetchFreshData()
+    }
+    
+    
+    func fetchFreshData() {
+        isNextPageAvailable = true
+        pageNumber = 0
+        fetchData()
+    }
     
     func fetchData() {
         
@@ -59,12 +81,29 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var params = [String: AnyObject]()
         
-        params["myPosts"] = "no" as AnyObject
+        if UserDefaults.standard.bool(forKey: UserDefaultKey.ownPostsFilter) {
+            params["myPosts"] = "yes" as AnyObject
+        }
+        else{
+            params["myPosts"] = "no" as AnyObject
+        }
+        
+        
         params["latitude"] = location.latitude as AnyObject
         params["longitude"] = location.longitude as AnyObject
-        params["raduis"] = 30000 as AnyObject
+        let value = UserDefaults.standard.value(forKey: UserDefaultKey.geoFeedRadius)
+        if let radiusValue = value as? Float {
+            params["radius"] = radiusValue * 1000 as AnyObject
+        }
+        else{
+            params["radius"] = 10000 as AnyObject
+        }
+        
         params["page"] = pageNumber as AnyObject
-//        params["s_tags"] = "#photo" as AnyObject
+        
+        if let filters = filterValue {
+            params["s_tags"] = filters as AnyObject
+        }
         
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40))
@@ -75,9 +114,14 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         RequestManager.getPosts(param: params, successBlock: { (response) in
             SVProgressHUD.dismiss()
             self.tableView.tableFooterView = nil
+            self.refreshControl.endRefreshing()
             print(response)
             
-            if response.count >= 15 {
+            if self.pageNumber == 0 {
+                self.postArray.removeAll()
+            }
+            
+            if response.count >= 10 {
                 self.isNextPageAvailable = true
                 self.pageNumber += 1
             }
@@ -91,7 +135,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.tableView.reloadData()
             
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -107,32 +151,53 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let post = postArray[indexPath.row]
         
-        if let image = post.image_path {
+        if let images = post.postImages {
             cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
-            cell.postImageView.sd_setImage(with: URL(string: image), placeholderImage: UIImage(named: "placeholder-banner"), options: .refreshCached, completed: nil)
+            let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
+            cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
+            
+            cell.postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: .refreshCached, completed: { (image, error, cacheType, url) in
+                
+            })
+            cell.imageOverlayButton.tag = indexPath.row
+            cell.imageOverlayButton.addTarget(self, action: #selector(GeoFeedViewController.openImage(_:)), for: .touchUpInside)
+            
         }
         else{
             cell = tableView.dequeueReusableCell(withIdentifier: GeoFeedBasicTableViewCell.identifier) as! GeoFeedBasicTableViewCell
         }
         
-//        geoFeedImageTableViewCell
-        
-        
-        
+        //        geoFeedImageTableViewCell
         
         cell.bodyLabel.text = post.content
         if post.location_name != nil {
             cell.atLabel.isHidden = false
+            cell.atLabel.text = "at"
             cell.locationButton.isHidden = false
             cell.locationButton.setTitle(post.location_name, for: .normal)
+            cell.radiusLabelCheckinConstraint.isActive = false
         }
         else{
             cell.atLabel.isHidden = true
             cell.locationButton.isHidden = true
+            cell.atLabel.text = nil
+            cell.radiusLabelCheckinConstraint.isActive = true
+            cell.layoutSubviews()
+            cell.radiusLabel.layoutIfNeeded()
+            
+        }
+        
+        if let radius = post.distance {
+            cell.radiusLabel.text = "(\(radius) away)"
+        }
+        else {
+            cell.radiusLabel.text = ""
         }
         
         cell.profileNameButton.setTitle(post.full_name, for: .normal)
-        cell.profileImageView.sd_setImage(with: URL(string: post.user_image ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: .refreshCached, completed: nil)
+        cell.profileNameButton.addTarget(self, action: #selector(self.showProfile(_:)), for: .touchUpInside)
+        cell.profileNameButton.tag = indexPath.row
+        cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: .refreshCached, completed: nil)
         cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
         
         
@@ -147,9 +212,52 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let post = postArray[indexPath.row]
+        var totalHeight : CGFloat = 81
+        if let images = post.postImages {
+            
+            totalHeight += CGFloat(Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0))
+            
+            
+        }
+        if let content = post.content {
+            //                let context = NSStringDrawingContext()
+            totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(font: .Standard, size: 14.0)!], context: nil).size.height
+        }
+        return totalHeight
+    }
+    
+    func openImage(_ sender: UIButton) {
+        let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! GeoFeedBasicTableViewCell
+        
+        let image = LightboxImage(image: cell.postImageView.image!, text: cell.bodyLabel.text!, videoURL: nil)
+        
+        let controller = LightboxController(images: [image], startIndex: 0)
+        
+        controller.footerView.pageLabel.isHidden = true
+        controller.footerView.separatorView.isHidden = true
+        
+        // Use dynamic background.
+        controller.dynamicBackground = true
+        
+        // Present your controller.
+        present(controller, animated: true, completion: nil)
+        
+    }
+    
+    func showProfile(_ sender: UIButton) {
+        let userID = postArray[sender.tag].user_id
+        
+        let user = User()
+        user.user_id = userID
+        Router.showProfileViewController(user: user, from: self)
+    }
+    
     //MARK: - IBActions
     
     @IBAction func filterButtonPressed(_ sender: Any) {
+        Router.showFilterScreen(from: self)
     }
     
     @IBAction func createPostButtonPressed(_ sender: Any) {
@@ -167,9 +275,9 @@ extension GeoFeedViewController: CLLocationManagerDelegate {
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
         locationManager.distanceFilter = 100
         locationManager.startUpdatingLocation()
-        locationManager.delegate = self
     }
     
     // Handle incoming location events.
@@ -179,8 +287,9 @@ extension GeoFeedViewController: CLLocationManagerDelegate {
         
         defaultLocation = location.coordinate
         locationManager.stopUpdatingLocation()
+        locationManager.delegate = nil
         self.isNextPageAvailable = true
-        self.fetchData()
+        self.fetchFreshData()
     }
     
     // Handle authorization for the location manager.
@@ -190,7 +299,7 @@ extension GeoFeedViewController: CLLocationManagerDelegate {
             print("Location access was restricted.")
         case .denied:
             print("User denied access to location.")
-            // Display the map using the default location.
+        // Display the map using the default location.
         case .notDetermined:
             print("Location status not determined.")
         case .authorizedAlways: fallthrough
@@ -201,7 +310,7 @@ extension GeoFeedViewController: CLLocationManagerDelegate {
     
     // Handle location manager errors.
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationManager.stopUpdatingLocation()
         print("Error: \(error)")
+        locationManager.stopUpdatingLocation()
     }
 }

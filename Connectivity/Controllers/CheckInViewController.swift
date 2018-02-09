@@ -11,7 +11,7 @@ import GooglePlaces
 import GoogleMaps
 
 protocol LocationSelectionDelegate {
-    func didSelectLocation(location: CLLocationCoordinate2D)
+    func didSelectLocation(location: CLLocationCoordinate2D, address: String?)
 }
 
 class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextFieldDelegate {
@@ -73,7 +73,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
             
         }
         else{
-            let button = UIBarButtonItem(image: UIImage(named: "business-location"), style: .plain, target: self, action: #selector(self.showLocationEvents))
+            let button = UIBarButtonItem(image: UIImage(named: "calendar-icon-white"), style: .plain, target: self, action: #selector(self.showLocationEvents))
             navigationItem.leftBarButtonItem = button
         }
         
@@ -84,9 +84,9 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if isLocationSelection {
-            tableRegularHeightConstraint.isActive = false
+            tableRegularHeightConstraint.isActive = true
             tableSmallHeightConstraint.isActive = false
-            tableFullHeightConstraint.isActive = true
+//            tableFullHeightConstraint.isActive = true
             self.view.layoutIfNeeded()
 //            UIView.animate(withDuration: 0.5) {
 //                self.view.layoutIfNeeded()
@@ -96,7 +96,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     
     func locationSelected() {
         let coordinate = self.mapView.getCenterCoordinate()
-        self.locationDelegate?.didSelectLocation(location: coordinate)
+        self.locationDelegate?.didSelectLocation(location: coordinate, address: nil)
         navigationController?.popViewController(animated: true)
     }
     
@@ -126,6 +126,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.isMyLocationEnabled = true
 //        mapView.settings.scrollGestures = false
+//        mapView.isUserInteractionEnabled = false
         viewForMap.addSubview(mapView)
         mapView.delegate = self
         if isLocationSelection {
@@ -237,6 +238,14 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         listLikelyPlaces(searchKey: searchField.text)
     }
     
+    @IBAction func cancelSearchPressed(_ sender: Any) {
+        searchField.resignFirstResponder()
+    }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     
 }
 
@@ -327,7 +336,7 @@ extension CheckInViewController: UITableViewDelegate, UITableViewDataSource {
 //                    self.view.layoutIfNeeded()
 //                }
 //            }
-            self.locationDelegate?.didSelectLocation(location: likelyPlaces[indexPath.row].coordinates!)
+            self.locationDelegate?.didSelectLocation(location: likelyPlaces[indexPath.row].coordinates!, address: likelyPlaces[indexPath.row].name)
             navigationController?.popViewController(animated: true)
             
         }
@@ -339,6 +348,11 @@ extension CheckInViewController: UITableViewDelegate, UITableViewDataSource {
                 listLikelyPlaces()
             }
         }
+    }
+    
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
+        searchField.resignFirstResponder()
+        return true
     }
     
     func openPlace(place: GooglePlace) {

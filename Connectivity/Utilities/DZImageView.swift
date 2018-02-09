@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import CameraViewController
 
-@IBDesignable class DZImageView: UIImageView, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+@IBDesignable class DZImageView: UIImageView, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IGRPhotoTweakViewControllerDelegate {
     
     var parentController: UIViewController?
     var imageChanged = false
+    
+    var lockAspect = true
+    var aspectRatio: String = "1:1"
 
     @IBInspectable var placeholderImage: UIImage? {
         didSet {
@@ -44,10 +48,12 @@ import UIKit
     
     func imageViewTapped(sender: UITapGestureRecognizer){
         
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
+        
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
-            
+
         }))
         actionSheet.addAction(UIAlertAction(title: "Upload from Camera", style: .default, handler: { (action) -> Void in
             self.selectFromCameraPressed()
@@ -56,7 +62,7 @@ import UIKit
             self.selectFromGalleryPressed()
         }))
         actionSheet.popoverPresentationController?.sourceView = self.parentController?.view
-        
+
         self.parentController?.present(actionSheet, animated: true, completion: nil)
     }
 
@@ -68,7 +74,7 @@ import UIKit
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             self.parentController?.present(imagePicker, animated: true, completion: nil)
         }
         else{
@@ -90,7 +96,7 @@ import UIKit
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
             imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             self.parentController?.present(imagePicker, animated: true, completion: nil)
         }
         else{
@@ -110,25 +116,40 @@ import UIKit
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-//            self.contentMode = .scaleAspectFill
-//            self.image = pickedImage
-//            imageChanged = true
-//        }
-        
-        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            self.contentMode = .scaleAspectFill
-            self.image = pickedImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
+
+        var newImage : UIImage!
+        if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            newImage = editedImage
         }
-        else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            self.contentMode = .scaleAspectFill
-            self.image = image.resizeImageWith(newSize: CGSize(width: 200, height: 200))
-            
+        if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            newImage = originalImage
         }
         
-        
-        
-        picker.dismiss(animated: true, completion: nil)
+        if let image = newImage {
+            let cropController = ImageEditViewController()
+            cropController.aspectRatio = aspectRatio
+            cropController.lockAspectRatio = lockAspect
+            cropController.image = image
+            cropController.delegate = self
+            let nav = UINavigationController(rootViewController: cropController)
+            picker.dismiss(animated: true, completion: {
+                self.parentController?.present(nav, animated: true, completion: nil)
+            })
+        }
+        else{
+            self.image = info[UIImagePickerControllerEditedImage] as? UIImage
+            picker.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func photoTweaksController(_ controller: IGRPhotoTweakViewController, didFinishWithCroppedImage croppedImage: UIImage) {
+        self.image = croppedImage
+        self.contentMode = .scaleAspectFill
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    func photoTweaksControllerDidCancel(_ controller: IGRPhotoTweakViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
 

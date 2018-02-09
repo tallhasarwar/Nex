@@ -11,6 +11,8 @@ import UIKit
 public class UserDefaultKey: NSObject {
     static let sessionID = "session_id"
     static let pushNotificationToken = "pushNotificationToken"
+    static let geoFeedRadius = "radiusValueForFeed"
+    static let ownPostsFilter = "ownPostsFilter"
 }
 
 enum PhotoSource {
@@ -33,7 +35,7 @@ public class Constant: NSObject {
     static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     static let appDateFormat = "MM/dd/yyyy hh:mm:ss a"
     static let eventDateFormat = "MM/dd/yyyy hh:mm a"
-    static let eventDetailDateFormat = "MMM dd yyyy',' hh:mma"
+    static let eventDetailDateFormat = "MMM dd yyyy',' hh:mm a"
     static let animationDuration : TimeInterval = 0.5
     
     static let googlePlacesKey = "AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo"
@@ -56,6 +58,7 @@ public class Constant: NSObject {
     static let socialLoginURL = "social_login"
     static let getProfileURL = "getProfile"
     static let checkinLocationURL = "checkin_location"
+    static let checkinEventURL = "event_checkin"
     static let addBusinessCardURL = "add_bcard"
     static let getBusinessCardURL = "get_bcard"
     static let getPendingRequestsURL = "my_all_pending_requests"
@@ -69,6 +72,10 @@ public class Constant: NSObject {
     static let markNotificationsReadURL = "mark_all_notification_read"
     static let createPostURL = "post"
     static let getPostURL = "posts_feed"
+    static let forgotPasswordURL = "send_forget_link"
+    
+    
+    static let hashtags = ["#Photo","#CheckedIn","#Selling","#ForSale","#Available","#InterestedIn","#Posted","#Shared","#Listed","#Event","#Job","#Vehicle","#Food&Drinks","#Accomodation","#Services","#Shopping","#Transport","#Education","#Sports","#Books","#Relationships","#Networking","#Updates","#News","#Advice","#Article"]
     
     
 }

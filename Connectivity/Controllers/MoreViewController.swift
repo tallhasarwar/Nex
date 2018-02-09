@@ -12,7 +12,7 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     
-    let items = [["image":"business-card-icon","title":"My Business Card"], ["image":"events-icon","title":"My Events"], ["image":"settings-icon","title":"Settings"],["image":"logout-icon","title":"Logout"]] as [[String: String]]
+    let items = [["image":"business-card-icon","title":"My Business Card"], ["image":"events-icon","title":"My Events"], ["image":"settings-icon","title":"Settings"],["image":"contacts-selected","title":"Connections"],["image":"logout-icon","title":"Logout"]] as [[String: String]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,8 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.tableFooterView = UIView()
         
         title = "More"
     }
@@ -37,7 +39,7 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return items.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,7 +50,7 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             cell.detailImageView.layer.masksToBounds = true
             cell.mainLabel.text = ApplicationManager.sharedInstance.user.full_name
             cell.descriptionLabel.text = ApplicationManager.sharedInstance.user.headline
-            cell.detailImageView.sd_setImage(with: URL(string: ApplicationManager.sharedInstance.user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+            cell.detailImageView.sd_setImage(with: URL(string: ApplicationManager.sharedInstance.user.profileImages.small.url ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         }
         else{
             cell.detailImageView.image = UIImage(named: items[indexPath.row-1]["image"]!)
@@ -71,6 +73,8 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         case 3:
             print("Settings")
         case 4:
+            Router.showConnections(from: self)
+        case 5:
             Router.logout()
         default:
             break

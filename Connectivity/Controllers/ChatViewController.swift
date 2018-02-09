@@ -48,12 +48,12 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         self.imagePicker.delegate = self
         self.tableView.estimatedRowHeight = self.barHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.contentInset.bottom = self.barHeight
-        self.tableView.scrollIndicatorInsets.bottom = self.barHeight
+        self.tableView.contentInset.bottom = 10
+        self.tableView.scrollIndicatorInsets.bottom = 10
         self.title = ""
         self.profileNameButton.setTitle(self.currentUser?.full_name, for: .normal)
         
-        self.profileImageView.sd_setImage(with: URL(string: self.currentUser?.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        self.profileImageView.sd_setImage(with: URL(string: self.currentUser?.profileImages.small.url ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         
 //        self.navigationItem.setHidesBackButton(true, animated: false)
 //        let icon = UIImage.init(named: "back")?.withRenderingMode(.alwaysOriginal)
@@ -99,14 +99,14 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         switch toHide {
         case true:
             self.bottomConstraint.constant = 0
-            UIView.animate(withDuration: 0.3) {
+//            UIView.animate(withDuration: 0.3) {
                 self.inputBar.layoutIfNeeded()
-            }
+//            }
         default:
             self.bottomConstraint.constant = -50
-            UIView.animate(withDuration: 0.3) {
+//            UIView.animate(withDuration: 0.3) {
                 self.inputBar.layoutIfNeeded()
-            }
+//            }
         }
     }
     
@@ -175,12 +175,12 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if tableView.isDragging {
-            cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
-            UIView.animate(withDuration: 0.3, animations: {
-                cell.transform = CGAffineTransform.identity
-            })
-        }
+//        if tableView.isDragging {
+//            cell.transform = CGAffineTransform.init(scaleX: 0.5, y: 0.5)
+//            UIView.animate(withDuration: 0.3, animations: {
+//                cell.transform = CGAffineTransform.identity
+//            })
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -201,6 +201,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                         if state == true {
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
+                                self.tableView.scrollToRow(at: IndexPath.init(row: self.items.count - 1, section: 0), at: .bottom, animated: false)
                             }
                         }
                     })
@@ -215,6 +216,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                         if state == true {
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
+                                self.tableView.scrollToRow(at: IndexPath.init(row: self.items.count - 1, section: 0), at: .bottom, animated: false)
                             }
                         }
                     })
@@ -224,7 +226,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         case .sender:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Sender", for: indexPath) as! SenderCell
             cell.clearCellData()
-            cell.profilePic.sd_setImage(with: URL(string: self.currentUser?.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+            cell.profilePic.sd_setImage(with: URL(string: self.currentUser?.profileImages.small.url ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
             switch self.items[indexPath.row].type {
             case .text:
                 cell.message.text = self.items[indexPath.row].content as! String
@@ -238,6 +240,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                         if state == true {
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
+                                self.tableView.scrollToRow(at: IndexPath.init(row: self.items.count - 1, section: 0), at: .bottom, animated: false)
                             }
                         }
                     })
@@ -252,6 +255,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                         if state == true {
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
+                                self.tableView.scrollToRow(at: IndexPath.init(row: self.items.count - 1, section: 0), at: .bottom, animated: false)
                             }
                         }
                     })

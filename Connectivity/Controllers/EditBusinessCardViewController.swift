@@ -67,7 +67,7 @@ class EditBusinessCardViewController: BaseViewController {
             SVProgressHUD.showSuccess(withStatus: "Profile Updated")
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     

@@ -65,7 +65,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             SVProgressHUD.dismiss()
             self.successfulLogin(response: response)
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -105,15 +105,17 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         loginManager.logIn(withReadPermissions: ["public_profile","email"], from: self) { (result, error) in
             SVProgressHUD.show()
             guard let token = result?.token else {
+                SVProgressHUD.dismiss()
                 return
             }
             // Verify token is not empty
             if token.tokenString.isEmpty {
                 print("Token is empty")
+                SVProgressHUD.dismiss()
                 return
             }
             // Request Fields
-            let fields = "name,first_name,last_name,email,gender"
+            let fields = "name,first_name,last_name,email,gender,picture,locale"
             
             // Build URL with Access Token
             let url = Constant.facebookURL + "?fields=\(fields)&access_token=\(token.tokenString!)"
@@ -129,28 +131,28 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                  name = "Danial Zahid";
                  }*/
                 print(response)
-                
                 var params = [String: String]()
-                
                 params["social_provider_name"] = "facebook"
                 params["full_name"] = response["name"] as? String
                 params["social_id"] = response["id"] as? String
                 params["email"] = response["email"] as? String
                 params["device_token"] = Messaging.messaging().fcmToken
+                if let image = response["picture"] as? [String: AnyObject] {
+                    if let data = image["data"] as? [String: AnyObject] {
+                        params["image_path"] = data["url"] as? String
+                    }
+                }
                 
                 RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                     self.successfulLogin(response: response)
                 }, failureBlock: { (error) in
-                    SVProgressHUD.showError(withStatus: error)
+//                    UtilityManager.showErrorMessage(body: error, in: self)
                 })
                 
-                
             }, failureBlock: { (error) in
-                SVProgressHUD.showError(withStatus: error)
+                UtilityManager.showErrorMessage(body: error, in: self)
             })
-            
         }
-    
     }
     
     @IBAction func googleButtonPressed(sender: AnyObject) {
@@ -167,19 +169,67 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             self.linkedinClient?.getAccessToken(auth_code, success: { (access_token_data) -> Void in
                 let response = access_token_data as! [String: AnyObject]
                 let access_token = response["access_token"] as! String
-                //Get Profile Data From LinkedIn
+                //Gest Profile Data From LinkedIn
                 RequestManager.getUserLinkedInProfile(access_token: access_token, successBlock: { (response) -> () in
                     SVProgressHUD.show(withStatus: "Logging In")
                     
-                    /*{
-                     emailAddress = "danialzahid94@live.com";
+                    /*emailAddress = "danialzahid94@live.com";
                      firstName = Danial;
                      headline = "Mobile Developer | Tech Consultant | Entrepreneur";
                      id = "-sqSajuMHj";
+                     industry = "Computer Software";
                      lastName = Zahid;
+                     location =     {
+                     country =         {
+                     code = pk;
+                     };
+                     name = "Lahore, Pakistan";
+                     };
                      pictureUrl = "https://media.licdn.com/mpr/mprx/0_CzlvYuH26_xBZRDPSzLUsmADk6AoOMPYkiwRUJg23qKwOWStTAWv9fd2_GgcjoxtezWv9E6uWX8I4gSCDQNWnZw82X8E4gdYDQNngMYSFLv6-w-GTcG4jDKyulsslgY7kLrMVI6pLsv";
+                     positions =     {
+                     "_total" = 2;
+                     values =         (
+                     {
+                     company =                 {
+                     id = 11027170;
+                     industry = "Staffing & Recruiting";
+                     name = "Athena Technologies";
+                     size = "11-50";
+                     type = "Privately Held";
+                     };
+                     id = 942782399;
+                     isCurrent = 1;
+                     location =                 {
+                     };
+                     startDate =                 {
+                     month = 1;
+                     year = 2017;
+                     };
+                     title = "Chief Executive Officer";
+                     },
+                     {
+                     company =                 {
+                     id = 10673028;
+                     industry = "Information Technology & Services";
+                     name = "Campus Credit";
+                     size = "2-10";
+                     type = "Privately Held";
+                     };
+                     id = 1067397075;
+                     isCurrent = 1;
+                     location =                 {
+                     name = "Hoboken, NJ";
+                     };
+                     startDate =                 {
+                     month = 8;
+                     year = 2017;
+                     };
+                     title = "Mobile Developer";
+                     }
+                     );
+                     };
                      publicProfileUrl = "https://www.linkedin.com/in/danialzahid";
-                     }*/
+                     summary = "";*/
                     
                     var params = [String: String]()
                     
@@ -191,11 +241,18 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                     params["device_token"] = Messaging.messaging().fcmToken
                     params["linkedin_profile"] = response["publicProfileUrl"] as? String
                     params["image_path"] = response["pictureUrl"] as? String
+                    if let companies = response["positions"] as? [[String: AnyObject]] {
+                        params["worked_at"] = companies.first!["company"]!["name"] as? String
+                        params["works_at"] = companies.last!["company"]!["name"] as? String
+                    }
+                    if let location = response["location"]!["name"] as? String {
+                        params["lives_in"] = location
+                    }
                     
                     RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                         self.successfulLogin(response: response)
                     }, failureBlock: { (error) in
-                        SVProgressHUD.showError(withStatus: error)
+                        UtilityManager.showErrorMessage(body: error, in: self)
                     })
                     
                     
@@ -206,7 +263,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                 self.showAlertView(title: "LinkedIn Login", message: (err?.localizedDescription)!)
             })
         }, cancel: { () -> Void in
-            self.showAlertView(title:"LinkedIn Login", message: "You cancelled the login.")
+//            self.showAlertView(title:"LinkedIn Login", message: "You cancelled the login.")
         }, failure: { (err) -> Void in
             self.showAlertView(title:"LinkedIn Login", message: (err?.localizedDescription)!)
         })
@@ -262,11 +319,14 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                 self.successfulLogin(response: response)
             }, failureBlock: { (error) in
-                SVProgressHUD.showError(withStatus: error)
+                UtilityManager.showErrorMessage(body: error, in: self)
             })
             // ...
         } else {
-            SVProgressHUD.showError(withStatus: error?.localizedDescription)
+            if error.localizedDescription == "The user canceled the sign-in flow." {
+                return
+            }
+            UtilityManager.showErrorMessage(body: error.localizedDescription, in: self)
         }
     }
     
@@ -274,6 +334,14 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                 withError error: Error) {
         // Perform any operations when the user disconnects from app here.
         // ...
+        SVProgressHUD.dismiss()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == " " && textField == emailField {
+            return false
+        }
+        return true
     }
     
 }

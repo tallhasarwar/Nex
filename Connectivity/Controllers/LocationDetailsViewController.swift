@@ -77,7 +77,7 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
             self.tableView.reloadData()
             SVProgressHUD.dismiss()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -102,7 +102,7 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         let user = users[indexPath.row]
         cell.nameLabel.text = user.full_name
         cell.headlineLabel.text = user.headline
-        cell.profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         if let tagline = user.tagline {
             cell.taglineLabel.text = "\"\(tagline)\""
         }

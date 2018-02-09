@@ -1,3 +1,4 @@
-github "JeromeTan1997/LocationPicker" "3.1"
+github "JeromeTan1997/LocationPicker" "3.2"
 github "SnapKit/SnapKit" "3.2.0"
+github "alexlittlejohn/ALCameraViewController" "3.0.3"
 github "jpotts18/SwiftValidator" "4.0.1"

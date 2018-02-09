@@ -15,6 +15,7 @@ class BusinessCardListViewController: BaseViewController, UITableViewDelegate, U
     static let storyboardID = "businessCardListViewController"
     
     var businesscard: BusinessCard?
+    var isEditShown = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,13 @@ class BusinessCardListViewController: BaseViewController, UITableViewDelegate, U
             self.tableView.reloadData()
         }) { (error) in
             SVProgressHUD.dismiss()
+            if !self.isEditShown {
+                self.isEditShown = true
+                Router.showBusinessCardDetails(businessCard: nil, from: self)
+                
+            }
+            
+            
         }
     }
     
@@ -78,9 +86,9 @@ class BusinessCardListViewController: BaseViewController, UITableViewDelegate, U
     }
     
     @IBAction func editButtonPressed(_ sender: Any) {
-        if let card = businesscard {
-            Router.showBusinessCardDetails(businessCard: card, from: self)
-        }
+        let card = businesscard
+        Router.showBusinessCardDetails(businessCard: card, from: self)
+        
         
     }
     

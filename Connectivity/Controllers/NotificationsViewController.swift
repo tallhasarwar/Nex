@@ -103,7 +103,7 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             cell.userID = user.user_id
             cell.nameLabel.text = user.full_name
             cell.descriptionLabel.text = user.headline
-            cell.profileImageView.sd_setImage(with: URL(string: user.image_path ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+            cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
             cell.acceptButton.addTarget(self, action: #selector(NotificationsViewController.acceptButtonPressed(_:)),
                                         for: UIControlEvents.touchUpInside)
             cell.acceptButton.tag = indexPath.row
@@ -142,7 +142,7 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             self.connectionRequests.remove(at: sender.tag)
             self.tableView.reloadData()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -154,7 +154,7 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
             self.connectionRequests.remove(at: sender.tag)
             self.tableView.reloadData()
         }) { (error) in
-            SVProgressHUD.showError(withStatus: error)
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     

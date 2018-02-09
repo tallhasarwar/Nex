@@ -8,24 +8,77 @@
 
 import UIKit
 
-class SuggestionTable: DesignableView {
+protocol SuggestionTableDelegate {
+    func suggestionSelected(value: String)
+}
 
-    @IBOutlet weak var tableView: UITableView!
+class SuggestionTable: DesignableView, UITableViewDelegate, UITableViewDataSource {
+
+    let tableView = UITableView()
     
-    let values = [""]
+    var values = [String]()
+    var delegate: SuggestionTableDelegate?
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    convenience init(over view: UIView, in controller: UIViewController) {
+        let suggestionBox = CGRect(x: view.frame.origin.x, y: view.frame.origin.y + 50, width: view.frame.size.width, height: 250)
+        self.init(frame: suggestionBox)
+        controller.view.addSubview(self)
+        isHidden = true
+        if let controllerDelegate = controller as? SuggestionTableDelegate {
+            delegate = controllerDelegate
+        }
         
-        tableView.register(SuggestionTableViewCell.self, forCellReuseIdentifier: SuggestionTableViewCell.identifier)
     }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        tableView.frame = self.frame
+        let nib = UINib(nibName: "SuggestionTable", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: SuggestionTableViewCell.identifier)
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        self.addSubview(tableView)
+        self.bringSubview(toFront: tableView)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return values.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: SuggestionTableViewCell.identifier, for: indexPath) as! SuggestionTableViewCell
+        cell.nameLabel.text = values[indexPath.row]
+        return cell
+    }
+    
+    func refreshList(listValues: [String]) {
+        values = listValues
+        self.isHidden = false
+        tableView.reloadData()
+        self.tableView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: CGFloat(min(150,values.count*30)))
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.delegate?.suggestionSelected(value: values[indexPath.row])
+        self.isHidden = true
+    }
+    
+    
 
 }

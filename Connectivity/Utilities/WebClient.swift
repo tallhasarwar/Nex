@@ -54,6 +54,7 @@ class WebClient: AFHTTPSessionManager {
                        image: UIImage?,
                        imageName: String,
                        addToken: Bool = true,
+                       progressBlock progressB:@escaping (Int) -> (),
                        successBlock success:@escaping (AnyObject) -> (),
                        failureBlock failure: @escaping (NSError) -> ()){
         
@@ -74,7 +75,7 @@ class WebClient: AFHTTPSessionManager {
             }
             
         }, progress: { (progress) in
-            
+            progressB(Int(progress.completedUnitCount))
         }, success: {
             (sessionTask, responseObject) -> () in
             print(responseObject ?? "")
@@ -187,7 +188,9 @@ class WebClient: AFHTTPSessionManager {
     func updateProfile(param: [String: Any],image: UIImage?, successBlock success:@escaping ([String: AnyObject]) -> (),
                        failureBlock failure:@escaping (String) -> ()){
         
-        self.multipartPost(urlString: Constant.updateProfileURL, params: param as [String : AnyObject], image: image, imageName: "image", successBlock: { (response) in
+        self.multipartPost(urlString: Constant.updateProfileURL, params: param as [String : AnyObject], image: image, imageName: "image", progressBlock: { (progress) in
+            
+        }, successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [String : AnyObject])
@@ -210,7 +213,7 @@ class WebClient: AFHTTPSessionManager {
                                 successBlock success:@escaping ([String: AnyObject]) -> (),
                                 failureBlock failure:@escaping (String) -> ()){
         
-        self.getPath(urlString: "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,email-address,headline,public-profile-url,picture-url)?oauth2_access_token=\(access_token)&format=json&secure-urls=true",
+        self.getPath(urlString: "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,maiden-name,email-address,headline,public-profile-url,picture-url,location,industry,summary,positions)?oauth2_access_token=\(access_token)&format=json&secure-urls=true",
             params: nil,addToken: false, successBlock: { (response) -> () in
                 success(response as! [String : AnyObject])
         }) { (error: NSError) -> () in
@@ -222,6 +225,17 @@ class WebClient: AFHTTPSessionManager {
                                 successBlock success:@escaping ([String: AnyObject]) -> (),
                                 failureBlock failure:@escaping (String) -> ()) {
         self.getPath(urlString: url,
+                     params: [:],addToken: false, successBlock: { (response) -> () in
+                        success(response as! [String : AnyObject])
+        }) { (error: NSError) -> () in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func getUserFacebookProfileImage(userID: String,
+                                successBlock success:@escaping ([String: AnyObject]) -> (),
+                                failureBlock failure:@escaping (String) -> ()) {
+        self.getPath(urlString: "https://graph.facebook.com/\(userID)/?fields=picture",
                      params: [:],addToken: false, successBlock: { (response) -> () in
                         success(response as! [String : AnyObject])
         }) { (error: NSError) -> () in
@@ -284,6 +298,26 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func checkinEvent(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+                         failureBlock failure:@escaping (String) -> ()){
+        self.getPath(urlString: Constant.checkinEventURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [[String : AnyObject]])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }
+                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
     func sendRequest(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                          failureBlock failure:@escaping (String) -> ()){
         self.postPath(urlString: "send_connect_request", params: param as [String : AnyObject], successBlock: { (response) in
@@ -326,7 +360,9 @@ class WebClient: AFHTTPSessionManager {
     
     func addBusinessCard(param: [String: Any], image: UIImage?, successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
-        self.multipartPost(urlString: Constant.addBusinessCardURL, params: param as [String : AnyObject], image: image, imageName: "image", successBlock: { (response) in
+        self.multipartPost(urlString: Constant.addBusinessCardURL, params: param as [String : AnyObject], image: image, imageName: "image", progressBlock: { (progress) in
+            
+        }, successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [String : AnyObject])
@@ -432,6 +468,28 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func forgotPassword(email: String, successBlock success:@escaping ([String: AnyObject]) -> (),
+                                    failureBlock failure:@escaping (String) -> ()){
+        
+        let param = ["email":email]
+        
+        self.postPath(urlString: Constant.forgotPasswordURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
     func getAllEvents(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
                              failureBlock failure:@escaping (String) -> ()){
         self.getPath(urlString: Constant.getEventsURL, params: param as [String : AnyObject], successBlock: { (response) in
@@ -473,7 +531,9 @@ class WebClient: AFHTTPSessionManager {
     func addEvent(param: [String: Any], image: UIImage, successBlock success:@escaping ([String: AnyObject]) -> (),
                          failureBlock failure:@escaping (String) -> ()){
         
-        self.multipartPost(urlString: Constant.createEventURL, params: param as [String : AnyObject], image: image, imageName: "image_path", successBlock: { (response) in
+        self.multipartPost(urlString: Constant.createEventURL, params: param as [String : AnyObject], image: image, imageName: "image_path", progressBlock: { (progress) in
+            
+        }, successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [String : AnyObject])
@@ -596,7 +656,9 @@ class WebClient: AFHTTPSessionManager {
                        failureBlock failure:@escaping (String) -> ()){
         
         if image != nil {
-            self.multipartPost(urlString: Constant.createPostURL, params: param as [String : AnyObject], image: image, imageName: "image_path", successBlock: { (response) in
+            self.multipartPost(urlString: Constant.createPostURL, params: param as [String : AnyObject], image: image, imageName: "image_path", progressBlock: { (progress) in
+                
+            }, successBlock: { (response) in
                 print(response)
                 if (response[Constant.statusKey] as AnyObject).boolValue == true{
                     success(response[Constant.responseKey] as! [String : AnyObject])
