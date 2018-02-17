@@ -115,7 +115,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                 return
             }
             // Request Fields
-            let fields = "name,first_name,last_name,email,gender,picture,locale"
+            let fields = "name,first_name,last_name,email,gender,picture,locale,link"
             
             // Build URL with Access Token
             let url = Constant.facebookURL + "?fields=\(fields)&access_token=\(token.tokenString!)"
@@ -136,6 +136,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                 params["full_name"] = response["name"] as? String
                 params["social_id"] = response["id"] as? String
                 params["email"] = response["email"] as? String
+                params["facebook_profile"] = response["link"] as? String
                 params["device_token"] = Messaging.messaging().fcmToken
                 if let image = response["picture"] as? [String: AnyObject] {
                     if let data = image["data"] as? [String: AnyObject] {
@@ -241,13 +242,14 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                     params["device_token"] = Messaging.messaging().fcmToken
                     params["linkedin_profile"] = response["publicProfileUrl"] as? String
                     params["image_path"] = response["pictureUrl"] as? String
-                    if let companies = response["positions"] as? [[String: AnyObject]] {
+                    if let companies = response["positions"]!["values"] as? [[String: AnyObject]] {
                         params["worked_at"] = companies.first!["company"]!["name"] as? String
                         params["works_at"] = companies.last!["company"]!["name"] as? String
                     }
                     if let location = response["location"]!["name"] as? String {
                         params["lives_in"] = location
                     }
+                    params["about"] = response["summary"] as? String
                     
                     RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                         self.successfulLogin(response: response)
@@ -315,6 +317,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             params["social_id"] = user.userID
             params["email"] = user.profile.email
             params["device_token"] = Messaging.messaging().fcmToken
+            params["image_path"] = user.profile.imageURL(withDimension: 200).absoluteString
             
             RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                 self.successfulLogin(response: response)

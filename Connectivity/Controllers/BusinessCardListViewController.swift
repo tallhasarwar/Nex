@@ -74,7 +74,7 @@ class BusinessCardListViewController: BaseViewController, UITableViewDelegate, U
             cell.phoneLabel.text = card.phone
             cell.websiteLabel.text = card.web
             cell.locationLabel.text = card.address
-            cell.profileImageView.sd_setImage(with: URL(string: card.image ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+            cell.profileImageView.sd_setImage(with: URL(string: card.profileImages.medium.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         }
         
         

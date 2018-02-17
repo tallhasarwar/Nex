@@ -35,7 +35,7 @@ class EditBusinessCardViewController: BaseViewController {
         phoneField.text = businessCard.phone
         addressField.text = businessCard.address
         websiteField.text = businessCard.web
-        profileImageView.sd_setImage(with: URL(string: businessCard.image ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        profileImageView.sd_setImage(with: URL(string: businessCard.profileImages.medium.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         
         
     }

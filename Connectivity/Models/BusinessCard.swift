@@ -18,7 +18,8 @@ class BusinessCard: BaseEntity {
     var phone: String?
     var address: String?
     var web: String?
-    var image: String?
+//    var image: String?
+    var profileImages = Images()
     
     override init() {
         super.init()
@@ -27,5 +28,8 @@ class BusinessCard: BaseEntity {
     override init(dictionary: [AnyHashable : Any]!) {
         super.init()
         self.setValuesForKeysWithJSONDictionary(dictionary, dateFormatter: nil)
+        if let profileImages = dictionary["card_images"] as? [String: AnyObject] {
+            self.profileImages = Images(dictionary: profileImages)
+        }
     }
 }

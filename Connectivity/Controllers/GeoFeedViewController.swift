@@ -45,7 +45,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.setupLocation()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.fetchFreshData), name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.setupLocation), name: NSNotification.Name(rawValue: "refreshLocation"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.setupLocation), name: NSNotification.Name(rawValue: "refreshLocation"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -121,7 +121,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.postArray.removeAll()
             }
             
-            if response.count >= 10 {
+            if response.count >= 1 {
                 self.isNextPageAvailable = true
                 self.pageNumber += 1
             }
@@ -223,7 +223,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         if let content = post.content {
             //                let context = NSStringDrawingContext()
-            totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(font: .Standard, size: 14.0)!], context: nil).size.height
+            totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(font: .Standard, size: 14.0)!], context: nil).size.height + 5
         }
         return totalHeight
     }

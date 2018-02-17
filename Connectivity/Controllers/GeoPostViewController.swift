@@ -10,7 +10,7 @@ import UIKit
 import CameraViewController
 import Photos
 
-class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationSelectionDelegate, UITextViewDelegate, SuggestionTableDelegate, IGRPhotoTweakViewControllerDelegate {
+class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationSelectionDelegate, UITextViewDelegate, SuggestionTableDelegate {
 
     static let storyboardID = "geoPostViewController"
     
@@ -23,6 +23,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var postButton: DesignableButton!
     @IBOutlet weak var imageButton: UIButton!
     @IBOutlet weak var previewImage: UIImageView!
+    @IBOutlet weak var bodyTextViewHeightConstraint: NSLayoutConstraint!
     
     
     var selectedImage: UIImage?
@@ -261,29 +262,13 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             newImage = originalImage
         }
         
-        if let image = newImage {
-            let cropController = ImageEditViewController()
-            cropController.aspectRatio = "16:10"
-            cropController.lockAspectRatio = false
-            cropController.image = image
-            cropController.delegate = self
-            let nav = UINavigationController(rootViewController: cropController)
-            picker.dismiss(animated: true, completion: {
-                self.present(nav, animated: true, completion: nil)
-            })
-        }
-        else{
-            self.selectedImage = info[UIImagePickerControllerEditedImage] as? UIImage
-            self.bodyTextView.text.append(" #Photo")
-            picker.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    func photoTweaksController(_ controller: IGRPhotoTweakViewController, didFinishWithCroppedImage croppedImage: UIImage) {
-        self.selectedImage = croppedImage
-        self.previewImage.image = croppedImage
+        self.selectedImage = newImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
+        self.previewImage.image = newImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
         self.bodyTextView.text.append(" #Photo")
-        controller.dismiss(animated: true, completion: nil)
+        
+        picker.dismiss(animated: true) {
+            
+        }
     }
     
     func photoTweaksControllerDidCancel(_ controller: IGRPhotoTweakViewController) {
@@ -291,6 +276,10 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        
+        bodyTextViewHeightConstraint.constant = textView.contentSize.height + 15
+        bodyTextView.layoutIfNeeded()
+        
         if let lastWord = textView.text.components(separatedBy: .whitespacesAndNewlines).last {
             if lastWord.first == "#" {
                 let list = Constant.hashtags.filter { $0.lowercased().hasPrefix(lastWord.lowercased()) }

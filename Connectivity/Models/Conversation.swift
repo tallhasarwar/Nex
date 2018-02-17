@@ -58,8 +58,6 @@ class Conversation: BaseEntity {
 //                        SVProgressHUD.showError(withStatus: error)
                         SVProgressHUD.dismiss()
                     })
-                    
-                
                 }
                 else{
                     SVProgressHUD.dismiss()

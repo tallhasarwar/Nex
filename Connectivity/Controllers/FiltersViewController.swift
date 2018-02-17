@@ -100,7 +100,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
             var word = text.components(separatedBy: .whitespacesAndNewlines)
             word.removeLast()
             var newWord = word.joined(separator: " ")
-            newWord.append(" \(value)")
+            newWord.append("\(value) ")
             filtersTextView.text = newWord
         }
     }

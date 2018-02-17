@@ -19,6 +19,7 @@ class Event: BaseEntity {
     var status: String?
 //    var image_path: String?
     var eventImages = Images()
+    var organizerModel = User()
     var created_at: NSDate?
     var id: String?
     var latitude: String?
@@ -38,6 +39,9 @@ class Event: BaseEntity {
         self.descriptionValue = dictionary["description"] as? String ?? ""
         if let profileImages = dictionary["event_images"] as? [String: AnyObject] {
             self.eventImages = Images(dictionary: profileImages)
+        }
+        if let organizer = dictionary["organizer"] as? [String: AnyObject] {
+            self.organizerModel = User(dictionary: organizer)
         }
     }
     

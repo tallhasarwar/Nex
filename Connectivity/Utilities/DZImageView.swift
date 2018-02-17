@@ -91,7 +91,7 @@ import CameraViewController
     func selectFromGalleryPressed(){
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary){
             let imagePicker = UIImagePickerController()
-        
+            
             imagePicker.navigationBar.barTintColor = UIColor.blue
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
@@ -143,7 +143,7 @@ import CameraViewController
     }
     
     func photoTweaksController(_ controller: IGRPhotoTweakViewController, didFinishWithCroppedImage croppedImage: UIImage) {
-        self.image = croppedImage
+        self.image = croppedImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
         self.contentMode = .scaleAspectFill
         controller.dismiss(animated: true, completion: nil)
     }

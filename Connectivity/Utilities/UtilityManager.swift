@@ -93,10 +93,10 @@ class UtilityManager: NSObject {
         let earliest = now.earlierDate(date as Date) as Date
         let latest = (earliest == now as Date) ? date as Date : now as Date
         
-//        Components(unitFlags, fromDate: earliest, toDate: latest) else { return ""}
+        //        Components(unitFlags, fromDate: earliest, toDate: latest) else { return ""}
         
         let components: DateComponents = calendar.dateComponents(unitFlags, from: earliest, to: latest)
-//        let ccc = calendar.datecom
+        //        let ccc = calendar.datecom
         
         
         let year = components.year ?? 0
@@ -123,15 +123,14 @@ class UtilityManager: NSObject {
             } else {
                 return "Last month"
             }
-        } else if (weekOfYear >= 2) {
-            return "\(weekOfYear) weeks ago"
-        } else if (weekOfYear >= 1){
-            if (numericDates){
-                return "1 week ago"
-            } else {
-                return "Last week"
-            }
-        } else if (day >= 2) {
+        }
+//        else if (weekOfYear >= 2) {
+//            return "\(weekOfYear) weeks ago"
+//        }
+        else if (weekOfYear >= 1){
+            return "\(day + (weekOfYear * 7)) days ago"
+        }
+        else if (day >= 2) {
             return "\(day) days ago"
         } else if (day >= 1){
             if (numericDates){

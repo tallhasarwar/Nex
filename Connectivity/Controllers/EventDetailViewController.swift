@@ -17,6 +17,9 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var eventImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var eventImageWrapper: UIView!
+    @IBOutlet weak var aboutLabel: UILabel!
+    @IBOutlet weak var organizerImageView: DesignableImageView!
+    @IBOutlet weak var organizerNameLabel: UILabel!
     
     var event: Event?
     let refreshControl = UIRefreshControl()
@@ -68,11 +71,15 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         if let event = event {
             title = event.name
             titleLabel.text = event.location
+            if let description = event.descriptionValue {
+                aboutLabel.text = "About: \(description)"
+            }
+            organizerNameLabel.text = event.organizerModel.full_name ?? ""
             if let startDate = event.start_date, let endDate = event.end_date{
                 timeLabel.text = UtilityManager.stringFromNSDateWithFormat(date: startDate, format: Constant.eventDetailDateFormat) + " to " + UtilityManager.stringFromNSDateWithFormat(date: endDate, format: Constant.eventDetailDateFormat)
             }
             eventImageView.sd_setImage(with: URL(string: event.eventImages.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: SDWebImageOptions.refreshCached, completed: nil)
-            
+            organizerImageView.sd_setImage(with: URL(string: event.organizerModel.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         }
         
     }
@@ -110,9 +117,12 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationDetailTableViewCell.eventIdentifier) as! LocationDetailTableViewCell
         let user = users[indexPath.row]
         cell.nameLabel.text = user.full_name
+//        if user.user_id! == ApplicationManager.sharedInstance.user.user_id {
+//            cell.nameLabel.text?.append(" (Organizer)")
+//        }
         cell.headlineLabel.text = user.headline
         cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
-        if let tagline = user.tagline {
+        if let tagline = user.tagline, tagline.length > 0 {
             cell.taglineLabel.text = "\"\(tagline)\""
         }
         else{

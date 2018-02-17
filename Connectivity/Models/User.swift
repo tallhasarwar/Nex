@@ -44,8 +44,14 @@ class User: BaseEntity {
         newDateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         self.setValuesForKeysWithJSONDictionary(dictionary, dateFormatter: newDateFormatter)
         self.unread_notification_count = Int(dictionary["unread_notification_count"] as? String ?? "0")
+        if let profileImages = dictionary["images"] as? [String: AnyObject] {
+            self.profileImages = Images(dictionary: profileImages)
+        }
         if let profileImages = dictionary["profile_images"] as? [String: AnyObject] {
             self.profileImages = Images(dictionary: profileImages)
+        }
+        if let name = dictionary["name"] as? String {
+            self.full_name = name
         }
     }
     

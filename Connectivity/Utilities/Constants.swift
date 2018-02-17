@@ -75,7 +75,7 @@ public class Constant: NSObject {
     static let forgotPasswordURL = "send_forget_link"
     
     
-    static let hashtags = ["#Photo","#CheckedIn","#Selling","#ForSale","#Available","#InterestedIn","#Posted","#Shared","#Listed","#Event","#Job","#Vehicle","#Food&Drinks","#Accomodation","#Services","#Shopping","#Transport","#Education","#Sports","#Books","#Relationships","#Networking","#Updates","#News","#Advice","#Article"]
+    static let hashtags = ["#Photo","#CheckedIn","#ForSale","#Available","#InterestedIn","#Friendship","#Event","#Job","#Vehicle","#Food&Drinks","#Accomodation","#Services","#Shopping","#Transport","#Education","#Sports","#Books","#Relationships","#Networking","#Updates","#News","#Advice","#Article"]
     
     
 }
