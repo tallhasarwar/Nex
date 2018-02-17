@@ -41,10 +41,10 @@ class Styles {
         //Probably want to set the tintColor of UIWindow but it didn't seem necessary right now
         
 //        UINavigationBar.appearance().barTintColor = UIColor.init(patternImage: UIImage(named: "login-bg")!)
-        UINavigationBar.appearance().barTintColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = Styles.sharedStyles.primaryColor
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().tintColor = .white
-        UIToolbar.appearance().tintColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
+        UIToolbar.appearance().tintColor = Styles.sharedStyles.primaryColor
         
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
@@ -76,6 +76,10 @@ class Styles {
     ///**Warning:** Not from style guide. Do not add more uses
     public var progressBarTrackTintColor : UIColor {
         return UIColor(red: CGFloat(223.0/255.0), green: CGFloat(242.0/255.0), blue: CGFloat(228.0/255.0), alpha: CGFloat(1.00))
+    }
+    
+    public var primaryColor: UIColor {
+        return UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
     }
     
     public var primaryGreyColor : UIColor {
@@ -216,5 +220,40 @@ class RoundedButton: UIButton {
         self.layer.cornerRadius = radius
         self.clipsToBounds = true
     }
+}
+
+extension UITextView {
+    
+    func convertHashtags() {
+        
+        let font = [NSFontAttributeName : UIFont(font: .Standard, size: 18.0)]
+        
+        let attrString = NSMutableAttributedString(string: self.text, attributes: font)
+        attrString.beginEditing()
+//        NSRange(
+//        attrString.addAttribute(N SFontAttributeName, value: , range: NSRange()
+        // match all hashtags
+        do {
+            // Find all the hashtags in our string  (?:^|\\s|$)#[\\p{L}0-9_]*
+//            let regex = try NSRegularExpression(pattern: "(?:\\s|^)(#(?:[a-zA-Z].*?|\\d+[a-zA-Z]+.*?))\\b", options: NSRegularExpression.Options.anchorsMatchLines)
+            let regex = try NSRegularExpression(pattern: "(?:^|\\s|$)#[\\p{L}0-9_]*", options: NSRegularExpression.Options.anchorsMatchLines)
+            let results = regex.matches(in: text,
+                                        options: NSRegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, text.length))
+            let array = results.map { (text as NSString).substring(with: $0.range) }
+            for hashtag in array {
+                // get range of the hashtag in the main string
+                let range = (attrString.string as NSString).range(of: hashtag)
+                // add a colour to the hashtag
+                attrString.addAttribute(NSForegroundColorAttributeName, value: Styles.sharedStyles.primaryColor , range: range)
+                
+            }
+            attrString.endEditing()
+        }
+        catch {
+            attrString.endEditing()
+        }
+        self.attributedText =  attrString
+    }
+    
 }
 

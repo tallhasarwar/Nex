@@ -243,8 +243,18 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                     params["linkedin_profile"] = response["publicProfileUrl"] as? String
                     params["image_path"] = response["pictureUrl"] as? String
                     if let companies = response["positions"]!["values"] as? [[String: AnyObject]] {
-                        params["worked_at"] = companies.first!["company"]!["name"] as? String
-                        params["works_at"] = companies.last!["company"]!["name"] as? String
+                        var companyNames = ""
+                        for company in companies {
+                            if let name = company["company"]!["name"] as? String {
+                                companyNames.append(name)
+                                companyNames.append(", ")
+                            }
+                        }
+//                        params["worked_at"] = companies.first!["company"]!["name"] as? String
+//                        params["works_at"] = companies.last!["company"]!["name"] as? String
+                        companyNames.removeLast()
+                        companyNames.removeLast()
+                        params["works_at"] = companyNames
                     }
                     if let location = response["location"]!["name"] as? String {
                         params["lives_in"] = location

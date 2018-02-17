@@ -23,7 +23,6 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     var filterValue: String?
     let refreshControl = UIRefreshControl()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +38,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.separatorColor = .clear
         
         tableView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(fetchFreshData), for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(self, action: #selector(setupLocation), for: UIControlEvents.valueChanged)
         
         SVProgressHUD.show()
         self.setupLocation()
@@ -222,14 +221,13 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         }
         if let content = post.content {
-            //                let context = NSStringDrawingContext()
             totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(font: .Standard, size: 14.0)!], context: nil).size.height + 5
         }
         return totalHeight
     }
     
     func openImage(_ sender: UIButton) {
-        let cell = tableView.cellForRow(at: IndexPath(row: sender.tag, section: 0)) as! GeoFeedBasicTableViewCell
+        let cell = tableView.cellForRow(at: IndexPath (row: sender.tag, section: 0)) as! GeoFeedBasicTableViewCell
         
         let image = LightboxImage(image: cell.postImageView.image!, text: cell.bodyLabel.text!, videoURL: nil)
         

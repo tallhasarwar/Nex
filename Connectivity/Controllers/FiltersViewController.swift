@@ -93,6 +93,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
         else{
             suggestionsTable.isHidden = true
         }
+        textView.convertHashtags()
     }
     
     func suggestionSelected(value: String) {
@@ -103,6 +104,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
             newWord.append("\(value) ")
             filtersTextView.text = newWord
         }
+        filtersTextView.convertHashtags()
     }
     
 

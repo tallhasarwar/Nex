@@ -213,7 +213,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
             let imagePicker = UIImagePickerController()
-            imagePicker.navigationBar.barTintColor = UIColor.blue
+            imagePicker.navigationBar.barTintColor = Styles.sharedStyles.primaryColor
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.camera
             imagePicker.mediaTypes = [kUTTypeImage as String]
@@ -235,7 +235,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary){
             let imagePicker = UIImagePickerController()
             
-            imagePicker.navigationBar.barTintColor = UIColor.blue
+            imagePicker.navigationBar.barTintColor = Styles.sharedStyles.primaryColor
             imagePicker.delegate = self
             imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
             imagePicker.mediaTypes = [kUTTypeImage as String]
@@ -293,6 +293,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         else{
             suggestionsTable.isHidden = true
         }
+        textView.convertHashtags()
     }
     
     func suggestionSelected(value: String) {
@@ -303,6 +304,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             newWord.append("\(value) ")
             bodyTextView.text = newWord
         }
+        bodyTextView.convertHashtags()
     }
     
 }
