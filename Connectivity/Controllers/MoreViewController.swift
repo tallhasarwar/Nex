@@ -75,6 +75,7 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         case 4:
             Router.showConnections(from: self)
         case 5:
+            FBSDKLoginManager().logOut()
             Router.logout()
         default:
             break

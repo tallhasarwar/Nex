@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class Router: NSObject {
     
     static func showMainTabBar() {
@@ -23,6 +24,7 @@ class Router: NSObject {
         ApplicationManager.sharedInstance.session_id = ""
         UserDefaults.standard.set(nil, forKey: UserDefaultKey.sessionID)
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SignInViewController.identifier)
+        
         if let window = UIApplication.shared.delegate?.window {
             UIView.transition(with: window!, duration: 0.5, options: UIViewAnimationOptions.transitionFlipFromLeft, animations: {
                 window?.rootViewController = vc

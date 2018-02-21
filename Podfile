@@ -1,5 +1,8 @@
 platform :ios, '9.0'
 
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
 target 'Connectivity' do
 
 pod 'AFNetworking', '~> 3.0'
@@ -19,4 +22,12 @@ pod 'SDWebImage', '~> 4.0'
 pod 'Google/Analytics'
 pod 'DZNEmptyDataSet'
 
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '10.0'
+        end
+    end
 end

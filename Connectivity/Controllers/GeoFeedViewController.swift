@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Lightbox
 
 class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersDelegate {
     

@@ -104,6 +104,8 @@
 		69922447202CD3FC00D67147 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6992243B202CD3FB00D67147 /* PageView.swift */; };
 		6992966E1F9115F200300692 /* EditBusinessCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */; };
 		699E70251FA347D40070BFBA /* ConnectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E70241FA347D40070BFBA /* ConnectionRequest.swift */; };
+		699EEAEC203CA63500B67C05 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 699EEAEB203CA63500B67C05 /* UIKit.framework */; };
+		699EEAEE203CA63B00B67C05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 699EEAED203CA63B00B67C05 /* Foundation.framework */; };
 		69A2593E1F6D60D8000F67B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */; };
 		69A259431F6D60D8000F67B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69A259411F6D60D8000F67B0 /* Main.storyboard */; };
 		69A259451F6D60D8000F67B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69A259441F6D60D8000F67B0 /* Assets.xcassets */; };
@@ -296,6 +298,8 @@
 		6992243B202CD3FB00D67147 /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		6992966D1F9115F200300692 /* EditBusinessCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBusinessCardViewController.swift; sourceTree = "<group>"; };
 		699E70241FA347D40070BFBA /* ConnectionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRequest.swift; sourceTree = "<group>"; };
+		699EEAEB203CA63500B67C05 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		699EEAED203CA63B00B67C05 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		69A2593A1F6D60D8000F67B0 /* Connectivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connectivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69A2593D1F6D60D8000F67B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69A259421F6D60D8000F67B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -401,6 +405,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				699EEAEE203CA63B00B67C05 /* Foundation.framework in Frameworks */,
+				699EEAEC203CA63500B67C05 /* UIKit.framework in Frameworks */,
 				6975AD941F94ADBF00CEF94D /* UserNotifications.framework in Frameworks */,
 				6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */,
 				2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */,
@@ -808,6 +814,8 @@
 		760BCFEBBAEBD0986EB0F625 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				699EEAED203CA63B00B67C05 /* Foundation.framework */,
+				699EEAEB203CA63500B67C05 /* UIKit.framework */,
 				69C8744D2018880E00FED630 /* CameraViewController.framework */,
 				698F4C0F1FCFDDBE0012CD23 /* LocationPicker.framework */,
 				69BC4B071FC4921B005CCA16 /* SnapKit.framework */,
@@ -1321,6 +1329,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Connectivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.connectin.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1356,6 +1365,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = Connectivity/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.connectin.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
