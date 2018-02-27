@@ -65,7 +65,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            Router.showProfileViewController(user: ApplicationManager.sharedInstance.user, from: self)
+            //Router.showProfileViewController(user: ApplicationManager.sharedInstance.user, from: self)
+            Router.showTermsAndConditions(from: self)
         case 1:
             UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete your user? Once deleted this cannot be reverted.", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
                 if alertAction.title == "Yes" {

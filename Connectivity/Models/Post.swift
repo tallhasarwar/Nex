@@ -78,6 +78,7 @@ class Post: BaseEntity {
     var distance: String?
     var postImages: Images?
     var profileImages = Images()
+    var isDeletionPopUpShowing = false
     
     override init() {
         super.init()

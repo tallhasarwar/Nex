@@ -237,7 +237,7 @@ open class EasyTipView: UIView {
         return "<< \(type) with text : '\(text)' >>"
     }
     
-    fileprivate weak var presentingView: UIView?
+     weak var presentingView: UIView?
     fileprivate weak var delegate: EasyTipViewDelegate?
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences

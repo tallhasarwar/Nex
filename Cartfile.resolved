@@ -1,4 +1,8 @@
 github "JeromeTan1997/LocationPicker" "3.3"
 github "SnapKit/SnapKit" "3.2.0"
 github "alexlittlejohn/ALCameraViewController" "3.0.3"
+github "hyperoslo/Cache" "4.1.2"
+github "hyperoslo/Hue" "3.0.1"
+github "hyperoslo/Imaginary" "3.0.3"
+github "hyperoslo/Lightbox" "2.1.2"
 github "jpotts18/SwiftValidator" "4.0.1"
