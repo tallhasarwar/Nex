@@ -264,7 +264,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         self.selectedImage = newImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
         self.previewImage.image = newImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
-        self.bodyTextView.text.append(" #Photo")
+        self.bodyTextView.text.append(" #Photo ")
         
         picker.dismiss(animated: true) {
             

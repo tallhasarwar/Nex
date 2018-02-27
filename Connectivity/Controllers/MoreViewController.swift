@@ -72,6 +72,7 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             Router.showEventsListController(from: self)
         case 3:
             print("Settings")
+            Router.showSettings(from: self)
         case 4:
             Router.showConnections(from: self)
         case 5:

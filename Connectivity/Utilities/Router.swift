@@ -121,6 +121,12 @@ class Router: NSObject {
         
     }
     
+    static func showSettings(from controller: UIViewController) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SettingsViewController.storyboardID)
+        controller.navigationController?.show(vc, sender: nil)
+        
+    }
+    
     static func showFilterScreen(from controller: UIViewController) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FiltersViewController.storyboardID) as! UINavigationController
         if let delegateVC = controller as? FiltersDelegate {

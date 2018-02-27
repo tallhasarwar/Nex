@@ -24,6 +24,7 @@ class GeoFeedBasicTableViewCell: UITableViewCell {
     @IBOutlet weak var radiusLabelCheckinConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageOverlayButton: UIButton!
     @IBOutlet weak var postImageHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var optionsButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

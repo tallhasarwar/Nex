@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersDelegate {
+class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersDelegate, EasyTipViewDelegate {
     
     static let storyboardID = "geoFeedViewController"
     
@@ -198,6 +198,17 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: .refreshCached, completed: nil)
         cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
         
+        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+            cell.optionsButton.isHidden = false
+            cell.optionsButton.tag = indexPath.row
+            cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+        }
+        else{
+            cell.optionsButton.isHidden = true
+        }
+        
+        
+        
         
         return cell
     }
@@ -249,6 +260,28 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         let user = User()
         user.user_id = userID
         Router.showProfileViewController(user: user, from: self)
+    }
+    
+    func showDeletionPopup(_ sender: UIButton) {
+//        EasyTipView.show(animated: true, forView: sender, withinSuperview: self.view, text: "Delete", delegate: self)
+        
+        UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete the post?", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil) { (alert, action, index) in
+            let post = self.postArray[sender.tag]
+            
+            let params = ["post_id":post.id ?? "0"]
+            SVProgressHUD.show()
+            RequestManager.deletePosts(param: params, successBlock: { (response) in
+                self.fetchFreshData()
+            }) { (error) in
+                UtilityManager.showErrorMessage(body: error, in: self)
+            }
+        }
+        
+        
+    }
+    
+    func easyTipViewDidDismiss(_ tipView: EasyTipView) {
+        
     }
     
     //MARK: - IBActions

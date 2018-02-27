@@ -175,6 +175,9 @@
 		69BC67991F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */; };
 		69C8744E2018880E00FED630 /* CameraViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69C8744D2018880E00FED630 /* CameraViewController.framework */; };
 		69C87450201896D500FED630 /* Toucan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C8744F201896D400FED630 /* Toucan.swift */; };
+		69DF058E20445127009CC4E2 /* EasyTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DF058C20445127009CC4E2 /* EasyTipView.swift */; };
+		69DF058F20445127009CC4E2 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DF058D20445127009CC4E2 /* UIKitExtensions.swift */; };
+		69DF059120448A8D009CC4E2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DF059020448A8D009CC4E2 /* SettingsViewController.swift */; };
 		69F290C21FFE9C2B005E97EE /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F290C11FFE9C2B005E97EE /* FiltersViewController.swift */; };
 		69F4B7D91F77D44F00BFB414 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */; };
 		69F4B7DB1F77DD7900BFB414 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */; };
@@ -372,6 +375,9 @@
 		69BC67981F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionRequestTableViewCell.swift; sourceTree = "<group>"; };
 		69C8744D2018880E00FED630 /* CameraViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CameraViewController.framework; path = Carthage/Build/iOS/CameraViewController.framework; sourceTree = "<group>"; };
 		69C8744F201896D400FED630 /* Toucan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toucan.swift; sourceTree = "<group>"; };
+		69DF058C20445127009CC4E2 /* EasyTipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTipView.swift; sourceTree = "<group>"; };
+		69DF058D20445127009CC4E2 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
+		69DF059020448A8D009CC4E2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		69F290C11FFE9C2B005E97EE /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -659,6 +665,7 @@
 		69B9CE931F72AED90070BD37 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				69DF058B20445127009CC4E2 /* EasyTipView */,
 				6992242D202CD3FB00D67147 /* Lightbox */,
 				699223DF202C728A00D67147 /* IGRPhotoTweaks */,
 				69C8744F201896D400FED630 /* Toucan.swift */,
@@ -769,6 +776,7 @@
 				69F9AAF11F8A92DC00DC1F2E /* LocationDetailsViewController.swift */,
 				69F4B7D81F77D44F00BFB414 /* MainTabBarController.swift */,
 				6914C3001F82B1B0005BC1C0 /* MoreViewController.swift */,
+				69DF059020448A8D009CC4E2 /* SettingsViewController.swift */,
 				691670951F93DA7B00C39034 /* NotificationsViewController.swift */,
 				69F4B7DA1F77DD7900BFB414 /* ProfileViewController.swift */,
 				69B9CEC21F72AED90070BD37 /* SignInViewController.swift */,
@@ -794,6 +802,15 @@
 			);
 			name = ActiveLabel;
 			path = "../../../../../Downloads/ActiveLabel.swift-0.7.1/ActiveLabel";
+			sourceTree = "<group>";
+		};
+		69DF058B20445127009CC4E2 /* EasyTipView */ = {
+			isa = PBXGroup;
+			children = (
+				69DF058C20445127009CC4E2 /* EasyTipView.swift */,
+				69DF058D20445127009CC4E2 /* UIKitExtensions.swift */,
+			);
+			path = EasyTipView;
 			sourceTree = "<group>";
 		};
 		69FCBA731F7D426D00F4696E /* IOSLinkedInAPI */ = {
@@ -1081,6 +1098,7 @@
 				6968D65E1F8D270900B39CCF /* BusinessCardListViewController.swift in Sources */,
 				69922441202CD3FC00D67147 /* AssetManager.swift in Sources */,
 				6992241D202C728A00D67147 /* IGRCropView.swift in Sources */,
+				69DF058E20445127009CC4E2 /* EasyTipView.swift in Sources */,
 				690456131FADE700000BE315 /* CreateEventViewController.swift in Sources */,
 				6992240F202C728A00D67147 /* IGRPhotoTweakViewController.swift in Sources */,
 				69B9CF001F72AED90070BD37 /* TransitionManager.swift in Sources */,
@@ -1105,6 +1123,7 @@
 				6992241A202C728A00D67147 /* IGRCropView+Lines.swift in Sources */,
 				69F4B7DD1F77DDBD00BFB414 /* ProfileImagesTableViewCell.swift in Sources */,
 				69922426202C728A00D67147 /* IGRPhotoTweakViewController+Angle.swift in Sources */,
+				69DF059120448A8D009CC4E2 /* SettingsViewController.swift in Sources */,
 				69B9CEE81F72AED90070BD37 /* AutoTextView.swift in Sources */,
 				6946C1D9203B28070026C978 /* ActiveType.swift in Sources */,
 				69FCBA7F1F7D426E00F4696E /* NSString+LIAEncode.m in Sources */,
@@ -1163,6 +1182,7 @@
 				6992243E202CD3FC00D67147 /* UIView+Gradient.swift in Sources */,
 				6992242C202C850100D67147 /* ImageEditViewController.swift in Sources */,
 				6992241F202C728A00D67147 /* IGRCropCornerLine.swift in Sources */,
+				69DF058F20445127009CC4E2 /* UIKitExtensions.swift in Sources */,
 				69922420202C728A00D67147 /* IGRCropGridLine.swift in Sources */,
 				695FDA8E1FAB2974004B6735 /* EventsListTableViewCell.swift in Sources */,
 				6992243D202CD3FC00D67147 /* LayoutConfigurable.swift in Sources */,

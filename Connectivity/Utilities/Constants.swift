@@ -72,6 +72,8 @@ public class Constant: NSObject {
     static let markNotificationsReadURL = "mark_all_notification_read"
     static let createPostURL = "post"
     static let getPostURL = "posts_feed"
+    static let deletePostURL = "delete_post"
+    static let deleteUserURL = "delete_user"
     static let forgotPasswordURL = "send_forget_link"
     
     

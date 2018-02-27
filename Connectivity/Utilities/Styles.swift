@@ -65,6 +65,17 @@ class Styles {
         
         SVProgressHUD.setDefaultStyle(.light)
         SVProgressHUD.setDefaultMaskType(.gradient)
+        
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = UIFont(font: Font.SemiBold, size: 13.0)!
+        preferences.drawing.foregroundColor = self.primaryColor
+        preferences.drawing.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
+        
+        /*
+         * Optionally you can make these preferences global for all future EasyTipViews
+         */
+        EasyTipView.globalPreferences = preferences
     }
     
     ///**Warning:** Not from style guide. Do not add more uses

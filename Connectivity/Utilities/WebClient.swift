@@ -115,6 +115,33 @@ class WebClient: AFHTTPSessionManager {
         })
     }
     
+    func deletePath(urlString: String,
+                 params: [String: AnyObject]?,
+                 addToken: Bool = true,
+                 successBlock success:@escaping (AnyObject) -> (),
+                 failureBlock failure: @escaping (NSError) -> ()){
+        
+        
+        let manager = AFHTTPSessionManager()
+        manager.requestSerializer = AFJSONRequestSerializer()
+        manager.responseSerializer = AFJSONResponseSerializer()
+        
+        if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String , addToken == true {
+            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: "session_id")
+        }
+        
+        manager.delete((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, success: {
+            (sessionTask, responseObject) -> () in
+            print(responseObject ?? "")
+            success(responseObject! as AnyObject)
+        }, failure: {
+            (sessionTask, error) -> () in
+            print(error)
+            failure(error as NSError)
+            
+        })
+    }
+    
     
     
     func signUpUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
@@ -701,6 +728,44 @@ class WebClient: AFHTTPSessionManager {
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [[String : AnyObject]])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func deletePosts(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                  failureBlock failure:@escaping (String) -> ()){
+        self.deletePath(urlString: Constant.deletePostURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func deleteUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                     failureBlock failure:@escaping (String) -> ()){
+        self.deletePath(urlString: Constant.deleteUserURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {
