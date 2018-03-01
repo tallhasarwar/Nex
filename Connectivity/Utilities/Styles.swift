@@ -68,8 +68,10 @@ class Styles {
         
         var preferences = EasyTipView.Preferences()
         preferences.drawing.font = UIFont(font: Font.SemiBold, size: 13.0)!
-        preferences.drawing.foregroundColor = self.primaryColor
-        preferences.drawing.backgroundColor = UIColor(white: 1.0, alpha: 1.0)
+        preferences.drawing.foregroundColor = UIColor.darkGray
+        preferences.drawing.backgroundColor = UIColor(white: 0.95, alpha: 1.0)
+        preferences.drawing.borderColor = UIColor(white: 0.7, alpha: 0.7)
+        preferences.drawing.borderWidth = 1.0
         preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
         
         /*

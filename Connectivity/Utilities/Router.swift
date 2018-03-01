@@ -143,6 +143,16 @@ class Router: NSObject {
         controller.navigationController?.show(vc, sender: nil)
     }
     
+    static func showTermsAndConditionsWithNav(from controller: UIViewController)
+    {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: TermsAndConditionsViewController.storyboardID) as! TermsAndConditionsViewController
+        let nav = UINavigationController(rootViewController: vc)
+        
+        vc.fromLogin = true
+        
+        controller.present(nav, animated: true, completion: nil)
+    }
+    
     
     
 }

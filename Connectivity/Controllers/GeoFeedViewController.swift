@@ -198,19 +198,22 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: .refreshCached, completed: nil)
         cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
         
-        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+//        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
             cell.optionsButton.isHidden = false
             cell.trailingSpaceToOptionsButton.constant = 0
             cell.optionsButton.tag = indexPath.row
             cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+//        }
+//        else{
+//            cell.optionsButton.isHidden = true
+//            cell.trailingSpaceToOptionsButton.constant = -22
+//        }
+        
+        if let tipView = post.easyTipView {
+            post.isDeletionPopUpShowing = false
+            tipView.delegate = nil
+            tipView.dismiss()
         }
-        else{
-            cell.optionsButton.isHidden = true
-            cell.trailingSpaceToOptionsButton.constant = -22
-        }
-        
-        
-        
         
         return cell
     }
@@ -265,11 +268,31 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func showDeletionPopup(_ sender: UIButton) {
+        
 
         if (!self.postArray[sender.tag].isDeletionPopUpShowing){
-            EasyTipView.show(animated: true, forView: sender, withinSuperview: self.view, text: "Delete", delegate: self)
+            let tipView : EasyTipView
+            
+            if postArray[sender.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
+                tipView = EasyTipView(text: "     Delete        ", delegate: self)
+            }
+            else{
+                tipView = EasyTipView(text: "     Report        ", delegate: self)
+            }
+            
+            tipView.show(animated: true, forView: sender, withinSuperview: sender.superview)
+//            EasyTipView.show(animated: true, forView: sender, withinSuperview: sender.superview, text: "Delete", delegate: self)
+            self.postArray[sender.tag].easyTipView = tipView
+            self.postArray[sender.tag].isDeletionPopUpShowing = true
         }
-        self.postArray[sender.tag].isDeletionPopUpShowing = true
+        else{
+            self.postArray[sender.tag].isDeletionPopUpShowing = false
+            if let tipView = self.postArray[sender.tag].easyTipView{
+                tipView.delegate = nil
+                tipView.dismiss()
+            }
+        }
+        
 
 //        UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete the post?", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil) { (alert, action, index) in
 //            let post = self.postArray[sender.tag]
@@ -287,6 +310,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func easyTipViewDidDismiss(_ tipView: EasyTipView) {
+        
 
         if let buttonView = tipView.presentingView
         {
@@ -294,12 +318,34 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             let post = self.postArray[buttonView.tag]
 
             let params = ["post_id":post.id ?? "0"]
-            SVProgressHUD.show()
-            RequestManager.deletePosts(param: params, successBlock: { (response) in
-                self.fetchFreshData()
-            }) { (error) in
-                UtilityManager.showErrorMessage(body: error, in: self)
+            
+            if self.postArray[buttonView.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
+                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                    if alertAction.title == "Yes" {
+                        SVProgressHUD.show()
+                        RequestManager.deletePosts(param: params, successBlock: { (response) in
+                            self.fetchFreshData()
+                        }) { (error) in
+                            UtilityManager.showErrorMessage(body: error, in: self)
+                        }
+                    }
+                })
             }
+            else{
+                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                    if alertAction.title == "Yes" {
+                        SVProgressHUD.show()
+                        RequestManager.reportPosts(param: params, successBlock: { (response) in
+                            self.fetchFreshData()
+                        }) { (error) in
+                            UtilityManager.showErrorMessage(body: error, in: self)
+                        }
+                    }
+                })
+            }
+            
+            
+            
         }
     }
     

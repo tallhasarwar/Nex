@@ -357,6 +357,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         return true
     }
     
+    @IBAction func termsButtonPressed(_ sender: Any) {
+        Router.showTermsAndConditionsWithNav(from: self)
+    }
+    
 }
 
 

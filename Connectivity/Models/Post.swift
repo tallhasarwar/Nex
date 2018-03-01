@@ -79,6 +79,7 @@ class Post: BaseEntity {
     var postImages: Images?
     var profileImages = Images()
     var isDeletionPopUpShowing = false
+    var easyTipView: EasyTipView?
     
     override init() {
         super.init()

@@ -190,9 +190,9 @@ open class EasyTipView: UIView {
         public struct Positioning {
             public var bubbleHInset         = CGFloat(1)
             public var bubbleVInset         = CGFloat(1)
-            public var textHInset           = CGFloat(10)
+            public var textHInset           = CGFloat(40)
             public var textVInset           = CGFloat(10)
-            public var maxWidth             = CGFloat(200)
+            public var maxWidth             = CGFloat(400)
         }
         
         public struct Animating {
@@ -238,7 +238,7 @@ open class EasyTipView: UIView {
     }
     
      weak var presentingView: UIView?
-    fileprivate weak var delegate: EasyTipViewDelegate?
+     weak var delegate: EasyTipViewDelegate?
     fileprivate var arrowTip = CGPoint.zero
     fileprivate(set) open var preferences: Preferences
     open let text: String
