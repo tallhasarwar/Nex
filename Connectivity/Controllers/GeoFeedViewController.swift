@@ -226,6 +226,17 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        for index in max(0,indexPath.row-4) ... min(postArray.count-1,indexPath.row+4) {
+            if let tipView = postArray[index].easyTipView {
+                postArray[index].isDeletionPopUpShowing = false
+                tipView.delegate = nil
+                tipView.dismiss()
+            }
+        }
+        
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let post = postArray[indexPath.row]
         var totalHeight : CGFloat = 81

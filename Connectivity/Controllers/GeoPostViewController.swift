@@ -159,6 +159,9 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func didSelectLocation(location: CLLocationCoordinate2D,address: String?) {
         self.selectedLocation = location
+        self.bodyTextView.text.append(" #CheckedIn ")
+        bodyTextView.layoutSubviews()
+        self.textViewDidChange(bodyTextView)
         if let add = address {
             self.atLabel.isHidden = false
             self.locationAddressLabel.isHidden = false
@@ -265,6 +268,8 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.selectedImage = newImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
         self.previewImage.image = newImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
         self.bodyTextView.text.append(" #Photo ")
+        bodyTextView.layoutSubviews()
+        self.textViewDidChange(bodyTextView)
         
         picker.dismiss(animated: true) {
             
