@@ -46,7 +46,7 @@ import CameraViewController
         
     }
     
-    func imageViewTapped(sender: UITapGestureRecognizer){
+    @objc func imageViewTapped(sender: UITapGestureRecognizer){
         
         
         

@@ -41,10 +41,10 @@ public class LightboxConfig {
     public static var enabled = true
     public static var separatorColor = UIColor(hex: "3D4757")
 
-    public static var textAttributes: [String: Any] = [
-      NSFontAttributeName: UIFont.systemFont(ofSize: 12),
-      NSForegroundColorAttributeName: UIColor(hex: "899AB8"),
-      NSParagraphStyleAttributeName: {
+    public static var textAttributes = [
+      NSAttributedStringKey.font: UIFont.systemFont(ofSize: 12),
+      NSAttributedStringKey.foregroundColor: UIColor(hex: "899AB8"),
+      NSAttributedStringKey.paragraphStyle: {
         var style = NSMutableParagraphStyle()
         style.alignment = .center
         return style
@@ -58,10 +58,10 @@ public class LightboxConfig {
     public static var text = NSLocalizedString("Close", comment: "")
     public static var image: UIImage?
 
-    public static var textAttributes: [String: Any] = [
-        NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16),
-      NSForegroundColorAttributeName: UIColor.white,
-      NSParagraphStyleAttributeName: {
+    public static var textAttributes = [
+        NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16),
+      NSAttributedStringKey.foregroundColor: UIColor.white,
+      NSAttributedStringKey.paragraphStyle: {
         var style = NSMutableParagraphStyle()
         style.alignment = .center
         return style
@@ -75,10 +75,10 @@ public class LightboxConfig {
     public static var text = NSLocalizedString("Delete", comment: "")
     public static var image: UIImage?
 
-    public static var textAttributes: [String: Any] = [
-      NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16),
-      NSForegroundColorAttributeName: UIColor(hex: "FA2F5B"),
-      NSParagraphStyleAttributeName: {
+    public static var textAttributes = [
+      NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 16),
+      NSAttributedStringKey.foregroundColor: UIColor(hex: "FA2F5B"),
+      NSAttributedStringKey.paragraphStyle: {
         var style = NSMutableParagraphStyle()
         style.alignment = .center
         return style
@@ -92,9 +92,9 @@ public class LightboxConfig {
     public static var ellipsisText = NSLocalizedString("Show more", comment: "")
     public static var ellipsisColor = UIColor(hex: "899AB9")
 
-    public static var textAttributes: [String: Any] = [
-        NSFontAttributeName: UIFont(font: .Medium, size: 14.0),
-      NSForegroundColorAttributeName: UIColor(hex: "FFFFFF")
+    public static var textAttributes = [
+        NSAttributedStringKey.font: UIFont(font: .Medium, size: 14.0),
+      NSAttributedStringKey.foregroundColor: UIColor(hex: "FFFFFF")
     ]
   }
 

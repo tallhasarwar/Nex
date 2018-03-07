@@ -94,13 +94,13 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
         }
     }
     
-    func locationSelected() {
+    @objc func locationSelected() {
         let coordinate = self.mapView.getCenterCoordinate()
         self.locationDelegate?.didSelectLocation(location: coordinate, address: nil)
         navigationController?.popViewController(animated: true)
     }
     
-    func showLocationEvents() {
+    @objc func showLocationEvents() {
         let coordinate = self.mapView.getCenterCoordinate()
         Router.showNearbyEventsListController(coordinates: coordinate, from: self)
     }

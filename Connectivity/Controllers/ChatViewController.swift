@@ -126,7 +126,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func selectCamera(_ sender: Any) {
         self.animateExtraButtons(toHide: true)
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if (status == .authorized || status == .notDetermined) {
             self.imagePicker.sourceType = .camera
             self.imagePicker.allowsEditing = false

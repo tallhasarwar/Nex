@@ -28,7 +28,7 @@ class TermsAndConditionsViewController: BaseViewController {
         if fromLogin {
             let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.closeController))
             
-            button.setTitleTextAttributes([NSForegroundColorAttributeName:UIColor.white], for: .normal)
+            button.setTitleTextAttributes([NSAttributedStringKey.foregroundColor:UIColor.white], for: .normal)
             navigationItem.rightBarButtonItem = button
         }
 
@@ -40,7 +40,7 @@ class TermsAndConditionsViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func closeController() {
+    @objc func closeController() {
         self.navigationController?.dismiss(animated: true, completion: {
             
         })

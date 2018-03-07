@@ -52,7 +52,7 @@ class DatePickerTextField: DesignableTextField, UITextFieldDelegate {
     
     //MARK: - IBActions
     
-    func pickerValueChanged(){
+    @objc func pickerValueChanged(){
         self.text = UtilityManager.stringFromNSDateWithFormat(date: pickerView.date as NSDate, format: Constant.appDateFormat)
     }
     
