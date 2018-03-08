@@ -57,8 +57,8 @@ class Styles {
         
         UINavigationBar.appearance().isTranslucent = false
         
-        let attributes : [String: AnyObject] = [NSFontAttributeName: UIFont(font: Font.SemiBold, size: 15.0)!,
-                          NSForegroundColorAttributeName: UIColor.white]
+        let attributes = [NSAttributedStringKey.font: UIFont(font: Font.SemiBold, size: 15.0)!,
+        NSAttributedStringKey.foregroundColor: UIColor.white] as [NSAttributedStringKey: Any]
         
         UINavigationBar.appearance().titleTextAttributes = attributes
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: .normal)
@@ -239,7 +239,7 @@ extension UITextView {
     
     func convertHashtags() {
         
-        let font = [NSFontAttributeName : UIFont(font: .Standard, size: 18.0)]
+        let font = [NSAttributedStringKey.font : UIFont(font: .Standard, size: 18.0)]
         
         let attrString = NSMutableAttributedString(string: self.text, attributes: font)
         attrString.beginEditing()
@@ -257,7 +257,7 @@ extension UITextView {
                 // get range of the hashtag in the main string
                 let range = (attrString.string as NSString).range(of: hashtag)
                 // add a colour to the hashtag
-                attrString.addAttribute(NSForegroundColorAttributeName, value: Styles.sharedStyles.primaryColor , range: range)
+                attrString.addAttribute(NSAttributedStringKey.foregroundColor, value: Styles.sharedStyles.primaryColor , range: range)
                 
             }
             attrString.endEditing()

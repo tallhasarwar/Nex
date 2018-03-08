@@ -126,7 +126,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func selectCamera(_ sender: Any) {
         self.animateExtraButtons(toHide: true)
-        let status = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let status = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if (status == .authorized || status == .notDetermined) {
             self.imagePicker.sourceType = .camera
             self.imagePicker.allowsEditing = false
@@ -150,7 +150,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     
     @IBAction func sendMessage(_ sender: Any) {
         if let text = self.inputTextField.text {
-            if text.characters.count > 0 {
+            if text.count > 0 {
                 self.composeMessage(type: .text, content: self.inputTextField.text!)
                 self.inputTextField.text = ""
             }

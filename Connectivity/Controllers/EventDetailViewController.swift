@@ -84,7 +84,7 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         
     }
     
-    func refreshTableView() {
+    @objc func refreshTableView() {
         fetchData()
     }
     
@@ -139,7 +139,7 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         Router.showProfileViewController(user: user, from: self)
     }
     
-    func editButtonPressed() {
+    @objc func editButtonPressed() {
         Router.showEditEventController(event: self.event!, from: self)
     }
     
@@ -152,9 +152,9 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         paragraphStyle.lineBreakMode = .byWordWrapping
         paragraphStyle.alignment = .center
         
-        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .Medium, size: 17.0) as Any,
-                                          NSForegroundColorAttributeName: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
-                                          NSParagraphStyleAttributeName: paragraphStyle]
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .Medium, size: 17.0) as Any,
+                                          NSAttributedStringKey.foregroundColor: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
+                                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
         return NSMutableAttributedString(string: text, attributes: attributes)
     }
     
@@ -165,9 +165,9 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         paragraphStyle.lineBreakMode = .byWordWrapping
         paragraphStyle.alignment = .center
         
-        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .Standard, size: 15.0) as Any,
-                                          NSForegroundColorAttributeName: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
-                                          NSParagraphStyleAttributeName: paragraphStyle]
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0) as Any,
+                                          NSAttributedStringKey.foregroundColor: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
+                                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
         return NSMutableAttributedString(string: text, attributes: attributes)
     }
     
@@ -187,9 +187,9 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             color = UIColor(red: 106.0/255.0, green: 187.0/255.0, blue: 227.0/255.0, alpha: 1.0)
         }
         
-        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .SemiBold, size: 14.0) as Any,
-                                          NSForegroundColorAttributeName: color,
-                                          NSParagraphStyleAttributeName: paragraphStyle]
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .SemiBold, size: 14.0) as Any,
+                                          NSAttributedStringKey.foregroundColor: color,
+                                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
         return NSMutableAttributedString(string: text, attributes: attributes)
     }
     

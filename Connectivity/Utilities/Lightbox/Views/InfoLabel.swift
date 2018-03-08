@@ -120,7 +120,7 @@ open class InfoLabel: ActiveLabel {
     if let range = string.range(of: ellipsis) {
         let ellipsisColor = LightboxConfig.InfoLabel.ellipsisColor
         let ellipsisRange = NSRange(range, in: string)
-        attributedString.addAttribute(NSForegroundColorAttributeName, value: ellipsisColor, range: ellipsisRange)
+        attributedString.addAttribute(NSAttributedStringKey.foregroundColor, value: ellipsisColor, range: ellipsisRange)
     }
 
     attributedText = attributedString
@@ -132,12 +132,12 @@ open class InfoLabel: ActiveLabel {
     return string.boundingRect(
       with: CGSize(width: bounds.size.width, height: CGFloat.greatestFiniteMagnitude),
       options: [.usesLineFragmentOrigin, .usesFontLeading],
-      attributes: [NSFontAttributeName: font],
+      attributes: [NSAttributedStringKey.font: font],
       context: nil).height
   }
 
   fileprivate func numberOfLines(_ string: String) -> Int {
-    let lineHeight = "A".size(attributes: [NSFontAttributeName: font]).height
+    let lineHeight = "A".size(withAttributes: [NSAttributedStringKey.font: font]).height
     let totalHeight = heightForString(string)
 
     return Int(totalHeight / lineHeight)

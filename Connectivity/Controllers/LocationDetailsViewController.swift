@@ -58,7 +58,7 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         
     }
     
-    func refreshTableView() {
+    @objc func refreshTableView() {
         fetchData()
     }
     
@@ -102,7 +102,7 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         let user = users[indexPath.row]
         cell.nameLabel.text = user.full_name
         cell.headlineLabel.text = user.headline
-        cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url ), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         if let tagline = user.tagline {
             cell.taglineLabel.text = "\"\(tagline)\""
         }
@@ -134,9 +134,9 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         paragraphStyle.lineBreakMode = .byWordWrapping
         paragraphStyle.alignment = .center
         
-        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .Medium, size: 17.0) as Any,
-                                          NSForegroundColorAttributeName: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
-                                          NSParagraphStyleAttributeName: paragraphStyle]
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .Medium, size: 17.0) as Any,
+                                          NSAttributedStringKey.foregroundColor: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
+                                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
         return NSMutableAttributedString(string: text, attributes: attributes)
     }
     
@@ -147,9 +147,9 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         paragraphStyle.lineBreakMode = .byWordWrapping
         paragraphStyle.alignment = .center
         
-        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .Standard, size: 15.0) as Any,
-                                          NSForegroundColorAttributeName: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
-                                          NSParagraphStyleAttributeName: paragraphStyle]
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0) as Any,
+                                          NSAttributedStringKey.foregroundColor: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
+                                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
         return NSMutableAttributedString(string: text, attributes: attributes)
     }
     
@@ -169,9 +169,9 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
             color = UIColor(red: 106.0/255.0, green: 187.0/255.0, blue: 227.0/255.0, alpha: 1.0)
         }
         
-        let attributes : [String: Any] = [NSFontAttributeName: UIFont(font: .SemiBold, size: 14.0) as Any,
-                                          NSForegroundColorAttributeName: color,
-                                          NSParagraphStyleAttributeName: paragraphStyle]
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .SemiBold, size: 14.0) as Any,
+                                          NSAttributedStringKey.foregroundColor: color,
+                                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
         return NSMutableAttributedString(string: text, attributes: attributes)
     }
     

@@ -80,7 +80,7 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
     }
     
     
-    func saveButtonPressed() {
+    @objc func saveButtonPressed() {
         
         guard let location = selectedLocation else {
             

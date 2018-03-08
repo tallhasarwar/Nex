@@ -59,7 +59,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    func fetchFreshData() {
+    @objc func fetchFreshData() {
         isNextPageAvailable = true
         pageNumber = 0
         fetchData()
@@ -247,12 +247,12 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         }
         if let content = post.content {
-            totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSFontAttributeName: UIFont(font: .Standard, size: 14.0)!], context: nil).size.height + 5
+            totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 14.0)!], context: nil).size.height + 5
         }
         return totalHeight
     }
     
-    func openImage(_ sender: UIButton) {
+    @objc func openImage(_ sender: UIButton) {
         let cell = tableView.cellForRow(at: IndexPath (row: sender.tag, section: 0)) as! GeoFeedBasicTableViewCell
         
         let image = LightboxImage(image: cell.postImageView.image!, text: cell.bodyLabel.text!, videoURL: nil)
@@ -270,7 +270,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    func showProfile(_ sender: UIButton) {
+    @objc func showProfile(_ sender: UIButton) {
         let userID = postArray[sender.tag].user_id
         
         let user = User()
@@ -278,7 +278,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         Router.showProfileViewController(user: user, from: self)
     }
     
-    func showDeletionPopup(_ sender: UIButton) {
+    @objc func showDeletionPopup(_ sender: UIButton) {
         
 
         if (!self.postArray[sender.tag].isDeletionPopUpShowing){
@@ -376,7 +376,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
 // Delegates to handle events for the location manager.
 extension GeoFeedViewController: CLLocationManagerDelegate {
     
-    func setupLocation() {
+    @objc func setupLocation() {
         // Initialize the location manager.
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters

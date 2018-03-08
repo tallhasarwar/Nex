@@ -31,11 +31,11 @@ class ImageEditViewController: IGRPhotoTweakViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func cancelButtonPressed() {
+    @objc func cancelButtonPressed() {
         self.dismissAction()
     }
     
-    func doneButtonPressed() {
+    @objc func doneButtonPressed() {
         self.cropAction()
     }
     
