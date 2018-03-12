@@ -23,7 +23,7 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
         super.viewDidLoad()
 
         validator.registerField(emailField, errorLabel: errorLabel, rules: [RequiredRule() as Rule,EmailRule(message: "Invalid email")])
-        validator.registerField(nameField, errorLabel: errorLabel, rules: [RequiredRule() as Rule,FullNameRule() as Rule])
+        validator.registerField(nameField, errorLabel: errorLabel, rules: [RequiredRule() as Rule])
         validator.registerField(passwordField, errorLabel: errorLabel, rules: [RequiredRule() as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule])
         validator.registerField(confirmPasswordField, errorLabel: errorLabel, rules: [ConfirmationRule(confirmField: passwordField)])
         
@@ -48,6 +48,11 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
         params["full_name"] = nameField.text
         params["password"] = passwordField.text
         
+        emailField.resignFirstResponder()
+        nameField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        confirmPasswordField.resignFirstResponder()
+        
         SVProgressHUD.show()
         RequestManager.signUpUser(param: params, successBlock: { (response) in
             SVProgressHUD.dismiss()
@@ -56,7 +61,8 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
             UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
             Router.showMainTabBar()
         }) { (error) in
-            UtilityManager.showErrorMessage(body: error, in: self)
+            let errorTemp = "Email already in use"
+            UtilityManager.showErrorMessage(body: errorTemp, in: self)
             print(error)
         }
     }

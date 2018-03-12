@@ -794,7 +794,7 @@ Cg
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2566,11 +2566,11 @@ current location</string>
                         <viewControllerLayoutGuide type="bottom" id="PQA-qL-VU2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9Mc-Aq-k4s">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mz7-UX-zPP" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="igl-fi-QYZ">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1051"/>
@@ -3158,7 +3158,7 @@ current location</string>
                     </view>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="aboutMeTextView" destination="7Yn-6j-ZiQ" id="U1b-MP-Qp4"/>
                         <outlet property="emailField" destination="MWq-KN-8cC" id="a0S-ND-xui"/>
@@ -3388,11 +3388,11 @@ current location</string>
                         <viewControllerLayoutGuide type="bottom" id="d67-kf-7Mf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5Jh-5j-rK6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c4t-PY-Dk9" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vnc-EG-bue">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1007"/>
@@ -3609,7 +3609,7 @@ current location</string>
                     </view>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addressField" destination="77N-YJ-7ad" id="FUF-LQ-3BW"/>
                         <outlet property="emailField" destination="DIN-ty-snI" id="gOp-B4-XLq"/>
@@ -4112,11 +4112,11 @@ current location</string>
                         <viewControllerLayoutGuide type="bottom" id="uxu-Pk-puW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Njr-Sc-nDS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xxY-D5-Sld" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RPx-cC-0P5">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1007"/>
@@ -4347,6 +4347,7 @@ current location</string>
                     </view>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="descriptionTextView" destination="3Qb-BK-EYd" id="j0f-nS-6ba"/>
                         <outlet property="endTimeLabel" destination="om7-Nq-Fsw" id="0ii-Ka-oUb"/>
@@ -4371,11 +4372,11 @@ current location</string>
                         <viewControllerLayoutGuide type="bottom" id="DUp-yr-vke"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="h5k-NH-Z4m">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQ9-oV-OHs">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -4401,7 +4402,7 @@ current location</string>
                         <viewControllerLayoutGuide type="bottom" id="Uy5-bV-tCj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="REO-Xx-JR8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E2f-xr-ct4">
@@ -4480,7 +4481,7 @@ current location</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9d6-Pi-zX0">
-                                <rect key="frame" x="0.0" y="149.5" width="375" height="404.5"/>
+                                <rect key="frame" x="0.0" y="149.5" width="375" height="453.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Ec3-nD-0p5">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="210.5"/>
@@ -4587,6 +4588,7 @@ current location</string>
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="aboutLabel" destination="Gdr-ux-AQR" id="evD-ge-Pow"/>
                         <outlet property="eventImageView" destination="Yxw-BO-ER7" id="4Zz-5g-iTe"/>

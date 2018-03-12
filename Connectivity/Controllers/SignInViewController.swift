@@ -65,7 +65,8 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             SVProgressHUD.dismiss()
             self.successfulLogin(response: response)
         }) { (error) in
-            UtilityManager.showErrorMessage(body: error, in: self)
+            let errorTemp = "Invalid credentials"
+            UtilityManager.showErrorMessage(body: errorTemp, in: self)
         }
     }
     
