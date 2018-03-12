@@ -113,7 +113,7 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
     
     
     func openLocation() {
-        Router.showLocationSelection(from: self)
+        Router.showLocationSelection(from: self, isEventScreen: true)
     }
     
     @IBAction func locationButtonPressed(_ sender: Any) {

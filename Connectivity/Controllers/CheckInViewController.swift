@@ -40,6 +40,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     var mapMarker: GMSMarker?
     
     var isLocationSelection = false
+    var isEventScreen = false
 
     @IBAction func unwindToMain(segue: UIStoryboardSegue) {
         mapView.clear()
@@ -60,7 +61,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Where are you?"
+        title = isEventScreen ? "Event Location": "Where are you?"
         
         searchField.delegate = self
         
@@ -241,6 +242,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     @IBAction func cancelSearchPressed(_ sender: Any) {
         searchField.text = ""
         searchField.resignFirstResponder()
+        searchField.text = ""
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         textField.text = ""

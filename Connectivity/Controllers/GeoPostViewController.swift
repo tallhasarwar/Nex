@@ -104,7 +104,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func locationButtonPressed(_ sender: Any) {
-        Router.showLocationSelection(from: self)
+        Router.showLocationSelection(from: self, isEventScreen: false)
     }
     
     

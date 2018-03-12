@@ -106,12 +106,13 @@ class Router: NSObject {
         
     }
     
-    static func showLocationSelection(from controller: UIViewController) {
+    static func showLocationSelection(from controller: UIViewController, isEventScreen: Bool) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CheckInViewController.storyboardID) as! CheckInViewController
         if let delegateVC = controller as? LocationSelectionDelegate {
             vc.locationDelegate = delegateVC
         }
         vc.isLocationSelection = true
+        vc.isEventScreen = true
         controller.navigationController?.show(vc, sender: nil)
     }
     

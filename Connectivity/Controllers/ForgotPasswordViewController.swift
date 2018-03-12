@@ -42,7 +42,8 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
             })
             
         }) { (error) in
-            UtilityManager.showErrorMessage(body: error, in: self)
+            let errorTemp = "Invalid credentials"
+            UtilityManager.showErrorMessage(body: errorTemp, in: self)
             
         }
        
