@@ -1,3 +1,4 @@
+
 //
 //  User.swift
 //  Connectivity
@@ -9,27 +10,27 @@
 import UIKit
 import Firebase
 
-class User: BaseEntity {
+@objc class User: BaseEntity {
     
-    var full_name: String?
-    var email: String?
-    var user_id: String?
+    @objc var full_name: String?
+    @objc var email: String?
+    @objc var user_id: String?
 //    var image_path: String?
-    var about: String?
-    var interests: String?
-    var school: String?
-    var worked_at: String?
-    var works_at: String?
-    var lives_in: String?
-    var contact_number: String?
-    var facebook_profile: String?
-    var linkedin_profile: String?
-    var website: String?
-    var google_profile: String?
-    var headline: String?
-    var tagline: String?
-    var checkin_time: NSDate?
-    var event_checkin_time: NSDate?
+    @objc var about: String?
+    @objc var interests: String?
+    @objc var school: String?
+    @objc var worked_at: String?
+    @objc var works_at: String?
+    @objc var lives_in: String?
+    @objc var contact_number: String?
+    @objc var facebook_profile: String?
+    @objc var linkedin_profile: String?
+    @objc var website: String?
+    @objc var google_profile: String?
+    @objc var headline: String?
+    @objc var tagline: String?
+    @objc var checkin_time: NSDate?
+    @objc var event_checkin_time: NSDate?
     var unread_notification_count: Int?
     var profileImages = Images()
     

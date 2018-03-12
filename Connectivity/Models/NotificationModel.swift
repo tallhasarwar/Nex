@@ -8,13 +8,13 @@
 
 import UIKit
 
-class NotificationModel: BaseEntity {
+@objc class NotificationModel: BaseEntity {
 
-    var full_name: String?
-    var title: String?
-    var image_path: String?
-    var created_at: NSDate?
-    var component_id: String?
+    @objc var full_name: String?
+    @objc var title: String?
+    @objc var image_path: String?
+    @objc var created_at: NSDate?
+    @objc var component_id: String?
     
     override init() {
         super.init()

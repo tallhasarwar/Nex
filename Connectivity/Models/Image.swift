@@ -36,7 +36,7 @@ class Images: BaseEntity {
 }
 
 
-class Image: BaseEntity {
+@objc class Image: BaseEntity {
     
     var aspect: Float?
     var height: CGFloat?

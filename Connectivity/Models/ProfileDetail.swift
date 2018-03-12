@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ProfileDetail: BaseEntity {
+@objc class ProfileDetail: BaseEntity {
 
-    var title : String?
-    var detailDescription: String?
+    @objc var title : String?
+    @objc var detailDescription: String?
     
     convenience init(title: String, description: String) {
         self.init()
