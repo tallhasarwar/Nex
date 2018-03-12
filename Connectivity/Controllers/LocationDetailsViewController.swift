@@ -103,7 +103,7 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         cell.nameLabel.text = user.full_name
         cell.headlineLabel.text = user.headline
         cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url ), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
-        if let tagline = user.tagline {
+        if let tagline = user.tagline, tagline.count > 0 {
             cell.taglineLabel.text = "\"\(tagline)\""
         }
         else{
@@ -125,7 +125,7 @@ class LocationDetailsViewController: BaseViewController, UITableViewDelegate, UI
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK : - EmptyDataSource Methods
+    //MARK: - - EmptyDataSource Methods
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let text = "No Recent Checkins Found"

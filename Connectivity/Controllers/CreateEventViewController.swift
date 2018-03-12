@@ -104,7 +104,7 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
 
         SVProgressHUD.show()
         RequestManager.addEvent(param: params, image: eventImageView.image!, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Event Created")
+            SVProgressHUD.showSuccess(withStatus: "Event Saved")
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)
