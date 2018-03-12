@@ -127,11 +127,15 @@ class Router: NSObject {
         
     }
     
-    static func showFilterScreen(from controller: UIViewController) {
+    static func showFilterScreen(from controller: UIViewController, filterText : String? = "") {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: FiltersViewController.storyboardID) as! UINavigationController
         if let delegateVC = controller as? FiltersDelegate {
             if let filterController = vc.viewControllers.first as? FiltersViewController {
                 filterController.delegate = delegateVC
+                if let filter = filterText {
+                    filterController.filterText = filter
+                }
+                
             }   
         }
         controller.navigationController?.show(vc, sender: nil)

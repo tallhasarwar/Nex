@@ -134,6 +134,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)
+            Router.logout()
         }
     }
     
@@ -363,7 +364,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - IBActions
     
     @IBAction func filterButtonPressed(_ sender: Any) {
-        Router.showFilterScreen(from: self)
+        Router.showFilterScreen(from: self, filterText: self.filterValue)
     }
     
     @IBAction func createPostButtonPressed(_ sender: Any) {

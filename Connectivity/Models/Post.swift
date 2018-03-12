@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Post: BaseEntity {
+@objc class Post: BaseEntity {
     
     /*{
      "updated_at": <null>, "full_name": Anwar Malik, "current_longitude": 74.3054983, "checkin_latitude": <null>, "location_id": <null>, "content": different aspect ratio kamaal  #photo, "current_latitude": 31.4761983, "location_name": <null>, "id": 76, "post_images": {
@@ -63,23 +63,23 @@ class Post: BaseEntity {
      };
      },*/
 
-    var content: String?
-    var location_id: String?
-    var location_name: String?
-    var latitude: String?
-    var longitude: String?
-    var image_path: String?
-    var created_at: NSDate?
-    var full_name: String?
-    var id: String?
-    var user_id: String?
-    var user_image: String?
-    var radius: String?
-    var distance: String?
-    var postImages: Images?
-    var profileImages = Images()
-    var isDeletionPopUpShowing = false
-    var easyTipView: EasyTipView?
+    @objc var content: String?
+    @objc var location_id: String?
+    @objc var location_name: String?
+    @objc var latitude: String?
+    @objc var longitude: String?
+    @objc var image_path: String?
+    @objc var created_at: NSDate?
+    @objc var full_name: String?
+    @objc var id: String?
+    @objc var user_id: String?
+    @objc var user_image: String?
+    @objc var radius: String?
+    @objc var distance: String?
+    @objc var postImages: Images?
+    @objc var profileImages = Images()
+    @objc var isDeletionPopUpShowing = false
+    @objc var easyTipView: EasyTipView?
     
     override init() {
         super.init()

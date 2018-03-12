@@ -8,23 +8,23 @@
 
 import UIKit
 
-class Event: BaseEntity {
+@objc class Event: BaseEntity {
 
-    var name: String?
-    var location: String?
-    var raduis: String?
-    var start_date: NSDate?
-    var end_date: NSDate?
-    var user_id: String?
-    var status: String?
+    @objc var name: String?
+    @objc var location: String?
+    @objc var raduis: String?
+    @objc var start_date: NSDate?
+    @objc var end_date: NSDate?
+    @objc var user_id: String?
+    @objc var status: String?
 //    var image_path: String?
-    var eventImages = Images()
-    var organizerModel = User()
-    var created_at: NSDate?
-    var id: String?
-    var latitude: String?
-    var longitude: String?
-    var descriptionValue: String?
+    @objc var eventImages = Images()
+    @objc var organizerModel = User()
+    @objc var created_at: NSDate?
+    @objc var id: String?
+    @objc var latitude: String?
+    @objc var longitude: String?
+    @objc var descriptionValue: String?
     
     override init() {
         super.init()

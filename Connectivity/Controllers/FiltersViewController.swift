@@ -16,6 +16,8 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
 
     static let storyboardID = "filtersViewController"
     
+    var filterText = ""
+    
     @IBOutlet weak var filtersTextView: FloatLabelTextView!
     @IBOutlet weak var radiusSlider: UISlider!
     @IBOutlet weak var radiusLabel: UILabel!
@@ -38,6 +40,8 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
             sliderValueChanged(radiusSlider)
 
         }
+        
+        filtersTextView.text = filterText
         
         let on = UserDefaults.standard.bool(forKey: UserDefaultKey.ownPostsFilter)
         ownPostSwitch.isOn = on
@@ -101,7 +105,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
             var word = text.components(separatedBy: .whitespacesAndNewlines)
             word.removeLast()
             var newWord = word.joined(separator: " ")
-            newWord.append("\(value) ")
+            newWord.append(" \(value) ")
             filtersTextView.text = newWord
         }
         filtersTextView.convertHashtags()

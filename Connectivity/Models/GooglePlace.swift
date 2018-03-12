@@ -8,13 +8,13 @@
 
 import UIKit
 
-class GooglePlace: BaseEntity {
+@objc class GooglePlace: BaseEntity {
 
-    var place_id: String?
-    var vicinity: String?
-    var name: String?
+    @objc var place_id: String?
+    @objc var vicinity: String?
+    @objc var name: String?
     var rating: Int?
-    var imageReference: String?
+    @objc var imageReference: String?
     var coordinates: CLLocationCoordinate2D?
     var openNow: Bool?
 

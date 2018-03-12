@@ -72,7 +72,13 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func hashtagButtonPressed(_ sender: Any) {
-        bodyTextView.text.append(" #")
+        if bodyTextView.text.last == " " {
+            bodyTextView.text.append("#")
+        }
+        else{
+            bodyTextView.text.append(" #")
+        }
+        
         bodyTextView.layoutSubviews()
         self.textViewDidChange(bodyTextView)
     }
@@ -109,6 +115,11 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             UtilityManager.showErrorMessage(body: "Location not detected yet", in: self)
             return
             
+        }
+        
+        if bodyTextView.text.count <= 0 {
+            UtilityManager.showErrorMessage(body: "Post can't be empty", in: self)
+            return
         }
         
         var params = [String: AnyObject]()
@@ -306,7 +317,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
             var word = text.components(separatedBy: .whitespacesAndNewlines)
             word.removeLast()
             var newWord = word.joined(separator: " ")
-            newWord.append("\(value) ")
+            newWord.append(" \(value) ")
             bodyTextView.text = newWord
         }
         bodyTextView.convertHashtags()

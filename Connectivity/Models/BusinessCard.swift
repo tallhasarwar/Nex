@@ -8,18 +8,18 @@
 
 import UIKit
 
-class BusinessCard: BaseEntity {
+@objc class BusinessCard: BaseEntity {
 
-    var id: String?
-    var user_id: String?
-    var name: String?
-    var title: String?
-    var email: String?
-    var phone: String?
-    var address: String?
-    var web: String?
+    @objc var id: String?
+    @objc var user_id: String?
+    @objc var name: String?
+    @objc var title: String?
+    @objc var email: String?
+    @objc var phone: String?
+    @objc var address: String?
+    @objc var web: String?
 //    var image: String?
-    var profileImages = Images()
+    @objc var profileImages = Images()
     
     override init() {
         super.init()
