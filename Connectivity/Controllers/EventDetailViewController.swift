@@ -28,7 +28,7 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if ApplicationManager.sharedInstance.user.user_id != event?.organizerModel.user_id {
+        if ApplicationManager.sharedInstance.user.user_id == event?.organizerModel.user_id {
             setupNav()
         }
         tableView.delegate = self

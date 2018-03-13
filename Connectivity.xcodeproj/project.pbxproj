@@ -869,6 +869,7 @@
 				5155485969FA8EC4849294E5 /* [CP] Embed Pods Frameworks */,
 				CFC136D4691E1E036BA70349 /* [CP] Copy Pods Resources */,
 				69F4BB621F7807BC00BFB414 /* ShellScript */,
+				69829F412057ECFE000DFF6B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -972,6 +973,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		69829F412057ECFE000DFF6B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" e4fd6a1c0de671adf4c1abfb2d853879739ce7ba 885a814f67880d2c618f5203aaed3ad40b1b96e80177ea6b04ddf17886d79241";
 		};
 		69F4BB621F7807BC00BFB414 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1343,7 +1357,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = QEZ42U74SP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1380,7 +1394,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 46;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = QEZ42U74SP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

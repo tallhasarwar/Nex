@@ -21,6 +21,8 @@ pod 'Firebase/Storage'
 pod 'SDWebImage', '~> 4.0'
 pod 'Google/Analytics'
 pod 'DZNEmptyDataSet'
+pod 'Fabric'
+pod 'Crashlytics'
 
 end
 

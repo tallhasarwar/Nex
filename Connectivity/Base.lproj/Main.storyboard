@@ -1068,10 +1068,27 @@ Cg
                                                     <real key="value" value="1"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="searchTextChanged:" destination="a0Z-F0-UHL" eventType="valueChanged" id="Mwd-hv-Lew"/>
+                                            </connections>
                                         </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJh-a5-1pc">
+                                            <rect key="frame" x="321" y="8" width="45" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="45" id="7Er-sq-lxi"/>
+                                            </constraints>
+                                            <state key="normal" image="button-close"/>
+                                            <connections>
+                                                <action selector="cancelSearchButtonPressed:" destination="a0Z-F0-UHL" eventType="touchUpInside" id="Sra-BC-ynL"/>
+                                                <action selector="cancelSearchPressed:" destination="nRy-ht-vqz" eventType="touchUpInside" id="T14-JZ-bmC"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstItem="lJh-a5-1pc" firstAttribute="top" secondItem="tNp-Ua-8Gw" secondAttribute="top" id="40Q-EE-H9c"/>
+                                        <constraint firstItem="lJh-a5-1pc" firstAttribute="trailing" secondItem="tNp-Ua-8Gw" secondAttribute="trailing" id="Idb-iU-cf8"/>
+                                        <constraint firstItem="lJh-a5-1pc" firstAttribute="bottom" secondItem="tNp-Ua-8Gw" secondAttribute="bottom" id="XuC-6b-rGk"/>
                                         <constraint firstItem="tNp-Ua-8Gw" firstAttribute="centerX" secondItem="qbq-f8-kiq" secondAttribute="centerX" id="YeB-c3-EUL"/>
                                         <constraint firstItem="tNp-Ua-8Gw" firstAttribute="centerY" secondItem="qbq-f8-kiq" secondAttribute="centerY" id="ftm-4D-U4D"/>
                                         <constraint firstItem="tNp-Ua-8Gw" firstAttribute="width" secondItem="qbq-f8-kiq" secondAttribute="width" multiplier="0.95" id="viP-2E-Tb3"/>
@@ -1136,6 +1153,7 @@ Cg
                     </view>
                     <navigationItem key="navigationItem" id="VPf-qS-H1Z"/>
                     <connections>
+                        <outlet property="searchBar" destination="tNp-Ua-8Gw" id="7fy-Tk-bve"/>
                         <outlet property="tableView" destination="bZW-ql-ixd" id="YNa-vC-bEV"/>
                     </connections>
                 </viewController>
@@ -2560,7 +2578,7 @@ current location</string>
         <!--Edit Profile View Controller-->
         <scene sceneID="tne-gd-jjm">
             <objects>
-                <viewController storyboardIdentifier="editProfileViewController" id="6zl-Dp-2uA" customClass="EditProfileViewController" customModule="Connectivity" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editProfileViewController" hidesBottomBarWhenPushed="YES" id="6zl-Dp-2uA" customClass="EditProfileViewController" customModule="Connectivity" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nqR-jv-yDA"/>
                         <viewControllerLayoutGuide type="bottom" id="PQA-qL-VU2"/>
@@ -3382,7 +3400,7 @@ current location</string>
         <!--Edit Business Card View Controller-->
         <scene sceneID="Ujd-Ms-hHl">
             <objects>
-                <viewController storyboardIdentifier="editBusinessCardViewController" id="j4d-01-l4d" customClass="EditBusinessCardViewController" customModule="Connectivity" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editBusinessCardViewController" hidesBottomBarWhenPushed="YES" id="j4d-01-l4d" customClass="EditBusinessCardViewController" customModule="Connectivity" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WGN-5S-VSZ"/>
                         <viewControllerLayoutGuide type="bottom" id="d67-kf-7Mf"/>
@@ -4009,13 +4027,30 @@ current location</string>
                                                     <real key="value" value="1"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="searchFieldChanged:" destination="ebu-zK-J9y" eventType="valueChanged" id="fMa-YZ-hxK"/>
+                                            </connections>
                                         </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Y7-HL-Yvj">
+                                            <rect key="frame" x="321" y="8" width="45" height="44"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="45" id="PXm-bl-zVM"/>
+                                            </constraints>
+                                            <state key="normal" image="button-close"/>
+                                            <connections>
+                                                <action selector="cancelSearchButtonPressed:" destination="ebu-zK-J9y" eventType="touchUpInside" id="NTO-VI-eei"/>
+                                                <action selector="cancelSearchPressed:" destination="nRy-ht-vqz" eventType="touchUpInside" id="bSW-YA-kxq"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstItem="0Y7-HL-Yvj" firstAttribute="trailing" secondItem="ABj-Mb-AQf" secondAttribute="trailing" id="AOE-ih-w8G"/>
+                                        <constraint firstItem="0Y7-HL-Yvj" firstAttribute="bottom" secondItem="ABj-Mb-AQf" secondAttribute="bottom" id="P2T-Xs-cXl"/>
                                         <constraint firstItem="ABj-Mb-AQf" firstAttribute="width" secondItem="tdS-4B-t4Q" secondAttribute="width" multiplier="0.95" id="TXk-u9-eYA"/>
                                         <constraint firstItem="ABj-Mb-AQf" firstAttribute="centerY" secondItem="tdS-4B-t4Q" secondAttribute="centerY" id="U9P-0s-rXP"/>
                                         <constraint firstItem="ABj-Mb-AQf" firstAttribute="centerX" secondItem="tdS-4B-t4Q" secondAttribute="centerX" id="ViB-UO-2Lr"/>
+                                        <constraint firstItem="0Y7-HL-Yvj" firstAttribute="top" secondItem="ABj-Mb-AQf" secondAttribute="top" id="abk-KS-y7U"/>
                                     </constraints>
                                 </view>
                                 <prototypes>
@@ -4106,7 +4141,7 @@ current location</string>
         <!--Create Event View Controller-->
         <scene sceneID="0fe-1c-50F">
             <objects>
-                <viewController storyboardIdentifier="createEventViewController" id="Tc6-uU-wnD" customClass="CreateEventViewController" customModule="Connectivity" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createEventViewController" hidesBottomBarWhenPushed="YES" id="Tc6-uU-wnD" customClass="CreateEventViewController" customModule="Connectivity" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DBF-FZ-a2p"/>
                         <viewControllerLayoutGuide type="bottom" id="uxu-Pk-puW"/>
@@ -4366,7 +4401,7 @@ current location</string>
         <!--View Controller-->
         <scene sceneID="abB-s9-PmW">
             <objects>
-                <viewController id="v50-ba-1RY" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="v50-ba-1RY" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wZz-iv-m7G"/>
                         <viewControllerLayoutGuide type="bottom" id="DUp-yr-vke"/>

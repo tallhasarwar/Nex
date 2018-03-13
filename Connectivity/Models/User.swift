@@ -54,6 +54,9 @@ import Firebase
         if let name = dictionary["name"] as? String {
             self.full_name = name
         }
+        if let idString = dictionary["id"] {
+            self.user_id = String(describing: idString)
+        }
     }
     
     

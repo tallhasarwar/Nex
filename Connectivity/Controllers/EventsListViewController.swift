@@ -194,4 +194,10 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
         Router.showCreateEventController(from: self)
     }
     
+    @IBAction func searchFieldChanged(_ sender: Any) {
+    }
+    @IBAction func cancelSearchButtonPressed(_ sender: Any) {
+        searchField.resignFirstResponder()
+        searchField.text = ""
+    }
 }

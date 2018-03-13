@@ -13,6 +13,8 @@ class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UI
     static let storyboardID = "connectionsListViewController"
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: DesignableTextField!
+    
     var usersArray = [User]()
     
     override func viewDidLoad() {
@@ -150,6 +152,14 @@ class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UI
         fetchData()
     }
     
+    
+    @IBAction func searchTextChanged(_ sender: Any) {
+    }
+    
+    @IBAction func cancelSearchButtonPressed(_ sender: Any) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+    }
     
     /*
     // MARK: - Navigation
