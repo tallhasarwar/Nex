@@ -9,12 +9,17 @@
 import UIKit
 import LocationPicker
 
+protocol EventEditDelegate {
+    func eventEdited(event: Event)
+}
+
 class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
 
     static let storyboardID = "createEventViewController"
     
     var isEditingMode = false
     var event : Event?
+    var editingDelegate : EventEditDelegate?
     
     @IBOutlet weak var eventImageView: DZImageView!
     @IBOutlet weak var nameLabel: DesignableTextField!
@@ -108,6 +113,8 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
         SVProgressHUD.show()
         RequestManager.addEvent(param: params, image: eventImageView.image!, successBlock: { (response) in
             SVProgressHUD.showSuccess(withStatus: "Event Saved")
+            let event = Event(dictionary: response)
+            self.editingDelegate?.eventEdited(event: event)
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)

@@ -55,6 +55,11 @@ class UtilityManager: NSObject {
         UIAlertController.showAlert(in: controller, withTitle: "Error", message: body, cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tap: nil)
     }
     
+    static func showSuccessMessage(body: String, in controller: UIViewController) {
+        SVProgressHUD.dismiss()
+        UIAlertController.showAlert(in: controller, withTitle: "Success", message: body, cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tap: nil)
+    }
+    
     static func noDataViewWithText(errorMessage: String, on view: UIView) {
         let layer = CALayer()
         layer.frame = view.bounds

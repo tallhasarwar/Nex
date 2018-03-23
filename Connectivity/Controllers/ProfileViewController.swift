@@ -204,7 +204,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         
         SVProgressHUD.show()
         RequestManager.sendRequest(param: param, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Request sent")
+            
+            UtilityManager.showSuccessMessage(body: "Request sent", in: self)
             self.connectionStatus = "SENT"
             self.updateConnectionUI()
         }) { (error) in
@@ -215,7 +216,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBAction func acceptButtonPressed(_ sender: Any) {
         SVProgressHUD.show()
         RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: true, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Request Accepted")
+//            SVProgressHUD.showSuccess(withStatus: "Request Accepted")
+            UtilityManager.showSuccessMessage(body: "Request accepted", in: self)
             self.connectionStatus = "SENT"
             self.updateConnectionUI()
         }) { (error) in
@@ -226,7 +228,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBAction func rejectButtonPressed(_ sender: Any) {
         SVProgressHUD.show()
         RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: false, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Request Rejected")
+//            SVProgressHUD.showSuccess(withStatus: "Request Rejected")
+            UtilityManager.showSuccessMessage(body: "Request rejected", in: self)
             self.acceptanceView.isHidden = true
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)

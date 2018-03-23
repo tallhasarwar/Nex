@@ -18,6 +18,9 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     @IBOutlet weak var emailField: DesignableTextField!
     @IBOutlet weak var passwordField: DesignableTextField!
     @IBOutlet weak var facebookLoginButton: DesignableButton!
+    @IBOutlet weak var googleButton: DesignableButton!
+    @IBOutlet weak var linkedinButton: DesignableButton!
+    @IBOutlet weak var errorLabel: UILabel!
     
     let validator = Validator()
     var linkedinClient : LIALinkedInHttpClient?
@@ -26,9 +29,9 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         super.viewDidLoad()
         
         linkedinClient = linkedInClient()
-
-        validator.registerField(emailField, rules: [RequiredRule() as Rule,EmailRule(message: "Invalid email")])
-        validator.registerField(passwordField, rules: [RequiredRule() as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule])
+        
+        validator.registerField(emailField, errorLabel: errorLabel, rules: [RequiredRule(message: "Email can't be empty") as Rule,EmailRule(message: "Invalid email")])
+        validator.registerField(passwordField, errorLabel: errorLabel, rules: [RequiredRule(message: "Password can't be empty") as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule])
         
         [emailField, passwordField].forEach { (field) in
             field?.delegate = self
@@ -36,6 +39,9 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         
         facebookLoginButton.layer.cornerRadius = facebookLoginButton.frame.height/2
         facebookLoginButton.layer.masksToBounds = true
+        facebookLoginButton.isExclusiveTouch = true
+        googleButton.isExclusiveTouch = true
+        linkedinButton.isExclusiveTouch = true
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
@@ -65,8 +71,8 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             SVProgressHUD.dismiss()
             self.successfulLogin(response: response)
         }) { (error) in
-            let errorTemp = "Invalid credentials"
-            UtilityManager.showErrorMessage(body: errorTemp, in: self)
+            
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -86,6 +92,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.white.cgColor
+        errorLabel.isHidden = true
     }
     
     /*

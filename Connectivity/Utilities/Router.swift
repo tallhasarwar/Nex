@@ -95,6 +95,9 @@ class Router: NSObject {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CreateEventViewController.storyboardID) as! CreateEventViewController
         vc.event = event
         vc.isEditingMode = true
+        if let delegateVC = controller as? EventEditDelegate {
+            vc.editingDelegate = delegateVC
+        }
         controller.navigationController?.show(vc, sender: nil)
         
     }

@@ -27,7 +27,7 @@ class WebClient: AFHTTPSessionManager {
                   params: [String: AnyObject],
                   addToken: Bool = true,
                   successBlock success:@escaping (AnyObject) -> (),
-                  failureBlock failure: @escaping (NSError) -> ()){
+                  failureBlock failure: @escaping (String) -> ()){
         
         let manager = AFHTTPSessionManager()
         manager.requestSerializer = AFJSONRequestSerializer()
@@ -44,7 +44,20 @@ class WebClient: AFHTTPSessionManager {
         },  failure: {
             (sessionTask, error) -> () in
             print(error)
-            failure(error as NSError)
+            let err = error as NSError
+            do {
+                if let data = err.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as? Data {
+                    let dictionary = try JSONSerialization.jsonObject(with: data,
+                                                                      options: JSONSerialization.ReadingOptions.mutableContainers) as! [String: AnyObject]
+                    failure(dictionary["message"]! as! String)
+                }
+                else{
+                    failure("Failed to connect")
+                }
+            }catch
+            {
+                failure(error.localizedDescription)
+            }
             
         })
     }
@@ -160,13 +173,13 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            if error.code == 422 {
-                failure("Email already in use")
-            }
-            else{
-                failure(error.localizedDescription)
-            }
-            
+//            if error.code == 422 {
+//                failure("Email already in use")
+//            }
+//            else{
+//                failure(error.localizedDescription)
+//            }
+            failure(error)
             
         }
     }
@@ -179,15 +192,20 @@ class WebClient: AFHTTPSessionManager {
                 success(response[Constant.responseKey] as! [String : AnyObject])
             }
             else{
+                
                 if response.object(forKey: "message") as? String != "" {
                     failure(response.object(forKey: "message") as! String)
                 }
                 else{
-                    failure("Unable to fetch data")
+                    failure("Invalid credentials")
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+//            if error.code == 422 {
+//                failure("Invalid credentials")
+//            }
+//            failure(error.localizedDescription)
+            failure(error)
         }
     }
     
@@ -301,7 +319,8 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+//            failure(error.localizedDescription)
+            failure(error)
         }
     }
     
@@ -321,7 +340,8 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+//            failure(error.localizedDescription)
+            failure(error)
         }
     }
     
@@ -361,7 +381,8 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+//            failure(error.localizedDescription)
+            failure(error)
         }
     }
     
@@ -462,7 +483,8 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+//            failure(error.localizedDescription)
+            failure(error)
         }
     }
     
@@ -491,7 +513,8 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+//            failure(error.localizedDescription)
+            failure(error)
         }
     }
     
@@ -513,7 +536,8 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+//            failure(error.localizedDescription)
+            failure(error)
         }
     }
     
@@ -716,7 +740,8 @@ class WebClient: AFHTTPSessionManager {
                     }
                 }
             }) { (error) in
-                failure(error.localizedDescription)
+//                failure(error.localizedDescription)
+                failure(error)
             }
         }
     }
@@ -775,7 +800,8 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+//            failure(error.localizedDescription)
+            failure(error)
         }
     }
     

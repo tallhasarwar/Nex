@@ -19,7 +19,7 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        validator.registerField(emailField, rules: [RequiredRule() as Rule,EmailRule(message: "Invalid email")])
+        validator.registerField(emailField, rules: [RequiredRule(message: "Email can't be empty") as Rule,EmailRule(message: "Invalid email")])
         
         emailField.delegate = self
     }
@@ -42,8 +42,8 @@ class ForgotPasswordViewController: UIViewController, UITextFieldDelegate, Valid
             })
             
         }) { (error) in
-            let errorTemp = "Invalid credentials"
-            UtilityManager.showErrorMessage(body: errorTemp, in: self)
+//            let errorTemp = "Invalid credentials"
+            UtilityManager.showErrorMessage(body: error, in: self)
             
         }
        

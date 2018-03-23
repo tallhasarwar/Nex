@@ -41,9 +41,10 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
             self.items = conversations
             self.items.sort{ $0.lastMessage.timestamp > $1.lastMessage.timestamp }
             DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
                 self.tableView.reloadData()
             }
-            SVProgressHUD.dismiss()
+            
         }
     }
     

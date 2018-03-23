@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class EventDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, EventEditDelegate {
 
     static let storyboardID = "eventDetailViewController"
     
@@ -149,6 +149,11 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     @objc func editButtonPressed() {
         Router.showEditEventController(event: self.event!, from: self)
+    }
+    
+    func eventEdited(event: Event) {
+        self.event = event
+        setupUI()
     }
     
     //MARK : - EmptyDataSource Methods
