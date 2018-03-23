@@ -41,6 +41,9 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
         startTimeLabel.pickerView.datePickerMode = UIDatePickerMode.dateAndTime
         startTimeLabel.pickerView.maximumDate = nil
         
+        locationLabel.isEnabled = false
+        locationLabel.backgroundColor = UIColor(white: 0.85, alpha: 0.7)
+        
         
         endTimeLabel.pickerView.minimumDate = NSDate() as Date
         endTimeLabel.pickerView.datePickerMode = UIDatePickerMode.dateAndTime

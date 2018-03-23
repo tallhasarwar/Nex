@@ -20,6 +20,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     var defaultLocation: CLLocationCoordinate2D?
     var locationManager = CLLocationManager()
     var filterValue: String?
+    var selectedFilterValue: String?
     let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
@@ -53,8 +54,9 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: - API calls
     
-    func didChangeFilters(hashtags: String?) {
+    func didChangeFilters(hashtags: String?, originalHashtags: String?) {
         filterValue = hashtags
+        selectedFilterValue = originalHashtags
         fetchFreshData()
     }
     
@@ -364,7 +366,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - IBActions
     
     @IBAction func filterButtonPressed(_ sender: Any) {
-        Router.showFilterScreen(from: self, filterText: self.filterValue)
+        Router.showFilterScreen(from: self, filterText: self.selectedFilterValue)
     }
     
     @IBAction func createPostButtonPressed(_ sender: Any) {

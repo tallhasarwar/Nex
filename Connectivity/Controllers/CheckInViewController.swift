@@ -242,10 +242,14 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     @IBAction func cancelSearchPressed(_ sender: Any) {
         searchField.text = ""
         searchField.resignFirstResponder()
-        searchField.text = ""
+        nextPageToken = nil
+        listLikelyPlaces(searchKey: searchField.text)
     }
+    
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         textField.text = ""
+//        nextPageToken = nil
+//        listLikelyPlaces(searchKey: searchField.text)
         textField.resignFirstResponder()
         return true
     }

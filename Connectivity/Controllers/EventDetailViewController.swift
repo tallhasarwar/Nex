@@ -90,6 +90,12 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         fetchData()
     }
     
+    @IBAction func organizerButtonPressed(_ sender: Any) {
+        if let user = event?.organizerModel {
+            Router.showProfileViewController(user: user, from: self)
+        }
+        
+    }
     
     func fetchData() {
         

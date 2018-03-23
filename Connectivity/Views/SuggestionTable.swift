@@ -24,6 +24,14 @@ class SuggestionTable: DesignableView, UITableViewDelegate, UITableViewDataSourc
         let suggestionBox = CGRect(x: view.frame.origin.x, y: view.frame.origin.y + 50, width: view.frame.size.width, height: 250)
         self.init(frame: suggestionBox)
         controller.view.addSubview(self)
+        
+        self.snp.remakeConstraints { (make) in
+            make.top.equalTo(view.snp.bottom).offset(5.0)
+            make.height.equalTo(250)
+            make.width.equalTo(view.snp.width)
+            make.left.equalTo(view.snp.left)
+        }
+        
         isHidden = true
         if let controllerDelegate = controller as? SuggestionTableDelegate {
             delegate = controllerDelegate

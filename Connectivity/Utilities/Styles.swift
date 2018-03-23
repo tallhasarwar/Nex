@@ -249,7 +249,7 @@ extension UITextView {
         do {
             // Find all the hashtags in our string  (?:^|\\s|$)#[\\p{L}0-9_]*
 //            let regex = try NSRegularExpression(pattern: "(?:\\s|^)(#(?:[a-zA-Z].*?|\\d+[a-zA-Z]+.*?))\\b", options: NSRegularExpression.Options.anchorsMatchLines)
-            let regex = try NSRegularExpression(pattern: "(?:^|\\s|$)#[\\p{L}0-9_]*", options: NSRegularExpression.Options.anchorsMatchLines)
+            let regex = try NSRegularExpression(pattern: "(?:^|\\s|$)#[\\p{L}a-z&0-9_]*", options: NSRegularExpression.Options.anchorsMatchLines)
             let results = regex.matches(in: text,
                                         options: NSRegularExpression.MatchingOptions.withoutAnchoringBounds, range: NSMakeRange(0, text.length))
             let array = results.map { (text as NSString).substring(with: $0.range) }

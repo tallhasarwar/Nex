@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FiltersDelegate {
-    func didChangeFilters(hashtags: String?)
+    func didChangeFilters(hashtags: String?, originalHashtags: String?)
 }
 
 class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTableDelegate {
@@ -41,10 +41,15 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
 
         }
         
-        filtersTextView.text = filterText
+        
         
         let on = UserDefaults.standard.bool(forKey: UserDefaultKey.ownPostsFilter)
         ownPostSwitch.isOn = on
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        filtersTextView.insertText(filterText)
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +76,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
         let tags = text?.components(separatedBy: .whitespacesAndNewlines).filter { $0.hasPrefix("#") }
         let refinedTags = tags?.map{ $0.dropFirst() }
         
-        self.delegate?.didChangeFilters(hashtags: refinedTags?.joined(separator: ","))
+        self.delegate?.didChangeFilters(hashtags: refinedTags?.joined(separator: ","), originalHashtags: text)
         self.navigationController?.dismiss(animated: true, completion: nil)
         
     }
