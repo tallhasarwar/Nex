@@ -46,9 +46,10 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         
         if publicProfile == true {
             self.navigationItem.rightBarButtonItem = nil
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300 )
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 305 )
             messageView.isHidden = false
-            RequestManager.getOtherProfile(userID: user.user_id!, successBlock: { (response) in
+            guard let id = user.user_id else { return }
+            RequestManager.getOtherProfile(userID: id, successBlock: { (response) in
                 self.user = User(dictionary: response["user"] as! [String: AnyObject])
                 self.connectionStatus = response["userConnectionStatus"] as! String
                 self.updateConnectionUI()
@@ -58,7 +59,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             })
         }
         else{
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 245)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 230)
             connectButton.isHidden = true
         }
         
@@ -96,7 +97,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         connectionLabel.isHidden = true
 
         if connectionStatus == "SENT" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 305)
             self.connectButton.isHidden = false
             self.acceptanceView.isHidden = true
             self.connectButton.setTitle("Request Pending", for: UIControlState.normal)
@@ -104,12 +105,12 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.connectButton.alpha = 0.8
         }
         else if connectionStatus == "PENDING" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 305)
             self.connectButton.isHidden = true
             self.acceptanceView.isHidden = false
         }
         else if connectionStatus == "ACCEPTED" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 265)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 270)
             self.connectButton.isHidden = true
             self.acceptanceView.isHidden = true
             self.connectionLabel.isHidden = false
@@ -117,7 +118,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         else{
             self.connectButton.isHidden = false
             self.acceptanceView.isHidden = true
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 305)
         }
         self.view.layoutIfNeeded()
     }

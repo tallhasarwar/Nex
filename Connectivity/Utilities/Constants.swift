@@ -13,6 +13,7 @@ public class UserDefaultKey: NSObject {
     static let pushNotificationToken = "pushNotificationToken"
     static let geoFeedRadius = "radiusValueForFeed"
     static let ownPostsFilter = "ownPostsFilter"
+    static let linkedInAuthKey = "linkedInAuthKey"
 }
 
 enum PhotoSource {

@@ -23,6 +23,8 @@ class Router: NSObject {
     static func logout() {
         ApplicationManager.sharedInstance.session_id = ""
         UserDefaults.standard.set(nil, forKey: UserDefaultKey.sessionID)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.geoFeedRadius)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.ownPostsFilter)
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SignInViewController.identifier)
         
         if let window = UIApplication.shared.delegate?.window {
@@ -109,13 +111,14 @@ class Router: NSObject {
         
     }
     
-    static func showLocationSelection(from controller: UIViewController, isEventScreen: Bool) {
+    static func showLocationSelection(from controller: UIViewController, isEventScreen: Bool, isPostScreen: Bool) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CheckInViewController.storyboardID) as! CheckInViewController
         if let delegateVC = controller as? LocationSelectionDelegate {
             vc.locationDelegate = delegateVC
         }
         vc.isLocationSelection = true
-        vc.isEventScreen = true
+        vc.isEventScreen = isEventScreen
+        vc.isPostScreen = isPostScreen
         controller.navigationController?.show(vc, sender: nil)
     }
     

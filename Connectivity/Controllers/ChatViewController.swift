@@ -53,7 +53,7 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         self.title = ""
         self.profileNameButton.setTitle(self.currentUser?.full_name, for: .normal)
         
-        self.profileImageView.sd_setImage(with: URL(string: self.currentUser?.profileImages.small.url ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+        self.profileImageView.sd_setImage(with: URL(string: self.currentUser?.profileImages.small.url ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
         
 //        self.navigationItem.setHidesBackButton(true, animated: false)
 //        let icon = UIImage.init(named: "back")?.withRenderingMode(.alwaysOriginal)

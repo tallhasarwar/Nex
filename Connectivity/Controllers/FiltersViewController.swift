@@ -38,10 +38,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
         if let radiusValue = value as? Float {
             radiusSlider.value = radiusValue
             sliderValueChanged(radiusSlider)
-
         }
-        
-        
         
         let on = UserDefaults.standard.bool(forKey: UserDefaultKey.ownPostsFilter)
         ownPostSwitch.isOn = on
@@ -49,8 +46,17 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        filtersTextView.insertText(filterText)
+        if filterText.count > 0 {
+            filtersTextView.insertText(filterText)
+        }
+        else{
+            filtersTextView.insertText("#")
+        }
+        
+        
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

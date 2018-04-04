@@ -13,6 +13,7 @@ class DatePickerTextField: DesignableTextField, UITextFieldDelegate {
     var pickerView: UIDatePicker!
     var values : [String]?
     var selectedIndex : Int?
+    var date: Date?
 
     
     override func awakeFromNib() {
@@ -47,6 +48,7 @@ class DatePickerTextField: DesignableTextField, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.text = UtilityManager.stringFromNSDateWithFormat(date: pickerView.date as NSDate, format: Constant.appDateFormat)
+        self.date = pickerView.date
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "datePickerTextFieldTextChanged"), object: nil)
     }
     
@@ -54,10 +56,12 @@ class DatePickerTextField: DesignableTextField, UITextFieldDelegate {
     
     @objc func pickerValueChanged(){
         self.text = UtilityManager.stringFromNSDateWithFormat(date: pickerView.date as NSDate, format: Constant.appDateFormat)
+        self.date = pickerView.date
     }
     
     @IBAction func donePickerBtnClick(sender: AnyObject){
         self.text = UtilityManager.stringFromNSDateWithFormat(date: pickerView.date as NSDate, format: Constant.appDateFormat)
+        self.date = pickerView.date
         self.endEditing(true)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "datePickerTextFieldTextChanged"), object: nil)
     }

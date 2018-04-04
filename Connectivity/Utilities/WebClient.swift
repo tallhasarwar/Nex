@@ -118,7 +118,7 @@ class WebClient: AFHTTPSessionManager {
         
         manager.get((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, progress: nil, success: {
             (sessionTask, responseObject) -> () in
-            print(responseObject ?? "")
+//            print(responseObject ?? "")
             success(responseObject! as AnyObject)
         }, failure: {
             (sessionTask, error) -> () in
@@ -750,7 +750,7 @@ class WebClient: AFHTTPSessionManager {
     func getPosts(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
                         failureBlock failure:@escaping (String) -> ()){
         self.getPath(urlString: Constant.getPostURL, params: param as [String : AnyObject], successBlock: { (response) in
-            print(response)
+//            print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [[String : AnyObject]])
             }

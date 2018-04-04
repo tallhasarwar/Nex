@@ -53,7 +53,8 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
         endTimeLabel.pickerView.minimumDate = NSDate() as Date
         endTimeLabel.pickerView.datePickerMode = UIDatePickerMode.dateAndTime
         endTimeLabel.pickerView.maximumDate = nil
-        
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateDatePickers(notification:)), name: NSNotification.Name(rawValue: "datePickerTextFieldTextChanged"), object: nil)
         
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.save, target: self, action: #selector(self.saveButtonPressed))
         navigationItem.rightBarButtonItem = button
@@ -70,6 +71,15 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func updateDatePickers(notification: NSNotification) {
+        if let date = startTimeLabel.date {
+            endTimeLabel.pickerView.minimumDate = date
+        }
+        if let date = endTimeLabel.date {
+            startTimeLabel.pickerView.maximumDate = date
+        }
     }
     
     func populateFields() {
@@ -89,6 +99,8 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
     
     
     @objc func saveButtonPressed() {
+        
+        self.view.endEditing(true)
         
         guard let location = selectedLocation else {
             
@@ -114,7 +126,11 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
         RequestManager.addEvent(param: params, image: eventImageView.image!, successBlock: { (response) in
             SVProgressHUD.showSuccess(withStatus: "Event Saved")
             let event = Event(dictionary: response)
-            self.editingDelegate?.eventEdited(event: event)
+            if let organizer = self.event?.organizerModel {
+                event.organizerModel = organizer
+                self.editingDelegate?.eventEdited(event: event)
+            }
+            
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)
@@ -123,7 +139,7 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
     
     
     func openLocation() {
-        Router.showLocationSelection(from: self, isEventScreen: true)
+        Router.showLocationSelection(from: self, isEventScreen: true, isPostScreen: false)
     }
     
     @IBAction func locationButtonPressed(_ sender: Any) {

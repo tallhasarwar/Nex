@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 
 class UtilityManager: NSObject {
@@ -46,6 +47,11 @@ class UtilityManager: NSObject {
         activityIndicator.center = view.center
         
         view.addSubview(activityIndicator)
+        
+        activityIndicator.snp.remakeConstraints { (make) in
+            make.centerX.equalTo(view.snp.centerX)
+            make.centerY.equalTo(view.snp.centerY).offset(-40)
+        }
         
         return activityIndicator
     }
@@ -102,7 +108,6 @@ class UtilityManager: NSObject {
         
         let components: DateComponents = calendar.dateComponents(unitFlags, from: earliest, to: latest)
         //        let ccc = calendar.datecom
-        
         
         let year = components.year ?? 0
         let month = components.month ?? 0

@@ -45,6 +45,8 @@ class EditProfileViewController: BaseViewController {
         
         let user = ApplicationManager.sharedInstance.user
         
+        emailField.isEnabled = false
+        
         nameField.text = user.full_name
         headlineField.text = user.headline
         aboutMeTextView.text = user.about
