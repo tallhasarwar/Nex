@@ -34,7 +34,7 @@ class WebClient: AFHTTPSessionManager {
         manager.responseSerializer = AFJSONResponseSerializer()
         
         if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String {
-            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: "session_id")
+            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: UserDefaultKey.sessionID)
         }
         
         manager.post((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, progress: nil, success: {
@@ -44,11 +44,22 @@ class WebClient: AFHTTPSessionManager {
         },  failure: {
             (sessionTask, error) -> () in
             print(error)
+            
             let err = error as NSError
             do {
+
+                
                 if let data = err.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as? Data {
                     let dictionary = try JSONSerialization.jsonObject(with: data,
                                                                       options: JSONSerialization.ReadingOptions.mutableContainers) as! [String: AnyObject]
+                    
+                    if let status = dictionary["status"] as? String {
+                        if status == "403" {
+                            Router.logout()
+                        }
+                        
+                    }
+                    
                     failure(dictionary["message"]! as! String)
                 }
                 else{
@@ -77,7 +88,7 @@ class WebClient: AFHTTPSessionManager {
         
         
         if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String {
-            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: "session_id")
+            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: UserDefaultKey.sessionID)
         }
         
         manager.post((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, constructingBodyWith: { (data) in
@@ -113,7 +124,7 @@ class WebClient: AFHTTPSessionManager {
         manager.responseSerializer = AFJSONResponseSerializer()
         
         if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String , addToken == true {
-            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: "session_id")
+            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: UserDefaultKey.sessionID)
         }
         
         manager.get((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, progress: nil, success: {
@@ -125,6 +136,23 @@ class WebClient: AFHTTPSessionManager {
             print(error)
             failure(error as NSError)
             
+            let err = error as NSError
+            do {
+                
+                if let data = err.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] as? Data {
+                    let dictionary = try JSONSerialization.jsonObject(with: data,
+                                                                      options: JSONSerialization.ReadingOptions.mutableContainers) as! [String: AnyObject]
+                    if let status = dictionary["status"] as? String {
+                        if status == "403" {
+                            Router.logout()
+                        }
+                        
+                    }
+                }
+            }
+            catch {
+                
+            }
         })
     }
     
@@ -140,7 +168,7 @@ class WebClient: AFHTTPSessionManager {
         manager.responseSerializer = AFJSONResponseSerializer()
         
         if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String , addToken == true {
-            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: "session_id")
+            manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: UserDefaultKey.sessionID)
         }
         
         manager.delete((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, success: {
@@ -811,6 +839,27 @@ class WebClient: AFHTTPSessionManager {
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    
+    func logoutUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                  failureBlock failure:@escaping (String) -> ()){
+        self.getPath(urlString: Constant.logoutURL, params: param as [String : AnyObject], successBlock: { (response) in
+            //            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success([:])
+//                success(response[Constant.responseKey] as! [[String : AnyObject]])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {

@@ -48,6 +48,11 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
         params["full_name"] = nameField.text
         params["password"] = passwordField.text
         
+        if let location = ApplicationManager.sharedInstance.defaultLocation {
+            params["latitude"] = "\(location.latitude)"
+            params["longitude"] = "\(location.longitude)"
+        }
+        
         emailField.resignFirstResponder()
         nameField.resignFirstResponder()
         passwordField.resignFirstResponder()
@@ -57,8 +62,8 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
         RequestManager.signUpUser(param: params, successBlock: { (response) in
             SVProgressHUD.dismiss()
             ApplicationManager.sharedInstance.user = User(dictionary: response)
-            ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
-            UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
+            ApplicationManager.sharedInstance.session_id = response[UserDefaultKey.sessionID] as! String
+            UserDefaults.standard.set(response[UserDefaultKey.sessionID] as! String, forKey: UserDefaultKey.sessionID)
             Router.showMainTabBar()
         }) { (error) in
             let errorTemp = "Email already in use"

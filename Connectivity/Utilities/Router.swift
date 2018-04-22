@@ -22,6 +22,12 @@ class Router: NSObject {
     
     static func logout() {
         ApplicationManager.sharedInstance.session_id = ""
+        
+        RequestManager.logoutUser(param: [:], successBlock: { (response) in
+            
+        }) { (error) in
+            
+        }
         UserDefaults.standard.set(nil, forKey: UserDefaultKey.sessionID)
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.geoFeedRadius)
         UserDefaults.standard.removeObject(forKey: UserDefaultKey.ownPostsFilter)
@@ -162,6 +168,14 @@ class Router: NSObject {
         vc.fromLogin = true
         
         controller.present(nav, animated: true, completion: nil)
+    }
+    
+    static func showMap(coordinates: CLLocationCoordinate2D, from controller: UIViewController)
+    {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: MapViewController.storyboardID) as! MapViewController
+        vc.defaultLocation = coordinates
+        
+        controller.navigationController?.show(vc, sender: nil)
     }
     
     

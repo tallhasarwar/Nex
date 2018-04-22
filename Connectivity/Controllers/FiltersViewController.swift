@@ -34,6 +34,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
         filtersTextView.delegate = self
         suggestionsTable = SuggestionTable(over: filtersTextView, in: self)
         
+        
         let value = UserDefaults.standard.value(forKey: UserDefaultKey.geoFeedRadius)
         if let radiusValue = value as? Float {
             radiusSlider.value = radiusValue
@@ -50,7 +51,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
             filtersTextView.insertText(filterText)
         }
         else{
-            filtersTextView.insertText("#")
+//            filtersTextView.insertText("#")
         }
         
         

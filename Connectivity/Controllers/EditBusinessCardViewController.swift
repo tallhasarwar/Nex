@@ -64,7 +64,8 @@ class EditBusinessCardViewController: BaseViewController {
         
         SVProgressHUD.show()
         RequestManager.addBusinessCard(param: params,image: profileImageView.image, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Profile Updated")
+//            SVProgressHUD.showSuccess(withStatus: "Profile Updated")
+            SVProgressHUD.dismiss()
             self.navigationController?.popViewController(animated: true)
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)

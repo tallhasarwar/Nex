@@ -98,7 +98,8 @@ class EditProfileViewController: BaseViewController {
         
         SVProgressHUD.show()
         RequestManager.updateProfile(param: params, image: profileImageView.image, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Profile Saved")
+//            SVProgressHUD.showSuccess(withStatus: "Profile Saved")
+            SVProgressHUD.dismiss()
             ApplicationManager.sharedInstance.user = User(dictionary: response)
             self.navigationController?.popViewController(animated: true)
         }) { (error) in

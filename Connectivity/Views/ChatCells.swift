@@ -14,6 +14,7 @@ class SenderCell: UITableViewCell {
     @IBOutlet weak var profilePic: RoundedImageView!
     @IBOutlet weak var message: UITextView!
     @IBOutlet weak var messageBackground: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
     
     func clearCellData()  {
         self.message.text = nil
@@ -34,6 +35,7 @@ class ReceiverCell: UITableViewCell {
     
     @IBOutlet weak var message: UITextView!
     @IBOutlet weak var messageBackground: UIImageView!
+    @IBOutlet weak var timeLabel: UILabel!
     
     func clearCellData()  {
         self.message.text = nil

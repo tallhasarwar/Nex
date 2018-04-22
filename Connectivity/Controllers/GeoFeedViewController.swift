@@ -13,6 +13,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     static let storyboardID = "geoFeedViewController"
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var whiteView: UIView!
     
     var postArray = [Post]()
     var pageNumber = 1
@@ -43,8 +44,9 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(setupLocation), for: UIControlEvents.valueChanged)
-        
+
         SVProgressHUD.show()
+        whiteView.isHidden = false
         self.setupLocation()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.fetchFreshData), name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil)
@@ -132,6 +134,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         RequestManager.getPosts(param: params, successBlock: { (response) in
             DispatchQueue.main.async {
                 SVProgressHUD.dismiss()
+                self.whiteView.isHidden = true
                 self.tableView.tableFooterView = nil
                 self.refreshControl.endRefreshing()
                 print(response)

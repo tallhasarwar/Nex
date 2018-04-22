@@ -125,7 +125,7 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
     //MARK: - - EmptyDataSource Methods
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No nearby events found."
+        let text = "No events found."
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping

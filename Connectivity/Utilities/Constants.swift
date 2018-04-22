@@ -9,7 +9,7 @@
 import UIKit
 
 public class UserDefaultKey: NSObject {
-    static let sessionID = "session_id"
+    static let sessionID = "session"
     static let pushNotificationToken = "pushNotificationToken"
     static let geoFeedRadius = "radiusValueForFeed"
     static let ownPostsFilter = "ownPostsFilter"
@@ -44,6 +44,7 @@ public class Constant: NSObject {
     static let mainColor = UIColor(red: 145.0/255.0, green: 20.0/255.0, blue: 217.0/255.0, alpha: 1.0)
     
     static let serverURL = "http://52.14.237.29:3000/connectIn/api/v1/"
+//    static let serverURL = "https://api.connectin.tech/connectIn/api/v1/"
 //    static let serverURL = "http://192.168.8.102:3000/connectIn/api/v1/"
     
     static let googleNearbyURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
@@ -77,6 +78,7 @@ public class Constant: NSObject {
     static let reportPostURL = "report_post"
     static let deleteUserURL = "delete_user"
     static let forgotPasswordURL = "send_forget_link"
+    static let logoutURL = "signout"
     
     
     static let hashtags = ["#Photo","#CheckedIn","#Deals","#ForSale","#ForRent","#Available","#InterestedIn","#Friendship","#Event","#Job","#Vehicle","#FoodAndDrinks","#Accomodation","#Services","#Shopping","#Transport","#Education","#Sports","#Books","#Relationships","#Networking","#Updates","#News","#Advice","#Article"]

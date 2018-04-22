@@ -21,6 +21,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     @IBOutlet weak var googleButton: DesignableButton!
     @IBOutlet weak var linkedinButton: DesignableButton!
     @IBOutlet weak var errorLabel: UILabel!
+    var locationManager = CLLocationManager()
     
     let validator = Validator()
     var linkedinClient : LIALinkedInHttpClient?
@@ -39,12 +40,15 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         
         facebookLoginButton.layer.cornerRadius = facebookLoginButton.frame.height/2
         facebookLoginButton.layer.masksToBounds = true
+        
         facebookLoginButton.isExclusiveTouch = true
         googleButton.isExclusiveTouch = true
         linkedinButton.isExclusiveTouch = true
         
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
+        
+        self.setupLocation()
         
     }
 
@@ -151,6 +155,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                         params["image_path"] = data["url"] as? String
                     }
                 }
+                if let location = ApplicationManager.sharedInstance.defaultLocation {
+                    params["latitude"] = "\(location.latitude)"
+                    params["longitude"] = "\(location.longitude)"
+                }
                 
                 RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                     self.successfulLogin(response: response)
@@ -170,10 +178,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     
     @IBAction func linkedInButtonPressed(sender: AnyObject) {
         
-        if let auth = UserDefaults.standard.value(forKey: UserDefaultKey.linkedInAuthKey) as? String {
-            linkedinLogin(authCode: auth)
-        }
-        else{
+//        if let auth = UserDefaults.standard.value(forKey: UserDefaultKey.linkedInAuthKey) as? String {
+//            linkedinLogin(authCode: auth)
+//        }
+//        else{
             //Get Authorization Code
             self.linkedinClient?.getAuthorizationCode({ (auth_code) -> Void in
                 //Get Access Token
@@ -195,7 +203,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             }, failure: { (err) -> Void in
                 self.showAlertView(title:"LinkedIn Login", message: (err?.localizedDescription)!)
             })
-        }
+//        }
         
         
     }
@@ -235,6 +243,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                     params["lives_in"] = location
                 }
                 params["about"] = response["summary"] as? String
+                if let location = ApplicationManager.sharedInstance.defaultLocation {
+                    params["latitude"] = "\(location.latitude)"
+                    params["longitude"] = "\(location.longitude)"
+                }
                 
                 RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                     self.successfulLogin(response: response)
@@ -281,8 +293,8 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         SVProgressHUD.dismiss()
         let user = User(dictionary: response)
         ApplicationManager.sharedInstance.user = user
-        ApplicationManager.sharedInstance.session_id = response[UserDefaultKey.sessionID] as! String
-        UserDefaults.standard.set(response[UserDefaultKey.sessionID] as! String, forKey: UserDefaultKey.sessionID)
+        ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
+        UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
         Router.showMainTabBar()
     }
     
@@ -297,6 +309,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             params["email"] = user.profile.email
             params["device_token"] = Messaging.messaging().fcmToken
             params["image_path"] = user.profile.imageURL(withDimension: 200).absoluteString
+            if let location = ApplicationManager.sharedInstance.defaultLocation {
+                params["latitude"] = "\(location.latitude)"
+                params["longitude"] = "\(location.longitude)"
+            }
             
             RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                 self.successfulLogin(response: response)
@@ -331,5 +347,53 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     }
     
 }
+
+// Delegates to handle events for the location manager.
+extension SignInViewController: CLLocationManagerDelegate {
+    
+    @objc func setupLocation() {
+        // Initialize the location manager.
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        locationManager.distanceFilter = 100
+        locationManager.startUpdatingLocation()
+    }
+    
+    // Handle incoming location events.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations.last!
+        print("Location: \(location)")
+        
+        ApplicationManager.sharedInstance.defaultLocation = location.coordinate
+        locationManager.stopUpdatingLocation()
+        locationManager.delegate = nil
+        
+    }
+    
+    // Handle authorization for the location manager.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted:
+            print("Location access was restricted.")
+        case .denied:
+            print("User denied access to location.")
+        // Display the map using the default location.
+        case .notDetermined:
+            print("Location status not determined.")
+        case .authorizedAlways: fallthrough
+        case .authorizedWhenInUse:
+            print("Location status is OK.")
+        }
+    }
+    
+    // Handle location manager errors.
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error: \(error)")
+        locationManager.stopUpdatingLocation()
+    }
+}
+
 
 

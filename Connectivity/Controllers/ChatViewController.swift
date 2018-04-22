@@ -188,6 +188,10 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         case .receiver:
             let cell = tableView.dequeueReusableCell(withIdentifier: "Receiver", for: indexPath) as! ReceiverCell
             cell.clearCellData()
+            
+            let messageDate = Date.init(timeIntervalSince1970: TimeInterval(self.items[indexPath.row].timestamp/1000))
+            cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: messageDate as NSDate, numericDates: true)
+            
             switch self.items[indexPath.row].type {
             case .text:
                 cell.message.text = self.items[indexPath.row].content as! String
@@ -227,6 +231,10 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             let cell = tableView.dequeueReusableCell(withIdentifier: "Sender", for: indexPath) as! SenderCell
             cell.clearCellData()
             cell.profilePic.sd_setImage(with: URL(string: self.currentUser?.profileImages.small.url ?? ""), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+            
+            let messageDate = Date.init(timeIntervalSince1970: TimeInterval(self.items[indexPath.row].timestamp/1000))
+            cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: messageDate as NSDate, numericDates: true)
+            
             switch self.items[indexPath.row].type {
             case .text:
                 cell.message.text = self.items[indexPath.row].content as! String
@@ -267,21 +275,22 @@ class ChatViewController: BaseViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.inputTextField.resignFirstResponder()
-//        switch self.items[indexPath.row].type {
+        switch self.items[indexPath.row].type {
 //        case .photo:
 //            if let photo = self.items[indexPath.row].image {
 //                let info = ["viewType" : ShowExtraView.preview, "pic": photo] as [String : Any]
 //                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showExtraView"), object: nil, userInfo: info)
 //                self.inputAccessoryView?.isHidden = true
 //            }
-//        case .location:
-//            let coordinates = (self.items[indexPath.row].content as! String).components(separatedBy: ":")
-//            let location = CLLocationCoordinate2D.init(latitude: CLLocationDegrees(coordinates[0])!, longitude: CLLocationDegrees(coordinates[1])!)
+        case .location:
+            let coordinates = (self.items[indexPath.row].content as! String).components(separatedBy: ":")
+            let location = CLLocationCoordinate2D.init(latitude: CLLocationDegrees(coordinates[0])!, longitude: CLLocationDegrees(coordinates[1])!)
 //            let info = ["viewType" : ShowExtraView.map, "location": location] as [String : Any]
 //            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "showExtraView"), object: nil, userInfo: info)
 //            self.inputAccessoryView?.isHidden = true
-//        default: break
-//        }
+            Router.showMap(coordinates: location, from: self)
+        default: break
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

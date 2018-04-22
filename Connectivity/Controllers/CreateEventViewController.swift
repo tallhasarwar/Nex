@@ -47,7 +47,7 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
         startTimeLabel.pickerView.maximumDate = nil
         
         locationLabel.isEnabled = false
-        locationLabel.backgroundColor = UIColor(white: 0.85, alpha: 0.7)
+//        locationLabel.backgroundColor = UIColor(white: 0.85, alpha: 0.7)
         
         
         endTimeLabel.pickerView.minimumDate = NSDate() as Date
@@ -124,7 +124,8 @@ class CreateEventViewController: BaseViewController, LocationSelectionDelegate {
 
         SVProgressHUD.show()
         RequestManager.addEvent(param: params, image: eventImageView.image!, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Event Saved")
+//            SVProgressHUD.showSuccess(withStatus: "Event Saved")
+            SVProgressHUD.dismiss()
             let event = Event(dictionary: response)
             if let organizer = self.event?.organizerModel {
                 event.organizerModel = organizer
