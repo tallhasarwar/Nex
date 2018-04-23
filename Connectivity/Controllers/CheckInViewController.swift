@@ -41,6 +41,7 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     
     var isLocationSelection = false
     var isEventScreen = false
+    var isPostScreen = false
 
     @IBAction func unwindToMain(segue: UIStoryboardSegue) {
         mapView.clear()
@@ -61,7 +62,8 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = isEventScreen ? "Event Location": "Where are you?"
+        title = isEventScreen ? "Event Location" : "Where are you?"
+        title = isPostScreen ? "Post Location" : "Where are you?"
         
         searchField.delegate = self
         
@@ -242,10 +244,14 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     @IBAction func cancelSearchPressed(_ sender: Any) {
         searchField.text = ""
         searchField.resignFirstResponder()
-        searchField.text = ""
+        nextPageToken = nil
+        listLikelyPlaces(searchKey: searchField.text)
     }
+    
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         textField.text = ""
+//        nextPageToken = nil
+//        listLikelyPlaces(searchKey: searchField.text)
         textField.resignFirstResponder()
         return true
     }
@@ -437,13 +443,12 @@ extension GMSMapView {
             return "\((radius * 0.000621371192).rounded(toPlaces: 1)) miles"
         }
         else{
-            if (radius * 0.000621371192).rounded(toPlaces: 1) > 1.0 {
+            if (radius * 0.000621371192).rounded(toPlaces: 1) > 0.1 {
                 return "\((radius * 0.000621371192).rounded(toPlaces: 1)) miles"
             }
             else{
-                return "\(radius.rounded(toPlaces: 1)) m"
+                return "\(Int((radius * 3.280839895).rounded(toPlaces: 0))) feet"
             }
-            
         }
         
     }

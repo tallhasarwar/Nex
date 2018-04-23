@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FiltersDelegate {
-    func didChangeFilters(hashtags: String?)
+    func didChangeFilters(hashtags: String?, originalHashtags: String?)
 }
 
 class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTableDelegate {
@@ -34,18 +34,30 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
         filtersTextView.delegate = self
         suggestionsTable = SuggestionTable(over: filtersTextView, in: self)
         
+        
         let value = UserDefaults.standard.value(forKey: UserDefaultKey.geoFeedRadius)
         if let radiusValue = value as? Float {
             radiusSlider.value = radiusValue
             sliderValueChanged(radiusSlider)
-
         }
-        
-        filtersTextView.text = filterText
         
         let on = UserDefaults.standard.bool(forKey: UserDefaultKey.ownPostsFilter)
         ownPostSwitch.isOn = on
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if filterText.count > 0 {
+            filtersTextView.insertText(filterText)
+        }
+        else{
+//            filtersTextView.insertText("#")
+        }
+        
+        
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -71,7 +83,7 @@ class FiltersViewController: UIViewController, UITextViewDelegate, SuggestionTab
         let tags = text?.components(separatedBy: .whitespacesAndNewlines).filter { $0.hasPrefix("#") }
         let refinedTags = tags?.map{ $0.dropFirst() }
         
-        self.delegate?.didChangeFilters(hashtags: refinedTags?.joined(separator: ","))
+        self.delegate?.didChangeFilters(hashtags: refinedTags?.joined(separator: ","), originalHashtags: text)
         self.navigationController?.dismiss(animated: true, completion: nil)
         
     }

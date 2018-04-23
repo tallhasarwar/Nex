@@ -104,7 +104,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func locationButtonPressed(_ sender: Any) {
-        Router.showLocationSelection(from: self, isEventScreen: false)
+        Router.showLocationSelection(from: self, isEventScreen: false, isPostScreen: true)
     }
     
     
@@ -170,7 +170,10 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func didSelectLocation(location: CLLocationCoordinate2D,address: String?) {
         self.selectedLocation = location
-        self.bodyTextView.text.append(" #CheckedIn ")
+        if !self.bodyTextView.text.contains("#CheckedIn") {
+            self.bodyTextView.text.append(" #CheckedIn ")
+        }
+        
         bodyTextView.layoutSubviews()
         self.textViewDidChange(bodyTextView)
         if let add = address {
@@ -278,8 +281,12 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         self.selectedImage = newImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
         self.previewImage.image = newImage.resizeImageWith(newSize: CGSize(width: 200, height: 200))
-        self.bodyTextView.text.append(" #Photo ")
+        if !self.bodyTextView.text.contains("#Photo") {
+            self.bodyTextView.text.append(" #Photo ")
+        }
+        
         bodyTextView.layoutSubviews()
+        imageButton.isHidden = false
         self.textViewDidChange(bodyTextView)
         
         picker.dismiss(animated: true) {

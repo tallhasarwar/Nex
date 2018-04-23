@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 
 class UtilityManager: NSObject {
@@ -47,12 +48,22 @@ class UtilityManager: NSObject {
         
         view.addSubview(activityIndicator)
         
+        activityIndicator.snp.remakeConstraints { (make) in
+            make.centerX.equalTo(view.snp.centerX)
+            make.centerY.equalTo(view.snp.centerY).offset(-40)
+        }
+        
         return activityIndicator
     }
     
     static func showErrorMessage(body: String, in controller: UIViewController) {
         SVProgressHUD.dismiss()
         UIAlertController.showAlert(in: controller, withTitle: "Error", message: body, cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tap: nil)
+    }
+    
+    static func showSuccessMessage(body: String, in controller: UIViewController) {
+        SVProgressHUD.dismiss()
+        UIAlertController.showAlert(in: controller, withTitle: "Success", message: body, cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil, tap: nil)
     }
     
     static func noDataViewWithText(errorMessage: String, on view: UIView) {
@@ -97,7 +108,6 @@ class UtilityManager: NSObject {
         
         let components: DateComponents = calendar.dateComponents(unitFlags, from: earliest, to: latest)
         //        let ccc = calendar.datecom
-        
         
         let year = components.year ?? 0
         let month = components.month ?? 0

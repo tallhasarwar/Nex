@@ -46,9 +46,10 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         
         if publicProfile == true {
             self.navigationItem.rightBarButtonItem = nil
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300 )
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 305 )
             messageView.isHidden = false
-            RequestManager.getOtherProfile(userID: user.user_id!, successBlock: { (response) in
+            guard let id = user.user_id else { return }
+            RequestManager.getOtherProfile(userID: id, successBlock: { (response) in
                 self.user = User(dictionary: response["user"] as! [String: AnyObject])
                 self.connectionStatus = response["userConnectionStatus"] as! String
                 self.updateConnectionUI()
@@ -58,7 +59,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             })
         }
         else{
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 245)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 230)
             connectButton.isHidden = true
         }
         
@@ -96,7 +97,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         connectionLabel.isHidden = true
 
         if connectionStatus == "SENT" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 320)
             self.connectButton.isHidden = false
             self.acceptanceView.isHidden = true
             self.connectButton.setTitle("Request Pending", for: UIControlState.normal)
@@ -104,12 +105,12 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.connectButton.alpha = 0.8
         }
         else if connectionStatus == "PENDING" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 320)
             self.connectButton.isHidden = true
             self.acceptanceView.isHidden = false
         }
         else if connectionStatus == "ACCEPTED" {
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 265)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 290)
             self.connectButton.isHidden = true
             self.acceptanceView.isHidden = true
             self.connectionLabel.isHidden = false
@@ -117,7 +118,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         else{
             self.connectButton.isHidden = false
             self.acceptanceView.isHidden = true
-            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 300)
+            headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 320)
         }
         self.view.layoutIfNeeded()
     }
@@ -204,7 +205,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         
         SVProgressHUD.show()
         RequestManager.sendRequest(param: param, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Request sent")
+            
+            UtilityManager.showSuccessMessage(body: "Request sent", in: self)
             self.connectionStatus = "SENT"
             self.updateConnectionUI()
         }) { (error) in
@@ -215,7 +217,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBAction func acceptButtonPressed(_ sender: Any) {
         SVProgressHUD.show()
         RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: true, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Request Accepted")
+//            SVProgressHUD.showSuccess(withStatus: "Request Accepted")
+            UtilityManager.showSuccessMessage(body: "Request accepted", in: self)
             self.connectionStatus = "SENT"
             self.updateConnectionUI()
         }) { (error) in
@@ -226,7 +229,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     @IBAction func rejectButtonPressed(_ sender: Any) {
         SVProgressHUD.show()
         RequestManager.respondToConnectionRequest(userID: user.user_id!, accepted: false, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Request Rejected")
+//            SVProgressHUD.showSuccess(withStatus: "Request Rejected")
+            UtilityManager.showSuccessMessage(body: "Request rejected", in: self)
             self.acceptanceView.isHidden = true
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)

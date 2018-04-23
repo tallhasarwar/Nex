@@ -20,8 +20,11 @@ PODS:
   - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
+  - Crashlytics (3.10.0):
+    - Fabric (~> 1.7.3)
   - CWStatusBarNotification (2.3.5)
   - DZNEmptyDataSet (1.8.1)
+  - Fabric (1.7.3)
   - FBSDKCoreKit (4.27.1):
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.27.1):
@@ -118,8 +121,10 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - Crashlytics
   - CWStatusBarNotification (~> 2.3.5)
   - DZNEmptyDataSet
+  - Fabric
   - FBSDKCoreKit
   - FBSDKLoginKit
   - Firebase/Core
@@ -137,8 +142,10 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
+  Crashlytics: a989ef242b66605577a425733797f810bd2725eb
   CWStatusBarNotification: 3d2738b25c3207f60cc50201388d3c96182545ff
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Fabric: bb495bb9a7a7677c6d03a1f8b83d95bc49b47e41
   FBSDKCoreKit: 03365dad5d790249196ffad8be4f6d8a2d98f932
   FBSDKLoginKit: 66ff53b73cffd967ab773e32fac39e90a60e6d46
   Firebase: 3e92884a63e8f76d107c43a67d2ab9071e1eda10
@@ -168,6 +175,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   TPKeyboardAvoiding: 0d6af20e95e2850f4c621841225b59ec7d8dd852
 
-PODFILE CHECKSUM: 4a12c8d3cc12eca95bda8892ea9a5db4209f4703
+PODFILE CHECKSUM: 77592a315ccff5876b719d174de229f05fe42a9c
 
 COCOAPODS: 1.4.0

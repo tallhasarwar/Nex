@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EventDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+class EventDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, EventEditDelegate {
 
     static let storyboardID = "eventDetailViewController"
     
@@ -28,7 +28,7 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if ApplicationManager.sharedInstance.user.user_id != event?.organizerModel.user_id {
+        if ApplicationManager.sharedInstance.user.user_id == event?.organizerModel.user_id {
             setupNav()
         }
         tableView.delegate = self
@@ -90,6 +90,12 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         fetchData()
     }
     
+    @IBAction func organizerButtonPressed(_ sender: Any) {
+        if let user = event?.organizerModel {
+            Router.showProfileViewController(user: user, from: self)
+        }
+        
+    }
     
     func fetchData() {
         
@@ -143,6 +149,11 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     @objc func editButtonPressed() {
         Router.showEditEventController(event: self.event!, from: self)
+    }
+    
+    func eventEdited(event: Event) {
+        self.event = event
+        setupUI()
     }
     
     //MARK : - EmptyDataSource Methods

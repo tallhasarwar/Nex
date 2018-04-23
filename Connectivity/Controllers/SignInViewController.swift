@@ -18,6 +18,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     @IBOutlet weak var emailField: DesignableTextField!
     @IBOutlet weak var passwordField: DesignableTextField!
     @IBOutlet weak var facebookLoginButton: DesignableButton!
+    @IBOutlet weak var googleButton: DesignableButton!
+    @IBOutlet weak var linkedinButton: DesignableButton!
+    @IBOutlet weak var errorLabel: UILabel!
+    var locationManager = CLLocationManager()
     
     let validator = Validator()
     var linkedinClient : LIALinkedInHttpClient?
@@ -26,9 +30,9 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         super.viewDidLoad()
         
         linkedinClient = linkedInClient()
-
-        validator.registerField(emailField, rules: [RequiredRule() as Rule,EmailRule(message: "Invalid email")])
-        validator.registerField(passwordField, rules: [RequiredRule() as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule])
+        
+        validator.registerField(emailField, errorLabel: errorLabel, rules: [RequiredRule(message: "Email can't be empty") as Rule,EmailRule(message: "Invalid email")])
+        validator.registerField(passwordField, errorLabel: errorLabel, rules: [RequiredRule(message: "Password can't be empty") as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule])
         
         [emailField, passwordField].forEach { (field) in
             field?.delegate = self
@@ -37,8 +41,14 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         facebookLoginButton.layer.cornerRadius = facebookLoginButton.frame.height/2
         facebookLoginButton.layer.masksToBounds = true
         
+        facebookLoginButton.isExclusiveTouch = true
+        googleButton.isExclusiveTouch = true
+        linkedinButton.isExclusiveTouch = true
+        
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
+        
+        self.setupLocation()
         
     }
 
@@ -65,8 +75,8 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             SVProgressHUD.dismiss()
             self.successfulLogin(response: response)
         }) { (error) in
-            let errorTemp = "Invalid credentials"
-            UtilityManager.showErrorMessage(body: errorTemp, in: self)
+            
+            UtilityManager.showErrorMessage(body: error, in: self)
         }
     }
     
@@ -86,6 +96,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.white.cgColor
+        errorLabel.isHidden = true
     }
     
     /*
@@ -144,6 +155,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                         params["image_path"] = data["url"] as? String
                     }
                 }
+                if let location = ApplicationManager.sharedInstance.defaultLocation {
+                    params["latitude"] = "\(location.latitude)"
+                    params["longitude"] = "\(location.longitude)"
+                }
                 
                 RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                     self.successfulLogin(response: response)
@@ -163,123 +178,87 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     
     @IBAction func linkedInButtonPressed(sender: AnyObject) {
         
-        //Get Authorization Code
-        self.linkedinClient?.getAuthorizationCode({ (auth_code) -> Void in
-            //Get Access Token
-            
-            SVProgressHUD.show()
-            self.linkedinClient?.getAccessToken(auth_code, success: { (access_token_data) -> Void in
-                let response = access_token_data as! [String: AnyObject]
-                let access_token = response["access_token"] as! String
-                //Gest Profile Data From LinkedIn
-                RequestManager.getUserLinkedInProfile(access_token: access_token, successBlock: { (response) -> () in
-                    SVProgressHUD.show(withStatus: "Logging In")
+//        if let auth = UserDefaults.standard.value(forKey: UserDefaultKey.linkedInAuthKey) as? String {
+//            linkedinLogin(authCode: auth)
+//        }
+//        else{
+            //Get Authorization Code
+            self.linkedinClient?.getAuthorizationCode({ (auth_code) -> Void in
+                //Get Access Token
+                SVProgressHUD.show()
+                self.linkedinClient?.getAccessToken(auth_code, success: { (access_token_data) -> Void in
+                    let response = access_token_data as! [String: AnyObject]
+                    let access_token = response["access_token"] as! String
+                    //Gest Profile Data From LinkedIn
+                    UserDefaults.standard.set(access_token, forKey: UserDefaultKey.linkedInAuthKey)
+                    self.linkedinLogin(authCode: access_token)
                     
-                    /*emailAddress = "danialzahid94@live.com";
-                     firstName = Danial;
-                     headline = "Mobile Developer | Tech Consultant | Entrepreneur";
-                     id = "-sqSajuMHj";
-                     industry = "Computer Software";
-                     lastName = Zahid;
-                     location =     {
-                     country =         {
-                     code = pk;
-                     };
-                     name = "Lahore, Pakistan";
-                     };
-                     pictureUrl = "https://media.licdn.com/mpr/mprx/0_CzlvYuH26_xBZRDPSzLUsmADk6AoOMPYkiwRUJg23qKwOWStTAWv9fd2_GgcjoxtezWv9E6uWX8I4gSCDQNWnZw82X8E4gdYDQNngMYSFLv6-w-GTcG4jDKyulsslgY7kLrMVI6pLsv";
-                     positions =     {
-                     "_total" = 2;
-                     values =         (
-                     {
-                     company =                 {
-                     id = 11027170;
-                     industry = "Staffing & Recruiting";
-                     name = "Athena Technologies";
-                     size = "11-50";
-                     type = "Privately Held";
-                     };
-                     id = 942782399;
-                     isCurrent = 1;
-                     location =                 {
-                     };
-                     startDate =                 {
-                     month = 1;
-                     year = 2017;
-                     };
-                     title = "Chief Executive Officer";
-                     },
-                     {
-                     company =                 {
-                     id = 10673028;
-                     industry = "Information Technology & Services";
-                     name = "Campus Credit";
-                     size = "2-10";
-                     type = "Privately Held";
-                     };
-                     id = 1067397075;
-                     isCurrent = 1;
-                     location =                 {
-                     name = "Hoboken, NJ";
-                     };
-                     startDate =                 {
-                     month = 8;
-                     year = 2017;
-                     };
-                     title = "Mobile Developer";
-                     }
-                     );
-                     };
-                     publicProfileUrl = "https://www.linkedin.com/in/danialzahid";
-                     summary = "";*/
-                    
-                    var params = [String: String]()
-                    
-                    params["social_provider_name"] = "linkedin"
-                    params["full_name"] = "\(response["firstName"] as? String ?? "") \(response["lastName"] as? String ?? "")"
-                    params["social_id"] = response["id"] as? String
-                    params["email"] = response["emailAddress"] as? String
-                    params["headline"] = response["headline"] as? String
-                    params["device_token"] = Messaging.messaging().fcmToken
-                    params["linkedin_profile"] = response["publicProfileUrl"] as? String
-                    params["image_path"] = response["pictureUrl"] as? String
-                    if let companies = response["positions"]!["values"] as? [[String: AnyObject]] {
-                        var companyNames = ""
-                        for company in companies {
-                            if let name = company["company"]!["name"] as? String {
-                                companyNames.append(name)
-                                companyNames.append(", ")
-                            }
-                        }
-//                        params["worked_at"] = companies.first!["company"]!["name"] as? String
-//                        params["works_at"] = companies.last!["company"]!["name"] as? String
-                        companyNames.removeLast()
-                        companyNames.removeLast()
-                        params["works_at"] = companyNames
-                    }
-                    if let location = response["location"]!["name"] as? String {
-                        params["lives_in"] = location
-                    }
-                    params["about"] = response["summary"] as? String
-                    
-                    RequestManager.socialLoginUser(param: params, successBlock: { (response) in
-                        self.successfulLogin(response: response)
-                    }, failureBlock: { (error) in
-                        UtilityManager.showErrorMessage(body: error, in: self)
-                    })
-                    
-                    
-                }, failureBlock: { (error) -> () in
-                    self.showAlertView(title:"LinkedIn Login", message: error)
+                }, failure: { (err) -> Void in
+                    self.showAlertView(title: "LinkedIn Login", message: (err?.localizedDescription)!)
                 })
+                    
+                
+            }, cancel: { () -> Void in
+                //            self.showAlertView(title:"LinkedIn Login", message: "You cancelled the login.")
             }, failure: { (err) -> Void in
-                self.showAlertView(title: "LinkedIn Login", message: (err?.localizedDescription)!)
+                self.showAlertView(title:"LinkedIn Login", message: (err?.localizedDescription)!)
             })
-        }, cancel: { () -> Void in
-//            self.showAlertView(title:"LinkedIn Login", message: "You cancelled the login.")
-        }, failure: { (err) -> Void in
-            self.showAlertView(title:"LinkedIn Login", message: (err?.localizedDescription)!)
-        })
+//        }
+        
+        
+    }
+    
+    func linkedinLogin(authCode: String) {
+        
+        
+            RequestManager.getUserLinkedInProfile(access_token: authCode, successBlock: { (response) -> () in
+                SVProgressHUD.show(withStatus: "Logging In")
+                
+                
+                var params = [String: String]()
+                
+                params["social_provider_name"] = "linkedin"
+                params["full_name"] = "\(response["firstName"] as? String ?? "") \(response["lastName"] as? String ?? "")"
+                params["social_id"] = response["id"] as? String
+                params["email"] = response["emailAddress"] as? String
+                params["headline"] = response["headline"] as? String
+                params["device_token"] = Messaging.messaging().fcmToken
+                params["linkedin_profile"] = response["publicProfileUrl"] as? String
+                params["image_path"] = response["pictureUrl"] as? String
+                if let companies = response["positions"]!["values"] as? [[String: AnyObject]] {
+                    var companyNames = ""
+                    for company in companies {
+                        if let name = company["company"]!["name"] as? String {
+                            companyNames.append(name)
+                            companyNames.append(", ")
+                        }
+                    }
+                    //                        params["worked_at"] = companies.first!["company"]!["name"] as? String
+                    //                        params["works_at"] = companies.last!["company"]!["name"] as? String
+                    companyNames.removeLast()
+                    companyNames.removeLast()
+                    params["works_at"] = companyNames
+                }
+                if let location = response["location"]!["name"] as? String {
+                    params["lives_in"] = location
+                }
+                params["about"] = response["summary"] as? String
+                if let location = ApplicationManager.sharedInstance.defaultLocation {
+                    params["latitude"] = "\(location.latitude)"
+                    params["longitude"] = "\(location.longitude)"
+                }
+                
+                RequestManager.socialLoginUser(param: params, successBlock: { (response) in
+                    self.successfulLogin(response: response)
+                }, failureBlock: { (error) in
+                    UtilityManager.showErrorMessage(body: error, in: self)
+                })
+                
+                
+            }, failureBlock: { (error) -> () in
+                self.showAlertView(title:"LinkedIn Login", message: error)
+            })
+        
     }
     
     func linkedInClient() -> LIALinkedInHttpClient {
@@ -304,6 +283,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     }
     
     func showAlertView(title: String, message: String) {
+        SVProgressHUD.dismiss()
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Close", style: UIAlertActionStyle.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -313,8 +293,8 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
         SVProgressHUD.dismiss()
         let user = User(dictionary: response)
         ApplicationManager.sharedInstance.user = user
-        ApplicationManager.sharedInstance.session_id = response[UserDefaultKey.sessionID] as! String
-        UserDefaults.standard.set(response[UserDefaultKey.sessionID] as! String, forKey: UserDefaultKey.sessionID)
+        ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
+        UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
         Router.showMainTabBar()
     }
     
@@ -329,6 +309,10 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             params["email"] = user.profile.email
             params["device_token"] = Messaging.messaging().fcmToken
             params["image_path"] = user.profile.imageURL(withDimension: 200).absoluteString
+            if let location = ApplicationManager.sharedInstance.defaultLocation {
+                params["latitude"] = "\(location.latitude)"
+                params["longitude"] = "\(location.longitude)"
+            }
             
             RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                 self.successfulLogin(response: response)
@@ -363,5 +347,53 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     }
     
 }
+
+// Delegates to handle events for the location manager.
+extension SignInViewController: CLLocationManagerDelegate {
+    
+    @objc func setupLocation() {
+        // Initialize the location manager.
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        locationManager.distanceFilter = 100
+        locationManager.startUpdatingLocation()
+    }
+    
+    // Handle incoming location events.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations.last!
+        print("Location: \(location)")
+        
+        ApplicationManager.sharedInstance.defaultLocation = location.coordinate
+        locationManager.stopUpdatingLocation()
+        locationManager.delegate = nil
+        
+    }
+    
+    // Handle authorization for the location manager.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted:
+            print("Location access was restricted.")
+        case .denied:
+            print("User denied access to location.")
+        // Display the map using the default location.
+        case .notDetermined:
+            print("Location status not determined.")
+        case .authorizedAlways: fallthrough
+        case .authorizedWhenInUse:
+            print("Location status is OK.")
+        }
+    }
+    
+    // Handle location manager errors.
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error: \(error)")
+        locationManager.stopUpdatingLocation()
+    }
+}
+
 
 

@@ -13,6 +13,8 @@ class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UI
     static let storyboardID = "connectionsListViewController"
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: DesignableTextField!
+    
     var usersArray = [User]()
     
     override func viewDidLoad() {
@@ -34,11 +36,17 @@ class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UI
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchData()
+        fetchData(searchString: nil)
     }
     
-    func fetchData() {
-        RequestManager.getConnections(param: ["page":0], successBlock: { (response) in
+    func fetchData(searchString: String?) {
+        
+        var params = [String: AnyObject]()
+        params["page"] = 0 as AnyObject
+        if let text = searchString {
+            params["s_str"] = text as AnyObject
+        }
+        RequestManager.getConnections(param: params, successBlock: { (response) in
             self.usersArray.removeAll()
             for object in response {
                 self.usersArray.append(User(dictionary: object))
@@ -142,14 +150,27 @@ class ConnectionsListViewController: BaseViewController, UITableViewDelegate, UI
     
     func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
         SVProgressHUD.show()
-        fetchData()
+        fetchData(searchString: nil)
     }
     
     func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
         SVProgressHUD.show()
-        fetchData()
+        fetchData(searchString: nil)
     }
     
+    
+    @IBAction func searchTextChanged(_ sender: Any) {
+        if let text = searchBar.text {
+            fetchData(searchString: text)
+        }
+        
+    }
+    
+    @IBAction func cancelSearchButtonPressed(_ sender: Any) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        fetchData(searchString: nil)
+    }
     
     /*
     // MARK: - Navigation

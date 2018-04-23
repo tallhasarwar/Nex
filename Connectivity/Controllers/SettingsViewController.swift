@@ -70,6 +70,8 @@ class SettingsViewController: BaseViewController, UITableViewDelegate, UITableVi
         case 1:
             UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete your user? Once deleted this cannot be reverted.", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
                 if alertAction.title == "Yes" {
+                    FBSDKLoginManager().logOut()
+                    GIDSignIn.sharedInstance().signOut()
                     self.deleteUser()
                 }
             })

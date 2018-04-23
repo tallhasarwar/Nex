@@ -22,9 +22,9 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        validator.registerField(emailField, errorLabel: errorLabel, rules: [RequiredRule() as Rule,EmailRule(message: "Invalid email")])
-        validator.registerField(nameField, errorLabel: errorLabel, rules: [RequiredRule() as Rule])
-        validator.registerField(passwordField, errorLabel: errorLabel, rules: [RequiredRule() as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule])
+        validator.registerField(emailField, errorLabel: errorLabel, rules: [RequiredRule(message: "Email can't be empty") as Rule,EmailRule(message: "Invalid email")])
+        validator.registerField(nameField, errorLabel: errorLabel, rules: [RequiredRule(message: "Name can't be empty") as Rule, MinLengthRule(length: 3) as Rule])
+        validator.registerField(passwordField, errorLabel: errorLabel, rules: [RequiredRule(message: "Password can't be empty") as Rule, MinLengthRule(length: 8) as Rule, MaxLengthRule(length: 20) as Rule, PasswordRule() as Rule])
         validator.registerField(confirmPasswordField, errorLabel: errorLabel, rules: [ConfirmationRule(confirmField: passwordField)])
         
         [emailField,nameField,passwordField,confirmPasswordField].forEach { (field) in
@@ -47,6 +47,11 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
         params["email"] = emailField.text
         params["full_name"] = nameField.text
         params["password"] = passwordField.text
+        
+        if let location = ApplicationManager.sharedInstance.defaultLocation {
+            params["latitude"] = "\(location.latitude)"
+            params["longitude"] = "\(location.longitude)"
+        }
         
         emailField.resignFirstResponder()
         nameField.resignFirstResponder()

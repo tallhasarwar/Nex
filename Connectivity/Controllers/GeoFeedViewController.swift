@@ -8,19 +8,23 @@
 
 import UIKit
 
-class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersDelegate, EasyTipViewDelegate {
+class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersDelegate, EasyTipViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     static let storyboardID = "geoFeedViewController"
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var whiteView: UIView!
     
     var postArray = [Post]()
-    var pageNumber = 0
+    var pageNumber = 1
+    
     var isNextPageAvailable = false
     var defaultLocation: CLLocationCoordinate2D?
     var locationManager = CLLocationManager()
     var filterValue: String?
+    var selectedFilterValue: String?
     let refreshControl = UIRefreshControl()
+    var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +39,14 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.separatorStyle = .none
         tableView.separatorColor = .clear
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(setupLocation), for: UIControlEvents.valueChanged)
-        
+
         SVProgressHUD.show()
+        whiteView.isHidden = false
         self.setupLocation()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.fetchFreshData), name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil)
@@ -53,19 +60,32 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: - API calls
     
-    func didChangeFilters(hashtags: String?) {
+    func didChangeFilters(hashtags: String?, originalHashtags: String?) {
         filterValue = hashtags
+        selectedFilterValue = originalHashtags
         fetchFreshData()
     }
     
     
     @objc func fetchFreshData() {
         isNextPageAvailable = true
-        pageNumber = 0
+        pageNumber = 1
         fetchData()
     }
     
     func fetchData() {
+        
+        if isLoading {
+            return
+        }
+        isLoading = true
+        tableView.isScrollEnabled = false
+        
+        var count = 0
+        if pageNumber != 1 {
+            count = self.postArray.count - 1
+        }
+        
         
         //http://localhost:3000/connectIn/api/v1/posts_feed?myPosts=yes&s_tags=ab,twist&latitude=31.447504395437022&longitude=74.36513375490904&page=0&raduis=500
         
@@ -91,10 +111,10 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         params["longitude"] = location.longitude as AnyObject
         let value = UserDefaults.standard.value(forKey: UserDefaultKey.geoFeedRadius)
         if let radiusValue = value as? Float {
-            params["radius"] = radiusValue * 1000 as AnyObject
+            params["radius"] = radiusValue  as AnyObject
         }
         else{
-            params["radius"] = 10000 as AnyObject
+            params["radius"] = 30 as AnyObject
         }
         
         params["page"] = pageNumber as AnyObject
@@ -103,6 +123,8 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             params["s_tags"] = filters as AnyObject
         }
         
+        print("Hitting for page \(self.pageNumber) and total posts \(self.postArray.count)")
+        
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40))
         let loader = UtilityManager.activityIndicatorForView(view: view)
@@ -110,27 +132,41 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.tableFooterView = view
         
         RequestManager.getPosts(param: params, successBlock: { (response) in
-            SVProgressHUD.dismiss()
-            self.tableView.tableFooterView = nil
-            self.refreshControl.endRefreshing()
-            print(response)
+            DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
+                self.whiteView.isHidden = true
+                self.tableView.tableFooterView = nil
+                self.refreshControl.endRefreshing()
+                print(response)
+                
+                
+                if self.pageNumber == 1 {
+                    self.postArray.removeAll()
+                }
+                
+                if response.count >= 15 {
+                    self.isNextPageAvailable = true
+                    self.pageNumber += 1
+                }
+                else {
+                    self.isNextPageAvailable = false
+                }
+                print("Hitted for page \(self.pageNumber) and total posts \(self.postArray.count) and total received posts are \(response.count)")
+                for object in response {
+                    self.postArray.append(Post(dictionary: object))
+                }
+                self.isLoading = false
+                
+                self.tableView.isScrollEnabled = true
             
-            if self.pageNumber == 0 {
-                self.postArray.removeAll()
+                self.tableView.reloadData()
+                
+                if count < self.postArray.count && count > 0 {
+                    self.tableView.scrollToRow(at: IndexPath(row: count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+                }
+                
             }
             
-            if response.count >= 1 {
-                self.isNextPageAvailable = true
-                self.pageNumber += 1
-            }
-            else {
-                self.isNextPageAvailable = false
-            }
-            
-            for object in response {
-                self.postArray.append(Post(dictionary: object))
-            }
-            self.tableView.reloadData()
             
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)
@@ -155,7 +191,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
             cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
             
-            cell.postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: .refreshCached, completed: { (image, error, cacheType, url) in
+            cell.postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
                 
             })
             cell.imageOverlayButton.tag = indexPath.row
@@ -169,7 +205,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         //        geoFeedImageTableViewCell
         
         cell.bodyLabel.text = post.content
-        if post.location_name != nil {
+        if post.location_name != nil && post.location_name?.count ?? 0 > 0 {
             cell.atLabel.isHidden = false
             cell.atLabel.text = "at"
             cell.locationButton.isHidden = false
@@ -196,7 +232,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.profileNameButton.setTitle(post.full_name, for: .normal)
         cell.profileNameButton.addTarget(self, action: #selector(self.showProfile(_:)), for: .touchUpInside)
         cell.profileNameButton.tag = indexPath.row
-        cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: .refreshCached, completed: nil)
+        cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
         cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
         
 //        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
@@ -219,22 +255,25 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let post = postArray[indexPath.row]
+        if let tipView = post.easyTipView {
+            post.isDeletionPopUpShowing = false
+            tipView.delegate = nil
+            tipView.dismiss()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if isNextPageAvailable == true {
-            if indexPath.row + 3 == postArray.count {
+            if indexPath.row + 1 == postArray.count {
                 fetchData()
             }
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        for index in max(0,indexPath.row-4) ... min(postArray.count-1,indexPath.row+4) {
-            if let tipView = postArray[index].easyTipView {
-                postArray[index].isDeletionPopUpShowing = false
-                tipView.delegate = nil
-                tipView.dismiss()
-            }
-        }
+        removeToolTip(indexPath: indexPath.row)
         
     }
     
@@ -242,20 +281,17 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         let post = postArray[indexPath.row]
         var totalHeight : CGFloat = 81
         if let images = post.postImages {
-            
             totalHeight += CGFloat(Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0))
-            
-            
         }
         if let content = post.content {
-            totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 14.0)!], context: nil).size.height + 5
+            totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0)!], context: nil).size.height + 5
         }
         return totalHeight
     }
     
     @objc func openImage(_ sender: UIButton) {
         let cell = tableView.cellForRow(at: IndexPath (row: sender.tag, section: 0)) as! GeoFeedBasicTableViewCell
-        
+        removeToolTip(indexPath: sender.tag)
         let image = LightboxImage(image: cell.postImageView.image!, text: cell.bodyLabel.text!, videoURL: nil)
         
         let controller = LightboxController(images: [image], startIndex: 0)
@@ -273,10 +309,20 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc func showProfile(_ sender: UIButton) {
         let userID = postArray[sender.tag].user_id
-        
+        removeToolTip(indexPath: sender.tag)
         let user = User()
         user.user_id = userID
         Router.showProfileViewController(user: user, from: self)
+    }
+    
+    func removeToolTip(indexPath: Int) {
+        for index in max(0,indexPath - 4) ... min(postArray.count-1,indexPath + 4) {
+            if let tipView = postArray[index].easyTipView {
+                postArray[index].isDeletionPopUpShowing = false
+                tipView.delegate = nil
+                tipView.dismiss()
+            }
+        }
     }
     
     @objc func showDeletionPopup(_ sender: UIButton) {
@@ -364,12 +410,91 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - IBActions
     
     @IBAction func filterButtonPressed(_ sender: Any) {
-        Router.showFilterScreen(from: self, filterText: self.filterValue)
+        Router.showFilterScreen(from: self, filterText: self.selectedFilterValue)
     }
     
     @IBAction func createPostButtonPressed(_ sender: Any) {
         Router.showGeoPost(from: self)
         
+    }
+    
+    
+    
+    //MARK: - - EmptyDataSource Methods
+    
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "No posts found nearby"
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        paragraphStyle.alignment = .center
+        
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .Medium, size: 17.0) as Any,
+                          NSAttributedStringKey.foregroundColor: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
+                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
+        return NSMutableAttributedString(string: text, attributes: attributes)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = "Try reloading at a different location or widen your search"
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        paragraphStyle.alignment = .center
+        
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0) as Any,
+                          NSAttributedStringKey.foregroundColor: UIColor(red: 170.0/255.0, green: 171.0/255.0, blue: 179.0/255.0, alpha: 1.0),
+                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
+        return NSMutableAttributedString(string: text, attributes: attributes)
+    }
+    
+    func buttonTitle(forEmptyDataSet scrollView: UIScrollView!, for state: UIControlState) -> NSAttributedString! {
+        let text = "Reload"
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byWordWrapping
+        paragraphStyle.alignment = .center
+        
+        var color: UIColor!
+        
+        if state == .normal {
+            color = UIColor(red: 44.0/255.0, green: 137.0/255.0, blue: 202.0/255.0, alpha: 1.0)
+        }
+        if state == .highlighted {
+            color = UIColor(red: 106.0/255.0, green: 187.0/255.0, blue: 227.0/255.0, alpha: 1.0)
+        }
+        
+        let attributes = [NSAttributedStringKey.font: UIFont(font: .SemiBold, size: 14.0) as Any,
+                          NSAttributedStringKey.foregroundColor: color,
+                          NSAttributedStringKey.paragraphStyle: paragraphStyle] as [NSAttributedStringKey: Any]
+        return NSMutableAttributedString(string: text, attributes: attributes)
+    }
+    
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor! {
+        return UIColor(white: 1.0, alpha: 1.0)
+    }
+    
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
+        return false
+    }
+    
+    func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
+
+        SVProgressHUD.show()
+        self.setupLocation()
+    }
+    
+    func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
+        SVProgressHUD.show()
+        self.setupLocation()
     }
     
 }

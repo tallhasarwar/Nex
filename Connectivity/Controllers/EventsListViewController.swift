@@ -45,10 +45,10 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchData()
+        fetchData(searchString: nil)
     }
     
-    func fetchData() {
+    func fetchData(searchString: String?) {
         if isLocationBased {
             var params = [String: AnyObject]()
             if let coords = coordinates {
@@ -58,7 +58,10 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
             
             params["page"] = 0 as AnyObject
             
-            SVProgressHUD.show()
+            if let query = searchString {
+                params["s_str"] = query as AnyObject
+            }
+            
             RequestManager.getNearbyEvents(param: params, successBlock: { (response) in
                 SVProgressHUD.dismiss()
                 self.events.removeAll()
@@ -71,7 +74,13 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
             })
         }
         else{
-            RequestManager.getAllEvents(param: ["page":0], successBlock: { (response) in
+            var params = [String: AnyObject]()
+            params["page"] = 0 as AnyObject
+            if let query = searchString {
+                params["s_str"] = query as AnyObject
+            }
+            
+            RequestManager.getAllEvents(param: params, successBlock: { (response) in
                 SVProgressHUD.dismiss()
                 self.events.removeAll()
                 for object in response {
@@ -116,7 +125,7 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
     //MARK: - - EmptyDataSource Methods
     
     func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "No Nearby Events Found"
+        let text = "No events found."
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping
@@ -181,12 +190,12 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
     
     func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
         SVProgressHUD.show()
-        fetchData()
+        fetchData(searchString: nil)
     }
     
     func emptyDataSet(_ scrollView: UIScrollView!, didTap button: UIButton!) {
         SVProgressHUD.show()
-        fetchData()
+        fetchData(searchString: nil)
     }
     
     
@@ -194,4 +203,15 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
         Router.showCreateEventController(from: self)
     }
     
+    @IBAction func searchFieldChanged(_ sender: Any) {
+        if let text = searchField.text {
+            fetchData(searchString: text)
+        }
+    }
+    
+    @IBAction func cancelSearchButtonPressed(_ sender: Any) {
+        searchField.resignFirstResponder()
+        searchField.text = ""
+        fetchData(searchString: nil)
+    }
 }

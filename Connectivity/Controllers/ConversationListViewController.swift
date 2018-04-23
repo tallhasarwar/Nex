@@ -41,9 +41,10 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
             self.items = conversations
             self.items.sort{ $0.lastMessage.timestamp > $1.lastMessage.timestamp }
             DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
                 self.tableView.reloadData()
             }
-            SVProgressHUD.dismiss()
+            
         }
     }
     
@@ -89,11 +90,12 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
         default:
             cell.descriptionLabel.text = "Media"
         }
+        
         let messageDate = Date.init(timeIntervalSince1970: TimeInterval(self.items[indexPath.row].lastMessage.timestamp/1000))
-        let dataformatter = DateFormatter.init()
-        dataformatter.timeStyle = .short
-        let date = dataformatter.string(from: messageDate)
-        cell.durationLabel.text = date
+//        let dataformatter = DateFormatter.init()
+//        dataformatter.timeStyle = .short
+//        let date = dataformatter.string(from: messageDate)
+        cell.durationLabel.text = UtilityManager.timeAgoSinceDate(date: messageDate as NSDate, numericDates: true)
         if self.items[indexPath.row].lastMessage.owner == .sender && self.items[indexPath.row].lastMessage.isRead == false {
             cell.nameLabel.font = UIFont(font: .SemiBold, size: 14.0)
             cell.descriptionLabel.font = UIFont(font: .SemiBold, size: 12.0)
@@ -136,7 +138,7 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "Start chatting with people nearby by finding them in the Check In section"
+        let text = "Start chatting with people nearby by finding them in the other sections"
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping

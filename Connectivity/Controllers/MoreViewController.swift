@@ -50,7 +50,7 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             cell.detailImageView.layer.masksToBounds = true
             cell.mainLabel.text = ApplicationManager.sharedInstance.user.full_name
             cell.descriptionLabel.text = ApplicationManager.sharedInstance.user.headline
-            cell.detailImageView.sd_setImage(with: URL(string: ApplicationManager.sharedInstance.user.profileImages.small.url ), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
+            cell.detailImageView.sd_setImage(with: URL(string: ApplicationManager.sharedInstance.user.profileImages.small.url ), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
         }
         else{
             cell.detailImageView.image = UIImage(named: items[indexPath.row-1]["image"]!)
@@ -77,6 +77,8 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             Router.showConnections(from: self)
         case 5:
             FBSDKLoginManager().logOut()
+            GIDSignIn.sharedInstance().signOut()
+            GIDSignIn.sharedInstance().disconnect()
             Router.logout()
         default:
             break

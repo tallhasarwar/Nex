@@ -8,12 +8,13 @@
 
 import UIKit
 
-class TermsAndConditionsViewController: BaseViewController {
+class TermsAndConditionsViewController: BaseViewController, UIWebViewDelegate {
 
     static let storyboardID = "termsAndConditionsViewController"
     
     @IBOutlet weak var webView: UIWebView!
     var fromLogin = false
+    var activityIndicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,9 @@ class TermsAndConditionsViewController: BaseViewController {
         {
             let urlRequest = URLRequest(url: pageUrl)
             self.webView.loadRequest(urlRequest)
+            self.webView.delegate = self
+            activityIndicator = UtilityManager.activityIndicatorForView(view: webView)
+            activityIndicator.startAnimating()
         }
         
         if fromLogin {
@@ -44,6 +48,10 @@ class TermsAndConditionsViewController: BaseViewController {
         self.navigationController?.dismiss(animated: true, completion: {
             
         })
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        activityIndicator.stopAnimating()
     }
     
 

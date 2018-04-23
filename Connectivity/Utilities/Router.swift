@@ -22,7 +22,15 @@ class Router: NSObject {
     
     static func logout() {
         ApplicationManager.sharedInstance.session_id = ""
+        
+        RequestManager.logoutUser(param: [:], successBlock: { (response) in
+            
+        }) { (error) in
+            
+        }
         UserDefaults.standard.set(nil, forKey: UserDefaultKey.sessionID)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.geoFeedRadius)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.ownPostsFilter)
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SignInViewController.identifier)
         
         if let window = UIApplication.shared.delegate?.window {
@@ -95,6 +103,9 @@ class Router: NSObject {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CreateEventViewController.storyboardID) as! CreateEventViewController
         vc.event = event
         vc.isEditingMode = true
+        if let delegateVC = controller as? EventEditDelegate {
+            vc.editingDelegate = delegateVC
+        }
         controller.navigationController?.show(vc, sender: nil)
         
     }
@@ -106,13 +117,14 @@ class Router: NSObject {
         
     }
     
-    static func showLocationSelection(from controller: UIViewController, isEventScreen: Bool) {
+    static func showLocationSelection(from controller: UIViewController, isEventScreen: Bool, isPostScreen: Bool) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: CheckInViewController.storyboardID) as! CheckInViewController
         if let delegateVC = controller as? LocationSelectionDelegate {
             vc.locationDelegate = delegateVC
         }
         vc.isLocationSelection = true
-        vc.isEventScreen = true
+        vc.isEventScreen = isEventScreen
+        vc.isPostScreen = isPostScreen
         controller.navigationController?.show(vc, sender: nil)
     }
     
@@ -156,6 +168,14 @@ class Router: NSObject {
         vc.fromLogin = true
         
         controller.present(nav, animated: true, completion: nil)
+    }
+    
+    static func showMap(coordinates: CLLocationCoordinate2D, from controller: UIViewController)
+    {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: MapViewController.storyboardID) as! MapViewController
+        vc.defaultLocation = coordinates
+        
+        controller.navigationController?.show(vc, sender: nil)
     }
     
     
