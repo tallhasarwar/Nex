@@ -138,7 +138,7 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
-        let text = "Start chatting with people nearby by finding them in the Check In section"
+        let text = "Start chatting with people nearby by finding them in the other sections"
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byWordWrapping
