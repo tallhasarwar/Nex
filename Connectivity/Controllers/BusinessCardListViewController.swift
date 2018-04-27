@@ -16,6 +16,7 @@ class BusinessCardListViewController: BaseViewController, UITableViewDelegate, U
     
     var businesscard: BusinessCard?
     var isEditShown = false
+    var otherBusinessCard: BusinessCard?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,14 @@ class BusinessCardListViewController: BaseViewController, UITableViewDelegate, U
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchData()
+        if let card = otherBusinessCard {
+            businesscard = card
+            self.tableView.reloadData()
+            self.navigationItem.rightBarButtonItem = nil
+        }
+        else{
+            fetchData()
+        }
     }
     
     func fetchData() {
@@ -49,8 +57,6 @@ class BusinessCardListViewController: BaseViewController, UITableViewDelegate, U
                 Router.showBusinessCardDetails(businessCard: nil, from: self)
                 
             }
-            
-            
         }
     }
     

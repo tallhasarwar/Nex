@@ -131,7 +131,7 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.headlineLabel.text = user.headline
         cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         if let tagline = user.tagline, tagline.length > 0 {
-            cell.taglineLabel.text = "\"\(tagline)\""
+            cell.taglineLabel.text = "\(tagline)"
         }
         else{
             cell.taglineLabel.text = nil

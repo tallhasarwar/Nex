@@ -125,7 +125,6 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         print("Hitting for page \(self.pageNumber) and total posts \(self.postArray.count)")
         
-        
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40))
         let loader = UtilityManager.activityIndicatorForView(view: view)
         loader.startAnimating()
@@ -256,12 +255,15 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let post = postArray[indexPath.row]
-        if let tipView = post.easyTipView {
-            post.isDeletionPopUpShowing = false
-            tipView.delegate = nil
-            tipView.dismiss()
+        if indexPath.row <= postArray.count-1 {
+            let post = postArray[indexPath.row]
+            if let tipView = post.easyTipView {
+                post.isDeletionPopUpShowing = false
+                tipView.delegate = nil
+                tipView.dismiss()
+            }
         }
+        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

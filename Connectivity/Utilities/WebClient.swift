@@ -434,6 +434,26 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func getOtherBusinessCard(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                         failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: "get_other_bcard", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }
+                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error)
+        }
+    }
+    
     func addBusinessCard(param: [String: Any], image: UIImage?, successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
         self.multipartPost(urlString: Constant.addBusinessCardURL, params: param as [String : AnyObject], image: image, imageName: "image", progressBlock: { (progress) in
@@ -835,10 +855,10 @@ class WebClient: AFHTTPSessionManager {
     
     func deleteUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
-        self.deletePath(urlString: Constant.deleteUserURL, params: param as [String : AnyObject], successBlock: { (response) in
+        self.postPath(urlString: Constant.deleteUserURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
-                success(response[Constant.responseKey] as! [String : AnyObject])
+                success([:])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {
@@ -848,7 +868,7 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error.localizedDescription)
+            failure(error)
         }
     }
     
@@ -870,6 +890,26 @@ class WebClient: AFHTTPSessionManager {
             }
         }) { (error) in
             failure(error.localizedDescription)
+        }
+    }
+    
+    func blockUser(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+                     failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: "block_user", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [[String : AnyObject]])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            //            failure(error.localizedDescription)
+            failure(error)
         }
     }
     

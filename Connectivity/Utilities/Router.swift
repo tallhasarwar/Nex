@@ -47,9 +47,12 @@ class Router: NSObject {
     
     }
     
-    static func showBusinessCard(from controller: UIViewController) {
+    static func showBusinessCard(card: BusinessCard?,from controller: UIViewController) {
         
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: BusinessCardListViewController.storyboardID) as! BusinessCardListViewController
+        if let business = card {
+            vc.otherBusinessCard = business
+        }
         controller.navigationController?.show(vc, sender: nil)
     }
     

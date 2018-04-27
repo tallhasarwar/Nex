@@ -66,7 +66,7 @@ class MoreViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         case 0:
             Router.showProfileViewController(user: ApplicationManager.sharedInstance.user, from: self)
         case 1:
-            Router.showBusinessCard(from: self)
+            Router.showBusinessCard(card: nil, from: self)
         case 2:
             print("My Events")
             Router.showEventsListController(from: self)

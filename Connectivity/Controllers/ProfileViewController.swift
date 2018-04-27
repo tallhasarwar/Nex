@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, EasyTipViewDelegate {
 
     static let storyboardID = "profileViewController"
     
@@ -26,6 +26,9 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     var publicProfile: Bool = false
     var user = User()
     var connectionStatus = "none"
+    var businessCard: BusinessCard?
+    var reportView : EasyTipView?
+    var reportViewHidden = true
     
     
     override func viewDidLoad() {
@@ -45,10 +48,24 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         publicProfile = ApplicationManager.sharedInstance.user.user_id != user.user_id
         
         if publicProfile == true {
-            self.navigationItem.rightBarButtonItem = nil
+            
+            let more = UIBarButtonItem(image: UIImage(named: "more-icon-white"), style: .plain, target: self, action: #selector(self.moreButtonPressed(_:)))
+            self.navigationItem.rightBarButtonItem = more
+            reportView = EasyTipView(text: "    Report Profile      ", delegate: self)
+            
             headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 305 )
             messageView.isHidden = false
             guard let id = user.user_id else { return }
+            
+            RequestManager.getOtherBusinessCard(param: ["user_id":id], successBlock: { (response) in
+                let button = UIBarButtonItem(image: UIImage(named: "business-card-white"), style: .plain, target: self, action: #selector(self.showBussinessCard))
+                self.navigationItem.rightBarButtonItems = [more, button]
+                SVProgressHUD.dismiss()
+                self.businessCard = BusinessCard(dictionary: response)
+            }) { (error) in
+//                UtilityManager.showErrorMessage(body: error, in: self)
+            }
+            
             RequestManager.getOtherProfile(userID: id, successBlock: { (response) in
                 self.user = User(dictionary: response["user"] as! [String: AnyObject])
                 self.connectionStatus = response["userConnectionStatus"] as! String
@@ -61,6 +78,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         else{
             headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 230)
             connectButton.isHidden = true
+            
         }
         
         // Do any additional setup after loading the view.
@@ -81,8 +99,44 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
                 UtilityManager.showErrorMessage(body: error, in: self)
             })
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        reportView?.delegate = nil
+        reportView?.dismiss()
+        reportViewHidden = true
+    }
+    
+    @objc func showBussinessCard() {
+        Router.showBusinessCard(card: self.businessCard, from: self)
+    }
+    
+    @objc func moreButtonPressed(_ sender: UIBarButtonItem) {
+        if !reportViewHidden {
+            reportView?.delegate = nil
+            reportView?.dismiss()
+            reportViewHidden = true
+        }
+        else{
+            reportView = EasyTipView(text: "     Report Profile     ", delegate: self)
+            reportView?.show(forItem: sender)
+            reportViewHidden = false
+        }
         
-        
+    }
+    
+    func easyTipViewDidDismiss(_ tipView: EasyTipView) {
+        guard let id = user.user_id else { return }
+        UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this profile? Misuse of this functionality may lead to your account termination.", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+            if alertAction.title == "Yes" {
+                SVProgressHUD.show()
+                RequestManager.deleteUser(param: ["blocked_id":id], successBlock: { (response) in
+                    UtilityManager.showSuccessMessage(body: "The profile has been reported", in: self)
+                }) { (error) in
+                    UtilityManager.showErrorMessage(body: error, in: self)
+                }
+            }
+        })
     }
     
     func loadUI() {
@@ -131,6 +185,12 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 12
         
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        reportView?.delegate = nil
+        reportView?.dismiss()
+        reportViewHidden = true
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -198,6 +258,12 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             
             return cell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        reportView?.delegate = nil
+        reportView?.dismiss()
+        reportViewHidden = true
     }
 
     @IBAction func connectButtonPressed(_ sender: Any) {

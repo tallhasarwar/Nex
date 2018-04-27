@@ -62,8 +62,15 @@ class CheckInViewController: BaseViewController, GMSMapViewDelegate, UITextField
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = isEventScreen ? "Event Location" : "Where are you?"
-        title = isPostScreen ? "Post Location" : "Where are you?"
+        if isEventScreen {
+            title = "Event Location"
+        }
+        else if isPostScreen {
+            title = "Post Location"
+        }
+        else{
+            title = "Where are you?"
+        }
         
         searchField.delegate = self
         
