@@ -855,7 +855,7 @@ class WebClient: AFHTTPSessionManager {
     
     func deleteUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
-        self.postPath(urlString: Constant.deleteUserURL, params: param as [String : AnyObject], successBlock: { (response) in
+        self.deletePath(urlString: Constant.deleteUserURL, params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success([:])
@@ -868,7 +868,7 @@ class WebClient: AFHTTPSessionManager {
                 }
             }
         }) { (error) in
-            failure(error)
+            failure(error.localizedDescription)
         }
     }
     

@@ -130,7 +130,7 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
         UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this profile? Misuse of this functionality may lead to your account termination.", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
             if alertAction.title == "Yes" {
                 SVProgressHUD.show()
-                RequestManager.deleteUser(param: ["blocked_id":id], successBlock: { (response) in
+                RequestManager.blockUser(param: ["blocked_id":id], successBlock: { (response) in
                     UtilityManager.showSuccessMessage(body: "The profile has been reported", in: self)
                 }) { (error) in
                     UtilityManager.showErrorMessage(body: error, in: self)
