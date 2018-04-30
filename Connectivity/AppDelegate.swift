@@ -90,6 +90,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         self.window?.makeKeyAndVisible()
         
+        application.applicationIconBadgeNumber = 0
+        
         return true
     }
 

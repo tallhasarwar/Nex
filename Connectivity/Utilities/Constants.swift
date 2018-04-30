@@ -42,9 +42,9 @@ public class Constant: NSObject {
     static let googlePlacesKey = "AIzaSyByRuCinleTQVigifuFU0-AOqvnEFieEYo"
     
     static let mainColor = UIColor(red: 145.0/255.0, green: 20.0/255.0, blue: 217.0/255.0, alpha: 1.0)
-    
-    static let serverURL = "http://52.14.237.29:3000/connectIn/api/v1/"
-//    static let serverURL = "https://api.connectin.tech/connectIn/api/v1/"
+
+//    static let serverURL = "http://52.14.237.29:3000/connectIn/api/v1/"
+    static let serverURL = "https://api.connectin.tech/connectIn/api/v1/"
 //    static let serverURL = "http://192.168.8.102:3000/connectIn/api/v1/"
     
     static let googleNearbyURL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
