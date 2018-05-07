@@ -58,18 +58,20 @@ class SignUpViewController: UIViewController, ValidationDelegate, UITextFieldDel
         passwordField.resignFirstResponder()
         confirmPasswordField.resignFirstResponder()
         
-        SVProgressHUD.show()
-        RequestManager.signUpUser(param: params, successBlock: { (response) in
-            SVProgressHUD.dismiss()
-            ApplicationManager.sharedInstance.user = User(dictionary: response)
-            ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
-            UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
-            Router.showMainTabBar()
-        }) { (error) in
-            let errorTemp = "Email already in use"
-            UtilityManager.showErrorMessage(body: errorTemp, in: self)
-            print(error)
-        }
+        Router.showEULA(params: params, fromSignup: true, from: self)
+        
+//        SVProgressHUD.show()
+//        RequestManager.signUpUser(param: params, successBlock: { (response) in
+//            SVProgressHUD.dismiss()
+//            ApplicationManager.sharedInstance.user = User(dictionary: response)
+//            ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
+//            UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
+//            Router.showMainTabBar()
+//        }) { (error) in
+//            let errorTemp = "Email already in use"
+//            UtilityManager.showErrorMessage(body: errorTemp, in: self)
+//            print(error)
+//        }
     }
     
     func validationFailed(_ errors: [(Validatable, ValidationError)]) {

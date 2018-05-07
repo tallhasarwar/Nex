@@ -181,6 +181,21 @@ class Router: NSObject {
         controller.navigationController?.show(vc, sender: nil)
     }
     
+    static func showEULA(params: [String: String], fromSignup: Bool, from controller: UIViewController)
+    {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: EULAViewController.storyboardID) as! EULAViewController
+        vc.signupParams = params
+        vc.fromSignup = fromSignup
+        controller.show(vc, sender: nil)
+    }
+    
+    static func showProfileOptions(userID: String, from controller: UIViewController)
+    {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: ProfileOptionsViewController.storyboardID) as! ProfileOptionsViewController
+        vc.userID = userID
+        controller.present(vc, animated: false, completion: nil)
+    }
+    
     
     
 }

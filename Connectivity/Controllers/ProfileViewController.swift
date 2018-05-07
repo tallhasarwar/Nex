@@ -51,7 +51,8 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
             
             let more = UIBarButtonItem(image: UIImage(named: "more-icon-white"), style: .plain, target: self, action: #selector(self.moreButtonPressed(_:)))
             self.navigationItem.rightBarButtonItem = more
-            reportView = EasyTipView(text: "    Report Profile      ", delegate: self)
+            reportView = EasyTipView(text: "    Report Profile    \n      Block Profile    ", delegate: self)
+            reportView?.frame = CGRect(x: (reportView?.frame.origin.x)!, y: (reportView?.frame.origin.y)!, width: (reportView?.frame.size.width)!, height: 100)
             
             headerView.frame = CGRect(x: 0, y: 0, width: headerView.frame.width, height: 305 )
             messageView.isHidden = false
@@ -112,16 +113,19 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     @objc func moreButtonPressed(_ sender: UIBarButtonItem) {
-        if !reportViewHidden {
-            reportView?.delegate = nil
-            reportView?.dismiss()
-            reportViewHidden = true
-        }
-        else{
-            reportView = EasyTipView(text: "     Report Profile     ", delegate: self)
-            reportView?.show(forItem: sender)
-            reportViewHidden = false
-        }
+        guard let id = user.user_id else { return }
+        Router.showProfileOptions(userID: id, from: self)
+        return
+//        if !reportViewHidden {
+//            reportView?.delegate = nil
+//            reportView?.dismiss()
+//            reportViewHidden = true
+//        }
+//        else{
+//            reportView = EasyTipView(text: "    Report Profile    \n\n      Block Profile    ", delegate: self)
+//            reportView?.show(forItem: sender)
+//            reportViewHidden = false
+//        }
         
     }
     

@@ -23,6 +23,8 @@
 		691670941F93D97300C39034 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691670931F93D97300C39034 /* NotificationModel.swift */; };
 		691670961F93DA7B00C39034 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691670951F93DA7B00C39034 /* NotificationsViewController.swift */; };
 		691670981F93DDA200C39034 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691670971F93DDA200C39034 /* NotificationsTableViewCell.swift */; };
+		691C0827209B0F7F006FAE88 /* EULAViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691C0826209B0F7F006FAE88 /* EULAViewController.swift */; };
+		691C082920A0BA89006FAE88 /* ProfileOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691C082820A0BA89006FAE88 /* ProfileOptionsViewController.swift */; };
 		691C83362020529F00503C03 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691C83352020529F00503C03 /* Image.swift */; };
 		691D637B1FB19B2100A96CC5 /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D637A1FB19B2100A96CC5 /* EventDetailViewController.swift */; };
 		691D637D1FB19F0200A96CC5 /* EventDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D637C1FB19F0200A96CC5 /* EventDetailTableViewCell.swift */; };
@@ -219,6 +221,8 @@
 		691670931F93D97300C39034 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		691670951F93DA7B00C39034 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		691670971F93DDA200C39034 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
+		691C0826209B0F7F006FAE88 /* EULAViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EULAViewController.swift; sourceTree = "<group>"; };
+		691C082820A0BA89006FAE88 /* ProfileOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionsViewController.swift; sourceTree = "<group>"; };
 		691C83352020529F00503C03 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		691D637A1FB19B2100A96CC5 /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		691D637C1FB19F0200A96CC5 /* EventDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -805,6 +809,8 @@
 				69304FB71FF8C42400DDC3FF /* GeoFeedViewController.swift */,
 				694A97291FFB8A6300284023 /* GeoPostViewController.swift */,
 				69F290C11FFE9C2B005E97EE /* FiltersViewController.swift */,
+				691C0826209B0F7F006FAE88 /* EULAViewController.swift */,
+				691C082820A0BA89006FAE88 /* ProfileOptionsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1151,6 +1157,7 @@
 				69F4B7E11F77DEEC00BFB414 /* ProfileImageCollectionViewCell.swift in Sources */,
 				694A972C1FFCEB4400284023 /* Post.swift in Sources */,
 				69922414202C728A00D67147 /* IGRPhotoTweakView+UIScrollView.swift in Sources */,
+				691C0827209B0F7F006FAE88 /* EULAViewController.swift in Sources */,
 				69B9CEEF1F72AED90070BD37 /* DesignableTextView.swift in Sources */,
 				69F4B7E51F77E19800BFB414 /* BaseEntity.m in Sources */,
 				69922411202C728A00D67147 /* IGRPhotoTweakView+Angle.swift in Sources */,
@@ -1171,6 +1178,7 @@
 				69C87450201896D500FED630 /* Toucan.swift in Sources */,
 				69F4B7E91F77E1D700BFB414 /* ProfileDetail.swift in Sources */,
 				69B9CEFE1F72AED90070BD37 /* SpringTextView.swift in Sources */,
+				691C082920A0BA89006FAE88 /* ProfileOptionsViewController.swift in Sources */,
 				69F4B7DF1F77DDD400BFB414 /* ProfileDetailTableViewCell.swift in Sources */,
 				69FCBA7E1F7D426E00F4696E /* LIALinkedInHttpClient.m in Sources */,
 				69B9CEDD1F72AED90070BD37 /* Constants.swift in Sources */,
