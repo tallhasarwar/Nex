@@ -163,7 +163,12 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                 RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                     self.successfulLogin(response: response)
                 }, failureBlock: { (error) in
-//                    UtilityManager.showErrorMessage(body: error, in: self)
+                    if error == "please accept terms and condition!" {
+                        Router.showEULA(params: params, fromSignup: false, from: self)
+                    }
+                    else{
+                        UtilityManager.showErrorMessage(body: error, in: self)
+                    }
                 })
                 
             }, failureBlock: { (error) in
@@ -251,7 +256,12 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                 RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                     self.successfulLogin(response: response)
                 }, failureBlock: { (error) in
-                    UtilityManager.showErrorMessage(body: error, in: self)
+                    if error == "please accept terms and condition!" {
+                        Router.showEULA(params: params, fromSignup: false, from: self)
+                    }
+                    else{
+                        UtilityManager.showErrorMessage(body: error, in: self)
+                    }
                 })
                 
                 
@@ -317,7 +327,13 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
             RequestManager.socialLoginUser(param: params, successBlock: { (response) in
                 self.successfulLogin(response: response)
             }, failureBlock: { (error) in
-                UtilityManager.showErrorMessage(body: error, in: self)
+                if error == "please accept terms and condition!" {
+                    Router.showEULA(params: params, fromSignup: false, from: self)
+                }
+                else{
+                    UtilityManager.showErrorMessage(body: error, in: self)
+                }
+                
             })
             // ...
         } else {

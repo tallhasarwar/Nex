@@ -982,6 +982,113 @@ Cg
             </objects>
             <point key="canvasLocation" x="678" y="109"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="KPC-yo-Rgp">
+            <objects>
+                <viewController storyboardIdentifier="EULAViewController" id="Nrc-pD-AQw" customClass="EULAViewController" customModule="Connectivity" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Cfz-WQ-HBJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wx0-fa-cUZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cwc-X1-1Qa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login-bg" translatesAutoresizingMaskIntoConstraints="NO" id="mJ6-Zw-Cgg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lck-1F-mfT" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
+                                <rect key="frame" x="194" y="607" width="166" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="aND-eh-FNd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
+                                <state key="normal" title="Accept">
+                                    <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="acceptButtonPressed:" destination="Nrc-pD-AQw" eventType="touchUpInside" id="KAh-TY-3bp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vqZ-f8-lJr" customClass="DesignableButton" customModule="Connectivity" customModuleProvider="target">
+                                <rect key="frame" x="15" y="607" width="166" height="40"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="q3a-w4-CLv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="17"/>
+                                <state key="normal" title="Reject">
+                                    <color key="titleColor" red="0.97743695974349976" green="0.31052494411328879" blue="0.2826072200322447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="fAr-mh-saB" kind="unwind" unwindAction="unwindToViewController:" id="T5F-k3-4XT"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End User License Agreement (EULA)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8X-2W-ehi">
+                                <rect key="frame" x="15" y="45" width="294.5" height="21"/>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6yD-Yz-JyO">
+                                <rect key="frame" x="15" y="74" width="345" height="463"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="Wgx-oi-E15">
+                                <rect key="frame" x="15" y="547" width="345" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="pUD-uq-T5i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
+                                <state key="normal" image="checkbox-unchecked">
+                                    <string key="title"> I have fully reviewed the End User License Agreement (EULA) and hereby agree and accept all the terms &amp; conditions stated therein.</string>
+                                </state>
+                                <state key="selected" image="checkbox-checked"/>
+                                <connections>
+                                    <action selector="agreementButtonPressed:" destination="Nrc-pD-AQw" eventType="touchUpInside" id="UDy-qK-ScS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="mJ6-Zw-Cgg" secondAttribute="trailing" id="0xg-TQ-EdE"/>
+                            <constraint firstItem="wx0-fa-cUZ" firstAttribute="top" secondItem="Lck-1F-mfT" secondAttribute="bottom" constant="20" id="7bp-w6-xga"/>
+                            <constraint firstItem="u8X-2W-ehi" firstAttribute="top" secondItem="Cfz-WQ-HBJ" secondAttribute="bottom" constant="25" id="AlW-Sh-kBe"/>
+                            <constraint firstItem="Wgx-oi-E15" firstAttribute="leading" secondItem="vqZ-f8-lJr" secondAttribute="leading" id="GfN-2w-hPd"/>
+                            <constraint firstItem="6yD-Yz-JyO" firstAttribute="top" secondItem="u8X-2W-ehi" secondAttribute="bottom" constant="8" id="H82-jl-RIw"/>
+                            <constraint firstItem="wx0-fa-cUZ" firstAttribute="top" secondItem="mJ6-Zw-Cgg" secondAttribute="bottom" id="J0x-xu-Xfc"/>
+                            <constraint firstItem="Lck-1F-mfT" firstAttribute="leading" secondItem="vqZ-f8-lJr" secondAttribute="trailing" constant="13" id="K6H-T9-68C"/>
+                            <constraint firstItem="Lck-1F-mfT" firstAttribute="top" secondItem="Wgx-oi-E15" secondAttribute="bottom" constant="15" id="MOW-HT-2nF"/>
+                            <constraint firstItem="u8X-2W-ehi" firstAttribute="leading" secondItem="cwc-X1-1Qa" secondAttribute="leading" constant="15" id="SAG-bA-za8"/>
+                            <constraint firstItem="wx0-fa-cUZ" firstAttribute="top" secondItem="vqZ-f8-lJr" secondAttribute="bottom" constant="20" id="XP0-Ge-KvI"/>
+                            <constraint firstItem="Wgx-oi-E15" firstAttribute="top" secondItem="6yD-Yz-JyO" secondAttribute="bottom" constant="10" id="abB-I0-T99"/>
+                            <constraint firstItem="6yD-Yz-JyO" firstAttribute="leading" secondItem="u8X-2W-ehi" secondAttribute="leading" id="cH2-h3-4pE"/>
+                            <constraint firstItem="vqZ-f8-lJr" firstAttribute="leading" secondItem="cwc-X1-1Qa" secondAttribute="leading" constant="15" id="d2t-QK-o9Y"/>
+                            <constraint firstItem="Wgx-oi-E15" firstAttribute="trailing" secondItem="Lck-1F-mfT" secondAttribute="trailing" id="dwI-DJ-YAb"/>
+                            <constraint firstAttribute="trailing" secondItem="Lck-1F-mfT" secondAttribute="trailing" constant="15" id="kg2-3I-apf"/>
+                            <constraint firstItem="mJ6-Zw-Cgg" firstAttribute="top" secondItem="Cfz-WQ-HBJ" secondAttribute="bottom" constant="-20" id="qgA-2Y-dhd"/>
+                            <constraint firstAttribute="trailing" secondItem="6yD-Yz-JyO" secondAttribute="trailing" constant="15" id="qr1-8o-uJK"/>
+                            <constraint firstItem="mJ6-Zw-Cgg" firstAttribute="leading" secondItem="cwc-X1-1Qa" secondAttribute="leading" id="tEX-9d-PFL"/>
+                            <constraint firstItem="Lck-1F-mfT" firstAttribute="width" secondItem="vqZ-f8-lJr" secondAttribute="width" id="y6w-l4-Oyt"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="agreementButton" destination="Wgx-oi-E15" id="UZl-YP-fTr"/>
+                        <outlet property="webView" destination="6yD-Yz-JyO" id="UMJ-BD-8Gd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jsg-gN-JXK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="fAr-mh-saB" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1509.5999999999999" y="108.39580209895054"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="FBA-92-xY6">
             <objects>
@@ -3232,6 +3339,92 @@ current location</string>
             </objects>
             <point key="canvasLocation" x="3884" y="3974"/>
         </scene>
+        <!--Profile Options View Controller-->
+        <scene sceneID="TEs-eP-czT">
+            <objects>
+                <viewController storyboardIdentifier="profileOptionsViewController" modalPresentationStyle="overCurrentContext" id="p74-Uo-Yeu" customClass="ProfileOptionsViewController" customModule="Connectivity" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dWM-WK-FQu"/>
+                        <viewControllerLayoutGuide type="bottom" id="VWH-SW-2kB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="810-ef-aCn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BmG-xE-nBf">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <connections>
+                                    <segue destination="Px9-0C-Lnz" kind="unwind" unwindAction="unwindToViewController:" id="Taf-gc-0fp"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lNk-iF-HE3" customClass="DesignableView" customModule="Connectivity" customModuleProvider="target">
+                                <rect key="frame" x="149" y="60" width="214" height="98"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5vU-On-iUO">
+                                        <rect key="frame" x="10" y="5" width="194" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="g81-1u-SWW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                        <state key="normal" title="Report"/>
+                                        <connections>
+                                            <action selector="reportButtonPressed:" destination="p74-Uo-Yeu" eventType="touchUpInside" id="ZML-GZ-Qbf"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nsb-B5-tqB">
+                                        <rect key="frame" x="10" y="49" width="194" height="44"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                        <state key="normal" title="Block"/>
+                                        <connections>
+                                            <action selector="blockButtonPressed:" destination="p74-Uo-Yeu" eventType="touchUpInside" id="C0g-ng-k2n"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="axr-Uc-0j4">
+                                        <rect key="frame" x="10" y="49" width="194" height="1"/>
+                                        <color key="backgroundColor" red="0.7351643458549223" green="0.7351643458549223" blue="0.7351643458549223" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="CXa-Fe-xjq"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="axr-Uc-0j4" firstAttribute="top" secondItem="5vU-On-iUO" secondAttribute="bottom" id="2QE-r7-IkG"/>
+                                    <constraint firstItem="5vU-On-iUO" firstAttribute="top" secondItem="lNk-iF-HE3" secondAttribute="top" constant="5" id="4kh-6D-O20"/>
+                                    <constraint firstAttribute="width" constant="214" id="H94-NL-Dbu"/>
+                                    <constraint firstAttribute="bottom" secondItem="nsb-B5-tqB" secondAttribute="bottom" constant="5" id="MbO-p4-AO4"/>
+                                    <constraint firstItem="nsb-B5-tqB" firstAttribute="height" secondItem="5vU-On-iUO" secondAttribute="height" id="Oc1-bm-Lic"/>
+                                    <constraint firstItem="axr-Uc-0j4" firstAttribute="trailing" secondItem="5vU-On-iUO" secondAttribute="trailing" id="S4R-LR-870"/>
+                                    <constraint firstItem="nsb-B5-tqB" firstAttribute="top" secondItem="axr-Uc-0j4" secondAttribute="bottom" constant="-1" id="YlH-xG-Cwk"/>
+                                    <constraint firstItem="axr-Uc-0j4" firstAttribute="leading" secondItem="5vU-On-iUO" secondAttribute="leading" id="a5n-bQ-NvT"/>
+                                    <constraint firstItem="nsb-B5-tqB" firstAttribute="trailing" secondItem="5vU-On-iUO" secondAttribute="trailing" id="e91-Y9-cnB"/>
+                                    <constraint firstItem="nsb-B5-tqB" firstAttribute="leading" secondItem="5vU-On-iUO" secondAttribute="leading" id="qum-RF-ISu"/>
+                                    <constraint firstAttribute="trailing" secondItem="5vU-On-iUO" secondAttribute="trailing" constant="10" id="uYd-i5-oDv"/>
+                                    <constraint firstItem="5vU-On-iUO" firstAttribute="leading" secondItem="lNk-iF-HE3" secondAttribute="leading" constant="10" id="wEN-Ue-dA7"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.304412411971831" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="BmG-xE-nBf" secondAttribute="trailing" id="41D-3B-ZXg"/>
+                            <constraint firstAttribute="trailing" secondItem="lNk-iF-HE3" secondAttribute="trailing" constant="12" id="8oj-ET-lp4"/>
+                            <constraint firstItem="lNk-iF-HE3" firstAttribute="top" secondItem="dWM-WK-FQu" secondAttribute="bottom" constant="40" id="BJI-LV-CUN"/>
+                            <constraint firstItem="BmG-xE-nBf" firstAttribute="top" secondItem="dWM-WK-FQu" secondAttribute="bottom" id="I7G-Ja-IxA"/>
+                            <constraint firstItem="VWH-SW-2kB" firstAttribute="top" secondItem="BmG-xE-nBf" secondAttribute="bottom" id="f3g-zj-l84"/>
+                            <constraint firstItem="BmG-xE-nBf" firstAttribute="leading" secondItem="810-ef-aCn" secondAttribute="leading" id="fmA-Ee-aU3"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cgY-Vo-0Kt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Px9-0C-Lnz" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4764" y="3975.562218890555"/>
+        </scene>
         <!--Business Card-->
         <scene sceneID="eLI-My-Csp">
             <objects>
@@ -5060,6 +5253,8 @@ current location</string>
         <image name="chat-selected" width="26" height="19"/>
         <image name="chat-send" width="67" height="60"/>
         <image name="chat-unselected" width="26" height="19"/>
+        <image name="checkbox-checked" width="20" height="20"/>
+        <image name="checkbox-unchecked" width="20" height="20"/>
         <image name="checkin-icon-feed" width="17" height="25"/>
         <image name="checkin-selected" width="22" height="22"/>
         <image name="checkin-unselected" width="22" height="22"/>

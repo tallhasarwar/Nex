@@ -893,12 +893,32 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
-    func blockUser(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+    func reportUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                   failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: "report_user", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success([:])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            //            failure(error.localizedDescription)
+            failure(error)
+        }
+    }
+    
+    func blockUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
         self.postPath(urlString: "block_user", params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
-                success(response[Constant.responseKey] as! [[String : AnyObject]])
+                success([:])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {

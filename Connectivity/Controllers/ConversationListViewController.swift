@@ -35,6 +35,11 @@ class ConversationListViewController: BaseViewController, UITableViewDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     //Downloads conversations
     func fetchData() {
         Conversation.showConversations { (conversations) in
