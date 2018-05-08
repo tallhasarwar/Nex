@@ -29,7 +29,7 @@ class ProfileOptionsViewController: UIViewController {
         UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this profile? Misuse of this functionality may lead to your account termination.", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
             if alertAction.title == "Yes" {
                 SVProgressHUD.show()
-                RequestManager.reportUser(param: ["reported_id":self.userID], successBlock: { (response) in
+                RequestManager.reportUser(param: ["blocked_id":self.userID], successBlock: { (response) in
                     self.dismiss(animated: false, completion: nil)
                     UtilityManager.showSuccessMessage(body: "The profile has been reported", in: self)
                 }) { (error) in
@@ -42,12 +42,15 @@ class ProfileOptionsViewController: UIViewController {
     }
     
     @IBAction func blockButtonPressed(_ sender: Any) {
-        UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to block this profile? Misuse of this functionality may lead to your account termination.", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+        UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to block this profile?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
             if alertAction.title == "Yes" {
                 SVProgressHUD.show()
-                RequestManager.blockUser(param: ["blocked_id":self.userID], successBlock: { (response) in
-                    self.dismiss(animated: false, completion: nil)
-                    UtilityManager.showSuccessMessage(body: "The profile has been blocked", in: self)
+                RequestManager.blockUser(param: ["reported_id":self.userID], successBlock: { (response) in
+//                    self.dismiss(animated: false, completion: nil)
+//                    UtilityManager.showSuccessMessage(body: "The profile has been blocked", in: self)
+//                    UtilityManager.delay(delay: 1.0, closure: {
+                        Router.showMainTabBar()
+//                    })
                 }) { (error) in
                     self.dismiss(animated: false, completion: nil)
                     UtilityManager.showErrorMessage(body: error, in: self)

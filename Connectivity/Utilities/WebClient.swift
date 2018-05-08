@@ -895,7 +895,7 @@ class WebClient: AFHTTPSessionManager {
     
     func reportUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                    failureBlock failure:@escaping (String) -> ()){
-        self.postPath(urlString: "report_user", params: param as [String : AnyObject], successBlock: { (response) in
+        self.postPath(urlString: "block_user", params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success([:])
@@ -915,7 +915,7 @@ class WebClient: AFHTTPSessionManager {
     
     func blockUser(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                      failureBlock failure:@escaping (String) -> ()){
-        self.postPath(urlString: "block_user", params: param as [String : AnyObject], successBlock: { (response) in
+        self.postPath(urlString: "report_user", params: param as [String : AnyObject], successBlock: { (response) in
             print(response)
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
                 success([:])
