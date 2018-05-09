@@ -15,7 +15,7 @@ import FirebaseInstanceID
 import FirebaseMessaging
 import Fabric
 import Crashlytics
-
+import Messages
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
