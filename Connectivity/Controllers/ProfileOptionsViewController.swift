@@ -9,7 +9,9 @@
 import UIKit
 
 class ProfileOptionsViewController: UIViewController {
-
+    @IBOutlet weak var buttonView: SpringView!
+    @IBOutlet var parentView: SpringView!
+    
     static let storyboardID = "profileOptionsViewController"
     
     var userID = ""
@@ -18,6 +20,20 @@ class ProfileOptionsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        parentView.animate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+//        parentView.animate()
+    }
+    
+    override func viewDidDisappear(_ animated:Bool) {
+        super.viewDidDisappear(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,8 +75,18 @@ class ProfileOptionsViewController: UIViewController {
         })
     }
     
-
-    /*
+    @IBAction func removeViewController(_ sender: Any) {
+        
+        buttonView.animate()
+        perform(#selector(callExitSeague), with: nil, afterDelay: 1)
+        
+    }
+    
+    @objc func callExitSeague() {
+        self.performSegue(withIdentifier: "removeViewSeagueID", sender: Any?.self)
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -68,6 +94,6 @@ class ProfileOptionsViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }
