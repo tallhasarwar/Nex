@@ -13,7 +13,7 @@ let RequestManager = WebClient.sharedInstance
 class WebClient: AFHTTPSessionManager {
     
     //MARK: - Shared Instance
-    static let sharedInstance = WebClient(url: NSURL(string: Constant.serverURL)!, securityPolicy: AFSecurityPolicy(pinningMode: AFSSLPinningMode.publicKey))
+    static let sharedInstance = WebClient(url: NSURL(string: Constant.serverURL)!, securityPolicy: AFSecurityPolicy(pinningMode: AFSSLPinningMode.none))
     
     
     convenience init(url: NSURL, securityPolicy: AFSecurityPolicy){

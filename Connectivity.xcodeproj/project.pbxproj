@@ -878,6 +878,7 @@
 				CFC136D4691E1E036BA70349 /* [CP] Copy Pods Resources */,
 				69F4BB621F7807BC00BFB414 /* ShellScript */,
 				69829F412057ECFE000DFF6B /* ShellScript */,
+				86E4A3DC0FDBA0BE896D666F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1016,6 +1017,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		86E4A3DC0FDBA0BE896D666F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Connectivity/Pods-Connectivity-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CFC136D4691E1E036BA70349 /* [CP] Copy Pods Resources */ = {
@@ -1357,7 +1373,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 104;
+				CURRENT_PROJECT_VERSION = 106;
 				DEVELOPMENT_TEAM = QEZ42U74SP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1395,7 +1411,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 104;
+				CURRENT_PROJECT_VERSION = 106;
 				DEVELOPMENT_TEAM = QEZ42U74SP;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

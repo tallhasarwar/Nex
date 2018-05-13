@@ -134,6 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("Device Token:", tokenString)
         Messaging.messaging().apnsToken = deviceToken
         UserDefaults.standard.setValue(tokenString, forKey: UserDefaultKey.pushNotificationToken)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pushNotificationTokenUpdated"), object: nil, userInfo: nil)
     }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -160,6 +161,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
+        UserDefaults.standard.setValue(fcmToken, forKey: UserDefaultKey.pushNotificationToken)
         
     }
     

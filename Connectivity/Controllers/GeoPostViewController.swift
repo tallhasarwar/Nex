@@ -366,7 +366,7 @@ extension GeoPostViewController: CLLocationManagerDelegate {
     }
     
     func restrictUserDueToLocation() {
-        UIAlertController.showAlert(in: self, withTitle: "Location Disabled", message: "Please enable location services for ConnectIn in Settings -> ConnectIn", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil) { (alert, action, index) in
+        UIAlertController.showAlert(in: self, withTitle: "Location Disabled", message: "Please enable location services for \(Constant.applicationName) in Settings -> \(Constant.applicationName)", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil) { (alert, action, index) in
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }

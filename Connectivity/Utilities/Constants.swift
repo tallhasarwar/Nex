@@ -32,7 +32,7 @@ public class Constant: NSObject {
 
     static let facebookURL = "https://graph.facebook.com/me"
     
-    static let applicationName = "Connectivity"
+    static let applicationName = "GeoNex"
     static let serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     static let appDateFormat = "MM/dd/yyyy hh:mm:ss a"
     static let eventDateFormat = "MM/dd/yyyy hh:mm a"
