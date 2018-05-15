@@ -50,6 +50,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.setupLocation()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.fetchFreshData), name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.checkForNotificationCount), name: NSNotification.Name(rawValue: "checkForPushNotificationCount"), object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.setupLocation), name: NSNotification.Name(rawValue: "refreshLocation"), object: nil)
     }
     
@@ -171,6 +172,19 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             UtilityManager.showErrorMessage(body: error, in: self)
             Router.logout()
         }
+    }
+    
+    @objc func checkForNotificationCount() {
+        RequestManager.getUser(successBlock: { (response) in
+            let user = User(dictionary: response)
+            if let notificationCount = user.unread_notification_count, notificationCount > 0 {
+                if let tabbarItem = self.tabBarController?.tabBar.items![3] {
+                    tabbarItem.badgeValue = "\(notificationCount)"
+                }
+            }
+        }, failureBlock: { (error) in
+            //            UtilityManager.showErrorMessage(body: error, in: self)
+        })
     }
     
     //MARK: - tableview methods

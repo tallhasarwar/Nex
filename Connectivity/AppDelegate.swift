@@ -108,6 +108,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshLocation"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "checkForPushNotificationCount"), object: nil)
+        
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -153,6 +156,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let alert = userInfo["aps"]!["alert"] as! String
         self.notification.display(withMessage: alert, forDuration: 3.0)
     
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pushNotificationReceived"), object: nil, userInfo: nil)
     }
     
     // The callback to handle data message received via FCM for devices running iOS 10 or above.

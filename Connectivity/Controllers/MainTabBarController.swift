@@ -18,6 +18,8 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         self.selectedIndex = 2
         self.delegate = self
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationReceived), name: NSNotification.Name(rawValue: "pushNotificationReceived"), object: nil)
+        
         if ApplicationManager.sharedInstance.user.email == nil {
             SVProgressHUD.show()
             RequestManager.getUser(successBlock: { (response) in
@@ -48,6 +50,11 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @objc func notificationReceived() {
+        let tabbarItem = self.tabBar.items![3]
+        tabbarItem.badgeValue = "1"
     }
     
     override func viewWillLayoutSubviews() {
