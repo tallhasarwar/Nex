@@ -54,18 +54,20 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
                 self.notificationsArray.append(NotificationModel(dictionary: user))
             }
             self.tableView.reloadData()
+            
+            RequestManager.markNotificationsRead(param: [:], successBlock: { (response) in
+                let tabbarItem = self.tabBarController!.tabBar.items![3]
+                tabbarItem.badgeValue = nil
+            }) { (error) in
+                print(error)
+                SVProgressHUD.dismiss()
+            }
         }) { (error) in
             print(error)
             SVProgressHUD.dismiss()
         }
         
-        RequestManager.markNotificationsRead(param: [:], successBlock: { (response) in
-            let tabbarItem = self.tabBarController!.tabBar.items![3]
-            tabbarItem.badgeValue = nil
-        }) { (error) in
-            print(error)
-            SVProgressHUD.dismiss()
-        }
+        
     }
     
     
@@ -129,7 +131,7 @@ class NotificationsViewController: BaseViewController, UITableViewDelegate, UITa
         }
         else{
             let user = User()
-            user.user_id = notificationsArray[indexPath.row].component_id
+            user.user_id = notificationsArray[indexPath.row].id
             Router.showProfileViewController(user: user, from: self)
         }
     }

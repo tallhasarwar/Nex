@@ -15,6 +15,7 @@ import UIKit
     @objc var image_path: String?
     @objc var created_at: NSDate?
     @objc var component_id: String?
+    @objc var id: String?
     
     override init() {
         super.init()
@@ -26,6 +27,7 @@ import UIKit
         newDateFormatter.dateFormat = Constant.serverDateFormat
         newDateFormatter.timeZone = NSTimeZone(name: "UTC")! as TimeZone
         self.setValuesForKeysWithJSONDictionary(dictionary, dateFormatter: newDateFormatter)
+//        self.id = dictionary["id"] as? String
     }
 
     

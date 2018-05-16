@@ -174,6 +174,11 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkForNotificationCount()
+    }
+    
     @objc func checkForNotificationCount() {
         RequestManager.getUser(successBlock: { (response) in
             let user = User(dictionary: response)
