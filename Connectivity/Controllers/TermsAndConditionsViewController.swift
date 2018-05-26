@@ -20,7 +20,7 @@ class TermsAndConditionsViewController: BaseViewController, UIWebViewDelegate {
         super.viewDidLoad()
         //https://connectin.tech/terms-and-conditions/
         self.navigationItem.title = "Terms"
-        if let pageUrl = URL(string: "https://geonex.network/terms-and-conditions/")
+        if let pageUrl = URL(string: "https://thenexnetwork.com/eula/")
         {
             let urlRequest = URLRequest(url: pageUrl)
             self.webView.loadRequest(urlRequest)
