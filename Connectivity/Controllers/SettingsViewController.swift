@@ -14,7 +14,7 @@ class SettingsViewController: BaseViewController, UITableViewDelegate, UITableVi
 
     @IBOutlet weak var tableView: UITableView!
     
-    let items = [["image":"terms-icon","title":"Terms and Conditions"], ["image":"delete-user-icon","title":"Delete Account"]] as [[String: String]]
+    let items = [["image":"terms-icon","title":"End User License Agreement"], ["image":"delete-user-icon","title":"Delete Account"]] as [[String: String]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
