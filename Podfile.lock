@@ -41,10 +41,10 @@ PODS:
   - FirebaseAnalytics (4.2.0):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
   - FirebaseCore (4.0.20):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
   - FirebaseDatabase (4.1.5):
     - FirebaseAnalytics (~> 4.1)
     - FirebaseCore (~> 4.0)
@@ -98,7 +98,7 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.4)
   - GoogleToolboxForMac/Logger (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
-  - GoogleToolboxForMac/NSData+zlib (2.1.4):
+  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - GoogleUtilities (1.3.2):
     - GoogleSymbolUtilities (~> 1.1)
@@ -135,6 +135,43 @@ DEPENDENCIES:
   - SDWebImage (~> 4.0)
   - SVProgressHUD
   - TPKeyboardAvoiding
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
+    - Bolts
+    - Crashlytics
+    - CWStatusBarNotification
+    - DZNEmptyDataSet
+    - Fabric
+    - FBSDKCoreKit
+    - FBSDKLoginKit
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseDatabase
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - FirebaseStorage
+    - Google
+    - GoogleAnalytics
+    - GoogleAppUtilities
+    - GoogleAuthUtilities
+    - GoogleInterchangeUtilities
+    - GoogleMaps
+    - GoogleNetworkingUtilities
+    - GooglePlaces
+    - GoogleSignIn
+    - GoogleSymbolUtilities
+    - GoogleToolboxForMac
+    - GoogleUtilities
+    - GTMSessionFetcher
+    - leveldb-library
+    - nanopb
+    - Protobuf
+    - SDWebImage
+    - SVProgressHUD
+    - TPKeyboardAvoiding
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -174,4 +211,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 526e8275740f22f51006d9f0218d05ea9b455a67
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0
