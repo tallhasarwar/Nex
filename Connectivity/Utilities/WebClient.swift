@@ -933,4 +933,23 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func removeUser (param: [String: Any],successBlock success:@escaping ([String: AnyObject])->(), failureBlock failure: @escaping (String) ->  ()){
+        self.postPath(urlString: "remove_from_connection", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true {
+                success([:])
+            }
+            else {
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message")as! String)
+                }
+                else {
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error)
+        }
+    }
+    
 }
