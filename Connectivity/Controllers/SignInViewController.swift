@@ -310,6 +310,7 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
         if error == nil {
+            SVProgressHUD.show()
             // Perform any operations on signed in user here.
             var params = [String: String]()
             
@@ -328,9 +329,11 @@ class SignInViewController: UIViewController, ValidationDelegate, UITextFieldDel
                 self.successfulLogin(response: response)
             }, failureBlock: { (error) in
                 if error == "please accept terms and condition!" {
+                    SVProgressHUD.dismiss()
                     Router.showEULA(params: params, fromSignup: false, from: self)
                 }
                 else{
+                    SVProgressHUD.dismiss()
                     UtilityManager.showErrorMessage(body: error, in: self)
                 }
                 
