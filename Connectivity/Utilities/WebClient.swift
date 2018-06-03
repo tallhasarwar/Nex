@@ -932,7 +932,6 @@ class WebClient: AFHTTPSessionManager {
             failure(error)
         }
     }
-    
 
     func likePost(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
                    failureBlock failure:@escaping (String) -> ()){
@@ -1003,7 +1002,6 @@ class WebClient: AFHTTPSessionManager {
                     failure(response.object(forKey: "message")as! String)
                 }
                 else {
-
                     failure("Unable to fetch data")
                 }
             }
