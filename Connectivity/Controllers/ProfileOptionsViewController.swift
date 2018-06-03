@@ -59,6 +59,20 @@ class ProfileOptionsViewController: UIViewController {
         })
     }
     
+    @IBAction func removeConnectionButtonPressed(_ sender: Any) {
+        UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to remove connection?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+            if alertAction.title == "Yes" {
+                SVProgressHUD.show()
+                RequestManager.removeUser(param: ["remove_id":self.userID], successBlock: { (response) in
+                    Router.showMainTabBar()
+                }, failureBlock: { (error) in
+                    self.dismiss(animated: false, completion: nil)
+                    UtilityManager.showErrorMessage(body: error, in: self)
+                })
+            }
+        })
+    }
+    
 
     /*
     // MARK: - Navigation
