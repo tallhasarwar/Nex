@@ -271,11 +271,24 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
         cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
         
+
         
-        cell.optionsButton.isHidden = false
-        cell.trailingSpaceToOptionsButton.constant = 0
-        cell.optionsButton.tag = indexPath.row
-        cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+//        cell.optionsButton.isHidden = false
+//        cell.trailingSpaceToOptionsButton.constant = 0
+//        cell.optionsButton.tag = indexPath.row
+//        cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+
+//        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+            cell.optionsButton.isHidden = false
+            cell.trailingSpaceToOptionsButton.constant = 0
+            cell.optionsButton.tag = indexPath.row
+            cell.optionsButton.addTarget(self, action: #selector(self.showOptionsPopup(_:)), for: .touchUpInside)
+//        }
+//        else{
+//            cell.optionsButton.isHidden = true
+//            cell.trailingSpaceToOptionsButton.constant = -22
+//        }
+
         
         if let tipView = post.easyTipView {
             post.isDeletionPopUpShowing = false
@@ -418,7 +431,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    @objc func showDeletionPopup(_ sender: UIButton) {
+    @objc func showOptionsPopup(_ sender: UIButton) {
         
         
         if (!self.postArray[sender.tag].isDeletionPopUpShowing){
