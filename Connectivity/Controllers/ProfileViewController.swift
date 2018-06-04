@@ -114,7 +114,14 @@ class ProfileViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     @objc func moreButtonPressed(_ sender: UIBarButtonItem) {
         guard let id = user.user_id else { return }
-        Router.showProfileOptions(userID: id, from: self)
+        
+        if connectionStatus == "ACCEPTED" {
+            Router.showProfileOptions(userID: id, from: self,hideRemoveOption: false)
+        }
+        else {
+            Router.showProfileOptions(userID: id, from: self,hideRemoveOption: true)
+        }
+    
         return
 //        if !reportViewHidden {
 //            reportView?.delegate = nil

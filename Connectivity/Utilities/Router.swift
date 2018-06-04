@@ -189,10 +189,11 @@ class Router: NSObject {
         controller.show(vc, sender: nil)
     }
     
-    static func showProfileOptions(userID: String, from controller: UIViewController)
+    static func showProfileOptions(userID: String, from controller: UIViewController, hideRemoveOption: Bool)
     {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: ProfileOptionsViewController.storyboardID) as! ProfileOptionsViewController
         vc.userID = userID
+        vc.hideRemoveOption = hideRemoveOption
         controller.present(vc, animated: false, completion: nil)
     }
     
