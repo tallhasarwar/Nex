@@ -10,14 +10,18 @@ import UIKit
 
 class ProfileOptionsViewController: UIViewController {
 
+    @IBOutlet weak var removeOptionView: DesignableView!
     static let storyboardID = "profileOptionsViewController"
     
     var userID = ""
+    var hideRemoveOption = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        removeOptionView.isHidden = hideRemoveOption
     }
 
     override func didReceiveMemoryWarning() {
