@@ -257,7 +257,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.optionsButton.isHidden = false
             cell.trailingSpaceToOptionsButton.constant = 0
             cell.optionsButton.tag = indexPath.row
-            cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+            cell.optionsButton.addTarget(self, action: #selector(self.showOptionsPopup(_:)), for: .touchUpInside)
 //        }
 //        else{
 //            cell.optionsButton.isHidden = true
@@ -346,7 +346,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    @objc func showDeletionPopup(_ sender: UIButton) {
+    @objc func showOptionsPopup(_ sender: UIButton) {
         
 
         if (!self.postArray[sender.tag].isDeletionPopUpShowing){
