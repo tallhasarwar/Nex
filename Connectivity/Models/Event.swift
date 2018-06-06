@@ -17,7 +17,7 @@ import UIKit
     @objc var end_date: NSDate?
     @objc var user_id: String?
     @objc var status: String?
-//    var image_path: String?
+    @objc var distance: String?
     @objc var eventImages = Images()
     @objc var organizerModel = User()
     @objc var created_at: NSDate?

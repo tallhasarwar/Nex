@@ -755,7 +755,7 @@ class WebClient: AFHTTPSessionManager {
                        failureBlock failure:@escaping (String) -> ()){
         
         if image != nil {
-            self.multipartPost(urlString: Constant.createPostURL, params: param as [String : AnyObject], image: image, imageName: "image_path", progressBlock: { (progress) in
+            self.multipartPost(urlString: Constant.createOrUpdatePostURL, params: param as [String : AnyObject], image: image, imageName: "image_path", progressBlock: { (progress) in
                 
             }, successBlock: { (response) in
                 print(response)
@@ -775,7 +775,7 @@ class WebClient: AFHTTPSessionManager {
             }
         }
         else{
-            self.postPath(urlString: Constant.createPostURL, params: param as [String : AnyObject], successBlock: { (response) in
+            self.postPath(urlString: Constant.createOrUpdatePostURL, params: param as [String : AnyObject], successBlock: { (response) in
                 print(response)
                 if (response[Constant.statusKey] as AnyObject).boolValue == true{
                     success(response[Constant.responseKey] as! [String : AnyObject])

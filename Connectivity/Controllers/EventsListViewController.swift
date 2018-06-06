@@ -107,9 +107,16 @@ class EventsListViewController: BaseViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: EventsListTableViewCell.identifier) as! EventsListTableViewCell
         let event = events[indexPath.row]
+        
+        if let radius = event.distance {
+            cell.radiusLabel.text = "(\(radius) away)"
+        }
+        else {
+            cell.radiusLabel.text = ""
+        }
+        
         cell.nameLabel.text = event.name
         cell.addressLabel.text = event.location
-        cell.radiusLabel.text = event.raduis
         cell.eventImageView.sd_setImage(with: URL(string: event.eventImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         if let startDate = event.start_date, let endDate = event.end_date{
             cell.timeLabel.text = UtilityManager.stringFromNSDateWithFormat(date: startDate, format: Constant.eventDateFormat) + " - " + UtilityManager.stringFromNSDateWithFormat(date: endDate, format: Constant.eventDateFormat)

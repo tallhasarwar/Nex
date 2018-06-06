@@ -25,6 +25,8 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var previewImage: UIImageView!
     @IBOutlet weak var bodyTextViewHeightConstraint: NSLayoutConstraint!
     
+    var postType : PostType = .newPost
+    var postObject = Post()
     
     var selectedImage: UIImage?
     var selectedLocation: CLLocationCoordinate2D?
@@ -49,14 +51,48 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bodyTextView.delegate = self
+        suggestionsTable = SuggestionTable(over: bodyTextView, in: self)
+        
+        switch postType {
+        case .newPost:
+            postButton.setTitle("Post", for: UIControlState.normal)
+        case .editPost:
+            postButton.setTitle("Save", for: UIControlState.normal)
+            
+            if let postContenct = postObject.content {
+                bodyTextView.text = postContenct
+                self.textViewDidChange(self.bodyTextView)
+            }
+            
+            if let images = postObject.postImages {
+                previewImage.sd_setImage(with: URL(string: (images.medium.url)), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: { (image, error, cacheType, url) in
+                    self.bodyTextView.layoutSubviews()
+                    self.imageButton.isHidden = false
+                    self.textViewDidChange(self.bodyTextView)
+                })
+            }
+            
+            if (postObject.location_name?.count) != 0 {
+                self.atLabel.isHidden = false
+                locationAddressLabel.isHidden = false
+                locationAddressLabel.text = postObject.location_name
+            }
+            selectedLocation = CLLocationCoordinate2D()
+            if let latitude = postObject.latitude {
+                selectedLocation?.latitude = (latitude as NSString).doubleValue
+            }
+            if let longitude = postObject.longitude {
+                selectedLocation?.longitude = (longitude as NSString).doubleValue
+            }
+        
+        }
+        
         let user = ApplicationManager.sharedInstance.user
         
         profileNameLabel.text = user.full_name
         profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: SDWebImageOptions.refreshCached, completed: nil)
         postButton.isEnabled = false
-        
-        bodyTextView.delegate = self
-        suggestionsTable = SuggestionTable(over: bodyTextView, in: self)
         
         setupLocation()
     }
@@ -111,38 +147,86 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func postButtonPressed(_ sender: Any) {
         
-        guard let current = currentLocation else {
-            UtilityManager.showErrorMessage(body: "Location not detected yet", in: self)
-            return
+        if postType == .editPost {
             
-        }
-        
-        if bodyTextView.text.count <= 0 {
-            UtilityManager.showErrorMessage(body: "Post can't be empty", in: self)
-            return
-        }
-        
-        var params = [String: AnyObject]()
-        
-        params["content"] = bodyTextView.text as AnyObject
-        if let location = selectedLocation {
-            params["location_name"] = locationAddressLabel.text as AnyObject
-            params["checkin_latitude"] = location.latitude as AnyObject
-            params["checkin_longitude"] = location.longitude as AnyObject
-        }
-        params["current_latitude"] = current.latitude as AnyObject
-        params["current_longitude"] = current.longitude as AnyObject
-        
-        SVProgressHUD.show()
-        RequestManager.createPost(param: params, image: selectedImage, successBlock: { (response) in
-            SVProgressHUD.showSuccess(withStatus: "Post created successfully")
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil, userInfo: nil)
-            self.navigationController?.dismiss(animated: true, completion: nil)
-        }) { (error) in
-            UtilityManager.showErrorMessage(body: error, in: self)
+            guard let current = currentLocation else {
+                UtilityManager.showErrorMessage(body: "Location not detected yet", in: self)
+                return
+                
+            }
             
+            if bodyTextView.text.count <= 0 {
+                UtilityManager.showErrorMessage(body: "Post can't be empty", in: self)
+                return
+            }
+            
+            var params = [String: AnyObject]()
+            
+            params["content"] = bodyTextView.text as AnyObject
+            params["post_id"] = postObject.id as AnyObject
+            
+            if (locationAddressLabel.text?.count)! > 0 {
+                if let location = selectedLocation {
+                    params["location_name"] = locationAddressLabel.text as AnyObject
+                    params["checkin_latitude"] = location.latitude as AnyObject
+                    params["checkin_longitude"] = location.longitude as AnyObject
+                }
+            }
+
+            params["current_latitude"] = current.latitude as AnyObject
+            params["current_longitude"] = current.longitude as AnyObject
+            
+            
+            SVProgressHUD.show()
+            
+            selectedImage? = previewImage.image!
+            RequestManager.createPost(param: params, image: selectedImage, successBlock: { (response) in
+                SVProgressHUD.showSuccess(withStatus: "Post updated successfully")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil, userInfo: nil)
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }) { (error) in
+                UtilityManager.showErrorMessage(body: error, in: self)
+                
+            }
         }
-        
+
+        else
+        {
+            
+            guard let current = currentLocation else {
+                UtilityManager.showErrorMessage(body: "Location not detected yet", in: self)
+                return
+                
+            }
+            
+            if bodyTextView.text.count <= 0 {
+                UtilityManager.showErrorMessage(body: "Post can't be empty", in: self)
+                return
+            }
+            
+            var params = [String: AnyObject]()
+            
+            params["content"] = bodyTextView.text as AnyObject
+            if let location = selectedLocation {
+                params["location_name"] = locationAddressLabel.text as AnyObject
+                params["checkin_latitude"] = location.latitude as AnyObject
+                params["checkin_longitude"] = location.longitude as AnyObject
+            }
+            params["current_latitude"] = current.latitude as AnyObject
+            params["current_longitude"] = current.longitude as AnyObject
+            
+            
+            
+            SVProgressHUD.show()
+            RequestManager.createPost(param: params, image: selectedImage, successBlock: { (response) in
+                SVProgressHUD.showSuccess(withStatus: "Post created successfully")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil, userInfo: nil)
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }) { (error) in
+                UtilityManager.showErrorMessage(body: error, in: self)
+                
+            }
+        }
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
