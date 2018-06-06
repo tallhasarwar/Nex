@@ -81,6 +81,12 @@ import UIKit
     @objc var isDeletionPopUpShowing = false
     @objc var easyTipView: EasyTipView?
     
+    @objc var number_of_comments: String?
+    @objc var number_of_likes: String?
+    
+    var commentCount : Int?
+    var likeCount : Int?
+    
     override init() {
         super.init()
     }
@@ -97,6 +103,15 @@ import UIKit
         if let profileImages = dictionary["profile_images"] as? [String: AnyObject] {
             self.profileImages = Images(dictionary: profileImages)
         }
+        
+        if let comments = number_of_comments {
+            commentCount = Int(comments)
+        }
+        
+        if let likes = number_of_likes {
+            likeCount = Int(likes)
+        }
+        
     }
     
 }

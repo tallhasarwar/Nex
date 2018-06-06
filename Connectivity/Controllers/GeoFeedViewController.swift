@@ -44,14 +44,14 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(setupLocation), for: UIControlEvents.valueChanged)
-
+        
         SVProgressHUD.show()
         whiteView.isHidden = false
         self.setupLocation()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.fetchFreshData), name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.checkForNotificationCount), name: NSNotification.Name(rawValue: "checkForPushNotificationCount"), object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.setupLocation), name: NSNotification.Name(rawValue: "refreshLocation"), object: nil)
+        //        NotificationCenter.default.addObserver(self, selector: #selector(self.setupLocation), name: NSNotification.Name(rawValue: "refreshLocation"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -158,7 +158,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
                 self.isLoading = false
                 
                 self.tableView.isScrollEnabled = true
-            
+                
                 self.tableView.reloadData()
                 
                 if count < self.postArray.count && count > 0 {
@@ -204,8 +204,26 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let post = postArray[indexPath.row]
         
+        //        if let images = post.postImages {
+        //            cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
+        //            let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
+        //            cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
+        //
+        //            cell.postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
+        //
+        //            })
+        //            cell.imageOverlayButton.tag = indexPath.row
+        //            cell.imageOverlayButton.addTarget(self, action: #selector(GeoFeedViewController.openImage(_:)), for: .touchUpInside)
+        //
+        //        }
+        //        else{
+        //            cell = tableView.dequeueReusableCell(withIdentifier: GeoFeedBasicTableViewCell.identifier) as! GeoFeedBasicTableViewCell
+        //        }
+        
+        
+        
+        cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
         if let images = post.postImages {
-            cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
             let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
             cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
             
@@ -217,7 +235,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         }
         else{
-            cell = tableView.dequeueReusableCell(withIdentifier: GeoFeedBasicTableViewCell.identifier) as! GeoFeedBasicTableViewCell
+            cell.postImageHeightConstraint.constant = CGFloat(0)
         }
         
         //        geoFeedImageTableViewCell
@@ -253,22 +271,32 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
         cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
         
-//        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
-            cell.optionsButton.isHidden = false
-            cell.trailingSpaceToOptionsButton.constant = 0
-            cell.optionsButton.tag = indexPath.row
-            cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
-//        }
-//        else{
-//            cell.optionsButton.isHidden = true
-//            cell.trailingSpaceToOptionsButton.constant = -22
-//        }
+        
+        cell.optionsButton.isHidden = false
+        cell.trailingSpaceToOptionsButton.constant = 0
+        cell.optionsButton.tag = indexPath.row
+        cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
         
         if let tipView = post.easyTipView {
             post.isDeletionPopUpShowing = false
             tipView.delegate = nil
             tipView.dismiss()
         }
+        let likeCount = post.likeCount ?? 0
+        let commentCount = post.commentCount ?? 0
+        var likeCommentCount = ""
+        likeCommentCount.append("\(likeCount) ")
+        likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
+        likeCommentCount.append("\(commentCount) ")
+        likeCommentCount.append(commentCount == 1 ? "Comment" : "Comments")
+        cell.likeCommentLabel.text = likeCommentCount
+        
+        cell.likeButton.tag = indexPath.row
+        cell.likeButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+        
+        cell.commentButton.tag = indexPath.row
+        cell.commentButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+        
         
         return cell
     }
@@ -300,13 +328,20 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let post = postArray[indexPath.row]
-        var totalHeight : CGFloat = 81
+        var totalHeight : CGFloat = 120
         if let images = post.postImages {
             totalHeight += CGFloat(Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0))
         }
         if let content = post.content {
             totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0)!], context: nil).size.height + 5
         }
+        if post.likeCount! > 0 || post.commentCount! > 0 {
+            totalHeight += 19
+        }
+        else{
+            totalHeight += 5
+        }
+        
         return totalHeight
     }
     
@@ -336,6 +371,14 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         Router.showProfileViewController(user: user, from: self)
     }
     
+    @objc func likePostButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    @objc func commentPostButtonPressed(_ sender: UIButton) {
+        
+    }
+    
     func removeToolTip(indexPath: Int) {
         for index in max(0,indexPath - 4) ... min(postArray.count-1,indexPath + 4) {
             if let tipView = postArray[index].easyTipView {
@@ -348,7 +391,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc func showDeletionPopup(_ sender: UIButton) {
         
-
+        
         if (!self.postArray[sender.tag].isDeletionPopUpShowing){
             let tipView : EasyTipView
             
@@ -360,7 +403,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
             tipView.show(animated: true, forView: sender, withinSuperview: sender.superview)
-//            EasyTipView.show(animated: true, forView: sender, withinSuperview: sender.superview, text: "Delete", delegate: self)
+            //            EasyTipView.show(animated: true, forView: sender, withinSuperview: sender.superview, text: "Delete", delegate: self)
             self.postArray[sender.tag].easyTipView = tipView
             self.postArray[sender.tag].isDeletionPopUpShowing = true
         }
@@ -372,30 +415,16 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
-
-//        UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete the post?", cancelButtonTitle: "OK", destructiveButtonTitle: nil, otherButtonTitles: nil) { (alert, action, index) in
-//            let post = self.postArray[sender.tag]
-//
-//            let params = ["post_id":post.id ?? "0"]
-//            SVProgressHUD.show()
-//            RequestManager.deletePosts(param: params, successBlock: { (response) in
-//                self.fetchFreshData()
-//            }) { (error) in
-//                UtilityManager.showErrorMessage(body: error, in: self)
-//            }
-//        }
-
-        
     }
     
     func easyTipViewDidDismiss(_ tipView: EasyTipView) {
         
-
+        
         if let buttonView = tipView.presentingView
         {
             self.postArray[buttonView.tag].isDeletionPopUpShowing = false
             let post = self.postArray[buttonView.tag]
-
+            
             let params = ["post_id":post.id ?? "0"]
             
             if self.postArray[buttonView.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
@@ -508,7 +537,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func emptyDataSet(_ scrollView: UIScrollView!, didTap view: UIView!) {
-
+        
         SVProgressHUD.show()
         self.setupLocation()
     }
