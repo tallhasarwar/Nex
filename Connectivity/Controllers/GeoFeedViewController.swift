@@ -296,6 +296,21 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         removeToolTip(indexPath: indexPath.row)
         
+        let post = postArray[indexPath.row]
+        
+        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+            
+            if post.content == "Has joined The Nex Network." {
+                return
+            }
+            
+            Router.editGeoPost(from: self,postObject: post)
+            
+        }
+//        else{
+//            tipView = EasyTipView(text: "     Report        ", delegate: self)
+//        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -399,17 +414,21 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             let params = ["post_id":post.id ?? "0"]
             
             if self.postArray[buttonView.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
-                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
-                    if alertAction.title == "Yes" {
-                        SVProgressHUD.show()
-                        RequestManager.deletePosts(param: params, successBlock: { (response) in
-                            self.fetchFreshData()
-                        }) { (error) in
-                            UtilityManager.showErrorMessage(body: error, in: self)
-                        }
-                    }
-                })
+                
             }
+            
+//            if self.postArray[buttonView.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
+//                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+//                    if alertAction.title == "Yes" {
+//                        SVProgressHUD.show()
+//                        RequestManager.deletePosts(param: params, successBlock: { (response) in
+//                            self.fetchFreshData()
+//                        }) { (error) in
+//                            UtilityManager.showErrorMessage(body: error, in: self)
+//                        }
+//                    }
+//                })
+//            }
             else{
                 UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
                     if alertAction.title == "Yes" {

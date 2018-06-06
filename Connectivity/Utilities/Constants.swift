@@ -21,6 +21,11 @@ enum PhotoSource {
     case camera
 }
 
+enum PostType {
+    case newPost
+    case editPost
+}
+
 enum ShowExtraView {
     case contacts
     case profile
@@ -72,7 +77,7 @@ public class Constant: NSObject {
     static let createEventURL = "create_event"
     static let getConnectionsURL = "get_all_my_connections"
     static let markNotificationsReadURL = "mark_all_notification_read"
-    static let createPostURL = "post"
+    static let createOrUpdatePostURL = "post"
     static let getPostURL = "posts_feed"
     static let deletePostURL = "delete_post"
     static let reportPostURL = "report_post"

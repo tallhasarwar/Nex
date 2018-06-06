@@ -137,6 +137,16 @@ class Router: NSObject {
         
     }
     
+    static func editGeoPost(from controller: UIViewController,postObject: Post) {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: GeoPostViewController.storyboardID)
+        let cvc = vc.childViewControllers.first as! GeoPostViewController
+        cvc.postObject = postObject
+        cvc.postType = .editPost
+        
+        controller.navigationController?.show(vc, sender: nil)
+        
+    }
+    
     static func showSettings(from controller: UIViewController) {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: SettingsViewController.storyboardID)
         controller.navigationController?.show(vc, sender: nil)
