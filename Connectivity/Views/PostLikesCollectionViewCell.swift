@@ -12,4 +12,5 @@ class PostLikesCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "postLikesCollectionViewCell"
     
+    @IBOutlet weak var profileImageView: DesignableImageView!
 }

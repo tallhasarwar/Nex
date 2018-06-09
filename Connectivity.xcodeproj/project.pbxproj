@@ -61,6 +61,7 @@
 		698280051FA867A000552A53 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280041FA867A000552A53 /* ChatViewController.swift */; };
 		698280071FA86BBA00552A53 /* ChatCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698280061FA86BBA00552A53 /* ChatCells.swift */; };
 		6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */; };
+		698C29DE20CC47EB00E1478A /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698C29DD20CC47EB00E1478A /* Comment.swift */; };
 		699045621FC5A14F00D5F937 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699045611FC5A14F00D5F937 /* ForgotPasswordViewController.swift */; };
 		6992240A202C728A00D67147 /* UIImage+IGRPhonoTweakExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699223E2202C728A00D67147 /* UIImage+IGRPhonoTweakExtension.swift */; };
 		6992240B202C728A00D67147 /* CGFloat+IGRPhonoTweakExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699223E3202C728A00D67147 /* CGFloat+IGRPhonoTweakExtension.swift */; };
@@ -264,6 +265,7 @@
 		698280041FA867A000552A53 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		698280061FA86BBA00552A53 /* ChatCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCells.swift; sourceTree = "<group>"; };
 		6988CE2F1F87BD03005994EB /* CheckinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckinTableViewCell.swift; sourceTree = "<group>"; };
+		698C29DD20CC47EB00E1478A /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		698F4C0F1FCFDDBE0012CD23 /* LocationPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocationPicker.framework; path = Carthage/Build/iOS/LocationPicker.framework; sourceTree = "<group>"; };
 		699045611FC5A14F00D5F937 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		699223E0202C728A00D67147 /* IGRPhotoTweaks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGRPhotoTweaks.h; sourceTree = "<group>"; };
@@ -787,6 +789,7 @@
 				694F73991FB4BED100007896 /* GooglePlace.swift */,
 				694A972B1FFCEB4400284023 /* Post.swift */,
 				691C83352020529F00503C03 /* Image.swift */,
+				698C29DD20CC47EB00E1478A /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1181,6 +1184,7 @@
 				69F4B7DF1F77DDD400BFB414 /* ProfileDetailTableViewCell.swift in Sources */,
 				69FCBA7E1F7D426E00F4696E /* LIALinkedInHttpClient.m in Sources */,
 				69B9CEDD1F72AED90070BD37 /* Constants.swift in Sources */,
+				698C29DE20CC47EB00E1478A /* Comment.swift in Sources */,
 				697665D52004DEFC00EFCC0A /* SuggestionTableViewCell.swift in Sources */,
 				6914C3031F82B1FD005BC1C0 /* MoreTableViewCell.swift in Sources */,
 				69B9CEFD1F72AED90070BD37 /* SpringTextField.swift in Sources */,

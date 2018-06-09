@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableViewDelegate, UITableViewDataSource {
+class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
 
     static let storyboardID = "postDetailViewController"
     
@@ -36,17 +36,56 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet var inputBar: UIView!
+    @IBOutlet weak var commentField: UITextField!
+    
     var post = Post()
     
     @objc var isDeletionPopUpShowing = false
     @objc var easyTipView: EasyTipView?
     
+    override var inputAccessoryView: UIView? {
+        get {
+            self.inputBar.frame.size.height = 60
+            self.inputBar.clipsToBounds = true
+            return self.inputBar
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool{
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var headerViewHeight = 293
+        setupUI()
+        
+        RequestManager.getPostDetail(param: ["post_id":post.id ?? ""], successBlock: { (response) in
+            print(response)
+            self.post = Post(dictionary: response)
+            self.tableView.reloadData()
+            self.likesCollectionView.reloadData()
+        }) { (error) in
+            
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        likesCollectionView.delegate = self
+        likesCollectionView.dataSource = self
+        
+    }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func setupUI() {
+        var headerViewHeight = 293
+        
         if let images = post.postImages {
             let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
             postImageHeightConstraint.constant = CGFloat(calculatedHeight)
@@ -98,7 +137,7 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
         
         optionsButton.isHidden = false
         trailingSpaceToOptionsButton.constant = 0
-
+        
         optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
         
         if let tipView = post.easyTipView {
@@ -117,6 +156,8 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
             }
         }
         
+        self.likeButton.isSelected = post.isSelfLiked ?? false
+        
         var likeCommentCount = ""
         
         if likeCount > 0 || commentCount > 0 {
@@ -124,24 +165,18 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
             likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
             likeCommentCount.append("\(commentCount) ")
             likeCommentCount.append(commentCount == 1 ? "Comment" : "Comments")
-            
+            likeCommentLabel.text = likeCommentCount
+        }
+        else {
+            likeCommentLabel.text = nil
         }
         
-        likeCommentLabel.text = likeCommentCount
+        
         
         likeButton.addTarget(self, action: #selector(self.likePostButtonPressed(_:)), for: .touchUpInside)
         
         commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
         tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: headerViewHeight)
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @objc func openImage(_ sender: UIButton) {
@@ -180,10 +215,11 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
         
         sender.isEnabled = false
         RequestManager.likePost(param: params, successBlock: { (response) in
-            sender.isSelected = !sender.isSelected
+            //            sender.isSelected = !sender.isSelected
             sender.isEnabled = true
+            self.post.isSelfLiked = !sender.isSelected
             self.post.likeCount = response["postCount"] as? Int ?? 0
-            self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.none)
+            self.tableView.reloadData()
         }) { (error) in
             
         }
@@ -232,6 +268,32 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
         
     }
     
+    @IBAction func postCommentButtonPressed(_ sender: Any) {
+        
+        guard let comment = self.commentField.text, comment != "" else {
+            UtilityManager.showErrorMessage(body: "Comment can't be empty", in: self)
+            return
+        }
+        
+        
+        var params = [String: AnyObject]()
+        
+        params["user_id"] = ApplicationManager.sharedInstance.user.user_id as AnyObject
+        params["post_id"] = self.post.id as AnyObject
+        params["comment"] = comment as AnyObject
+        
+        SVProgressHUD.show()
+        RequestManager.commentOnPost(param: params, successBlock: { (response) in
+            SVProgressHUD.dismiss()
+            self.commentField.text = ""
+            self.commentField.resignFirstResponder()
+        }) { (error) in
+            UtilityManager.showErrorMessage(body: error, in: self)
+        }
+        
+    }
+    
+    
     func easyTipViewDidDismiss(_ tipView: EasyTipView) {
         
         
@@ -274,11 +336,24 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return self.post.commentsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier) as! CommentTableViewCell
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return post.likesArray.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PostLikesCollectionViewCell.identifier, for: indexPath) as! PostLikesCollectionViewCell
+        
+        let user = post.likesArray[indexPath.item]
+        cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
+        
         return cell
     }
 

@@ -295,6 +295,8 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         }
         
+        cell.likeButton.isSelected = post.isSelfLiked ?? false
+        
         cell.likeCommentLabel.text = likeCommentCount
         
         cell.likeButton.tag = indexPath.row
@@ -390,8 +392,9 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         sender.isEnabled = false
         RequestManager.likePost(param: params, successBlock: { (response) in
-            sender.isSelected = !sender.isSelected
+//            sender.isSelected = !sender.isSelected
             sender.isEnabled = true
+            self.postArray[sender.tag].isSelfLiked = !sender.isSelected
             self.postArray[sender.tag].likeCount = response["postCount"] as? Int ?? 0
             self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.none)
         }) { (error) in
