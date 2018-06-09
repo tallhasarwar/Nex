@@ -26,6 +26,10 @@ class GeoFeedBasicTableViewCell: UITableViewCell {
     @IBOutlet weak var trailingSpaceToOptionsButton: NSLayoutConstraint!
     @IBOutlet weak var optionsButton: UIButton!
 
+    @IBOutlet weak var likeCommentLabel: UILabel!
+    @IBOutlet weak var likeCommentButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     
     
     override func awakeFromNib() {

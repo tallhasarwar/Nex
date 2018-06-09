@@ -932,6 +932,83 @@ class WebClient: AFHTTPSessionManager {
             failure(error)
         }
     }
+
+    func likePost(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                   failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: "like_post", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response as! [String: AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            //            failure(error.localizedDescription)
+            failure(error)
+        }
+    }
+    
+    func getPostDetail(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                  failureBlock failure:@escaping (String) -> ()){
+        self.getPath(urlString: "get_single_post", params: param as [String : AnyObject], successBlock: { (response) in
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func commentOnPost(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                  failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: "post_comment", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response as! [String: AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            //            failure(error.localizedDescription)
+            failure(error)
+        }
+    }
+
+    func removeUser (param: [String: Any],successBlock success:@escaping ([String: AnyObject])->(), failureBlock failure: @escaping (String) ->  ()){
+        self.postPath(urlString: "remove_from_connection", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true {
+                success([:])
+            }
+            else {
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message")as! String)
+                }
+                else {
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error)
+        }
+    }
     
     func removeUser (param: [String: Any],successBlock success:@escaping ([String: AnyObject])->(), failureBlock failure: @escaping (String) ->  ()){
         self.postPath(urlString: "remove_from_connection", params: param as [String : AnyObject], successBlock: { (response) in

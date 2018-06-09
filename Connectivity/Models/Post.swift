@@ -81,6 +81,17 @@ import UIKit
     @objc var isDeletionPopUpShowing = false
     @objc var easyTipView: EasyTipView?
     
+    @objc var number_of_comments: String?
+    @objc var number_of_likes: String?
+    
+    var commentCount : Int?
+    var likeCount : Int?
+    
+    var isSelfLiked: Bool?
+    
+    var commentsArray = [Comment]()
+    var likesArray = [User]()
+    
     override init() {
         super.init()
     }
@@ -97,6 +108,35 @@ import UIKit
         if let profileImages = dictionary["profile_images"] as? [String: AnyObject] {
             self.profileImages = Images(dictionary: profileImages)
         }
+        
+        if let comments = number_of_comments {
+            commentCount = Int(comments)
+        }
+        
+        if let likes = number_of_likes {
+            likeCount = Int(likes)
+        }
+        
+        self.likesArray.removeAll()
+        if let likeUsers = dictionary["likedUser"] as? [[String: AnyObject]] {
+            for user in likeUsers {
+                self.likesArray.append(User(dictionary: user))
+            }
+        }
+        
+        if let isLiked = dictionary["post_action"] as? String {
+            if isLiked == "like" {
+                self.isSelfLiked = true
+            }
+        }
+        
+        self.commentsArray.removeAll()
+        if let comments = dictionary["comments"] as? [[String: AnyObject]] {
+            for comment in comments {
+                self.commentsArray.append(Comment(dictionary: comment))
+            }
+        }
+        
     }
     
 }
