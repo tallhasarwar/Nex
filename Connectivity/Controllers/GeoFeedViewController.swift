@@ -284,18 +284,27 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         let likeCount = post.likeCount ?? 0
         let commentCount = post.commentCount ?? 0
+        
         var likeCommentCount = ""
-        likeCommentCount.append("\(likeCount) ")
-        likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
-        likeCommentCount.append("\(commentCount) ")
-        likeCommentCount.append(commentCount == 1 ? "Comment" : "Comments")
+        
+        if likeCount > 0 || commentCount > 0 {
+            likeCommentCount.append("\(likeCount) ")
+            likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
+            likeCommentCount.append("\(commentCount) ")
+            likeCommentCount.append(commentCount == 1 ? "Comment" : "Comments")
+            
+        }
+        
         cell.likeCommentLabel.text = likeCommentCount
         
         cell.likeButton.tag = indexPath.row
-        cell.likeButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+        cell.likeButton.addTarget(self, action: #selector(self.likePostButtonPressed(_:)), for: .touchUpInside)
         
         cell.commentButton.tag = indexPath.row
-        cell.commentButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+        cell.commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
+        
+        cell.likeCommentButton.tag = indexPath.row
+        cell.likeCommentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
         
         
         return cell
@@ -372,11 +381,28 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func likePostButtonPressed(_ sender: UIButton) {
+        let post = postArray[sender.tag]
+        
+        var params = [String: AnyObject]()
+        params["post_id"] = post.id as AnyObject
+        params["user_id"] = ApplicationManager.sharedInstance.user.user_id as AnyObject
+        params["post_action"] = !sender.isSelected ? "like" as AnyObject : "dislike" as AnyObject
+        
+        sender.isEnabled = false
+        RequestManager.likePost(param: params, successBlock: { (response) in
+            sender.isSelected = !sender.isSelected
+            sender.isEnabled = true
+            self.postArray[sender.tag].likeCount = response["postCount"] as? Int ?? 0
+            self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.none)
+        }) { (error) in
+            
+        }
         
     }
     
     @objc func commentPostButtonPressed(_ sender: UIButton) {
-        
+        let post = postArray[sender.tag]
+        Router.showPostDetails(post: post, from: self)
     }
     
     func removeToolTip(indexPath: Int) {

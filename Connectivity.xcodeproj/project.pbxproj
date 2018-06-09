@@ -36,6 +36,9 @@
 		6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */; };
 		6934E3C21F7A7251005BB2C9 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */; };
 		6949231E1FCC392E003CDA52 /* LocationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */; };
+		6949746120C92873008C0B6A /* PostDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949746020C92872008C0B6A /* PostDetailHeaderView.swift */; };
+		6949746320C92888008C0B6A /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949746220C92888008C0B6A /* CommentTableViewCell.swift */; };
+		6949746520C928A5008C0B6A /* PostLikesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6949746420C928A5008C0B6A /* PostLikesCollectionViewCell.swift */; };
 		694A972A1FFB8A6300284023 /* GeoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A97291FFB8A6300284023 /* GeoPostViewController.swift */; };
 		694A972C1FFCEB4400284023 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A972B1FFCEB4400284023 /* Post.swift */; };
 		694F739A1FB4BED100007896 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694F73991FB4BED100007896 /* GooglePlace.swift */; };
@@ -194,6 +197,7 @@
 		69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F4BB601F78065C00BFB414 /* WebClient.swift */; };
 		69F4BB641F7807F600BFB414 /* SwiftValidator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69F4BB631F7807F600BFB414 /* SwiftValidator.framework */; };
 		69F9AAF21F8A92DC00DC1F2E /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F9AAF11F8A92DC00DC1F2E /* LocationDetailsViewController.swift */; };
+		69FC082120C7E867000428D4 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FC082020C7E867000428D4 /* PostDetailViewController.swift */; };
 		69FCBA721F7D1FCF00F4696E /* UIAlertController+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */; };
 		69FCBA7C1F7D426E00F4696E /* LIALinkedInApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA751F7D426D00F4696E /* LIALinkedInApplication.m */; };
 		69FCBA7D1F7D426E00F4696E /* LIALinkedInAuthorizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FCBA771F7D426D00F4696E /* LIALinkedInAuthorizationViewController.m */; };
@@ -234,6 +238,9 @@
 		6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6934E3C11F7A7251005BB2C9 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		6949231D1FCC392E003CDA52 /* LocationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectionViewController.swift; sourceTree = "<group>"; };
+		6949746020C92872008C0B6A /* PostDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailHeaderView.swift; sourceTree = "<group>"; };
+		6949746220C92888008C0B6A /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		6949746420C928A5008C0B6A /* PostLikesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostLikesCollectionViewCell.swift; sourceTree = "<group>"; };
 		694A97291FFB8A6300284023 /* GeoPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoPostViewController.swift; sourceTree = "<group>"; };
 		694A972B1FFCEB4400284023 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		694F73991FB4BED100007896 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
@@ -400,6 +407,7 @@
 		69F4BB601F78065C00BFB414 /* WebClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebClient.swift; sourceTree = "<group>"; };
 		69F4BB631F7807F600BFB414 /* SwiftValidator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftValidator.framework; path = Carthage/Build/iOS/SwiftValidator.framework; sourceTree = SOURCE_ROOT; };
 		69F9AAF11F8A92DC00DC1F2E /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
+		69FC082020C7E867000428D4 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		69FCBA701F7D1FCF00F4696E /* UIAlertController+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Blocks.m"; sourceTree = "<group>"; };
 		69FCBA711F7D1FCF00F4696E /* UIAlertController+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Blocks.h"; sourceTree = "<group>"; };
 		69FCBA741F7D426D00F4696E /* LIALinkedInApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LIALinkedInApplication.h; sourceTree = "<group>"; };
@@ -679,6 +687,9 @@
 				697665CF2004DCD700EFCC0A /* SuggestionTable.swift */,
 				697665D12004DCE700EFCC0A /* SuggestionTable.xib */,
 				697665D32004DEFC00EFCC0A /* SuggestionTableViewCell.swift */,
+				6949746020C92872008C0B6A /* PostDetailHeaderView.swift */,
+				6949746220C92888008C0B6A /* CommentTableViewCell.swift */,
+				6949746420C928A5008C0B6A /* PostLikesCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -811,6 +822,7 @@
 				69F290C11FFE9C2B005E97EE /* FiltersViewController.swift */,
 				691C0826209B0F7F006FAE88 /* EULAViewController.swift */,
 				691C082820A0BA89006FAE88 /* ProfileOptionsViewController.swift */,
+				69FC082020C7E867000428D4 /* PostDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1084,6 +1096,7 @@
 				69B9CEE11F72AED90070BD37 /* LoadableFromXibView.swift in Sources */,
 				69B9CEF11F72AED90070BD37 /* ImageLoader.swift in Sources */,
 				69B9CEDC1F72AED90070BD37 /* ApplicationManager.swift in Sources */,
+				69FC082120C7E867000428D4 /* PostDetailViewController.swift in Sources */,
 				2CB4651520452AB200917D37 /* RegexParser.swift in Sources */,
 				698280031FA75E1900552A53 /* ConversationListViewController.swift in Sources */,
 				69B9CEE61F72AED90070BD37 /* AsyncButton.swift in Sources */,
@@ -1102,6 +1115,7 @@
 				698280051FA867A000552A53 /* ChatViewController.swift in Sources */,
 				69F4BB611F78065C00BFB414 /* WebClient.swift in Sources */,
 				691670981F93DDA200C39034 /* NotificationsTableViewCell.swift in Sources */,
+				6949746120C92873008C0B6A /* PostDetailHeaderView.swift in Sources */,
 				69304FBA1FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift in Sources */,
 				691D63831FB1CD5500A96CC5 /* FloatLabelTextView.swift in Sources */,
 				6992241E202C728A00D67147 /* IGRCropMaskView.swift in Sources */,
@@ -1146,6 +1160,7 @@
 				69F4B7E51F77E19800BFB414 /* BaseEntity.m in Sources */,
 				69922411202C728A00D67147 /* IGRPhotoTweakView+Angle.swift in Sources */,
 				69B9CF031F72AED90070BD37 /* Styles.swift in Sources */,
+				6949746320C92888008C0B6A /* CommentTableViewCell.swift in Sources */,
 				69922416202C728A00D67147 /* IGRPhotoTweakView+AspectRatio.swift in Sources */,
 				69922413202C728A00D67147 /* IGRPhotoScrollView.swift in Sources */,
 				6988CE301F87BD03005994EB /* CheckinTableViewCell.swift in Sources */,
@@ -1195,6 +1210,7 @@
 				6992242C202C850100D67147 /* ImageEditViewController.swift in Sources */,
 				6992241F202C728A00D67147 /* IGRCropCornerLine.swift in Sources */,
 				69DF058F20445127009CC4E2 /* UIKitExtensions.swift in Sources */,
+				6949746520C928A5008C0B6A /* PostLikesCollectionViewCell.swift in Sources */,
 				2CB4651320452AB200917D37 /* ActiveLabel.swift in Sources */,
 				69922420202C728A00D67147 /* IGRCropGridLine.swift in Sources */,
 				695FDA8E1FAB2974004B6735 /* EventsListTableViewCell.swift in Sources */,
