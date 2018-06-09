@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
 
     static let storyboardID = "postDetailViewController"
     
@@ -61,20 +61,21 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
         
         setupUI()
         
-        RequestManager.getPostDetail(param: ["post_id":post.id ?? ""], successBlock: { (response) in
-            print(response)
-            self.post = Post(dictionary: response)
-            self.tableView.reloadData()
-            self.likesCollectionView.reloadData()
-        }) { (error) in
-            
-        }
+        fetchPostDetails()
         
         tableView.delegate = self
         tableView.dataSource = self
         
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 70
+        
+        tableView.separatorStyle = .none
+        tableView.separatorColor = .clear
+        
         likesCollectionView.delegate = self
         likesCollectionView.dataSource = self
+        
+        
         
     }
 
@@ -177,6 +178,17 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
         
         commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
         tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: headerViewHeight)
+    }
+    
+    func fetchPostDetails() {
+        RequestManager.getPostDetail(param: ["post_id":post.id ?? ""], successBlock: { (response) in
+            print(response)
+            self.post = Post(dictionary: response)
+            self.tableView.reloadData()
+            self.likesCollectionView.reloadData()
+        }) { (error) in
+            
+        }
     }
     
     @objc func openImage(_ sender: UIButton) {
@@ -287,6 +299,7 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
             SVProgressHUD.dismiss()
             self.commentField.text = ""
             self.commentField.resignFirstResponder()
+            self.fetchPostDetails()
         }) { (error) in
             UtilityManager.showErrorMessage(body: error, in: self)
         }
@@ -341,7 +354,21 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier) as! CommentTableViewCell
+        
+        let comment = post.commentsArray[indexPath.row]
+        cell.nameLabel.text = comment.full_name
+        cell.profileImageView.sd_setImage(with: URL(string: comment.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
+        cell.headlineLabel.text = comment.headline
+        cell.timeAgoLabel.text = UtilityManager.timeAgoSinceDate(date: comment.created_at!, numericDates: true, short: true)
+        cell.commentLabel.text = comment.comment
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = User()
+        user.user_id = post.commentsArray[indexPath.row].user_id
+        Router.showProfileViewController(user: user, from: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -355,6 +382,10 @@ class PostDetailViewController: UIViewController, EasyTipViewDelegate, UITableVi
         cell.profileImageView.sd_setImage(with: URL(string: user.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        Router.showLikeDetails(likes: post.likesArray, from: self)
     }
 
 }

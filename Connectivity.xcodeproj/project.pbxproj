@@ -31,6 +31,7 @@
 		691D637F1FB1B76C00A96CC5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D637E1FB1B76C00A96CC5 /* BaseViewController.swift */; };
 		691D63831FB1CD5500A96CC5 /* FloatLabelTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D63811FB1CD5500A96CC5 /* FloatLabelTextView.swift */; };
 		691D63841FB1CD5500A96CC5 /* FloatLabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D63821FB1CD5500A96CC5 /* FloatLabelTextField.swift */; };
+		6927A36020CC515E00821243 /* LikesDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6927A35F20CC515E00821243 /* LikesDetailViewController.swift */; };
 		69304FB81FF8C42400DDC3FF /* GeoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69304FB71FF8C42400DDC3FF /* GeoFeedViewController.swift */; };
 		69304FBA1FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69304FB91FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift */; };
 		6932B3481F7A7C340026CCDA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */; };
@@ -234,6 +235,7 @@
 		691D637E1FB1B76C00A96CC5 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		691D63811FB1CD5500A96CC5 /* FloatLabelTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextView.swift; sourceTree = "<group>"; };
 		691D63821FB1CD5500A96CC5 /* FloatLabelTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabelTextField.swift; sourceTree = "<group>"; };
+		6927A35F20CC515E00821243 /* LikesDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesDetailViewController.swift; sourceTree = "<group>"; };
 		69304FB71FF8C42400DDC3FF /* GeoFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoFeedViewController.swift; sourceTree = "<group>"; };
 		69304FB91FF8C53100DDC3FF /* GeoFeedBasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoFeedBasicTableViewCell.swift; sourceTree = "<group>"; };
 		6932B3471F7A7C340026CCDA /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -826,6 +828,7 @@
 				691C0826209B0F7F006FAE88 /* EULAViewController.swift */,
 				691C082820A0BA89006FAE88 /* ProfileOptionsViewController.swift */,
 				69FC082020C7E867000428D4 /* PostDetailViewController.swift */,
+				6927A35F20CC515E00821243 /* LikesDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1196,6 +1199,7 @@
 				69922444202CD3FC00D67147 /* InfoLabel.swift in Sources */,
 				69B9CEF81F72AED90070BD37 /* Spring.swift in Sources */,
 				69B9CEE91F72AED90070BD37 /* BlurView.swift in Sources */,
+				6927A36020CC515E00821243 /* LikesDetailViewController.swift in Sources */,
 				69B9CEF41F72AED90070BD37 /* LoadingView.swift in Sources */,
 				6992240B202C728A00D67147 /* CGFloat+IGRPhonoTweakExtension.swift in Sources */,
 				2CB4651220452AB200917D37 /* ActiveBuilder.swift in Sources */,

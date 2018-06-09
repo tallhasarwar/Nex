@@ -203,6 +203,13 @@ class Router: NSObject {
         controller.navigationController?.show(vc, sender: nil)
     }
     
+    static func showLikeDetails(likes: [User], from controller: UIViewController)
+    {
+        let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: LikesDetailViewController.storyboardID) as! LikesDetailViewController
+        vc.likesArray = likes
+        controller.navigationController?.show(vc, sender: nil)
+    }
+    
     
     
 }

@@ -12,6 +12,7 @@ class LocationDetailTableViewCell: UITableViewCell {
 
     static let identifier = "locationDetailTableViewCell"
     static let eventIdentifier = "eventDetailTableViewCell"
+    static let likesIdentified = "likesTableViewCell"
     
     @IBOutlet weak var profileImageView: DesignableImageView!
     @IBOutlet weak var nameLabel: UILabel!

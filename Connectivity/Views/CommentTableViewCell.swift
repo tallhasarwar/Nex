@@ -12,6 +12,13 @@ class CommentTableViewCell: UITableViewCell {
 
     static let identifier = "commentTableViewCell"
     
+    
+    @IBOutlet weak var profileImageView: DesignableImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var timeAgoLabel: UILabel!
+    @IBOutlet weak var headlineLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
