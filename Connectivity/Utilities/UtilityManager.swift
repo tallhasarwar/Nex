@@ -95,7 +95,7 @@ class UtilityManager: NSObject {
     }
     
     
-    static func timeAgoSinceDate(date:NSDate, numericDates:Bool) -> String {
+    static func timeAgoSinceDate(date:NSDate, numericDates:Bool, short: Bool = false) -> String {
         
         let calendar = NSCalendar.current
         let unitFlags : Set<Calendar.Component> = [.minute, .hour, .day, .weekOfYear, .month, .year, .second]
@@ -126,46 +126,46 @@ class UtilityManager: NSObject {
                 return "Last year"
             }
         } else if (month >= 2) {
-            return "\(month) months ago"
+            return short ? "1 m" : "\(month) months ago"
         } else if (month >= 1){
             if (numericDates){
-                return "1 month ago"
+                return short ? "1 m" : "1 month ago"
             } else {
-                return "Last month"
+                return short ? "1 m" : "Last month"
             }
         }
 //        else if (weekOfYear >= 2) {
 //            return "\(weekOfYear) weeks ago"
 //        }
         else if (weekOfYear >= 1){
-            return "\(day + (weekOfYear * 7)) days ago"
+            return short ? "\(day + (weekOfYear * 7)) d" : "\(day + (weekOfYear * 7)) days ago"
         }
         else if (day >= 2) {
-            return "\(day) days ago"
+            return short ? "\(day) d" : "\(day) days ago"
         } else if (day >= 1){
             if (numericDates){
-                return "1 day ago"
+                return short ? "1 d" : "1 day ago"
             } else {
-                return "Yesterday"
+                return short ? "1 d" : "Yesterday"
             }
         } else if (hour >= 2) {
-            return "\(hour) hours ago"
+            return short ? "\(hour) h" :  "\(hour) hours ago"
         } else if (hour >= 1){
             if (numericDates){
-                return "1 hour ago"
+                return short ? "1 h" :  "1 hour ago"
             } else {
-                return "An hour ago"
+                return short ? "1 h" : "An hour ago"
             }
         } else if (minute >= 2) {
-            return "\(minute) minutes ago"
+            return short ? "\(minute) m" :  "\(minute) minutes ago"
         } else if (minute >= 1){
             if (numericDates){
-                return "1 minute ago"
+                return short ? "1 m" : "1 minute ago"
             } else {
-                return "A minute ago"
+                return short ? "1 m" : "A minute ago"
             }
         } else if (second >= 3) {
-            return "\(second) seconds ago"
+            return short ? "\(second) s" : "\(second) seconds ago"
         } else {
             return "Just now"
         }

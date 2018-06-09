@@ -11,7 +11,7 @@ import CameraViewController
 import Photos
 
 class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LocationSelectionDelegate, UITextViewDelegate, SuggestionTableDelegate {
-
+    
     static let storyboardID = "geoPostViewController"
     
     @IBOutlet weak var profileImageView: DesignableImageView!
@@ -48,7 +48,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let user = ApplicationManager.sharedInstance.user
         
         profileNameLabel.text = user.full_name
@@ -65,7 +65,7 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewWillAppear(animated)
         bodyTextView.becomeFirstResponder()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -90,17 +90,17 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func cameraButtonPressed(_ sender: Any) {
         showImagePickerAlert()
         
-//        let croppingParams = CroppingParameters.init(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 100, height: 100))
-//
-//        let cameraController = CameraViewController.init(croppingParameters: croppingParams, allowsLibraryAccess: true, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: true) { [weak self](image, asset) in
-//            if let image = image {
-//                self?.selectedImage = Toucan(image: image).resizeByClipping(CGSize(width: 700, height: 700)).image!
-//                self?.imageButton.setImage(self?.selectedImage, for: .normal)
-//            }
-//
-//            self?.dismiss(animated: true, completion: nil)
-//        }
-//        self.present(cameraController, animated: true, completion: nil)
+        //        let croppingParams = CroppingParameters.init(isEnabled: true, allowResizing: true, allowMoving: true, minimumSize: CGSize(width: 100, height: 100))
+        //
+        //        let cameraController = CameraViewController.init(croppingParameters: croppingParams, allowsLibraryAccess: true, allowsSwapCameraOrientation: true, allowVolumeButtonCapture: true) { [weak self](image, asset) in
+        //            if let image = image {
+        //                self?.selectedImage = Toucan(image: image).resizeByClipping(CGSize(width: 700, height: 700)).image!
+        //                self?.imageButton.setImage(self?.selectedImage, for: .normal)
+        //            }
+        //
+        //            self?.dismiss(animated: true, completion: nil)
+        //        }
+        //        self.present(cameraController, animated: true, completion: nil)
     }
     
     @IBAction func locationButtonPressed(_ sender: Any) {
@@ -132,8 +132,6 @@ class GeoPostViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         params["current_latitude"] = current.latitude as AnyObject
         params["current_longitude"] = current.longitude as AnyObject
-        
-        
         
         SVProgressHUD.show()
         RequestManager.createPost(param: params, image: selectedImage, successBlock: { (response) in
@@ -383,5 +381,5 @@ extension GeoPostViewController: CLLocationManagerDelegate {
             self.view.endEditing(true)
         }
     }
-
+    
 }

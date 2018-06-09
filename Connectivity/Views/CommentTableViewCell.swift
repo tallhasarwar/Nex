@@ -1,25 +1,24 @@
 //
-//  LocationDetailTableViewCell.swift
+//  CommentTableViewCell.swift
 //  Connectivity
 //
-//  Created by Danial Zahid on 16/10/2017.
-//  Copyright © 2017 Danial Zahid. All rights reserved.
+//  Created by Danial Zahid on 6/7/18.
+//  Copyright © 2018 Danial Zahid. All rights reserved.
 //
 
 import UIKit
 
-class LocationDetailTableViewCell: UITableViewCell {
+class CommentTableViewCell: UITableViewCell {
 
-    static let identifier = "locationDetailTableViewCell"
-    static let eventIdentifier = "eventDetailTableViewCell"
-    static let likesIdentified = "likesTableViewCell"
+    static let identifier = "commentTableViewCell"
+    
     
     @IBOutlet weak var profileImageView: DesignableImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var commentLabel: UILabel!
+    @IBOutlet weak var timeAgoLabel: UILabel!
     @IBOutlet weak var headlineLabel: UILabel!
-    @IBOutlet weak var activationTimeLabel: UILabel!
-    @IBOutlet weak var taglineLabel: UILabel!
-    
+    @IBOutlet weak var optionsButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
