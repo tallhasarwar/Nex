@@ -2127,11 +2127,19 @@ Cg
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="3 d" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="r0J-A7-5iE">
-                                                    <rect key="frame" x="347" y="10" width="18.5" height="17"/>
+                                                    <rect key="frame" x="321.5" y="10" width="18.5" height="17"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                     <color key="textColor" red="0.42999999999999999" green="0.42999999999999999" blue="0.42999999999999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cR8-dn-dij">
+                                                    <rect key="frame" x="345" y="0.0" width="30" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="30" id="0WR-gk-pCg"/>
+                                                        <constraint firstAttribute="height" constant="32" id="YV0-Lf-xS7"/>
+                                                    </constraints>
+                                                    <state key="normal" image="feed-options-icon"/>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crf-0g-7tu">
                                                     <rect key="frame" x="53" y="7" width="43" height="20"/>
                                                     <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="14"/>
@@ -2149,13 +2157,15 @@ Cg
                                                 <constraint firstItem="T2g-DH-6fd" firstAttribute="top" secondItem="52b-2P-Ken" secondAttribute="bottom" constant="6" id="3ED-2D-1eg"/>
                                                 <constraint firstAttribute="bottom" secondItem="T2g-DH-6fd" secondAttribute="bottom" constant="5.5" id="3vi-Se-28s"/>
                                                 <constraint firstAttribute="trailing" secondItem="T2g-DH-6fd" secondAttribute="trailing" constant="5" id="67G-Ym-QeB"/>
+                                                <constraint firstAttribute="trailing" secondItem="cR8-dn-dij" secondAttribute="trailing" id="69P-J8-54R"/>
                                                 <constraint firstItem="52b-2P-Ken" firstAttribute="top" secondItem="crf-0g-7tu" secondAttribute="bottom" id="81n-j1-tbo"/>
+                                                <constraint firstItem="cR8-dn-dij" firstAttribute="leading" secondItem="r0J-A7-5iE" secondAttribute="trailing" constant="5" id="Ayh-oG-Nr8"/>
                                                 <constraint firstItem="T2g-DH-6fd" firstAttribute="leading" secondItem="piX-Qc-piv" secondAttribute="leading" constant="53" id="BCA-zX-ERY"/>
                                                 <constraint firstItem="r0J-A7-5iE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="crf-0g-7tu" secondAttribute="trailing" constant="5" id="DjL-1F-AdP"/>
                                                 <constraint firstItem="r0J-A7-5iE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="52b-2P-Ken" secondAttribute="trailing" constant="5" id="NwE-Jr-zWd"/>
+                                                <constraint firstItem="cR8-dn-dij" firstAttribute="top" secondItem="piX-Qc-piv" secondAttribute="top" id="Ss4-mS-kac"/>
                                                 <constraint firstItem="crf-0g-7tu" firstAttribute="leading" secondItem="5IQ-9P-J3P" secondAttribute="trailing" constant="8" id="Tgx-Yj-7im"/>
                                                 <constraint firstItem="5IQ-9P-J3P" firstAttribute="top" secondItem="piX-Qc-piv" secondAttribute="top" constant="7" id="cNB-Dt-Se5"/>
-                                                <constraint firstAttribute="trailing" secondItem="r0J-A7-5iE" secondAttribute="trailing" constant="10" id="dGv-fF-zm3"/>
                                                 <constraint firstItem="crf-0g-7tu" firstAttribute="top" secondItem="5IQ-9P-J3P" secondAttribute="top" id="kR8-Cv-TAJ"/>
                                                 <constraint firstItem="r0J-A7-5iE" firstAttribute="top" secondItem="piX-Qc-piv" secondAttribute="top" constant="10" id="nOg-QT-oTH"/>
                                                 <constraint firstItem="52b-2P-Ken" firstAttribute="leading" secondItem="crf-0g-7tu" secondAttribute="leading" id="rf5-B5-yAD"/>
@@ -2166,6 +2176,7 @@ Cg
                                             <outlet property="commentLabel" destination="T2g-DH-6fd" id="rR5-hC-sOa"/>
                                             <outlet property="headlineLabel" destination="52b-2P-Ken" id="VtZ-Lb-tUA"/>
                                             <outlet property="nameLabel" destination="crf-0g-7tu" id="LC9-Hj-Lal"/>
+                                            <outlet property="optionsButton" destination="cR8-dn-dij" id="FAz-HJ-kAu"/>
                                             <outlet property="profileImageView" destination="5IQ-9P-J3P" id="G3o-7v-hHm"/>
                                             <outlet property="timeAgoLabel" destination="r0J-A7-5iE" id="fbU-KK-AHW"/>
                                         </connections>

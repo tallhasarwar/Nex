@@ -361,6 +361,8 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         cell.headlineLabel.text = comment.headline
         cell.timeAgoLabel.text = UtilityManager.timeAgoSinceDate(date: comment.created_at!, numericDates: true, short: true)
         cell.commentLabel.text = comment.comment
+        cell.optionsButton.tag = indexPath.row
+        cell.optionsButton.addTarget(self, action: #selector(self.showCommentDeletionPopup(_:)), for: .touchUpInside)
         
         return cell
     }
@@ -386,6 +388,12 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         Router.showLikeDetails(likes: post.likesArray, from: self)
+    }
+    
+    @objc func showCommentDeletionPopup(_ sender: UIButton) {
+        
+        //For Talha
+        
     }
 
 }
