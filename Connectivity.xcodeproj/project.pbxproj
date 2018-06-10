@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		155C70FF20CD51A500CF079B /* Popover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155C70FE20CD51A500CF079B /* Popover.swift */; };
 		2AE131A45EE8E0E2019A7F24 /* libPods-Connectivity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 263676211012B71CA50D39F8 /* libPods-Connectivity.a */; };
 		2CA248B9204528660073FCA6 /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA248B8204528660073FCA6 /* TermsAndConditionsViewController.swift */; };
 		2CB4651220452AB200917D37 /* ActiveBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4650C20452AB200917D37 /* ActiveBuilder.swift */; };
@@ -209,6 +210,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		155C70FE20CD51A500CF079B /* Popover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popover.swift; sourceTree = "<group>"; };
 		263676211012B71CA50D39F8 /* libPods-Connectivity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Connectivity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CA248B8204528660073FCA6 /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
 		2CB4650C20452AB200917D37 /* ActiveBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveBuilder.swift; sourceTree = "<group>"; };
@@ -701,6 +703,7 @@
 		69B9CE931F72AED90070BD37 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				155C70FE20CD51A500CF079B /* Popover.swift */,
 				69DF058B20445127009CC4E2 /* EasyTipView */,
 				6992242D202CD3FB00D67147 /* Lightbox */,
 				699223DF202C728A00D67147 /* IGRPhotoTweaks */,
@@ -1108,6 +1111,7 @@
 				69B9CEE61F72AED90070BD37 /* AsyncButton.swift in Sources */,
 				69922427202C728A00D67147 /* IGRPhotoTweakViewController+AspectRatio.swift in Sources */,
 				69922421202C728A00D67147 /* IGRCropCornerView.swift in Sources */,
+				155C70FF20CD51A500CF079B /* Popover.swift in Sources */,
 				69B9CF021F72AED90070BD37 /* UnwindSegue.swift in Sources */,
 				6992241C202C728A00D67147 /* IGRCropView+AspectRatio.swift in Sources */,
 				69F4B7D91F77D44F00BFB414 /* MainTabBarController.swift in Sources */,

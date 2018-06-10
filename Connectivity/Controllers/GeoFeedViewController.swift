@@ -26,6 +26,8 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     let refreshControl = UIRefreshControl()
     var isLoading = false
     
+    var userOptionsArray = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -195,141 +197,177 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - tableview methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postArray.count
+        
+        if tableView==self.tableView {
+            return postArray.count
+        }
+        else {
+            return userOptionsArray.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell : GeoFeedBasicTableViewCell!
-        
-        let post = postArray[indexPath.row]
-        
-        //        if let images = post.postImages {
-        //            cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
-        //            let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
-        //            cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
-        //
-        //            cell.postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
-        //
-        //            })
-        //            cell.imageOverlayButton.tag = indexPath.row
-        //            cell.imageOverlayButton.addTarget(self, action: #selector(GeoFeedViewController.openImage(_:)), for: .touchUpInside)
-        //
-        //        }
-        //        else{
-        //            cell = tableView.dequeueReusableCell(withIdentifier: GeoFeedBasicTableViewCell.identifier) as! GeoFeedBasicTableViewCell
-        //        }
-        
-        
-        
-        cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
-        if let images = post.postImages {
-            let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
-            cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
+        if tableView == self.tableView {
             
-            cell.postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
+            let cell : GeoFeedBasicTableViewCell!
+            
+            let post = postArray[indexPath.row]
+            
+            //        if let images = post.postImages {
+            //            cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
+            //            let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
+            //            cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
+            //
+            //            cell.postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
+            //
+            //            })
+            //            cell.imageOverlayButton.tag = indexPath.row
+            //            cell.imageOverlayButton.addTarget(self, action: #selector(GeoFeedViewController.openImage(_:)), for: .touchUpInside)
+            //
+            //        }
+            //        else{
+            //            cell = tableView.dequeueReusableCell(withIdentifier: GeoFeedBasicTableViewCell.identifier) as! GeoFeedBasicTableViewCell
+            //        }
+            
+            
+            
+            cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
+            if let images = post.postImages {
+                let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
+                cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
                 
-            })
-            cell.imageOverlayButton.tag = indexPath.row
-            cell.imageOverlayButton.addTarget(self, action: #selector(GeoFeedViewController.openImage(_:)), for: .touchUpInside)
+                cell.postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
+                    
+                })
+                cell.imageOverlayButton.tag = indexPath.row
+                cell.imageOverlayButton.addTarget(self, action: #selector(GeoFeedViewController.openImage(_:)), for: .touchUpInside)
+                
+            }
+            else{
+                cell.postImageHeightConstraint.constant = CGFloat(0)
+            }
             
-        }
-        else{
-            cell.postImageHeightConstraint.constant = CGFloat(0)
-        }
-        
-        //        geoFeedImageTableViewCell
-        
-        cell.bodyLabel.text = post.content
-        if post.location_name != nil && post.location_name?.count ?? 0 > 0 {
-            cell.atLabel.isHidden = false
-            cell.atLabel.text = "at"
-            cell.locationButton.isHidden = false
-            cell.locationButton.setTitle(post.location_name, for: .normal)
-            cell.radiusLabelCheckinConstraint.isActive = false
-        }
-        else{
-            cell.atLabel.isHidden = true
-            cell.locationButton.isHidden = true
-            cell.atLabel.text = nil
-            cell.radiusLabelCheckinConstraint.isActive = true
-            cell.layoutSubviews()
-            cell.radiusLabel.layoutIfNeeded()
+            //        geoFeedImageTableViewCell
             
-        }
-        
-        if let radius = post.distance {
-            cell.radiusLabel.text = "(\(radius) away)"
-        }
-        else {
-            cell.radiusLabel.text = ""
-        }
-        
-        cell.profileNameButton.setTitle(post.full_name, for: .normal)
-        cell.profileNameButton.addTarget(self, action: #selector(self.showProfile(_:)), for: .touchUpInside)
-        cell.profileNameButton.tag = indexPath.row
-        cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
-        cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
-        
-
-        
-//        cell.optionsButton.isHidden = false
-//        cell.trailingSpaceToOptionsButton.constant = 0
-//        cell.optionsButton.tag = indexPath.row
-//        cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
-
-//        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+            cell.bodyLabel.text = post.content
+            if post.location_name != nil && post.location_name?.count ?? 0 > 0 {
+                cell.atLabel.isHidden = false
+                cell.atLabel.text = "at"
+                cell.locationButton.isHidden = false
+                cell.locationButton.setTitle(post.location_name, for: .normal)
+                cell.radiusLabelCheckinConstraint.isActive = false
+            }
+            else{
+                cell.atLabel.isHidden = true
+                cell.locationButton.isHidden = true
+                cell.atLabel.text = nil
+                cell.radiusLabelCheckinConstraint.isActive = true
+                cell.layoutSubviews()
+                cell.radiusLabel.layoutIfNeeded()
+                
+            }
+            
+            if let radius = post.distance {
+                cell.radiusLabel.text = "(\(radius) away)"
+            }
+            else {
+                cell.radiusLabel.text = ""
+            }
+            
+            cell.profileNameButton.setTitle(post.full_name, for: .normal)
+            cell.profileNameButton.addTarget(self, action: #selector(self.showProfile(_:)), for: .touchUpInside)
+            cell.profileNameButton.tag = indexPath.row
+            cell.profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
+            cell.timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
+            
+            
+            
+            //        cell.optionsButton.isHidden = false
+            //        cell.trailingSpaceToOptionsButton.constant = 0
+            //        cell.optionsButton.tag = indexPath.row
+            //        cell.optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+            
+            //        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
             cell.optionsButton.isHidden = false
             cell.trailingSpaceToOptionsButton.constant = 0
             cell.optionsButton.tag = indexPath.row
             cell.optionsButton.addTarget(self, action: #selector(self.showOptionsPopup(_:)), for: .touchUpInside)
-//        }
-//        else{
-//            cell.optionsButton.isHidden = true
-//            cell.trailingSpaceToOptionsButton.constant = -22
-//        }
-
-        
-        if let tipView = post.easyTipView {
-            post.isDeletionPopUpShowing = false
-            tipView.delegate = nil
-            tipView.dismiss()
-        }
-        let likeCount = post.likeCount ?? 0
-        let commentCount = post.commentCount ?? 0
-        
-        var likeCommentCount = ""
-        
-        if likeCount > 0 || commentCount > 0 {
-            likeCommentCount.append("\(likeCount) ")
-            likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
-            likeCommentCount.append("\(commentCount) ")
-            likeCommentCount.append(commentCount == 1 ? "Comment" : "Comments")
+            //        }
+            //        else{
+            //            cell.optionsButton.isHidden = true
+            //            cell.trailingSpaceToOptionsButton.constant = -22
+            //        }
             
+            
+            if let tipView = post.easyTipView {
+                post.isOptionsPopUpShowing = false
+                tipView.delegate = nil
+                tipView.dismiss()
+            }
+            let likeCount = post.likeCount ?? 0
+            let commentCount = post.commentCount ?? 0
+            
+            var likeCommentCount = ""
+            
+            if likeCount > 0 || commentCount > 0 {
+                likeCommentCount.append("\(likeCount) ")
+                likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
+                likeCommentCount.append("\(commentCount) ")
+                likeCommentCount.append(commentCount == 1 ? "Comment" : "Comments")
+                
+            }
+            
+            cell.likeButton.isSelected = post.isSelfLiked ?? false
+            
+            cell.likeCommentLabel.text = likeCommentCount
+            
+            cell.likeButton.tag = indexPath.row
+            cell.likeButton.addTarget(self, action: #selector(self.likePostButtonPressed(_:)), for: .touchUpInside)
+            
+            cell.commentButton.tag = indexPath.row
+            cell.commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
+            
+            cell.likeCommentButton.tag = indexPath.row
+            cell.likeCommentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
+            
+            cell.bodyLabel.handleURLTap { urlString in
+                UIApplication.shared.open(urlString)
+            }
+            let telefonRegex = "^((\\+)|(00)|(0))[0-9]{6,14}$"
+            
+            let customType = ActiveType.custom(pattern: telefonRegex)
+            cell.bodyLabel.enabledTypes = [.hashtag, .url , .custom(pattern: telefonRegex)]
+            
+            cell.bodyLabel.handleCustomTap(for: customType) { element in
+                print("Custom type tapped: \(element)")
+                if let url = URL(string: "tel://\(element)") {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            
+            return cell
         }
-        
-        cell.likeButton.isSelected = post.isSelfLiked ?? false
-        
-        cell.likeCommentLabel.text = likeCommentCount
-        
-        cell.likeButton.tag = indexPath.row
-        cell.likeButton.addTarget(self, action: #selector(self.likePostButtonPressed(_:)), for: .touchUpInside)
-        
-        cell.commentButton.tag = indexPath.row
-        cell.commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
-        
-        cell.likeCommentButton.tag = indexPath.row
-        cell.likeCommentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
-        
-        
-        return cell
+        else {
+            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            cell.textLabel?.text = self.userOptionsArray[(indexPath as NSIndexPath).row]
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row <= postArray.count-1 {
             let post = postArray[indexPath.row]
+            
+            if let popView = post.optionsPopover {
+                post.isOptionsPopUpShowing = false
+                popView.dismiss()
+                
+            }
+            
             if let tipView = post.easyTipView {
-                post.isDeletionPopUpShowing = false
+                post.isOptionsPopUpShowing = false
                 tipView.delegate = nil
                 tipView.dismiss()
             }
@@ -348,40 +386,87 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         removeToolTip(indexPath: indexPath.row)
         
-        let post = postArray[indexPath.row]
-        
-        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+        if tableView == self.tableView {
+            return
+        }
+        else {
+            let post = postArray[tableView.tag]
+            let params = ["post_id":post.id ?? "0"]
             
-            if post.content == "Has joined The Nex Network." {
-                return
+            if let popover = post.optionsPopover {
+                popover.dismiss()
             }
             
-            Router.editGeoPost(from: self,postObject: post)
-            
+            if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+                if post.content == "Has joined The Nex Network." {
+                    return
+                }
+                else {
+                    switch (indexPath.row)
+                    {
+                    case 0:
+                        Router.editGeoPost(from: self,postObject: post)
+                        
+                    case 1:
+                        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+                            UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                                if alertAction.title == "Yes" {
+                                    SVProgressHUD.show()
+                                    RequestManager.deletePosts(param: params, successBlock: { (response) in
+                                        self.fetchFreshData()
+                                    }) { (error) in
+                                        UtilityManager.showErrorMessage(body: error, in: self)
+                                    }
+                                }
+                            })
+                        }
+                    default:
+                        return
+                    }
+                }
+            }
+            else {
+                
+                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                    if alertAction.title == "Yes" {
+                        SVProgressHUD.show()
+                        RequestManager.reportPosts(param: params, successBlock: { (response) in
+                            self.fetchFreshData()
+                        }) { (error) in
+                            UtilityManager.showErrorMessage(body: error, in: self)
+                        }
+                    }
+                })
+            }
         }
-//        else{
-//            tipView = EasyTipView(text: "     Report        ", delegate: self)
-//        }
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let post = postArray[indexPath.row]
-        var totalHeight : CGFloat = 120
-        if let images = post.postImages {
-            totalHeight += CGFloat(Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0))
-        }
-        if let content = post.content {
-            totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0)!], context: nil).size.height + 5
-        }
-        if post.likeCount! > 0 || post.commentCount! > 0 {
-            totalHeight += 19
-        }
-        else{
-            totalHeight += 5
-        }
         
-        return totalHeight
+        if tableView == self.tableView {
+            
+            
+            let post = postArray[indexPath.row]
+            var totalHeight : CGFloat = 120
+            if let images = post.postImages {
+                totalHeight += CGFloat(Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0))
+            }
+            if let content = post.content {
+                totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0)!], context: nil).size.height + 5
+            }
+            if post.likeCount! > 0 || post.commentCount! > 0 {
+                totalHeight += 19
+            }
+            else{
+                totalHeight += 5
+            }
+            
+            return totalHeight
+        }
+        else {
+            return (CGFloat)(35)
+        }
     }
     
     @objc func openImage(_ sender: UIButton) {
@@ -420,7 +505,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         sender.isEnabled = false
         RequestManager.likePost(param: params, successBlock: { (response) in
-//            sender.isSelected = !sender.isSelected
+            //            sender.isSelected = !sender.isSelected
             sender.isEnabled = true
             self.postArray[sender.tag].isSelfLiked = !sender.isSelected
             self.postArray[sender.tag].likeCount = response["postCount"] as? Int ?? 0
@@ -439,7 +524,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     func removeToolTip(indexPath: Int) {
         for index in max(0,indexPath - 4) ... min(postArray.count-1,indexPath + 4) {
             if let tipView = postArray[index].easyTipView {
-                postArray[index].isDeletionPopUpShowing = false
+                postArray[index].isOptionsPopUpShowing = false
                 tipView.delegate = nil
                 tipView.dismiss()
             }
@@ -448,29 +533,36 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc func showOptionsPopup(_ sender: UIButton) {
         
-
-        if (!self.postArray[sender.tag].isDeletionPopUpShowing){
-            let tipView : EasyTipView
+        var optionsHeight = 0
+        let post = postArray[sender.tag]
+        
+        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
-            if postArray[sender.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
-                tipView = EasyTipView(text: "     Delete        ", delegate: self)
-            }
-            else{
-                tipView = EasyTipView(text: "     Report        ", delegate: self)
-            }
-            
-            tipView.show(animated: true, forView: sender, withinSuperview: sender.superview)
-            //            EasyTipView.show(animated: true, forView: sender, withinSuperview: sender.superview, text: "Delete", delegate: self)
-            self.postArray[sender.tag].easyTipView = tipView
-            self.postArray[sender.tag].isDeletionPopUpShowing = true
+            userOptionsArray = ["Edit", "Delete"]
+            optionsHeight = userOptionsArray.count*30
         }
-        else{
-            self.postArray[sender.tag].isDeletionPopUpShowing = false
-            if let tipView = self.postArray[sender.tag].easyTipView{
-                tipView.delegate = nil
-                tipView.dismiss()
-            }
+        else {
+            userOptionsArray = ["Report"]
+            optionsHeight = 25
         }
+        
+        var popover: Popover!
+        
+        let popoverOptions: [PopoverOption] = [
+            .type(.auto),
+            .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
+        ]
+        
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: optionsHeight))
+        optionsTableView.delegate = self
+        optionsTableView.dataSource = self
+        optionsTableView.isScrollEnabled = false
+        optionsTableView.tag=sender.tag
+        popover = Popover(options: popoverOptions)
+        popover.show(optionsTableView, fromView: sender)
+        
+        post.optionsPopover = popover
+        post.isOptionsPopUpShowing = true
         
     }
     
@@ -479,7 +571,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if let buttonView = tipView.presentingView
         {
-            self.postArray[buttonView.tag].isDeletionPopUpShowing = false
+            self.postArray[buttonView.tag].isOptionsPopUpShowing = false
             let post = self.postArray[buttonView.tag]
             
             let params = ["post_id":post.id ?? "0"]
@@ -487,19 +579,19 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             if self.postArray[buttonView.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
                 
             }
-            
-//            if self.postArray[buttonView.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
-//                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
-//                    if alertAction.title == "Yes" {
-//                        SVProgressHUD.show()
-//                        RequestManager.deletePosts(param: params, successBlock: { (response) in
-//                            self.fetchFreshData()
-//                        }) { (error) in
-//                            UtilityManager.showErrorMessage(body: error, in: self)
-//                        }
-//                    }
-//                })
-//            }
+                
+                //            if self.postArray[buttonView.tag].user_id == ApplicationManager.sharedInstance.user.user_id {
+                //                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                //                    if alertAction.title == "Yes" {
+                //                        SVProgressHUD.show()
+                //                        RequestManager.deletePosts(param: params, successBlock: { (response) in
+                //                            self.fetchFreshData()
+                //                        }) { (error) in
+                //                            UtilityManager.showErrorMessage(body: error, in: self)
+                //                        }
+                //                    }
+                //                })
+                //            }
             else{
                 UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
                     if alertAction.title == "Yes" {

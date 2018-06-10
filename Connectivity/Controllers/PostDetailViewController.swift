@@ -41,8 +41,13 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     var post = Post()
     
-    @objc var isDeletionPopUpShowing = false
+    var userOptionsArray = [String]()
+    
+    @objc var isOptionsPopUpShowing = false
     @objc var easyTipView: EasyTipView?
+    
+    var postTableID = "postTableID"
+    var commentTableID = "commentTableID"
     
     override var inputAccessoryView: UIView? {
         get {
@@ -139,10 +144,10 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         optionsButton.isHidden = false
         trailingSpaceToOptionsButton.constant = 0
         
-        optionsButton.addTarget(self, action: #selector(self.showDeletionPopup(_:)), for: .touchUpInside)
+        optionsButton.addTarget(self, action: #selector(self.showPostOptionsPopup(_:)), for: .touchUpInside)
         
         if let tipView = post.easyTipView {
-            post.isDeletionPopUpShowing = false
+            post.isOptionsPopUpShowing = false
             tipView.delegate = nil
             tipView.dismiss()
         }
@@ -245,38 +250,47 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     func removeToolTip() {
         
         if let tipView = easyTipView {
-            isDeletionPopUpShowing = false
+            isOptionsPopUpShowing = false
             tipView.delegate = nil
             tipView.dismiss()
         }
         
     }
     
-    @objc func showDeletionPopup(_ sender: UIButton) {
+    @objc func showPostOptionsPopup(_ sender: UIButton) {
         
+        var optionsHeight = 0
+//        let post = postArray[sender.tag]
         
-        if (isDeletionPopUpShowing){
-            let tipView : EasyTipView
+        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
-            if post.user_id == ApplicationManager.sharedInstance.user.user_id {
-                tipView = EasyTipView(text: "     Delete        ", delegate: self)
-            }
-            else{
-                tipView = EasyTipView(text: "     Report        ", delegate: self)
-            }
-            
-            tipView.show(animated: true, forView: sender, withinSuperview: sender.superview)
-            //            EasyTipView.show(animated: true, forView: sender, withinSuperview: sender.superview, text: "Delete", delegate: self)
-            easyTipView = tipView
-            isDeletionPopUpShowing = true
+            userOptionsArray = ["Edit", "Delete"]
+            optionsHeight = userOptionsArray.count*30
         }
-        else{
-            isDeletionPopUpShowing = false
-            if let tipView = easyTipView{
-                tipView.delegate = nil
-                tipView.dismiss()
-            }
+        else {
+            userOptionsArray = ["Report"]
+            optionsHeight = 25
         }
+        
+        var popover: Popover!
+        
+        let popoverOptions: [PopoverOption] = [
+            .type(.auto),
+            .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
+        ]
+        
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: optionsHeight))
+        optionsTableView.delegate = self
+        optionsTableView.dataSource = self
+        optionsTableView.isScrollEnabled = false
+        optionsTableView.tag=sender.tag
+        optionsTableView.accessibilityIdentifier = postTableID
+        popover = Popover(options: popoverOptions)
+        popover.show(optionsTableView, fromView: sender)
+        
+        post.optionsPopover = popover
+        post.isOptionsPopUpShowing = true
+        
         
     }
     
@@ -312,7 +326,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         if tipView.presentingView != nil
         {
-            isDeletionPopUpShowing = false
+            isOptionsPopUpShowing = false
             let post = self.post
             
             let params = ["post_id":post.id ?? "0"]
@@ -349,10 +363,21 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.post.commentsArray.count
+        
+        
+        if tableView==self.tableView {
+            return self.post.commentsArray.count
+        }
+        else {
+            return userOptionsArray.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if tableView == self.tableView {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier) as! CommentTableViewCell
         
         let comment = post.commentsArray[indexPath.row]
@@ -362,15 +387,103 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         cell.timeAgoLabel.text = UtilityManager.timeAgoSinceDate(date: comment.created_at!, numericDates: true, short: true)
         cell.commentLabel.text = comment.comment
         cell.optionsButton.tag = indexPath.row
-        cell.optionsButton.addTarget(self, action: #selector(self.showCommentDeletionPopup(_:)), for: .touchUpInside)
+        cell.optionsButton.addTarget(self, action: #selector(self.shotCommentOptions(_:)), for: .touchUpInside)
         
-        return cell
+            return cell
+        }
+        
+        else {
+            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            cell.textLabel?.text = self.userOptionsArray[(indexPath as NSIndexPath).row]
+            return cell
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = User()
-        user.user_id = post.commentsArray[indexPath.row].user_id
-        Router.showProfileViewController(user: user, from: self)
+        
+        if tableView == self.tableView {
+            let user = User()
+            user.user_id = post.commentsArray[indexPath.row].user_id
+            Router.showProfileViewController(user: user, from: self)
+        }
+        else if tableView.accessibilityIdentifier == postTableID {
+            let params = ["post_id":post.id ?? "0"]
+            
+            if let popover = post.optionsPopover {
+                popover.dismiss()
+            }
+            
+            if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+                if post.content == "Has joined The Nex Network." {
+                    return
+                }
+                else {
+                    switch (indexPath.row)
+                    {
+                    case 0:
+                        Router.editGeoPost(from: self,postObject: post)
+                        
+                    case 1:
+                        if post.user_id == ApplicationManager.sharedInstance.user.user_id {
+                            UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                                if alertAction.title == "Yes" {
+                                    SVProgressHUD.show()
+                                    RequestManager.deletePosts(param: params, successBlock: { (response) in
+                                        Router.showMainTabBar()
+                                    }) { (error) in
+                                        UtilityManager.showErrorMessage(body: error, in: self)
+                                    }
+                                }
+                            })
+                        }
+                    default:
+                        return
+                    }
+                }
+            }
+            else {
+                
+                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                    if alertAction.title == "Yes" {
+                        SVProgressHUD.show()
+                        RequestManager.reportPosts(param: params, successBlock: { (response) in
+//                            self.fetchFreshData()
+                        }) { (error) in
+                            UtilityManager.showErrorMessage(body: error, in: self)
+                        }
+                    }
+                })
+            }
+        }
+        else if tableView.accessibilityIdentifier == commentTableID
+        {
+            let comment = post.commentsArray[tableView.tag]
+            
+            if let popover = comment.optionsPopover {
+                popover.dismiss()
+            }
+            
+            if comment.user_id == ApplicationManager.sharedInstance.user.user_id {
+                // Delete Call here
+                print("Write delete API call here")
+            }
+            else {
+                // Report Call here
+                print("Write report API call here")
+            }
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if tableView == self.tableView {
+            return (CGFloat)(75)
+        }
+        else {
+            return (CGFloat)(35)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -390,9 +503,36 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         Router.showLikeDetails(likes: post.likesArray, from: self)
     }
     
-    @objc func showCommentDeletionPopup(_ sender: UIButton) {
+    @objc func shotCommentOptions(_ sender: UIButton) {
         
-        //For Talha
+        let optionsHeight = 25
+        let comment = post.commentsArray[sender.tag]
+        
+        if comment.user_id == ApplicationManager.sharedInstance.user.user_id {
+            
+            userOptionsArray = ["Delete"]
+        }
+        else {
+            userOptionsArray = ["Report"]
+        }
+        
+        var popover: Popover!
+        
+        let popoverOptions: [PopoverOption] = [
+            .type(.auto),
+            .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
+        ]
+        
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: optionsHeight))
+        optionsTableView.delegate = self
+        optionsTableView.dataSource = self
+        optionsTableView.isScrollEnabled = false
+        optionsTableView.tag=sender.tag
+        optionsTableView.accessibilityIdentifier = commentTableID
+        popover = Popover(options: popoverOptions)
+        popover.show(optionsTableView, fromView: sender)
+        comment.optionsPopover = popover
+        
         
     }
 

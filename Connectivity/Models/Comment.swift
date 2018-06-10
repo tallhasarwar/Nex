@@ -20,6 +20,7 @@ class Comment: BaseEntity {
     @objc var post_id: String?
     @objc var user_id: String?
     var profileImages = Images()
+    @objc var optionsPopover: Popover!
     
     override init() {
         super.init()

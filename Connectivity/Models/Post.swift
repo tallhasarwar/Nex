@@ -78,8 +78,9 @@ import UIKit
     @objc var distance: String?
     @objc var postImages: Images?
     @objc var profileImages = Images()
-    @objc var isDeletionPopUpShowing = false
+    @objc var isOptionsPopUpShowing = false
     @objc var easyTipView: EasyTipView?
+    @objc var optionsPopover: Popover!
     
     @objc var number_of_comments: String?
     @objc var number_of_likes: String?
