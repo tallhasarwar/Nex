@@ -40,7 +40,8 @@ class GeoFeedBasicTableViewCell: UITableViewCell {
         let customType = ActiveType.custom(pattern: telefonRegex)
         bodyLabel.enabledTypes = [.hashtag, .url , .custom(pattern: telefonRegex)]
         bodyLabel.hashtagColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
-        
+        bodyLabel.customColor = [customType: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)]
+        bodyLabel.URLColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
         bodyLabel.handleURLTap { urlString in
             UIApplication.shared.open(urlString)
         }

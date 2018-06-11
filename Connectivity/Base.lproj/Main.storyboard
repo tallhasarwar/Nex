@@ -1817,7 +1817,7 @@ Cg
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dge-dW-2tv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="534"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="OPg-8U-fUW" customClass="PostDetailHeaderView" customModule="Connectivity" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="490"/>
@@ -2186,7 +2186,7 @@ Cg
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="wbW-Kg-wlu" firstAttribute="top" secondItem="dge-dW-2tv" secondAttribute="bottom" id="I7X-u0-RQV"/>
+                            <constraint firstItem="wbW-Kg-wlu" firstAttribute="top" secondItem="dge-dW-2tv" secondAttribute="bottom" constant="20" id="I7X-u0-RQV"/>
                             <constraint firstItem="dge-dW-2tv" firstAttribute="top" secondItem="IQJ-ff-OZe" secondAttribute="bottom" id="al0-uK-Tcp"/>
                             <constraint firstItem="dge-dW-2tv" firstAttribute="leading" secondItem="SXB-Iv-cIp" secondAttribute="leading" id="m8N-3x-9XC"/>
                             <constraint firstAttribute="trailing" secondItem="dge-dW-2tv" secondAttribute="trailing" id="yqL-8R-j4B"/>

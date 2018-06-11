@@ -183,7 +183,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             likeCommentCount.append("\(likeCount) ")
             likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
             likeCommentCount.append("\(commentCount) ")
-            likeCommentCount.append(commentCount == 1 ? "Comment" : "Comments")
+            likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
             likeCommentLabel.text = likeCommentCount
         }
         else {
@@ -522,7 +522,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             return (CGFloat)(75)
         }
         else {
-            return (CGFloat)(35)
+            return (CGFloat)(40)
         }
     }
     
@@ -545,7 +545,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     @objc func shotCommentOptions(_ sender: UIButton) {
         
-        let optionsHeight = 25
+        let optionsHeight = 30
         let comment = post.commentsArray[sender.tag]
         
         if comment.user_id == ApplicationManager.sharedInstance.user.user_id || post.user_id == ApplicationManager.sharedInstance.user.user_id {
@@ -563,7 +563,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
         ]
         
-        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 150, height: optionsHeight))
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 160, height: optionsHeight))
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false

@@ -315,7 +315,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
                 likeCommentCount.append("\(likeCount) ")
                 likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
                 likeCommentCount.append("\(commentCount) ")
-                likeCommentCount.append(commentCount == 1 ? "Comment" : "Comments")
+                likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
                 
             }
             
@@ -452,7 +452,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             return totalHeight
         }
         else {
-            return (CGFloat)(35)
+            return (CGFloat)(40)
         }
     }
     
@@ -531,11 +531,11 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         if post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
             userOptionsArray = ["Edit", "Delete"]
-            optionsHeight = userOptionsArray.count*30
+            optionsHeight = userOptionsArray.count*35
         }
         else {
             userOptionsArray = ["Report"]
-            optionsHeight = 25
+            optionsHeight = 30
         }
         
         var popover: Popover!
@@ -545,7 +545,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
         ]
         
-        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 150, height: optionsHeight))
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 160, height: optionsHeight))
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false
