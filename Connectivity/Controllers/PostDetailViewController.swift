@@ -80,7 +80,9 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         likesCollectionView.delegate = self
         likesCollectionView.dataSource = self
         
-        
+        delay(delay: 3.0) {
+            self.tableView.tableHeaderView?.layoutSubviews()
+        }
         
     }
 
@@ -393,8 +395,8 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         }
         
         else {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = self.userOptionsArray[(indexPath as NSIndexPath).row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: PopOverTableViewCell.identifier) as! PopOverTableViewCell
+            cell.titleLabel.text = self.userOptionsArray[(indexPath as NSIndexPath).row]
             return cell
         }
         
@@ -464,13 +466,40 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
                 popover.dismiss()
             }
             
-            if comment.user_id == ApplicationManager.sharedInstance.user.user_id {
-                // Delete Call here
-                print("Write delete API call here")
+            var params = ["post_id":post.id ?? "0"]
+            params["comment_id"] = post.commentsArray[indexPath.row].id
+            
+            if let popover = post.optionsPopover {
+                popover.dismiss()
+            }
+            
+            if post.commentsArray[indexPath.row].user_id == ApplicationManager.sharedInstance.user.user_id || post.user_id == ApplicationManager.sharedInstance.user.user_id  {
+                
+                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this comment?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                    if alertAction.title == "Yes" {
+                        SVProgressHUD.show()
+                        RequestManager.deleteComment(param: params, successBlock: { (response) in
+                            SVProgressHUD.dismiss()
+                            self.fetchPostDetails()
+                        }) { (error) in
+                            UtilityManager.showErrorMessage(body: error, in: self)
+                        }
+                    }
+                })
+                
             }
             else {
-                // Report Call here
-                print("Write report API call here")
+                
+                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this post?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                    if alertAction.title == "Yes" {
+                        SVProgressHUD.show()
+                        RequestManager.reportComment(param: params, successBlock: { (response) in
+                            SVProgressHUD.dismiss()
+                        }) { (error) in
+                            UtilityManager.showErrorMessage(body: error, in: self)
+                        }
+                    }
+                })
             }
         }
         
@@ -508,7 +537,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         let optionsHeight = 25
         let comment = post.commentsArray[sender.tag]
         
-        if comment.user_id == ApplicationManager.sharedInstance.user.user_id {
+        if comment.user_id == ApplicationManager.sharedInstance.user.user_id || post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
             userOptionsArray = ["Delete"]
         }
@@ -523,11 +552,12 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
         ]
         
-        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: optionsHeight))
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 150, height: optionsHeight))
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false
         optionsTableView.tag=sender.tag
+        optionsTableView.register(UINib(nibName: "PopOverTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: PopOverTableViewCell.identifier)
         optionsTableView.accessibilityIdentifier = commentTableID
         popover = Popover(options: popoverOptions)
         popover.show(optionsTableView, fromView: sender)

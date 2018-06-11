@@ -35,8 +35,24 @@ class GeoFeedBasicTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layoutIfNeeded()
-        bodyLabel.enabledTypes = [.hashtag]
+        let telefonRegex = "^((\\+)|(00)|(0))[0-9]{6,14}$"
+        
+        let customType = ActiveType.custom(pattern: telefonRegex)
+        bodyLabel.enabledTypes = [.hashtag, .url , .custom(pattern: telefonRegex)]
         bodyLabel.hashtagColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
+        
+        bodyLabel.handleURLTap { urlString in
+            UIApplication.shared.open(urlString)
+        }
+        
+        
+        bodyLabel.handleCustomTap(for: customType) { element in
+            print("Custom type tapped: \(element)")
+            if let url = URL(string: "tel://\(element)") {
+                UIApplication.shared.openURL(url)
+            }
+        }
+        
         // Initialization code
     }
 

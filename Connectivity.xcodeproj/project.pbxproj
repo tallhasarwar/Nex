@@ -44,6 +44,8 @@
 		694A972A1FFB8A6300284023 /* GeoPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A97291FFB8A6300284023 /* GeoPostViewController.swift */; };
 		694A972C1FFCEB4400284023 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694A972B1FFCEB4400284023 /* Post.swift */; };
 		694F739A1FB4BED100007896 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 694F73991FB4BED100007896 /* GooglePlace.swift */; };
+		6951FC2F20CE5F3C003BB59F /* PopOverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6951FC2D20CE5F3C003BB59F /* PopOverTableViewCell.swift */; };
+		6951FC3020CE5F3C003BB59F /* PopOverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6951FC2E20CE5F3C003BB59F /* PopOverTableViewCell.xib */; };
 		695FDA8A1FAB22FA004B6735 /* EventsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FDA891FAB22FA004B6735 /* EventsListViewController.swift */; };
 		695FDA8C1FAB2929004B6735 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FDA8B1FAB2929004B6735 /* Event.swift */; };
 		695FDA8E1FAB2974004B6735 /* EventsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FDA8D1FAB2974004B6735 /* EventsListTableViewCell.swift */; };
@@ -249,6 +251,8 @@
 		694A97291FFB8A6300284023 /* GeoPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoPostViewController.swift; sourceTree = "<group>"; };
 		694A972B1FFCEB4400284023 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		694F73991FB4BED100007896 /* GooglePlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
+		6951FC2D20CE5F3C003BB59F /* PopOverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopOverTableViewCell.swift; sourceTree = "<group>"; };
+		6951FC2E20CE5F3C003BB59F /* PopOverTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopOverTableViewCell.xib; sourceTree = "<group>"; };
 		695FDA891FAB22FA004B6735 /* EventsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListViewController.swift; sourceTree = "<group>"; };
 		695FDA8B1FAB2929004B6735 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		695FDA8D1FAB2974004B6735 /* EventsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListTableViewCell.swift; sourceTree = "<group>"; };
@@ -696,6 +700,8 @@
 				6949746020C92872008C0B6A /* PostDetailHeaderView.swift */,
 				6949746220C92888008C0B6A /* CommentTableViewCell.swift */,
 				6949746420C928A5008C0B6A /* PostLikesCollectionViewCell.swift */,
+				6951FC2D20CE5F3C003BB59F /* PopOverTableViewCell.swift */,
+				6951FC2E20CE5F3C003BB59F /* PopOverTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -966,6 +972,7 @@
 				69B9CED11F72AED90070BD37 /* Poppins-Regular.ttf in Resources */,
 				697665D22004DCE700EFCC0A /* SuggestionTable.xib in Resources */,
 				69B9CEF21F72AED90070BD37 /* Info.plist in Resources */,
+				6951FC3020CE5F3C003BB59F /* PopOverTableViewCell.xib in Resources */,
 				69B9CEC71F72AED90070BD37 /* Poppins-BoldItalic.ttf in Resources */,
 				69B9CEC91F72AED90070BD37 /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				69B9CED41F72AED90070BD37 /* Poppins-Thin.ttf in Resources */,
@@ -1077,6 +1084,7 @@
 				69922423202C728A00D67147 /* IGRPhotoTweakView+Customization.swift in Sources */,
 				69BC67991F98E7A000F7E2E2 /* ConnectionRequestTableViewCell.swift in Sources */,
 				69B9CEF71F72AED90070BD37 /* SoundPlayer.swift in Sources */,
+				6951FC2F20CE5F3C003BB59F /* PopOverTableViewCell.swift in Sources */,
 				6968A5D21F827E2100EECD60 /* CheckInViewController.swift in Sources */,
 				694F739A1FB4BED100007896 /* GooglePlace.swift in Sources */,
 				691670941F93D97300C39034 /* NotificationModel.swift in Sources */,

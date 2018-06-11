@@ -332,26 +332,13 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.likeCommentButton.tag = indexPath.row
             cell.likeCommentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
             
-            cell.bodyLabel.handleURLTap { urlString in
-                UIApplication.shared.open(urlString)
-            }
-            let telefonRegex = "^((\\+)|(00)|(0))[0-9]{6,14}$"
             
-            let customType = ActiveType.custom(pattern: telefonRegex)
-            cell.bodyLabel.enabledTypes = [.hashtag, .url , .custom(pattern: telefonRegex)]
-            
-            cell.bodyLabel.handleCustomTap(for: customType) { element in
-                print("Custom type tapped: \(element)")
-                if let url = URL(string: "tel://\(element)") {
-                    UIApplication.shared.openURL(url)
-                }
-            }
             
             return cell
         }
         else {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            cell.textLabel?.text = self.userOptionsArray[(indexPath as NSIndexPath).row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: PopOverTableViewCell.identifier) as! PopOverTableViewCell
+            cell.titleLabel.text = self.userOptionsArray[(indexPath as NSIndexPath).row]
             return cell
         }
     }
@@ -553,11 +540,12 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
         ]
         
-        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: optionsHeight))
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 150, height: optionsHeight))
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false
         optionsTableView.tag=sender.tag
+        optionsTableView.register(UINib(nibName: "PopOverTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: PopOverTableViewCell.identifier)
         popover = Popover(options: popoverOptions)
         popover.show(optionsTableView, fromView: sender)
         

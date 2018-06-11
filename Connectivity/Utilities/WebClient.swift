@@ -1010,4 +1010,43 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func deleteComment(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                     failureBlock failure:@escaping (String) -> ()){
+        self.deletePath(urlString: "delete_comment", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success([:])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func reportComment(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                     failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: "report_comment", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success([:])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            //            failure(error.localizedDescription)
+            failure(error)
+        }
+    }
+    
 }

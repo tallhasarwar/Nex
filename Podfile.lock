@@ -137,7 +137,7 @@ DEPENDENCIES:
   - TPKeyboardAvoiding
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - AFNetworking
     - Bolts
     - Crashlytics
@@ -211,4 +211,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 526e8275740f22f51006d9f0218d05ea9b455a67
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
