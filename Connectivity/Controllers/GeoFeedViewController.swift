@@ -330,7 +330,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
             
             cell.likeCommentButton.tag = indexPath.row
-            cell.likeCommentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
+            cell.likeCommentButton.addTarget(self, action: #selector(self.likeCommentButtonPressed(_:)), for: .touchUpInside)
             
             
             
@@ -505,7 +505,12 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @objc func commentPostButtonPressed(_ sender: UIButton) {
         let post = postArray[sender.tag]
-        Router.showPostDetails(post: post, from: self)
+        Router.showPostDetails(post: post, commentActive: true, from: self)
+    }
+    
+    @objc func likeCommentButtonPressed(_ sender: UIButton) {
+        let post = postArray[sender.tag]
+        Router.showPostDetails(post: post, commentActive: false, from: self)
     }
     
     func removeToolTip(indexPath: Int) {

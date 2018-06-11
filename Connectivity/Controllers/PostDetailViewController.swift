@@ -40,6 +40,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     @IBOutlet weak var commentField: UITextField!
     
     var post = Post()
+    var commentActive = false
     
     var userOptionsArray = [String]()
     
@@ -84,6 +85,16 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             self.tableView.tableHeaderView?.layoutSubviews()
         }
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if commentActive {
+            delay(delay: 1.0) {
+                self.commentField.becomeFirstResponder()
+            }
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {

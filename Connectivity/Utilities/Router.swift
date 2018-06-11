@@ -207,10 +207,11 @@ class Router: NSObject {
         controller.present(vc, animated: false, completion: nil)
     }
     
-    static func showPostDetails(post: Post, from controller: UIViewController)
+    static func showPostDetails(post: Post, commentActive: Bool, from controller: UIViewController)
     {
         let vc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: PostDetailViewController.storyboardID) as! PostDetailViewController
         vc.post = post
+        vc.commentActive = commentActive
         controller.navigationController?.show(vc, sender: nil)
     }
     
