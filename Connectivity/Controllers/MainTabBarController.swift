@@ -58,13 +58,19 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-        var tabFrame = self.tabBar.frame
+//        var tabFrame = self.tabBar.frame
         // - 40 is editable , the default value is 49 px, below lowers the tabbar and above increases the tab bar size
-        tabFrame.size.height = 40
-        tabFrame.origin.y = self.view.frame.size.height - 40
+//        tabFrame.size.height = 40
+//        tabFrame.origin.y = self.view.frame.size.height - 40
         
-        self.tabBar.frame = tabFrame
+//        self.tabBar.frame = tabFrame
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tabBar.invalidateIntrinsicContentSize()
+    }
+
 
     /*
     // MARK: - Navigation
