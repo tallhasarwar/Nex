@@ -577,7 +577,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         if comment.user_id == ApplicationManager.sharedInstance.user.user_id || post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
-            userOptionsArray = ["Delete"]
+            userOptionsArray = ["Edit", "Delete"]
         }
         else {
             userOptionsArray = ["Report"]

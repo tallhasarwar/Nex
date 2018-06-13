@@ -21,9 +21,14 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var organizerImageView: DesignableImageView!
     @IBOutlet weak var organizerNameLabel: UILabel!
     
+    
     var event: Event?
     let refreshControl = UIRefreshControl()
     var users = [User]()
+    
+    var userOptionsArray = [String]()
+    var eventOptionID = "eventOptionID"
+    var popover: Popover!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +70,10 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func setupNav() {
-        let editButton = UIBarButtonItem(image: UIImage(named: "edit-icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.editButtonPressed))
-        navigationItem.rightBarButtonItem = editButton
+        
+        let more = UIBarButtonItem(image: UIImage(named: "more-icon-white"), style: .plain, target: self, action: #selector(self.showEventOptionsPopup(_:)))
+//        let editButton = UIBarButtonItem(image: UIImage(named: "edit-icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.editButtonPressed))
+        navigationItem.rightBarButtonItem = more
     }
     
     func setupUI() {
@@ -118,10 +125,19 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        
+        if tableView==self.tableView {
+            return users.count
+        }
+        else {
+            return userOptionsArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if tableView == self.tableView {
+            
         let cell = tableView.dequeueReusableCell(withIdentifier: LocationDetailTableViewCell.eventIdentifier) as! LocationDetailTableViewCell
         let user = users[indexPath.row]
         cell.nameLabel.text = user.full_name
@@ -139,12 +155,118 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.activationTimeLabel.text = "active\n" + UtilityManager.timeAgoSinceDate(date: user.event_checkin_time!, numericDates: true)
         
         return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: PopOverTableViewCell.identifier) as! PopOverTableViewCell
+            cell.titleLabel.text = self.userOptionsArray[(indexPath as NSIndexPath).row]
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = users[indexPath.row]
         
-        Router.showProfileViewController(user: user, from: self)
+        if tableView == self.tableView {
+            let user = users[indexPath.row]
+            
+            Router.showProfileViewController(user: user, from: self)
+        }
+        else {
+            
+            
+//            let post = postArray[tableView.tag]
+            let params = ["event_id":self.event?.id ?? "0"]
+            
+            if (popover != nil) {
+                popover.dismiss()
+            }
+            
+//            if let popover = post.optionsPopover {
+//                popover.dismiss()
+//            }
+            
+            if event?.organizerModel.user_id == ApplicationManager.sharedInstance.user.user_id {
+                
+                    switch (indexPath.row)
+                    {
+                    case 0:
+//                        Router.editGeoPost(from: self,postObject: post)
+                        Router.showEditEventController(event: self.event!, from: self)
+                        
+                    case 1:
+                        if event?.organizerModel.user_id == ApplicationManager.sharedInstance.user.user_id {
+                            UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to delete this event?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                                if alertAction.title == "Yes" {
+                                    SVProgressHUD.show()
+                                    RequestManager.deleteEvent(param: params, successBlock: { (response) in
+                                        Router.showEventsListController(from: self)
+                                    }) { (error) in
+                                        UtilityManager.showErrorMessage(body: error, in: self)
+                                    }
+                                }
+                            })
+                        }
+                    default:
+                        return
+                    }
+                
+            }
+            else {
+                
+                UIAlertController.showAlert(in: self, withTitle: "Confirm", message: "Are you sure you want to report this event?", cancelButtonTitle: "No", destructiveButtonTitle: nil, otherButtonTitles: ["Yes"], tap: { (alertController, alertAction, buttonIndex) in
+                    if alertAction.title == "Yes" {
+                        SVProgressHUD.show()
+                        RequestManager.reportEvent(param: params, successBlock: { (response) in
+//                            self.fetchFreshData()
+                        }) { (error) in
+                            UtilityManager.showErrorMessage(body: error, in: self)
+                        }
+                    }
+                })
+            }
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if tableView == self.tableView {
+            return (CGFloat)(60)
+        }
+        else {
+            return (CGFloat)(40)
+        }
+    }
+    
+    @objc func showEventOptionsPopup(_ sender: UIBarButtonItem) {
+        
+        var optionsHeight = 0
+        //        let post = postArray[sender.tag]
+        
+        if event?.organizerModel.user_id == ApplicationManager.sharedInstance.user.user_id {
+            
+            userOptionsArray = ["Edit", "Delete"]
+            optionsHeight = userOptionsArray.count*35
+        }
+        else {
+            userOptionsArray = ["Report"]
+            optionsHeight = 30
+        }
+        
+        let popoverOptions: [PopoverOption] = [
+            .type(.auto),
+            .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
+        ]
+        
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: optionsHeight))
+        optionsTableView.delegate = self
+        optionsTableView.dataSource = self
+        optionsTableView.isScrollEnabled = false
+        optionsTableView.tag=sender.tag
+        optionsTableView.accessibilityIdentifier = eventOptionID
+        optionsTableView.register(UINib(nibName: "PopOverTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: PopOverTableViewCell.identifier)
+        popover = Popover(options: popoverOptions)
+        popover.show(optionsTableView, fromView: sender.view!)
+        
     }
     
     @objc func editButtonPressed() {

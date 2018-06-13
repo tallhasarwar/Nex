@@ -1557,10 +1557,10 @@ Cg
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NxW-2w-nnd" customClass="DesignableView" customModule="Connectivity" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="25.5" width="375" height="339"/>
+                                                    <rect key="frame" x="0.0" y="25" width="375" height="340"/>
                                                     <subviews>
                                                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YaW-MM-Pd0">
-                                                            <rect key="frame" x="83" y="19.5" width="46" height="25"/>
+                                                            <rect key="frame" x="83" y="20" width="46" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="iYi-jQ-qYz"/>
                                                             </constraints>
@@ -1570,13 +1570,13 @@ Cg
                                                             </state>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="at" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q56-St-JIW">
-                                                            <rect key="frame" x="66" y="24" width="12" height="15.5"/>
+                                                            <rect key="frame" x="66" y="24" width="12" height="16"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="11"/>
                                                             <color key="textColor" white="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5 minutes ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4fB-P7-mhV">
-                                                            <rect key="frame" x="266" y="8" width="79" height="15.5"/>
+                                                            <rect key="frame" x="266" y="8" width="79" height="16"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="11"/>
                                                             <color key="textColor" white="0.40237087669999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1592,23 +1592,23 @@ Cg
                                                             </state>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IiG-WW-i2d" customClass="ActiveLabel" customModule="Connectivity" customModuleProvider="target">
-                                                            <rect key="frame" x="12" y="49.5" width="333" height="21"/>
+                                                            <rect key="frame" x="12" y="50" width="333" height="20"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                             <color key="textColor" white="0.20320638020000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" image="placeholder-banner" translatesAutoresizingMaskIntoConstraints="NO" id="wIf-cP-T3a">
-                                                            <rect key="frame" x="0.0" y="80.5" width="375" height="197"/>
+                                                            <rect key="frame" x="0.0" y="80" width="375" height="190"/>
                                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="197" id="Y9v-A7-S4u"/>
+                                                                <constraint firstAttribute="height" constant="190" id="Y9v-A7-S4u"/>
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOP-nx-LBJ">
-                                                            <rect key="frame" x="0.0" y="80.5" width="375" height="197"/>
+                                                            <rect key="frame" x="0.0" y="80" width="375" height="190"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0 km away)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1q-0f-BsX">
-                                                            <rect key="frame" x="132" y="24" width="64" height="13.5"/>
+                                                            <rect key="frame" x="132" y="24" width="64" height="14"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" white="0.40237087669999999" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1622,7 +1622,7 @@ Cg
                                                             <state key="normal" image="feed-options-icon"/>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="svh-U3-d7A">
-                                                            <rect key="frame" x="0.0" y="304" width="375" height="35"/>
+                                                            <rect key="frame" x="0.0" y="305" width="375" height="35"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Onp-Sr-8z0">
                                                                     <rect key="frame" x="10" y="1" width="172.5" height="33"/>
@@ -1668,15 +1668,26 @@ Cg
                                                                 <constraint firstItem="pQb-iX-1ZU" firstAttribute="width" secondItem="Onp-Sr-8z0" secondAttribute="width" id="q05-XQ-bAz"/>
                                                             </constraints>
                                                         </view>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Like • 2 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ys2-lc-qYl">
-                                                            <rect key="frame" x="10" y="284.5" width="125" height="14.5"/>
-                                                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                            <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIK-KD-l2b" userLabel="Like Button">
-                                                            <rect key="frame" x="10" y="284.5" width="125" height="14.5"/>
-                                                        </button>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n7y-jK-fUr">
+                                                            <rect key="frame" x="10" y="270" width="357" height="35"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 Like • 2 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ys2-lc-qYl">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="156" height="35"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
+                                                                    <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIK-KD-l2b" userLabel="Like Button">
+                                                                    <rect key="frame" x="0.0" y="2" width="186" height="31"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                </button>
+                                                            </subviews>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="35" id="CL1-s2-GrS"/>
+                                                            </constraints>
+                                                        </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -1685,24 +1696,21 @@ Cg
                                                         <constraint firstItem="4fB-P7-mhV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="LBI-oJ-Yr2" secondAttribute="trailing" constant="10" id="5mC-Qd-V11"/>
                                                         <constraint firstItem="wIf-cP-T3a" firstAttribute="leading" secondItem="NxW-2w-nnd" secondAttribute="leading" id="8dG-ci-xUQ"/>
                                                         <constraint firstItem="IOP-nx-LBJ" firstAttribute="trailing" secondItem="wIf-cP-T3a" secondAttribute="trailing" id="9A7-Up-JZV"/>
+                                                        <constraint firstAttribute="trailing" secondItem="n7y-jK-fUr" secondAttribute="trailing" constant="8" id="AqP-yS-JAr"/>
+                                                        <constraint firstItem="n7y-jK-fUr" firstAttribute="top" secondItem="wIf-cP-T3a" secondAttribute="bottom" id="EBN-r4-rFQ"/>
                                                         <constraint firstItem="v1q-0f-BsX" firstAttribute="leading" secondItem="YaW-MM-Pd0" secondAttribute="trailing" priority="750" constant="3" id="Eva-D5-r6o"/>
-                                                        <constraint firstItem="svh-U3-d7A" firstAttribute="top" secondItem="Ys2-lc-qYl" secondAttribute="bottom" constant="5" id="G93-sQ-DqW"/>
                                                         <constraint firstItem="wIf-cP-T3a" firstAttribute="top" secondItem="IiG-WW-i2d" secondAttribute="bottom" constant="10" id="GHt-TK-zJr"/>
                                                         <constraint firstItem="YaW-MM-Pd0" firstAttribute="centerY" secondItem="Q56-St-JIW" secondAttribute="centerY" id="GaV-Rm-D3N"/>
-                                                        <constraint firstItem="WIK-KD-l2b" firstAttribute="trailing" secondItem="Ys2-lc-qYl" secondAttribute="trailing" id="Gii-5g-Qlg"/>
                                                         <constraint firstItem="IOP-nx-LBJ" firstAttribute="top" secondItem="wIf-cP-T3a" secondAttribute="top" id="Hnj-Ug-fBM"/>
-                                                        <constraint firstItem="WIK-KD-l2b" firstAttribute="top" secondItem="Ys2-lc-qYl" secondAttribute="top" id="J7Y-t6-iKU"/>
                                                         <constraint firstItem="IiG-WW-i2d" firstAttribute="trailing" secondItem="4fB-P7-mhV" secondAttribute="trailing" id="Kpo-Cm-5hR"/>
+                                                        <constraint firstItem="svh-U3-d7A" firstAttribute="top" secondItem="n7y-jK-fUr" secondAttribute="bottom" id="Vq8-vs-4xE"/>
                                                         <constraint firstItem="IOP-nx-LBJ" firstAttribute="bottom" secondItem="wIf-cP-T3a" secondAttribute="bottom" id="YeN-6I-rhz"/>
                                                         <constraint firstItem="IOP-nx-LBJ" firstAttribute="leading" secondItem="wIf-cP-T3a" secondAttribute="leading" id="Yg1-kP-Bld"/>
                                                         <constraint firstItem="OTh-wG-zW0" firstAttribute="top" secondItem="NxW-2w-nnd" secondAttribute="top" id="Z5y-dE-VQ7"/>
+                                                        <constraint firstItem="n7y-jK-fUr" firstAttribute="leading" secondItem="NxW-2w-nnd" secondAttribute="leading" constant="10" id="ZqE-mG-w6S"/>
                                                         <constraint firstAttribute="trailing" secondItem="OTh-wG-zW0" secondAttribute="trailing" id="aFf-4n-DGm"/>
                                                         <constraint firstItem="OTh-wG-zW0" firstAttribute="leading" secondItem="4fB-P7-mhV" secondAttribute="trailing" id="cwu-dP-7C4"/>
                                                         <constraint firstItem="4fB-P7-mhV" firstAttribute="top" secondItem="NxW-2w-nnd" secondAttribute="top" constant="8" id="fKg-MU-TAV"/>
-                                                        <constraint firstItem="Ys2-lc-qYl" firstAttribute="top" secondItem="wIf-cP-T3a" secondAttribute="bottom" constant="7" id="jaG-zy-hc1"/>
-                                                        <constraint firstItem="Ys2-lc-qYl" firstAttribute="leading" secondItem="NxW-2w-nnd" secondAttribute="leading" constant="10" id="jeT-jb-mKb"/>
-                                                        <constraint firstItem="WIK-KD-l2b" firstAttribute="bottom" secondItem="Ys2-lc-qYl" secondAttribute="bottom" id="lRA-gd-vWN"/>
-                                                        <constraint firstItem="WIK-KD-l2b" firstAttribute="leading" secondItem="Ys2-lc-qYl" secondAttribute="leading" id="q6s-IG-f09"/>
                                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="v1q-0f-BsX" secondAttribute="trailing" constant="10" id="qgo-ga-tK1"/>
                                                         <constraint firstItem="Q56-St-JIW" firstAttribute="leading" secondItem="LBI-oJ-Yr2" secondAttribute="leading" id="r9U-1K-UN6"/>
                                                         <constraint firstItem="v1q-0f-BsX" firstAttribute="top" secondItem="LBI-oJ-Yr2" secondAttribute="bottom" constant="-5" id="rO8-H9-7l6"/>
@@ -1765,6 +1773,7 @@ Cg
                                             <outlet property="likeButton" destination="Onp-Sr-8z0" id="VG2-cr-wFj"/>
                                             <outlet property="likeCommentButton" destination="WIK-KD-l2b" id="HFn-19-Q7v"/>
                                             <outlet property="likeCommentLabel" destination="Ys2-lc-qYl" id="kfc-D0-Ku0"/>
+                                            <outlet property="likeCommentView" destination="n7y-jK-fUr" id="jE0-vp-TnS"/>
                                             <outlet property="locationButton" destination="YaW-MM-Pd0" id="liH-oS-Sur"/>
                                             <outlet property="optionsButton" destination="OTh-wG-zW0" id="7tM-NG-RNU"/>
                                             <outlet property="postImageHeightConstraint" destination="Y9v-A7-S4u" id="4UC-27-wWh"/>
@@ -1868,20 +1877,20 @@ Cg
                                                     </state>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHb-D3-nKQ" customClass="ActiveLabel" customModule="Connectivity" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="49.5" width="337" height="21"/>
+                                                    <rect key="frame" x="8" y="49.5" width="337" height="20"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                     <color key="textColor" white="0.20320638020000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" image="placeholder-banner" translatesAutoresizingMaskIntoConstraints="NO" id="gMV-lq-Tje">
-                                                    <rect key="frame" x="0.0" y="80.5" width="375" height="197"/>
+                                                    <rect key="frame" x="0.0" y="79.5" width="375" height="197"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="197" id="4fK-zH-5Fr"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVG-Ln-yo8">
-                                                    <rect key="frame" x="0.0" y="80.5" width="375" height="197"/>
+                                                    <rect key="frame" x="0.0" y="79.5" width="375" height="197"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0 km away)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7f-v2-7zx">
                                                     <rect key="frame" x="132" y="20" width="64" height="13.5"/>
@@ -1955,13 +1964,13 @@ Cg
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Like • 2 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H3E-k4-dPW">
-                                                    <rect key="frame" x="10" y="284.5" width="125" height="29"/>
+                                                    <rect key="frame" x="10" y="283.5" width="125" height="30"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                     <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKm-5I-kbR" userLabel="Like Button">
-                                                    <rect key="frame" x="10" y="284.5" width="125" height="29"/>
+                                                    <rect key="frame" x="10" y="283.5" width="125" height="30"/>
                                                 </button>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8D-bE-qwL">
                                                     <rect key="frame" x="0.0" y="355.5" width="375" height="70"/>

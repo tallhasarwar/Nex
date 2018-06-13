@@ -12,6 +12,7 @@ class GeoFeedBasicTableViewCell: UITableViewCell {
     
     static let identifier = "geoFeedBasicTableViewCell"
     
+    @IBOutlet weak var likeCommentView: UIView!
     @IBOutlet weak var profileImageView: DesignableImageView!
     @IBOutlet weak var bodyLabel: ActiveLabel!
     @IBOutlet weak var profileNameButton: UIButton!

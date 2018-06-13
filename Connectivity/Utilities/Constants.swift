@@ -85,6 +85,9 @@ public class Constant: NSObject {
     static let forgotPasswordURL = "send_forget_link"
     static let logoutURL = "signout"
     
+    static let deleteEventURL = "delete_event"
+    static let reportEventURL = "report_event"
+    
     
     static let hashtags = ["#Photo","#CheckedIn","#Deals","#ForSale","#ForRent","#Available","#InterestedIn","#Friendship","#Event","#Job","#Vehicle","#FoodAndDrinks","#Accomodation","#Property","#Services","#Shopping","#Transport","#Education","#Sports","#Books","#Relationships","#Networking","#Updates","#News","#Advice","#Article"]
     

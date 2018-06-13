@@ -235,6 +235,18 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             
             cell = tableView.dequeueReusableCell(withIdentifier: "geoFeedImageTableViewCell") as! GeoFeedBasicTableViewCell
+            let likeCount = post.likeCount ?? 0
+            let commentCount = post.commentCount ?? 0
+            
+            var likeCommentCount = ""
+            
+//            if likeCount > 0 || commentCount > 0 {
+                likeCommentCount.append("\(likeCount) ")
+                likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
+                likeCommentCount.append("\(commentCount) ")
+                likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
+                
+//            }
             if let images = post.postImages {
                 let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
                 cell.postImageHeightConstraint.constant = CGFloat(calculatedHeight)
@@ -307,18 +319,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
                 tipView.delegate = nil
                 tipView.dismiss()
             }
-            let likeCount = post.likeCount ?? 0
-            let commentCount = post.commentCount ?? 0
-            
-            var likeCommentCount = ""
-            
-            if likeCount > 0 || commentCount > 0 {
-                likeCommentCount.append("\(likeCount) ")
-                likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
-                likeCommentCount.append("\(commentCount) ")
-                likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
-                
-            }
+           
             
             cell.likeButton.isSelected = post.isSelfLiked ?? false
             
@@ -436,19 +437,19 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             
             let post = postArray[indexPath.row]
-            var totalHeight : CGFloat = 120
+            var totalHeight : CGFloat = 130
             if let images = post.postImages {
                 totalHeight += CGFloat(Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0))
             }
             if let content = post.content {
                 totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0)!], context: nil).size.height + 5
             }
-            if post.likeCount! > 0 || post.commentCount! > 0 {
+//            if post.likeCount! > 0 || post.commentCount! > 0 {
                 totalHeight += 19
-            }
-            else{
-                totalHeight += 5
-            }
+//            }
+//            else{
+//                totalHeight += 5
+//            }
             
             return totalHeight
         }
@@ -497,7 +498,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             sender.isEnabled = true
             self.postArray[sender.tag].isSelfLiked = !sender.isSelected
             self.postArray[sender.tag].likeCount = response["postCount"] as? Int ?? 0
-            self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.none)
+            self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.left)
         }) { (error) in
             
         }

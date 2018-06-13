@@ -1069,4 +1069,43 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func deleteEvent(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                     failureBlock failure:@escaping (String) -> ()){
+        self.deletePath(urlString: Constant.deleteEventURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [String : AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            failure(error.localizedDescription)
+        }
+    }
+    
+    func reportEvent(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
+                     failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: Constant.reportEventURL, params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response[Constant.responseKey] as! [[String : AnyObject]])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            //            failure(error.localizedDescription)
+            failure(error)
+        }
+    }
+    
 }
