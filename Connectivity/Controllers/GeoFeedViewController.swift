@@ -11,6 +11,7 @@ import UIKit
 class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersDelegate, EasyTipViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     static let storyboardID = "geoFeedViewController"
+    var postTableID = "postTableID"
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var whiteView: UIView!
@@ -550,6 +551,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false
         optionsTableView.tag=sender.tag
+        optionsTableView.accessibilityIdentifier = postTableID
         optionsTableView.register(UINib(nibName: "PopOverTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: PopOverTableViewCell.identifier)
         popover = Popover(options: popoverOptions)
         popover.show(optionsTableView, fromView: sender)

@@ -15,12 +15,14 @@ class BaseViewController: UIViewController {
         setupBackgroundImage()
         navigationItem.backBarButtonItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         navigationItem.backBarButtonItem?.width = 30
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -294,11 +294,11 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         if post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
             userOptionsArray = ["Edit", "Delete"]
-            optionsHeight = userOptionsArray.count*30
+            optionsHeight = userOptionsArray.count*35
         }
         else {
             userOptionsArray = ["Report"]
-            optionsHeight = 25
+            optionsHeight = 30
         }
         
         var popover: Popover!
@@ -314,6 +314,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         optionsTableView.isScrollEnabled = false
         optionsTableView.tag=sender.tag
         optionsTableView.accessibilityIdentifier = postTableID
+        optionsTableView.register(UINib(nibName: "PopOverTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: PopOverTableViewCell.identifier)
         popover = Popover(options: popoverOptions)
         popover.show(optionsTableView, fromView: sender)
         
