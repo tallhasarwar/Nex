@@ -1816,7 +1816,7 @@ Cg
                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dge-dW-2tv">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dge-dW-2tv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="534"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="OPg-8U-fUW" customClass="PostDetailHeaderView" customModule="Connectivity" customModuleProvider="target">
@@ -2103,11 +2103,11 @@ Cg
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentTableViewCell" rowHeight="75" id="Sw1-g2-Z74" customClass="CommentTableViewCell" customModule="Connectivity" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="518" width="375" height="75"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentTableViewCell" rowHeight="100" id="Sw1-g2-Z74" customClass="CommentTableViewCell" customModule="Connectivity" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="518" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sw1-g2-Z74" id="piX-Qc-piv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-image" translatesAutoresizingMaskIntoConstraints="NO" id="5IQ-9P-J3P" customClass="DesignableImageView" customModule="Connectivity" customModuleProvider="target">
@@ -2146,35 +2146,61 @@ Cg
                                                     <color key="textColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment Body" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.89999997615814209" translatesAutoresizingMaskIntoConstraints="NO" id="T2g-DH-6fd">
-                                                    <rect key="frame" x="53" y="50" width="317" height="19"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Comment Body" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.89999997615814209" translatesAutoresizingMaskIntoConstraints="NO" id="T2g-DH-6fd">
+                                                    <rect key="frame" x="53" y="50" width="317" height="18.5"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                     <color key="textColor" white="0.31" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HOm-B2-fW9">
+                                                    <rect key="frame" x="33" y="73.5" width="100" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="UIB-ca-XCr"/>
+                                                        <constraint firstAttribute="height" constant="20" id="ze2-jk-VwY"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                                                    <state key="normal" title=" Like" image="like-button-unselected">
+                                                        <color key="titleColor" red="0.27450980390000002" green="0.27450980390000002" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <state key="selected" image="like-button-selected">
+                                                        <color key="titleColor" red="0.070000000000000007" green="0.37" blue="0.96999999999999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Like" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7AX-TV-ipx">
+                                                    <rect key="frame" x="133" y="75" width="28" height="17"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="T2g-DH-6fd" firstAttribute="top" secondItem="52b-2P-Ken" secondAttribute="bottom" constant="6" id="3ED-2D-1eg"/>
-                                                <constraint firstAttribute="bottom" secondItem="T2g-DH-6fd" secondAttribute="bottom" constant="5.5" id="3vi-Se-28s"/>
                                                 <constraint firstAttribute="trailing" secondItem="T2g-DH-6fd" secondAttribute="trailing" constant="5" id="67G-Ym-QeB"/>
                                                 <constraint firstAttribute="trailing" secondItem="cR8-dn-dij" secondAttribute="trailing" id="69P-J8-54R"/>
+                                                <constraint firstItem="7AX-TV-ipx" firstAttribute="centerY" secondItem="HOm-B2-fW9" secondAttribute="centerY" id="6aA-fY-zYX"/>
                                                 <constraint firstItem="52b-2P-Ken" firstAttribute="top" secondItem="crf-0g-7tu" secondAttribute="bottom" id="81n-j1-tbo"/>
+                                                <constraint firstItem="7AX-TV-ipx" firstAttribute="leading" secondItem="HOm-B2-fW9" secondAttribute="trailing" id="9wk-o5-4gu"/>
                                                 <constraint firstItem="cR8-dn-dij" firstAttribute="leading" secondItem="r0J-A7-5iE" secondAttribute="trailing" constant="5" id="Ayh-oG-Nr8"/>
                                                 <constraint firstItem="T2g-DH-6fd" firstAttribute="leading" secondItem="piX-Qc-piv" secondAttribute="leading" constant="53" id="BCA-zX-ERY"/>
                                                 <constraint firstItem="r0J-A7-5iE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="crf-0g-7tu" secondAttribute="trailing" constant="5" id="DjL-1F-AdP"/>
+                                                <constraint firstItem="HOm-B2-fW9" firstAttribute="top" secondItem="T2g-DH-6fd" secondAttribute="bottom" constant="5" id="ML8-vR-Wj7"/>
                                                 <constraint firstItem="r0J-A7-5iE" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="52b-2P-Ken" secondAttribute="trailing" constant="5" id="NwE-Jr-zWd"/>
                                                 <constraint firstItem="cR8-dn-dij" firstAttribute="top" secondItem="piX-Qc-piv" secondAttribute="top" id="Ss4-mS-kac"/>
                                                 <constraint firstItem="crf-0g-7tu" firstAttribute="leading" secondItem="5IQ-9P-J3P" secondAttribute="trailing" constant="8" id="Tgx-Yj-7im"/>
                                                 <constraint firstItem="5IQ-9P-J3P" firstAttribute="top" secondItem="piX-Qc-piv" secondAttribute="top" constant="7" id="cNB-Dt-Se5"/>
+                                                <constraint firstItem="HOm-B2-fW9" firstAttribute="leading" secondItem="T2g-DH-6fd" secondAttribute="leading" constant="-20" id="jlq-k7-m6c"/>
                                                 <constraint firstItem="crf-0g-7tu" firstAttribute="top" secondItem="5IQ-9P-J3P" secondAttribute="top" id="kR8-Cv-TAJ"/>
                                                 <constraint firstItem="r0J-A7-5iE" firstAttribute="top" secondItem="piX-Qc-piv" secondAttribute="top" constant="10" id="nOg-QT-oTH"/>
                                                 <constraint firstItem="52b-2P-Ken" firstAttribute="leading" secondItem="crf-0g-7tu" secondAttribute="leading" id="rf5-B5-yAD"/>
                                                 <constraint firstItem="5IQ-9P-J3P" firstAttribute="leading" secondItem="piX-Qc-piv" secondAttribute="leading" constant="5" id="sNH-Oq-PSk"/>
+                                                <constraint firstAttribute="bottom" secondItem="HOm-B2-fW9" secondAttribute="bottom" constant="6" id="yiZ-1P-hQM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="commentLabel" destination="T2g-DH-6fd" id="rR5-hC-sOa"/>
                                             <outlet property="headlineLabel" destination="52b-2P-Ken" id="VtZ-Lb-tUA"/>
+                                            <outlet property="likeButton" destination="HOm-B2-fW9" id="JfR-vs-w5O"/>
+                                            <outlet property="likeCountLabel" destination="7AX-TV-ipx" id="npK-vd-rsg"/>
                                             <outlet property="nameLabel" destination="crf-0g-7tu" id="LC9-Hj-Lal"/>
                                             <outlet property="optionsButton" destination="cR8-dn-dij" id="FAz-HJ-kAu"/>
                                             <outlet property="profileImageView" destination="5IQ-9P-J3P" id="G3o-7v-hHm"/>

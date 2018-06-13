@@ -73,7 +73,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         tableView.dataSource = self
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 70
+        tableView.estimatedRowHeight = 100
         
         tableView.separatorStyle = .none
         tableView.separatorColor = .clear
@@ -245,10 +245,26 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         sender.isEnabled = false
         RequestManager.likePost(param: params, successBlock: { (response) in
-            //            sender.isSelected = !sender.isSelected
+            sender.isSelected = !sender.isSelected
             sender.isEnabled = true
             self.post.isSelfLiked = !sender.isSelected
             self.post.likeCount = response["postCount"] as? Int ?? 0
+            
+            let likeCount = post.likeCount ?? 0
+            let commentCount = post.commentCount ?? 0
+            
+            var likeCommentCount = ""
+            
+            if likeCount > 0 || commentCount > 0 {
+                likeCommentCount.append("\(likeCount) ")
+                likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
+                likeCommentCount.append("\(commentCount) ")
+                likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
+                self.likeCommentLabel.text = likeCommentCount
+            }
+            else {
+                self.likeCommentLabel.text = nil
+            }
             self.tableView.reloadData()
         }) { (error) in
             
@@ -390,21 +406,31 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView == self.tableView {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier) as! CommentTableViewCell
-        
-        let comment = post.commentsArray[indexPath.row]
-        cell.nameLabel.text = comment.full_name
-        cell.profileImageView.sd_setImage(with: URL(string: comment.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
-        cell.headlineLabel.text = comment.headline
-        cell.timeAgoLabel.text = UtilityManager.timeAgoSinceDate(date: comment.created_at!, numericDates: true, short: true)
-        cell.commentLabel.text = comment.comment
-        cell.optionsButton.tag = indexPath.row
-        cell.optionsButton.addTarget(self, action: #selector(self.shotCommentOptions(_:)), for: .touchUpInside)
-        
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier) as! CommentTableViewCell
+            
+            let comment = post.commentsArray[indexPath.row]
+            cell.nameLabel.text = comment.full_name
+            cell.profileImageView.sd_setImage(with: URL(string: comment.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
+            cell.headlineLabel.text = comment.headline
+            cell.timeAgoLabel.text = UtilityManager.timeAgoSinceDate(date: comment.created_at!, numericDates: true, short: true)
+            cell.commentLabel.text = comment.comment
+            cell.optionsButton.tag = indexPath.row
+            cell.optionsButton.addTarget(self, action: #selector(self.shotCommentOptions(_:)), for: .touchUpInside)
+            if let likes = comment.number_of_likes {
+                let likeCount = Int(likes)
+                if likeCount == 0 {
+                    cell.likeCountLabel.text = nil
+                }
+                else {
+                    cell.likeCountLabel.text = likeCount! > 1 ? "\(likeCount ?? 2) Likes" : "1 Like"
+                }
+            }
+            cell.likeButton.tag = indexPath.row
+            cell.likeButton.addTarget(self, action: #selector(self.likeCommentButtonPressed(_:)), for: .touchUpInside)
             return cell
         }
-        
+            
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: PopOverTableViewCell.identifier) as! PopOverTableViewCell
             cell.titleLabel.text = self.userOptionsArray[(indexPath as NSIndexPath).row]
@@ -575,6 +601,25 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         comment.optionsPopover = popover
         
         
+    }
+    
+    @objc func likeCommentButtonPressed(_ sender: UIButton) {
+        let comment = self.post.commentsArray[sender.tag]
+        
+        var params = [String: AnyObject]()
+        params["post_id"] = post.id as AnyObject
+        params["user_id"] = ApplicationManager.sharedInstance.user.user_id as AnyObject
+        params["is_liked"] = !sender.isSelected ? true as AnyObject : false as AnyObject
+        params["comment_id"] = comment.id as AnyObject
+        
+        sender.isEnabled = false
+        RequestManager.likePostComment(param: params, successBlock: { (response) in
+            //            sender.isSelected = !sender.isSelected
+            sender.isEnabled = true
+            self.fetchPostDetails()
+        }) { (error) in
+            
+        }
     }
 
 }

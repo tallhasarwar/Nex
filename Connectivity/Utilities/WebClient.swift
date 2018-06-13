@@ -1049,4 +1049,24 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
+    func likePostComment(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+                  failureBlock failure:@escaping (String) -> ()){
+        self.postPath(urlString: "like_post_comment", params: param as [String : AnyObject], successBlock: { (response) in
+            print(response)
+            if (response[Constant.statusKey] as AnyObject).boolValue == true{
+                success(response as! [String: AnyObject])
+            }
+            else{
+                if response.object(forKey: "message") as? String != "" {
+                    failure(response.object(forKey: "message") as! String)
+                }                else{
+                    failure("Unable to fetch data")
+                }
+            }
+        }) { (error) in
+            //            failure(error.localizedDescription)
+            failure(error)
+        }
+    }
+    
 }
