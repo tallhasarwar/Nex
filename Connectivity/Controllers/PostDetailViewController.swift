@@ -38,6 +38,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     @IBOutlet var inputBar: UIView!
     @IBOutlet weak var commentField: UITextField!
+    @IBOutlet weak var likesCollectionViewHeightConstraints: NSLayoutConstraint!
     
     var post = Post()
     var commentActive = false
@@ -49,6 +50,8 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     var postTableID = "postTableID"
     var commentTableID = "commentTableID"
+    
+    var headerViewHeight = 250
     
     override var inputAccessoryView: UIView? {
         get {
@@ -103,12 +106,16 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     }
     
     func setupUI() {
-        var headerViewHeight = 293
+        var fontHeight : CGFloat = 0
+        
+        if let content = post.content {
+            fontHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 17.0)!], context: nil).size.height + 10
+        }
         
         if let images = post.postImages {
             let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
             postImageHeightConstraint.constant = CGFloat(calculatedHeight)
-            headerViewHeight += Int(calculatedHeight)
+            headerViewHeight += Int(calculatedHeight) + Int(fontHeight)
             
             postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
                 
@@ -118,6 +125,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             
         }
         else{
+            headerViewHeight += Int(fontHeight)
             postImageHeightConstraint.constant = CGFloat(0)
         }
         
@@ -169,7 +177,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         if likeCount <= 0 {
             likesViewHeightConstraint.constant = 0
-            headerViewHeight -= 70
+            headerViewHeight -= 50
             if commentCount <= 0 {
                 headerViewHeight -= 30
             }
@@ -179,17 +187,17 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         var likeCommentCount = ""
         
-        if likeCount > 0 || commentCount > 0 {
+//        if likeCount > 0 || commentCount > 0 {
             likeCommentCount.append("\(likeCount) ")
             likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
             likeCommentCount.append("\(commentCount) ")
             likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
             likeCommentLabel.text = likeCommentCount
-        }
-        else {
-            likeCommentLabel.text = nil
-        }
-        
+//        }
+//        else {
+//            likeCommentLabel.text = nil
+//        }
+    
         
         
         likeButton.addTarget(self, action: #selector(self.likePostButtonPressed(_:)), for: .touchUpInside)
@@ -210,9 +218,11 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     }
     
     @objc func openImage(_ sender: UIButton) {
-        let cell = tableView.cellForRow(at: IndexPath (row: sender.tag, section: 0)) as! GeoFeedBasicTableViewCell
-        removeToolTip()
-        let image = LightboxImage(image: cell.postImageView.image!, text: cell.bodyLabel.text!, videoURL: nil)
+        
+        commentField.resignFirstResponder()
+        return
+
+        let image = LightboxImage(image: postImageView.image!, text: bodyLabel.text!, videoURL: nil)
         
         let controller = LightboxController(images: [image], startIndex: 0)
         
@@ -255,16 +265,36 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             
             var likeCommentCount = ""
             
-            if likeCount > 0 || commentCount > 0 {
+            if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
+                
+                self.likesViewHeightConstraint.constant = CGFloat(0)
+                self.headerViewHeight -= Int(70)
+            }
+            else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
+            {
+                self.likesViewHeightConstraint.constant = CGFloat(70)
+                self.headerViewHeight += Int(70)
+                self.fetchPostDetails()
+            }
+            else {
+                self.fetchPostDetails()
+            }
+            
+            
+//            if likeCount > 0 || commentCount > 0 {
                 likeCommentCount.append("\(likeCount) ")
                 likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
                 likeCommentCount.append("\(commentCount) ")
                 likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
                 self.likeCommentLabel.text = likeCommentCount
-            }
-            else {
-                self.likeCommentLabel.text = nil
-            }
+            
+//                self.post.likesArray.append(ApplicationManager.sharedInstance.user)
+//            }
+//            else {
+//                self.likeCommentLabel.text = likeCommentCount
+//            }
+            
+            self.tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: self.headerViewHeight)
             self.tableView.reloadData()
         }) { (error) in
             
@@ -289,8 +319,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     @objc func showPostOptionsPopup(_ sender: UIButton) {
         
         var optionsHeight = 0
-//        let post = postArray[sender.tag]
-        
+
         if post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
             userOptionsArray = ["Edit", "Delete"]
@@ -308,7 +337,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
         ]
         
-        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: optionsHeight))
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 210, height: optionsHeight))
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false
@@ -577,7 +606,8 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         if comment.user_id == ApplicationManager.sharedInstance.user.user_id || post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
-            userOptionsArray = ["Edit", "Delete"]
+            userOptionsArray = ["Edit"]
+//            optionsHeight = userOptionsArray.count*35
         }
         else {
             userOptionsArray = ["Report"]
@@ -590,7 +620,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
         ]
         
-        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 160, height: optionsHeight))
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 210, height: optionsHeight))
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false
@@ -615,7 +645,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         sender.isEnabled = false
         RequestManager.likePostComment(param: params, successBlock: { (response) in
-            //            sender.isSelected = !sender.isSelected
+            sender.isSelected = !sender.isSelected
             sender.isEnabled = true
             self.fetchPostDetails()
         }) { (error) in

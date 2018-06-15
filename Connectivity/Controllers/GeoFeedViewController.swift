@@ -437,15 +437,15 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             
             let post = postArray[indexPath.row]
-            var totalHeight : CGFloat = 130
+            var totalHeight : CGFloat = 120
             if let images = post.postImages {
                 totalHeight += CGFloat(Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0))
             }
             if let content = post.content {
-                totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 15.0)!], context: nil).size.height + 5
+                totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 17.0)!], context: nil).size.height + 10
             }
 //            if post.likeCount! > 0 || post.commentCount! > 0 {
-                totalHeight += 19
+                totalHeight += 20
 //            }
 //            else{
 //                totalHeight += 5
@@ -459,6 +459,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func openImage(_ sender: UIButton) {
+        
         let cell = tableView.cellForRow(at: IndexPath (row: sender.tag, section: 0)) as! GeoFeedBasicTableViewCell
         removeToolTip(indexPath: sender.tag)
         let image = LightboxImage(image: cell.postImageView.image!, text: cell.bodyLabel.text!, videoURL: nil)
@@ -487,6 +488,10 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
     @objc func likePostButtonPressed(_ sender: UIButton) {
         let post = postArray[sender.tag]
         
+        let indexPath = IndexPath(item: sender.tag, section: 0)
+        
+        let cell = self.tableView.cellForRow(at: indexPath) as! GeoFeedBasicTableViewCell
+        
         var params = [String: AnyObject]()
         params["post_id"] = post.id as AnyObject
         params["user_id"] = ApplicationManager.sharedInstance.user.user_id as AnyObject
@@ -498,7 +503,23 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             sender.isEnabled = true
             self.postArray[sender.tag].isSelfLiked = !sender.isSelected
             self.postArray[sender.tag].likeCount = response["postCount"] as? Int ?? 0
-            self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.left)
+//            self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.left)
+            
+            let likeCount = post.likeCount ?? 0
+            let commentCount = post.commentCount ?? 0
+            
+            var likeCommentCount = ""
+            
+            //            if likeCount > 0 || commentCount > 0 {
+            likeCommentCount.append("\(likeCount) ")
+            likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
+            likeCommentCount.append("\(commentCount) ")
+            likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
+
+            
+            cell.likeButton.isSelected = post.isSelfLiked ?? false
+            cell.likeCommentLabel.text = likeCommentCount
+            
         }) { (error) in
             
         }
@@ -547,7 +568,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
         ]
         
-        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 160, height: optionsHeight))
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 210, height: optionsHeight))
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false

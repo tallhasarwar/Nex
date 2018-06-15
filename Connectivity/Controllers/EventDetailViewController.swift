@@ -230,7 +230,7 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if tableView == self.tableView {
-            return (CGFloat)(60)
+            return (CGFloat)(80)
         }
         else {
             return (CGFloat)(40)
@@ -257,7 +257,7 @@ class EventDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             .blackOverlayColor(UIColor(white: 0.0, alpha: 0.6))
         ]
         
-        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: optionsHeight))
+        let optionsTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 210, height: optionsHeight))
         optionsTableView.delegate = self
         optionsTableView.dataSource = self
         optionsTableView.isScrollEnabled = false
