@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate {
 
     static let storyboardID = "postDetailViewController"
     
@@ -83,6 +83,8 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         likesCollectionView.delegate = self
         likesCollectionView.dataSource = self
+        
+        commentField.delegate = self
         
         delay(delay: 3.0) {
             self.tableView.tableHeaderView?.layoutSubviews()
@@ -456,6 +458,9 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
                     cell.likeCountLabel.text = likeCount! > 1 ? "\(likeCount ?? 2) Likes" : "1 Like"
                 }
             }
+            
+            cell.likeButton.isSelected = comment.isSelfLiked ?? false
+            
             cell.likeButton.tag = indexPath.row
             cell.likeButton.addTarget(self, action: #selector(self.likeCommentButtonPressed(_:)), for: .touchUpInside)
             return cell
@@ -645,12 +650,20 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         sender.isEnabled = false
         RequestManager.likePostComment(param: params, successBlock: { (response) in
-            sender.isSelected = !sender.isSelected
             sender.isEnabled = true
             self.fetchPostDetails()
         }) { (error) in
             
         }
+    }
+    
+    
+     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        //textField code
+        
+        textField.resignFirstResponder()
+        return true
     }
 
 }

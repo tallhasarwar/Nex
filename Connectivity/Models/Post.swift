@@ -84,6 +84,7 @@ import UIKit
     
     @objc var number_of_comments: String?
     @objc var number_of_likes: String?
+//    @objc var post_action: String?
     
     var commentCount : Int?
     var likeCount : Int?

@@ -19,12 +19,15 @@ class Comment: BaseEntity {
     @objc var number_of_likes: String?
     @objc var post_id: String?
     @objc var user_id: String?
+    var isSelfLiked: Bool?
+    
     var profileImages = Images()
     @objc var optionsPopover: Popover!
     
     override init() {
         super.init()
     }
+    
     
     override init(dictionary: [AnyHashable : Any]!) {
         super.init()
@@ -36,6 +39,13 @@ class Comment: BaseEntity {
         if let profileImages = dictionary["profile_images"] as? [String: AnyObject] {
             self.profileImages = Images(dictionary: profileImages)
         }
+        
+        if let isLiked = dictionary["is_like"] as? String {
+            if isLiked == "like" {
+                self.isSelfLiked = true
+            }
+        }
+        
     }
     
     

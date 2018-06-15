@@ -503,7 +503,6 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             sender.isEnabled = true
             self.postArray[sender.tag].isSelfLiked = !sender.isSelected
             self.postArray[sender.tag].likeCount = response["postCount"] as? Int ?? 0
-//            self.tableView.reloadRows(at: [IndexPath(row: sender.tag, section: 0)], with: UITableViewRowAnimation.left)
             
             let likeCount = post.likeCount ?? 0
             let commentCount = post.commentCount ?? 0
