@@ -86,6 +86,8 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         tableView.separatorStyle = .none
         tableView.separatorColor = .clear
         
+        tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.interactive
+        
         likesCollectionView.delegate = self
         likesCollectionView.dataSource = self
         
@@ -563,7 +565,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        self.commentField.resignFirstResponder()
         if tableView == self.tableView {
             let user = User()
             user.user_id = post.commentsArray[indexPath.row].user_id
