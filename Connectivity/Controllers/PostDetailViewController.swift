@@ -40,6 +40,10 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     @IBOutlet weak var commentField: UITextField!
     @IBOutlet weak var likesCollectionViewHeightConstraints: NSLayoutConstraint!
     
+    var pageNumber = 1
+    var isNextPageAvailable = false
+    var isLoading = false
+    
     var post = Post()
     var commentActive = false
     
@@ -214,6 +218,51 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             self.post = Post(dictionary: response)
             self.tableView.reloadData()
             self.likesCollectionView.reloadData()
+        }) { (error) in
+            
+        }
+    }
+    
+    func fetchNewPostDetails() {
+       
+        if isLoading {
+            return
+        }
+        isLoading = true
+        tableView.isScrollEnabled = false
+        
+        var count = 0
+        if pageNumber != 1 {
+            count = self.post.commentsArray.count - 1
+        }
+        
+        guard let location = defaultLocation else {
+            return
+        }
+        
+        if !isNextPageAvailable {
+            return
+        }
+        
+        print("Hitting for page \(self.pageNumber) and total posts \(self.postArray.count)")
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40))
+        let loader = UtilityManager.activityIndicatorForView(view: view)
+        loader.startAnimating()
+        tableView.tableFooterView = view
+        
+        RequestManager.getPostDetail(param: ["post_id":post.id ?? "" , "page":pageNumber], successBlock: { (response) in
+            print(response)
+            
+            SVProgressHUD.dismiss()
+            self.whiteView.isHidden = true
+            self.tableView.tableFooterView = nil
+            self.refreshControl.endRefreshing()
+            print(response)
+            
+//            self.post = Post(dictionary: response)
+//            self.tableView.reloadData()
+//            self.likesCollectionView.reloadData()
         }) { (error) in
             
         }
@@ -584,6 +633,14 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         }
         else {
             return (CGFloat)(40)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if isNextPageAvailable == true {
+            if indexPath.row + 1 == post.commentsArray.count {
+                fetchData()
+            }
         }
     }
     
