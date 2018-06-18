@@ -43,6 +43,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     var pageNumber = 1
     var isNextPageAvailable = false
     var isLoading = false
+    let refreshControl = UIRefreshControl()
     
     var post = Post()
     var commentActive = false
@@ -213,8 +214,23 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     }
     
     func fetchPostDetails() {
+        
+        
         RequestManager.getPostDetail(param: ["post_id":post.id ?? ""], successBlock: { (response) in
             print(response)
+            
+            if self.pageNumber == 1 {
+                self.post.commentsArray.removeAll()
+            }
+            
+            if response.count >= 5 {
+                self.isNextPageAvailable = true
+                self.pageNumber += 1
+            }
+            else {
+                self.isNextPageAvailable = false
+            }
+            
             self.post = Post(dictionary: response)
             self.tableView.reloadData()
             self.likesCollectionView.reloadData()
@@ -236,15 +252,11 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             count = self.post.commentsArray.count - 1
         }
         
-        guard let location = defaultLocation else {
-            return
-        }
-        
         if !isNextPageAvailable {
             return
         }
         
-        print("Hitting for page \(self.pageNumber) and total posts \(self.postArray.count)")
+        print("Hitting for page \(self.pageNumber) and total posts \(self.post.commentsArray.count)")
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40))
         let loader = UtilityManager.activityIndicatorForView(view: view)
@@ -255,16 +267,43 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             print(response)
             
             SVProgressHUD.dismiss()
-            self.whiteView.isHidden = true
+//            self.whiteView.isHidden = true
             self.tableView.tableFooterView = nil
             self.refreshControl.endRefreshing()
             print(response)
+            
+            if self.pageNumber == 1 {
+                self.post.commentsArray.removeAll()
+            }
+            
+            if response.count >= 5 {
+                self.isNextPageAvailable = true
+                self.pageNumber += 1
+            }
+            else {
+                self.isNextPageAvailable = false
+            }
+            print("Hitted for page \(self.pageNumber) and total posts \(self.post.commentsArray.count) and total received posts are \(response.count)")
+            let cmNArray = Post(dictionary: response).commentsArray
+            self.post.commentsArray.append(cmNArray)
+//            for object in response {
+//                self.post = Post(dictionary: response)
+//            }
+            self.isLoading = false
+            
+            self.tableView.isScrollEnabled = true
+            
+            self.tableView.reloadData()
+            
+            if count < self.post.commentsArray.count && count > 0 {
+                self.tableView.scrollToRow(at: IndexPath(row: count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+            }
             
 //            self.post = Post(dictionary: response)
 //            self.tableView.reloadData()
 //            self.likesCollectionView.reloadData()
         }) { (error) in
-            
+          print(error)
         }
     }
     
@@ -639,7 +678,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if isNextPageAvailable == true {
             if indexPath.row + 1 == post.commentsArray.count {
-                fetchData()
+                fetchNewPostDetails()
             }
         }
     }
