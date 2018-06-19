@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1835,7 +1835,7 @@ Cg
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dge-dW-2tv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="534"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="OPg-8U-fUW" customClass="PostDetailHeaderView" customModule="Connectivity" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="490"/>
@@ -1877,20 +1877,20 @@ Cg
                                                     </state>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHb-D3-nKQ" customClass="ActiveLabel" customModule="Connectivity" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="49.5" width="337" height="21"/>
+                                                    <rect key="frame" x="8" y="49.5" width="337" height="20"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                                     <color key="textColor" white="0.20320638020000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="600" verticalCompressionResistancePriority="600" image="placeholder-banner" translatesAutoresizingMaskIntoConstraints="NO" id="gMV-lq-Tje">
-                                                    <rect key="frame" x="0.0" y="80.5" width="375" height="197"/>
+                                                    <rect key="frame" x="0.0" y="79.5" width="375" height="197"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="197" id="4fK-zH-5Fr"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVG-Ln-yo8">
-                                                    <rect key="frame" x="0.0" y="80.5" width="375" height="197"/>
+                                                    <rect key="frame" x="0.0" y="79.5" width="375" height="197"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(0 km away)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7f-v2-7zx">
                                                     <rect key="frame" x="132" y="20" width="64" height="13.5"/>
@@ -1964,13 +1964,13 @@ Cg
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Like • 2 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H3E-k4-dPW">
-                                                    <rect key="frame" x="10" y="284.5" width="125" height="29"/>
+                                                    <rect key="frame" x="10" y="283.5" width="125" height="30"/>
                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                     <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKm-5I-kbR" userLabel="Like Button">
-                                                    <rect key="frame" x="10" y="284.5" width="125" height="29"/>
+                                                    <rect key="frame" x="10" y="283.5" width="125" height="30"/>
                                                 </button>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V8D-bE-qwL">
                                                     <rect key="frame" x="0.0" y="355.5" width="375" height="70"/>
@@ -2236,7 +2236,7 @@ Cg
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="wbW-Kg-wlu" firstAttribute="top" secondItem="dge-dW-2tv" secondAttribute="bottom" constant="20" id="I7X-u0-RQV"/>
+                            <constraint firstItem="wbW-Kg-wlu" firstAttribute="top" secondItem="dge-dW-2tv" secondAttribute="bottom" id="I7X-u0-RQV"/>
                             <constraint firstItem="dge-dW-2tv" firstAttribute="top" secondItem="IQJ-ff-OZe" secondAttribute="bottom" id="al0-uK-Tcp"/>
                             <constraint firstItem="dge-dW-2tv" firstAttribute="leading" secondItem="SXB-Iv-cIp" secondAttribute="leading" id="m8N-3x-9XC"/>
                             <constraint firstAttribute="trailing" secondItem="dge-dW-2tv" secondAttribute="trailing" id="yqL-8R-j4B"/>

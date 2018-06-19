@@ -91,6 +91,9 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         likesCollectionView.delegate = self
         likesCollectionView.dataSource = self
         
+        self.tableView.contentInset.bottom = 10
+        self.tableView.scrollIndicatorInsets.bottom = 10
+        
         commentField.delegate = self
         
         delay(delay: 3.0) {
@@ -772,6 +775,27 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         textField.resignFirstResponder()
         return true
+    }
+    
+    //MARK: NotificationCenter handlers
+    @objc func showKeyboard(notification: Notification) {
+        if let frame = notification.userInfo![UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let height = frame.cgRectValue.height
+            self.tableView.contentInset.bottom = height - 50
+            self.tableView.scrollIndicatorInsets.bottom = height - 50
+           
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatViewController.showKeyboard(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
 
 }
