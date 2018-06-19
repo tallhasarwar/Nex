@@ -14,7 +14,7 @@ class LikesDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     @IBOutlet weak var tableView: UITableView!
     
-    var likesArray = [User]()
+    var likesArray = [Like]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +47,9 @@ class LikesDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Router.showProfileViewController(user: self.likesArray[indexPath.row], from: self)
+        let user = User()
+        user.user_id = self.likesArray[indexPath.row].user_id
+        Router.showProfileViewController(user: user, from: self)
     }
     
 

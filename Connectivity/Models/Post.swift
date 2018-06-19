@@ -92,7 +92,7 @@ import UIKit
     var isSelfLiked: Bool?
     
     var commentsArray = [Comment]()
-    var likesArray = [User]()
+    var likesArray = [Like]()
     
     override init() {
         super.init()
@@ -122,7 +122,7 @@ import UIKit
         self.likesArray.removeAll()
         if let likeUsers = dictionary["likedUser"] as? [[String: AnyObject]] {
             for user in likeUsers {
-                self.likesArray.append(User(dictionary: user))
+                self.likesArray.append(Like(dictionary: user))
             }
         }
         
