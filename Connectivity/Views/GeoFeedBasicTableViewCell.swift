@@ -36,14 +36,14 @@ class GeoFeedBasicTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layoutIfNeeded()
-        let telefonRegex = "^((\\+)|(00)|(0)|())[0-9]{5,14}$"
+        let telefonRegex = "((\\+)|(00)|(0)|())[0-9]{5,15}"
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
         let customTypeEmail = ActiveType.custom(pattern: emailRegex)
         let customTypePhone = ActiveType.custom(pattern: telefonRegex)
         
-        bodyLabel.customColor = [customTypePhone: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)]
-        bodyLabel.customColor = [customTypeEmail: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)]
+        bodyLabel.customColor = [customTypePhone: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0),customTypeEmail: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)]
+//        bodyLabel.customColor = [customTypeEmail: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)]
         
         bodyLabel.enabledTypes = [.hashtag, .url , .custom(pattern: emailRegex) , .custom(pattern: telefonRegex) ,]
         bodyLabel.hashtagColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
