@@ -40,10 +40,16 @@ class Comment: BaseEntity {
             self.profileImages = Images(dictionary: profileImages)
         }
         
-        if let isLiked = dictionary["is_like"] as? String {
+        if let isLiked = dictionary["comment_action"] as? String {
             if isLiked == "like" {
                 self.isSelfLiked = true
             }
+            else {
+                self.isSelfLiked = false
+            }
+        }
+        else {
+            self.isSelfLiked = false
         }
         
     }

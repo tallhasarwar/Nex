@@ -53,17 +53,17 @@ class EULAViewController: UIViewController, UIWebViewDelegate {
         if fromSignup == true {
             SVProgressHUD.show()
             
-            RequestManager.signUpUser(param: signupParams, successBlock: { (response) in
-                SVProgressHUD.dismiss()
-                ApplicationManager.sharedInstance.user = User(dictionary: response)
-                ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
-                UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
+//            RequestManager.signUpUser(param: signupParams, successBlock: { (response) in
+//                SVProgressHUD.dismiss()
+//                ApplicationManager.sharedInstance.user = User(dictionary: response)
+//                ApplicationManager.sharedInstance.session_id = response["session_id"] as! String
+//                UserDefaults.standard.set(response["session_id"] as! String, forKey: UserDefaultKey.sessionID)
                 Router.showMainTabBar()
-            }) { (error) in
-                let errorTemp = "Email already in use"
-                UtilityManager.showErrorMessage(body: errorTemp, in: self)
-                print(error)
-            }
+//            }) { (error) in
+//                let errorTemp = "Email already in use"
+//                UtilityManager.showErrorMessage(body: errorTemp, in: self)
+//                print(error)
+//            }
         }
         else{
             var params = [String: AnyObject]()

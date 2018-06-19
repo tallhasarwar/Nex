@@ -36,19 +36,31 @@ class GeoFeedBasicTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.layoutIfNeeded()
-        let telefonRegex = "^((\\+)|(00)|(0))[0-9]{6,14}$"
+        let telefonRegex = "^((\\+)|(00)|(0)|())[0-9]{5,14}$"
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
-        let customType = ActiveType.custom(pattern: telefonRegex)
-        bodyLabel.enabledTypes = [.hashtag, .url , .custom(pattern: telefonRegex)]
+        let customTypeEmail = ActiveType.custom(pattern: emailRegex)
+        let customTypePhone = ActiveType.custom(pattern: telefonRegex)
+        
+        bodyLabel.customColor = [customTypePhone: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)]
+        bodyLabel.customColor = [customTypeEmail: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)]
+        
+        bodyLabel.enabledTypes = [.hashtag, .url , .custom(pattern: emailRegex) , .custom(pattern: telefonRegex) ,]
         bodyLabel.hashtagColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
-        bodyLabel.customColor = [customType: UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)]
         bodyLabel.URLColor = UIColor(red: 0.06, green: 0.46, blue: 0.96, alpha: 1.0)
         bodyLabel.handleURLTap { urlString in
             UIApplication.shared.open(urlString)
         }
         
+        bodyLabel.handleCustomTap(for: customTypeEmail) { element in
+            print("Custom type tapped: \(element)")
+            if let url = URL(string: "mailto:\(element)") {
+                UIApplication.shared.open(url)
+            }
+        }
         
-        bodyLabel.handleCustomTap(for: customType) { element in
+        
+        bodyLabel.handleCustomTap(for: customTypePhone) { element in
             print("Custom type tapped: \(element)")
             if let url = URL(string: "tel://\(element)") {
                 UIApplication.shared.openURL(url)

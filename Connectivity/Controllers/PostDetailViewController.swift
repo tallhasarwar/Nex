@@ -217,15 +217,18 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     func fetchPostDetails() {
         
+        pageNumber = 1
         
         RequestManager.getPostDetail(param: ["post_id":post.id ?? ""], successBlock: { (response) in
             print(response)
+            
+            let freshCommentsArray = Post(dictionary: response).commentsArray
             
             if self.pageNumber == 1 {
                 self.post.commentsArray.removeAll()
             }
             
-            if response.count >= 5 {
+            if freshCommentsArray.count >= 5 {
                 self.isNextPageAvailable = true
                 self.pageNumber += 1
             }
@@ -274,23 +277,24 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             self.refreshControl.endRefreshing()
             print(response)
             
+            let freshCommentsArray = Post(dictionary: response).commentsArray
+            
             if self.pageNumber == 1 {
                 self.post.commentsArray.removeAll()
             }
             
-            if response.count >= 5 {
+            if freshCommentsArray.count >= 5 {
                 self.isNextPageAvailable = true
                 self.pageNumber += 1
             }
             else {
                 self.isNextPageAvailable = false
             }
-            print("Hitted for page \(self.pageNumber) and total posts \(self.post.commentsArray.count) and total received posts are \(response.count)")
-            let cmNArray = Post(dictionary: response).commentsArray
-            self.post.commentsArray.append(cmNArray)
-//            for object in response {
-//                self.post = Post(dictionary: response)
-//            }
+            
+            self.post.commentsArray += freshCommentsArray
+            
+            print("Hitted for page \(self.pageNumber) and total posts \(self.post.commentsArray.count)")
+
             self.isLoading = false
             
             self.tableView.isScrollEnabled = true
@@ -301,9 +305,6 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
                 self.tableView.scrollToRow(at: IndexPath(row: count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
             }
             
-//            self.post = Post(dictionary: response)
-//            self.tableView.reloadData()
-//            self.likesCollectionView.reloadData()
         }) { (error) in
           print(error)
         }
@@ -670,7 +671,16 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if tableView == self.tableView {
-            return (CGFloat)(75)
+            
+            let comment = post.commentsArray[indexPath.row]
+            var totalHeight : CGFloat = 40
+
+            if let content = comment.comment {
+                totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 17.0)!], context: nil).size.height + 10
+            }
+            totalHeight += 20
+            return totalHeight
+            
         }
         else {
             return (CGFloat)(40)
@@ -709,7 +719,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         if comment.user_id == ApplicationManager.sharedInstance.user.user_id || post.user_id == ApplicationManager.sharedInstance.user.user_id {
             
-            userOptionsArray = ["Edit"]
+            userOptionsArray = ["Delete"]
 //            optionsHeight = userOptionsArray.count*35
         }
         else {

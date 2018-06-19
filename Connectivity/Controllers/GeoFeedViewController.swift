@@ -435,7 +435,6 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if tableView == self.tableView {
             
-            
             let post = postArray[indexPath.row]
             var totalHeight : CGFloat = 120
             if let images = post.postImages {
@@ -444,12 +443,8 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
             if let content = post.content {
                 totalHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 17.0)!], context: nil).size.height + 10
             }
-//            if post.likeCount! > 0 || post.commentCount! > 0 {
                 totalHeight += 20
-//            }
-//            else{
-//                totalHeight += 5
-//            }
+
             
             return totalHeight
         }
