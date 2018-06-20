@@ -58,6 +58,9 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     var headerViewHeight = 250
     
+    var defaultLocation: CLLocationCoordinate2D?
+    var locationManager = CLLocationManager()
+    
     override var inputAccessoryView: UIView? {
         get {
             self.inputBar.frame.size.height = 60
@@ -91,6 +94,10 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         self.tableView.scrollIndicatorInsets.bottom = 10
         
         commentField.delegate = self
+        
+        refreshControl.addTarget(self, action: #selector(setupLocation), for: UIControlEvents.valueChanged)
+        
+        self.setupLocation()
         
         delay(delay: 3.0) {
             self.tableView.tableHeaderView?.layoutSubviews()
@@ -319,7 +326,16 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         pageNumber = 1
         
-        RequestManager.getPostDetail(param: ["post_id":post.id ?? ""], successBlock: { (response) in
+        guard let location = defaultLocation else {
+            return
+        }
+        var params = [String: AnyObject]()
+        
+        params["latitude"] = location.latitude as AnyObject
+        params["longitude"] = location.longitude as AnyObject
+        params["post_id"] = post.id as AnyObject
+        
+        RequestManager.getPostDetail(param: params, successBlock: { (response) in
             print(response)
             
             let freshCommentsArray = Post(dictionary: response).commentsArray
@@ -911,4 +927,52 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         NotificationCenter.default.removeObserver(self)
     }
 
+}
+
+// Delegates to handle events for the location manager.
+extension PostDetailViewController: CLLocationManagerDelegate {
+    
+    @objc func setupLocation() {
+        // Initialize the location manager.
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        locationManager.distanceFilter = 100
+        locationManager.startUpdatingLocation()
+    }
+    
+    // Handle incoming location events.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations.last!
+        print("Location: \(location)")
+        
+        defaultLocation = location.coordinate
+        locationManager.stopUpdatingLocation()
+        locationManager.delegate = nil
+        self.isNextPageAvailable = true
+        self.fetchPostDetails()
+    }
+    
+    // Handle authorization for the location manager.
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted:
+            print("Location access was restricted.")
+        case .denied:
+            print("User denied access to location.")
+        // Display the map using the default location.
+        case .notDetermined:
+            print("Location status not determined.")
+        case .authorizedAlways: fallthrough
+        case .authorizedWhenInUse:
+            print("Location status is OK.")
+        }
+    }
+    
+    // Handle location manager errors.
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error: \(error)")
+        locationManager.stopUpdatingLocation()
+    }
 }
