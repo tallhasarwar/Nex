@@ -369,7 +369,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         loader.startAnimating()
         tableView.tableFooterView = view
         
-        RequestManager.getPostCommentsWithPage(param: ["post_id":post.id ?? "" , "page":1], successBlock: { (response) in
+        RequestManager.getPostCommentsWithPage(param: ["post_id":post.id ?? "" , "page":pageNumber], successBlock: { (response) in
             print(response)
             
             SVProgressHUD.dismiss()
@@ -380,11 +380,17 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             
             var freshCommentsArray = [Comment]() //= Post(dictionary: response).commentsArray
             
-            if let comments = response["response"] as? [[String: AnyObject]] {
-                for comment in comments {
-                    freshCommentsArray.append(Comment(dictionary: comment))
-                }
+            for comment in response {
+//                self.connectionRequests.append(User(dictionary: user))
+                freshCommentsArray.append(Comment(dictionary: comment))
+                
             }
+            
+//            if let comments = response["response"] as? [[String: AnyObject]] {
+//                for comment in comments {
+//                    freshCommentsArray.append(Comment(dictionary: comment))
+//                }
+//            }
             
             if self.pageNumber == 1 {
                 self.post.commentsArray.removeAll()

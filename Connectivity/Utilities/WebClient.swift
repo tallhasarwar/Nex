@@ -971,11 +971,11 @@ class WebClient: AFHTTPSessionManager {
         }
     }
     
-    func getPostCommentsWithPage(param: [String: Any], successBlock success:@escaping ([String: AnyObject]) -> (),
+    func getPostCommentsWithPage(param: [String: Any], successBlock success:@escaping ([[String: AnyObject]]) -> (),
                        failureBlock failure:@escaping (String) -> ()){
         self.getPath(urlString: "get_post_comments", params: param as [String : AnyObject], successBlock: { (response) in
             if (response[Constant.statusKey] as AnyObject).boolValue == true{
-                success(response[Constant.responseKey] as! [String : AnyObject])
+                success(response["response"] as! [[String : AnyObject]])
             }
             else{
                 if response.object(forKey: "message") as? String != "" {
