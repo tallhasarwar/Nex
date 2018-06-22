@@ -191,9 +191,21 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         let likeCount = post.likeCount ?? 0
         let commentCount = post.commentCount ?? 0
         
+        if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
+            
+            self.likesViewHeightConstraint.constant = CGFloat(0)
+            self.headerViewHeight -= Int(70)
+        }
+        else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
+        {
+            self.likesViewHeightConstraint.constant = CGFloat(70)
+            self.headerViewHeight += Int(70)
+//            self.fetchPostDetails()
+        }
+        
         if likeCount <= 0 {
             likesViewHeightConstraint.constant = 0
-            headerViewHeight -= 50
+            headerViewHeight -= 70
             if commentCount <= 0 {
                 headerViewHeight -= 30
             }
@@ -293,11 +305,23 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         
         if likeCount <= 0 {
             likesViewHeightConstraint.constant = 0
-            headerViewHeight -= 50
+            headerViewHeight -= 70
             if commentCount <= 0 {
                 headerViewHeight -= 30
             }
         }
+//                    if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
+//
+//                        self.likesViewHeightConstraint.constant = CGFloat(0)
+//                        self.headerViewHeight -= Int(70)
+//                    }
+//                    else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
+//                    {
+//                        self.likesViewHeightConstraint.constant = CGFloat(70)
+//                        self.headerViewHeight += Int(70)
+//                        self.fetchPostDetails()
+//                    }
+        
         
         self.likeButton.isSelected = post.isSelfLiked ?? false
         
@@ -319,7 +343,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         likeButton.addTarget(self, action: #selector(self.likePostButtonPressed(_:)), for: .touchUpInside)
         
         commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
-        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: headerViewHeight)
+//        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: headerViewHeight)
     }
     
     func fetchPostDetails() {
@@ -479,6 +503,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
         params["post_action"] = !sender.isSelected ? "like" as AnyObject : "dislike" as AnyObject
         
         sender.isEnabled = false
+        
         RequestManager.likePost(param: params, successBlock: { (response) in
             sender.isSelected = !sender.isSelected
             sender.isEnabled = true
@@ -490,20 +515,20 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             
             var likeCommentCount = ""
             
-            if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
-                
-                self.likesViewHeightConstraint.constant = CGFloat(0)
-                self.headerViewHeight -= Int(70)
-            }
-            else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
-            {
-                self.likesViewHeightConstraint.constant = CGFloat(70)
-                self.headerViewHeight += Int(70)
+//            if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
+//
+//                self.likesViewHeightConstraint.constant = CGFloat(0)
+//                self.headerViewHeight -= Int(60)
+//            }
+//            else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
+//            {
+//                self.likesViewHeightConstraint.constant = CGFloat(70)
+//                self.headerViewHeight += Int(70)
+//                self.fetchPostDetails()
+//            }
+//            else {
                 self.fetchPostDetails()
-            }
-            else {
-                self.fetchPostDetails()
-            }
+//            }
             
             
 //            if likeCount > 0 || commentCount > 0 {
@@ -519,7 +544,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
 //                self.likeCommentLabel.text = likeCommentCount
 //            }
             
-            self.tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: self.headerViewHeight)
+//            self.tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: self.headerViewHeight)
             self.tableView.reloadData()
         }) { (error) in
             
