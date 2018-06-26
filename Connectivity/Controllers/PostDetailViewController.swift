@@ -56,7 +56,7 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     var postTableID = "postTableID"
     var commentTableID = "commentTableID"
     
-    var headerViewHeight = 250
+    var headerViewHeight = 270
     
     var defaultLocation: CLLocationCoordinate2D?
     var locationManager = CLLocationManager()
@@ -123,15 +123,15 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
     
     func setupUI() {
         var fontHeight : CGFloat = 0
-        var headerViewHeight = 250
+        var calculatedHeight : Float = 0
+        var headerViewHeight = 270
         if let content = post.content {
             fontHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 17.0)!], context: nil).size.height + 10
         }
         
         if let images = post.postImages {
-            let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
+            calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
             postImageHeightConstraint.constant = CGFloat(calculatedHeight)
-            headerViewHeight += Int(calculatedHeight) + Int(fontHeight)
             
             postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
                 
@@ -141,11 +141,31 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             
         }
         else{
-            headerViewHeight += Int(fontHeight)
             postImageHeightConstraint.constant = CGFloat(0)
         }
         
-        //        geoFeedImageTableViewCell
+        headerViewHeight += Int(calculatedHeight) + Int(fontHeight)
+        
+        let likeCount = post.likeCount ?? 0
+        let commentCount = post.commentCount ?? 0
+        
+        if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
+
+            self.likesViewHeightConstraint.constant = CGFloat(0)
+        }
+        else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
+        {
+            self.likesViewHeightConstraint.constant = CGFloat(70)
+        }
+        
+        if likeCount <= 0 {
+            likesViewHeightConstraint.constant = 0
+            headerViewHeight -= 70
+//            if commentCount <= 0 {
+//                headerViewHeight -= 30
+//            }
+            
+        }
         
         bodyLabel.text = post.content
         if post.location_name != nil && post.location_name?.count ?? 0 > 0 {
@@ -188,163 +208,24 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             tipView.delegate = nil
             tipView.dismiss()
         }
-        let likeCount = post.likeCount ?? 0
-        let commentCount = post.commentCount ?? 0
-        
-        if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
-            
-            self.likesViewHeightConstraint.constant = CGFloat(0)
-            self.headerViewHeight -= Int(70)
-        }
-        else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
-        {
-            self.likesViewHeightConstraint.constant = CGFloat(70)
-            self.headerViewHeight += Int(70)
-//            self.fetchPostDetails()
-        }
-        
-        if likeCount <= 0 {
-            likesViewHeightConstraint.constant = 0
-            headerViewHeight -= 70
-            if commentCount <= 0 {
-                headerViewHeight -= 30
-            }
-        }
         
         self.likeButton.isSelected = post.isSelfLiked ?? false
         
         var likeCommentCount = ""
         
-//        if likeCount > 0 || commentCount > 0 {
             likeCommentCount.append("\(likeCount) ")
             likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
             likeCommentCount.append("\(commentCount) ")
             likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
             likeCommentLabel.text = likeCommentCount
-//        }
-//        else {
-//            likeCommentLabel.text = nil
-//        }
-    
-        
-        
+   
         likeButton.addTarget(self, action: #selector(self.likePostButtonPressed(_:)), for: .touchUpInside)
         
         commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
         tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: headerViewHeight)
+        tableView.reloadData()
     }
     
-    func updateUI() {
-        var fontHeight : CGFloat = 0
-        if let content = post.content {
-            fontHeight += (content as NSString).boundingRect(with: CGSize(width: self.view.frame.size.width - 27, height: CGFloat.greatestFiniteMagnitude), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedStringKey.font: UIFont(font: .Standard, size: 17.0)!], context: nil).size.height + 10
-        }
-        
-        if let images = post.postImages {
-            let calculatedHeight = Float(self.tableView.frame.size.width) / (images.medium.aspect ?? 1.0)
-            postImageHeightConstraint.constant = CGFloat(calculatedHeight)
-            headerViewHeight += Int(calculatedHeight) + Int(fontHeight)
-            
-            postImageView.sd_setImage(with: URL(string: images.medium.url), placeholderImage: UIImage(named: "placeholder-banner"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: { (image, error, cacheType, url) in
-                
-            })
-            
-            imageOverlayButton.addTarget(self, action: #selector(self.openImage(_:)), for: .touchUpInside)
-            
-        }
-        else{
-            headerViewHeight += Int(fontHeight)
-            postImageHeightConstraint.constant = CGFloat(0)
-        }
-        
-        //        geoFeedImageTableViewCell
-        
-        bodyLabel.text = post.content
-        if post.location_name != nil && post.location_name?.count ?? 0 > 0 {
-            atLabel.isHidden = false
-            atLabel.text = "at"
-            locationButton.isHidden = false
-            locationButton.setTitle(post.location_name, for: .normal)
-            radiusLabelCheckinConstraint.isActive = false
-        }
-        else{
-            atLabel.isHidden = true
-            locationButton.isHidden = true
-            atLabel.text = nil
-            radiusLabelCheckinConstraint.isActive = true
-            self.tableView.tableHeaderView?.layoutSubviews()
-            radiusLabel.layoutIfNeeded()
-            
-        }
-        
-        if let radius = post.distance {
-            radiusLabel.text = "(\(radius) away)"
-        }
-        else {
-            radiusLabel.text = ""
-        }
-        
-        profileNameButton.setTitle(post.full_name, for: .normal)
-        profileNameButton.addTarget(self, action: #selector(self.showProfile(_:)), for: .touchUpInside)
-        profileImageView.sd_setImage(with: URL(string: post.profileImages.small.url), placeholderImage: UIImage(named: "placeholder-image"), options: [SDWebImageOptions.refreshCached, SDWebImageOptions.retryFailed], completed: nil)
-        timeLabel.text = UtilityManager.timeAgoSinceDate(date: post.created_at!, numericDates: true)
-        
-        
-        optionsButton.isHidden = false
-        trailingSpaceToOptionsButton.constant = 0
-        
-        optionsButton.addTarget(self, action: #selector(self.showPostOptionsPopup(_:)), for: .touchUpInside)
-        
-        if let tipView = post.easyTipView {
-            post.isOptionsPopUpShowing = false
-            tipView.delegate = nil
-            tipView.dismiss()
-        }
-        let likeCount = post.likeCount ?? 0
-        let commentCount = post.commentCount ?? 0
-        
-        if likeCount <= 0 {
-            likesViewHeightConstraint.constant = 0
-            headerViewHeight -= 70
-            if commentCount <= 0 {
-                headerViewHeight -= 30
-            }
-        }
-//                    if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
-//
-//                        self.likesViewHeightConstraint.constant = CGFloat(0)
-//                        self.headerViewHeight -= Int(70)
-//                    }
-//                    else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
-//                    {
-//                        self.likesViewHeightConstraint.constant = CGFloat(70)
-//                        self.headerViewHeight += Int(70)
-//                        self.fetchPostDetails()
-//                    }
-        
-        
-        self.likeButton.isSelected = post.isSelfLiked ?? false
-        
-        var likeCommentCount = ""
-        
-        //        if likeCount > 0 || commentCount > 0 {
-        likeCommentCount.append("\(likeCount) ")
-        likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
-        likeCommentCount.append("\(commentCount) ")
-        likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
-        likeCommentLabel.text = likeCommentCount
-        //        }
-        //        else {
-        //            likeCommentLabel.text = nil
-        //        }
-        
-        
-        
-        likeButton.addTarget(self, action: #selector(self.likePostButtonPressed(_:)), for: .touchUpInside)
-        
-        commentButton.addTarget(self, action: #selector(self.commentPostButtonPressed(_:)), for: .touchUpInside)
-//        tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: headerViewHeight)
-    }
     
     func fetchPostDetails() {
         
@@ -421,16 +302,10 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             var freshCommentsArray = [Comment]() //= Post(dictionary: response).commentsArray
             
             for comment in response {
-//                self.connectionRequests.append(User(dictionary: user))
                 freshCommentsArray.append(Comment(dictionary: comment))
                 
             }
-            
-//            if let comments = response["response"] as? [[String: AnyObject]] {
-//                for comment in comments {
-//                    freshCommentsArray.append(Comment(dictionary: comment))
-//                }
-//            }
+
             
             if self.pageNumber == 1 {
                 self.post.commentsArray.removeAll()
@@ -515,36 +390,15 @@ class PostDetailViewController: BaseViewController, EasyTipViewDelegate, UITable
             
             var likeCommentCount = ""
             
-//            if self.likesViewHeightConstraint.constant == 70 && likeCount == 0  {
-//
-//                self.likesViewHeightConstraint.constant = CGFloat(0)
-//                self.headerViewHeight -= Int(60)
-//            }
-//            else if self.likesViewHeightConstraint.constant == 0 && likeCount > 0
-//            {
-//                self.likesViewHeightConstraint.constant = CGFloat(70)
-//                self.headerViewHeight += Int(70)
-//                self.fetchPostDetails()
-//            }
-//            else {
+
                 self.fetchPostDetails()
-//            }
-            
-            
-//            if likeCount > 0 || commentCount > 0 {
+
                 likeCommentCount.append("\(likeCount) ")
                 likeCommentCount.append(likeCount == 1 ? "Like  •  " : "Likes  •  ")
                 likeCommentCount.append("\(commentCount) ")
                 likeCommentCount.append(commentCount == 1 ? "Comment        " : "Comments        ")
                 self.likeCommentLabel.text = likeCommentCount
-            
-//                self.post.likesArray.append(ApplicationManager.sharedInstance.user)
-//            }
-//            else {
-//                self.likeCommentLabel.text = likeCommentCount
-//            }
-            
-//            self.tableView.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Int(self.tableView.frame.width), height: self.headerViewHeight)
+
             self.tableView.reloadData()
         }) { (error) in
             

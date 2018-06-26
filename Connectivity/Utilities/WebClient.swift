@@ -20,6 +20,25 @@ class WebClient: AFHTTPSessionManager {
         self.init(baseURL: url as URL)
         self.securityPolicy = securityPolicy
         
+//        static let App_versions = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        
+//        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+//            static let App_versions : String = version
+//        }
+        
+    }
+    
+    func addDictionary <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)
+        -> Dictionary<K,V>
+    {
+        var map = Dictionary<K,V>()
+        for (k, v) in left {
+            map[k] = v
+        }
+        for (k, v) in right {
+            map[k] = v
+        }
+        return map
     }
     
     
@@ -36,6 +55,11 @@ class WebClient: AFHTTPSessionManager {
         if let sessionID = UserDefaults.standard.value(forKey: UserDefaultKey.sessionID) as? String {
             manager.requestSerializer.setValue(sessionID, forHTTPHeaderField: UserDefaultKey.sessionID)
         }
+        
+//        var versionRelatedPram = [String: AnyObject]()
+//        versionRelatedPram["Device_type"] = Constant.Device_type as AnyObject
+//        versionRelatedPram["App_versions"] = Constant.App_versions as AnyObject
+//        let newParam = addDictionary(left: params, right: versionRelatedPram)
         
         manager.post((NSURL(string: urlString, relativeTo: self.baseURL)?.absoluteString)!, parameters: params, progress: nil, success: {
             (sessionTask, responseObject) -> () in

@@ -34,6 +34,9 @@ enum ShowExtraView {
 }
 
 public class Constant: NSObject {
+    
+    static let App_versions = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    static let Device_type = "ios"//UIDevice.current.systemName
 
     static let facebookURL = "https://graph.facebook.com/me"
     

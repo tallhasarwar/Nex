@@ -50,7 +50,7 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         SVProgressHUD.show()
         whiteView.isHidden = false
-        self.setupLocation()
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.fetchFreshData), name: NSNotification.Name(rawValue: "selfPostAdded"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.checkForNotificationCount), name: NSNotification.Name(rawValue: "checkForPushNotificationCount"), object: nil)
@@ -164,9 +164,18 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 self.tableView.reloadData()
                 
-                if count < self.postArray.count && count > 0 {
-                    self.tableView.scrollToRow(at: IndexPath(row: count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+                if self.pageNumber != 2 {
+                    if count < self.postArray.count && count > 0 {
+                        self.tableView.scrollToRow(at: IndexPath(row: count, section: 0), at: UITableViewScrollPosition.bottom, animated: false)
+                    }
                 }
+                else {
+                    if count < self.postArray.count {
+                        self.tableView.scrollToRow(at: IndexPath(row: count, section: 0), at: UITableViewScrollPosition.top, animated: false)
+                    }
+                }
+                
+                
                 
             }
             
@@ -181,6 +190,12 @@ class GeoFeedViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewWillAppear(animated)
         checkForNotificationCount()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.setupLocation()
+    }
+    
     
     @objc func checkForNotificationCount() {
         RequestManager.getUser(successBlock: { (response) in
